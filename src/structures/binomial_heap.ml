@@ -1,6 +1,6 @@
 (* KOPIEC DWUMIANOWY *)
 type 'a tree = Tree of 'a * 'a tree list;;
-type 'a heap = int * 'a tree list;;
+type 'a heap = (int * 'a tree) list;;
 
 exception EmptyHeap;;
 
@@ -53,12 +53,12 @@ let pop h =
          then (t, ts)
          else (tx, t::tsx))
     | [] -> raise EmptyHeap in
-  let rec rankTrees ts acc =
+  let rec rankTrees rk ts acc =
     match ts with
-    | (Tree (_, tsx) as t)::tsy -> rankTrees tsy @@ (List.length tsx, t)::acc
+    | tx::tsx -> rankTrees (rk - 1) tsx @@ (rk, tx)::acc
     | [] -> acc in
   match remove_min h with
-  | ((_, Tree (_, ts)), hx) -> merge (rankTrees ts []) hx;;
+  | ((r, Tree (_, ts)), hx) -> merge (rankTrees (r - 1) ts []) hx;;
 
 let get h =
   let rec get_ ts min =
@@ -72,3 +72,7 @@ let get h =
   match get_ h None with
   | Some x -> x
   | None -> raise EmptyHeap;;
+
+let h = create ();;
+let h = push 8 h;;
+let h = pop h;;

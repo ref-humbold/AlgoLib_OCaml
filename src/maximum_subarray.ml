@@ -3,14 +3,15 @@
 (* Wyznaczanie spójnego podciągu o maksymalnej sumie.
    @return elementy podciągu *)
 let find_maximum_subarray sequence =
-  let subarray sq actualSubarray maxSubarray =
+  let push e (sum, arr) = (e +. sum, e::arr) in
+  let rec subarray sq actual maximal =
     match sq with
     | e::es ->
-      if sum actualSubarray < 0
-      then subarray [] maxSubarray sq
-      else let newSubarray = (e::actualSubarray) in
-        if (sum newSubarray) > (sum maxSubarray)
-        then subarray newSubarray newSubarray es
-        else subarray newSubarray maxSubarray es
-    | [] -> reverse maxSubarray in
-  subarray sequence [] [];;
+      if fst actual < 0.0
+      then subarray sq (0.0, []) maximal
+      else let newer = push e actual in
+        if fst newer > fst maximal
+        then subarray es newer newer
+        else subarray es newer maximal
+    | [] -> List.rev @@ snd maximal in
+  subarray sequence (0.0, []) (0.0, []);;
