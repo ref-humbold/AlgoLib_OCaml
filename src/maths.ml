@@ -17,28 +17,39 @@ let lcm number1 number2 =
 (* Szybkie mnożenie binarne modulowane.
    @return wynik mnożenia *)
 let mult_mod factor1 factor2 modulo =
-  let rec mult_ factor1_ factor2_ modulo_ result =
-    if factor2_ > 0
-    then let mul_aux mdl res = mult_ ((factor1_ + factor1_) mod modulo_) (factor2_ / 2) mdl res in
-      if factor2_ mod 2 == 1
-      then mul_aux modulo_ ((factor1_ + result) mod modulo_)
-      else mul_aux modulo_ result
-    else if factor2_ == 0
-    then result
-    else modulo - (mult_ factor1_ (-factor2_) modulo_ result) in
-  mult_ factor1 factor2 modulo 0;;
+  let rec mult_ fc1 fc2 res =
+    if fc2 > 0
+    then let (nfc1, nres) =
+           if modulo = 0
+           then (fc1 + fc1, fc1 + res)
+           else ((fc1 + fc1) mod modulo, (fc1 + res) mod modulo) in
+      if fc2 mod 2 == 1
+      then mult_ nfc1 (fc2 / 2) nres
+      else mult_ nfc1 (fc2 / 2) res
+    else res in
+  if modulo < 0
+  then failwith "Negative modulo."
+  else if factor1 < 0 && factor2 < 0
+  then mult_ (-factor1) (-factor2) 0
+  else if factor1 < 0
+  then modulo - (mult_ (-factor1) factor2 0)
+  else if factor2 < 0
+  then modulo - (mult_ factor1 (-factor2) 0)
+  else mult_ factor1 factor2 0;;
 
 (* Szybkie potęgowanie binarne modulowane.
    @return wynik potęgowania *)
 let power_mod base expon modulo =
-  let rec power_ base_ expon_ modulo_ result =
+  let rec power_ base_ expon_ res =
     if expon_ > 0
-    then
-      let pow_aux res = power_ (mult_mod base_ base_ modulo_) (expon_ / 2) modulo_ res in
-      if expon_ mod 2 == 1
-      then pow_aux @@ mult_mod result base_ modulo_
-      else pow_aux result
-    else if expon_ == 0
-    then if base_ == 0 then failwith "nan" else result
-    else failwith "Negative exponent" in
-  power_ base expon modulo 1;;
+    then if expon_ mod 2 == 1
+      then power_ (mult_mod base_ base_ modulo) (expon_ / 2) (mult_mod base_ res modulo)
+      else power_ (mult_mod base_ base_ modulo) (expon_ / 2) res
+    else res in
+  if modulo < 0
+  then failwith "Negative modulo."
+  else if expon < 0
+  then failwith "Negative exponent."
+  else if base = 0 && expon = 0
+  then failwith "Not a number."
+  else power_ base expon 1;;

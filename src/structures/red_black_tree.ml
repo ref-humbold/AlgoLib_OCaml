@@ -3,7 +3,7 @@ module Make(Cmp: COMPARABLE): RED_BLACK_TREE =
 struct
   module Elem = Cmp
   type colour = Black | Red
-  type rbtree = Leaf | Node of colour * tree * Elem.t * tree
+  type rbtree = Leaf | Node of colour * rbtree * Elem.t * rbtree
   type t = int * rbtree
 
   let create () = (0, Leaf)

@@ -1,7 +1,13 @@
-type 'a heap
-val create: unit -> 'a heap
-val is_empty: 'a heap -> bool
-val get: 'a heap -> 'a
-val push: 'a -> 'a heap -> 'a heap
-val pop: 'a heap -> 'a heap
-val merge: 'a heap -> 'a heap -> 'a heap
+module type BINOMIAL_HEAP =
+sig
+  module Elem: COMPARABLE
+  type t
+  val create: unit -> t
+  val is_empty: t -> bool
+  val get: t -> 'a
+  val push: 'a -> t -> t
+  val pop: t -> t
+  val merge: t -> t -> t
+end
+
+module Make: functor (Cmp: COMPARABLE) -> BINOMIAL_HEAP
