@@ -10,13 +10,13 @@ let is_empty dq =
   | ([], []) -> true
   | _ -> false
 
-let get_front dq =
+let front dq =
   match dq with
   | (e::_, _) -> e
   | ([], e::_) -> e
   | ([], []) -> raise EmptyDeque
 
-let get_back dq =
+let back dq =
   match dq with
   | (_, e::_) -> e
   | (e::_, []) -> e

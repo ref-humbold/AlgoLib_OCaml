@@ -11,7 +11,7 @@ sig
   type t
   val empty: t
   val is_empty: t -> bool
-  val get: t -> elem
+  val top: t -> elem
   val push: elem -> t -> t
   val pop: t -> t
   val merge: t -> t -> t
@@ -31,7 +31,7 @@ struct
     | Node _ -> false
     | Null -> true
 
-  let get v =
+  let top v =
     match v with
     | Node (_, x, _, _) -> x
     | Null -> raise EmptyHeap

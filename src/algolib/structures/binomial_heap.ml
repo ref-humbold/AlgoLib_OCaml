@@ -11,7 +11,7 @@ sig
   type t
   val empty: t
   val is_empty: t -> bool
-  val get: t -> elem
+  val top: t -> elem
   val push: elem -> t -> t
   val pop: t -> t
   val merge: t -> t -> t
@@ -80,16 +80,16 @@ struct
     match remove_min h with
     | ((r, Tree (_, ts)), hx) -> merge (rankTrees (r - 1) ts []) hx
 
-  let get h =
-    let rec get_ ts min =
+  let top h =
+    let rec top_ ts min =
       match (ts, min) with
       | ((_, Tree (y, _))::tsx, Some x) ->
         if y <= x
-        then get_ tsx @@ Some y
-        else get_ tsx min
-      | ((_, Tree (y, _))::tsx, None) -> get_ tsx @@ Some y
+        then top_ tsx @@ Some y
+        else top_ tsx min
+      | ((_, Tree (y, _))::tsx, None) -> top_ tsx @@ Some y
       | ([], x) -> x in
-    match get_ h None with
+    match top_ h None with
     | Some x -> x
     | None -> raise EmptyHeap
 end

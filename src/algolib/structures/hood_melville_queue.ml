@@ -14,7 +14,7 @@ let is_empty (flen, ft, _, _, bk) =
   | (0, [], []) -> true
   | _ -> false
 
-let get (_, ft, _, _, _) =
+let front (_, ft, _, _, _) =
   match ft with
   | x::_ -> x
   | [] -> raise EmptyQueue
@@ -34,7 +34,7 @@ let rebalance ((flen, ft, _, blen, bk) as q) =
       (flen_, ft_, nrs, blen_, bk_) in
   if blen <= flen
   then combine q
-  else let rs_ = Rev (0, ft, [], bk, []) in combine (flen + blen, ft, rs_, 0, [])
+  else let rev = Rev (0, ft, [], bk, []) in combine (flen + blen, ft, rev, 0, [])
 
 let push x (flen, ft, rs, blen, bk) = rebalance (flen, ft, rs, blen + 1, x::bk)
 

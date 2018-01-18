@@ -12,7 +12,7 @@ sig
   val empty: t
   val is_empty: t -> bool
   val merge: t -> t -> t
-  val get: t -> elem
+  val top: t -> elem
   val push: elem -> t -> t
   val pop: t -> t
 end
@@ -40,7 +40,7 @@ struct
     | (Node _ , Null) -> h1
     | (Null, _) -> h2
 
-  let get h =
+  let top h =
     match h with
     | Node (e, _) -> e
     | Null -> raise EmptyHeap

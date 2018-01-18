@@ -12,7 +12,7 @@ sig
   val empty: t
   val size: t -> int
   val contains: elem -> t -> bool
-  val make_set: elem -> t -> t
+  val add_elem: elem -> t -> t
   val find_set: elem -> t -> elem * t
   val is_same_set: elem * elem -> t -> bool * t
   val union_set: elem * elem -> t -> t
@@ -30,7 +30,7 @@ struct
 
   let contains element (_, ds) = Repr.mem element ds
 
-  let make_set element ((n, ds) as dset) =
+  let add_elem element ((n, ds) as dset) =
     if Repr.mem element ds
     then dset
     else (n + 1, Repr.add element element ds)

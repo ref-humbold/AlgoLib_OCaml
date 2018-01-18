@@ -1,5 +1,4 @@
 (* STKRUKTURA LENIWA ZE SPAMIĘTYWANIEM *)
-
 type 'a mem = Delayed of (unit -> 'a) | Forced of 'a
 type 'a t = 'a mem ref
 
