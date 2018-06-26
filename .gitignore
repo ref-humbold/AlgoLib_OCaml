@@ -1,2 +1,4 @@
-# OCaml output
-obj
+# OCaml and OCamlbuild output
+_build
+*.cma
+*.cmxa
