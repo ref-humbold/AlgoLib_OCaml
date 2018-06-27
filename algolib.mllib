@@ -1,11 +1,11 @@
 algolib/Convex_hull
+algolib/Delay
 algolib/Maximum_subarray
 algolib/Sorting
 
 algolib/maths/Maths
 
 algolib/structures/Binomial_heap
-algolib/structures/Delay
 algolib/structures/Deque
 algolib/structures/Disjoint_sets
 algolib/structures/Hood_melville_queue
