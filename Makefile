@@ -1,6 +1,8 @@
 OCB = ocamlbuild
-OCBFLAGS =
+OCBFLAGS = -classic-display
 BUILD = $(OCB) $(OCBFLAGS)
+
+.PHONY : all clean refresh
 
 all : algolib.cma algolib.cmxa
 
