@@ -1,3 +1,4 @@
+(** DOUBLE-ENDED QUEUE STRUCTURE *)
 type 'a t
 val empty: 'a t
 val is_empty: 'a t -> bool

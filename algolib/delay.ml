@@ -1,6 +1,6 @@
-(* LENIWOŚĆ ZE SPAMIĘTYWANIEM *)
-type 'a mem = Delayed of (unit -> 'a) | Forced of 'a
+(* STRUCTURE OF DEFERRED COMPUTATIONS WITH MEMOIZATION *)
 type 'a t = 'a mem ref
+type 'a mem = Delayed of (unit -> 'a) | Forced of 'a
 
 let delay f = ref (Delayed f)
 

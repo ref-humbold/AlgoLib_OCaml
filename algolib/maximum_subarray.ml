@@ -1,7 +1,4 @@
-(* PODCIĄG SPÓJNY O MAKSYMALNEJ SUMIE LICZONY DYNAMICZNIE *)
-
-(* Wyznaczanie spójnego podciągu o maksymalnej sumie.
-   @return elementy podciągu *)
+(* DYNAMIC ALGORITHM FOR MAXIMUM SUBARRAY *)
 let find_maximum_subarray sequence =
   let push e (sum, arr) = (e +. sum, e::arr) in
   let rec subarray sq actual maximal =

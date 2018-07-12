@@ -1,4 +1,4 @@
-(* KOPIEC PARUJĄCY *)
+(** PAIRING HEAP STRUCTURE *)
 module type COMPARABLE =
 sig
   type t

@@ -1,4 +1,4 @@
-(* KOPIEC DWUMIANOWY *)
+(** BINOMIAL HEAP STRUCTURE *)
 module type COMPARABLE =
 sig
   type t

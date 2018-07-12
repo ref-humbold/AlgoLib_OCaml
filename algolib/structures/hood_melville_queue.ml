@@ -1,4 +1,4 @@
-(* KOLEJKA REAL-TIME HOODA-MELVILLE'A *)
+(* REAL-TIME HOOD-MELVILLE QUEUE STRUCTURE *)
 type 'a combining = Rev of int * 'a list * 'a list * 'a list * 'a list
                   | Apd of int * 'a list * 'a list
                   | End of 'a list

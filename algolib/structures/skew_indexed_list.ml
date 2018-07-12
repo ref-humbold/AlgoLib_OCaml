@@ -1,4 +1,4 @@
-(* SKOŚNA LISTA INDEKSOWANA *)
+(* INDEXED LIST STRUCTURE USING SKEW IMPLEMENTATION *)
 type 'a tree = Leaf | Node of 'a tree * 'a * 'a tree
 type 'a t = (int * 'a tree) list
 

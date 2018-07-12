@@ -1,4 +1,4 @@
-(* KOLEJKA DWUSTRONNA *)
+(* DOUBLE-ENDED QUEUE STRUCTURE *)
 type 'a t = 'a list * 'a list
 
 exception EmptyDeque

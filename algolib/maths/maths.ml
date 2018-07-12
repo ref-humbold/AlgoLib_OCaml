@@ -1,7 +1,5 @@
-(* ALGORYTMY MATEMATYCZNE *)
+(* MATHS ALGORITHMS *)
 
-(* Największy wspólny dzielnik dwóch liczb.
-   @return największy wspólny dzielnik *)
 let rec gcdiv number1 number2 =
   if number1 < number2
   then gcdiv number2 number1
@@ -9,13 +7,9 @@ let rec gcdiv number1 number2 =
   then number1
   else gcdiv number2 @@ number1 mod number2;;
 
-(* Najmniejsza wspólna wielokrotność dwóch liczb.
-   @return najmniejsza wspólna wielokrotność *)
 let lcm number1 number2 =
   (max number1 number2) / (gcdiv number1 number2) * (min number1 number2);;
 
-(* Szybkie mnożenie binarne modulowane.
-   @return wynik mnożenia *)
 let mult_mod factor1 factor2 modulo =
   let rec mult_ fc1 fc2 res =
     if fc2 > 0
@@ -37,8 +31,6 @@ let mult_mod factor1 factor2 modulo =
   then modulo - (mult_ factor1 (-factor2) 0)
   else mult_ factor1 factor2 0;;
 
-(* Szybkie potęgowanie binarne modulowane.
-   @return wynik potęgowania *)
 let power_mod base expon modulo =
   let rec power_ base_ expon_ res =
     if expon_ > 0

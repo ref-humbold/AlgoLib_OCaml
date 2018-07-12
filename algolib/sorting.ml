@@ -1,8 +1,6 @@
-(* ALGORYTMY SORTOWANIA *)
+(* SORTING ALGORITHMS *)
 type point = float * float;;
 
-(* Sortowanie kątowe punktów na płaszczyżnie.
-   @return lista punktów posortowana względem kąta *)
 let angle_sort lst =
   let angle (x, y) =
     if y >= 0.0
@@ -12,8 +10,6 @@ let angle_sort lst =
   let comparator p1 p2 = Pervasives.compare (angle p1, distance p1) (angle p2, distance p2) in
   List.sort comparator lst;;
 
-(* Sortowanie ciągu przez scalanie.
-   @return posortowany ciąg *)
 let merge_sort lst =
   let rec drop n lst_ =
     if n > 0

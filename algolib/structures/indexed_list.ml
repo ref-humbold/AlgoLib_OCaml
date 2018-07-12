@@ -1,4 +1,4 @@
-(* LISTA INDEKSOWANA *)
+(* INDEXED LIST STRUCTURE *)
 type 'a tree = Leaf of 'a | Node of int * 'a tree * 'a tree
 type 'a count = One of 'a tree | Two of 'a tree * 'a tree
 type 'a t = 'a count list

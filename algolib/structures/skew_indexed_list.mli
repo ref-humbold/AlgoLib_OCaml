@@ -1,3 +1,4 @@
+(** INDEXED LIST STRUCTURE USING SKEW IMPLEMENTATION *)
 type 'a t
 val empty: 'a t
 val is_empty: 'a t -> bool

@@ -1,8 +1,6 @@
-(* OTOCZKA WYPUKŁA PUNKTÓW NA PŁASZCZYŹNIE *)
+(* GRAHAM'S ALGORITHM FOR CONVEX HULL ON A PLANE *)
 type point = float * float
 
-(* Wyznaczanie otoczki wypukłej.
-   @return lista punktów otoczki *)
 let find_convex_hull (points : point list) =
   let cross_product (p1X, p1Y) (p2X, p2Y) (p3X, p3Y) =
     (p1X -. p2X) *. (p3Y -. p2Y) -. (p3X -. p2X) *. (p1Y -. p2Y) in

@@ -1,4 +1,4 @@
-(* DRZEWO CZERWONO-CZARNE *)
+(** RED-BLACK TREE STRUCTURE *)
 module type COMPARABLE =
 sig
   type t

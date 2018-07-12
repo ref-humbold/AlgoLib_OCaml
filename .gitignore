@@ -1,4 +1,5 @@
 # OCaml and OCamlbuild output
 _build
+*.docdir
 *.cma
 *.cmxa
