@@ -1,5 +1,4 @@
 (** STRUCTURE OF DEFERRED COMPUTATIONS WITH MEMOIZATION *)
-
 (** The type of deferred computations structure. *)
 type 'a t
 

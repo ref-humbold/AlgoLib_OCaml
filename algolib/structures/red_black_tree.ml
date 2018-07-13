@@ -1,8 +1,9 @@
-(** RED-BLACK TREE STRUCTURE *)
+(* RED-BLACK TREE STRUCTURE *)
 module type COMPARABLE =
 sig
+  type c = Less | Equal | Greater
   type t
-  val cmp: t -> t -> int
+  val cmp: t -> t -> c
 end
 
 module type RED_BLACK_TREE =
@@ -17,7 +18,7 @@ sig
   val add: elem -> t -> t
 end
 
-module Make(Cmp: COMPARABLE): (RED_BLACK_TREE with type elem = Cmp.t) =
+module Make(Cmp: COMPARABLE) =
 struct
   type elem = Cmp.t
   type colour = Black | Red
@@ -41,16 +42,14 @@ struct
     let rec contains_ tx =
       match tx with
       | Node (_, lt, y, rt) ->
-        let cmp_res = Cmp.cmp x y in
-        if cmp_res = 0
-        then true
-        else if cmp_res < 0
-        then contains_ lt
-        else contains_ rt
+        (match Cmp.cmp x y with
+         | Equal -> true
+         | Less -> contains_ lt
+         | Greater -> contains_ rt)
       | Leaf -> false in
     contains_ t
 
-  let rebalance c lt e rt =
+  let rebalance' c lt e rt =
     match (c, lt, e, rt) with
     | (Black, Node (Red, Node (Red, a, x, b), y, c), z, d) ->
       Node (Red, Node (Black, a, x, b), y, Node (Black, c, z, d))
@@ -69,16 +68,16 @@ struct
     let rec add_ tx =
       match tx with
       | Node (c, lt, y, rt) ->
-        let cmp_res = Cmp.cmp x y in
-        if cmp_res = 0
-        then None
-        else if cmp_res < 0
-        then (match add_ lt with
-            | Some ltn -> Some (rebalance c ltn y rt)
+        (match Cmp.cmp x y with
+         | Equal -> None
+         | Less ->
+           (match add_ lt with
+            | Some ltn -> Some (rebalance' c ltn y rt)
             | None -> None)
-        else (match add_ rt with
-            | Some rtn -> Some (rebalance c lt y rtn)
-            | None -> None)
+         | Greater ->
+           (match add_ rt with
+            | Some rtn -> Some (rebalance' c lt y rtn)
+            | None -> None))
       | Leaf -> Some (Node (Red, Leaf, x, Leaf)) in
     match add_ t with
     | Some (Node (_, lt, y, rt)) -> (n + 1, Node (Black, lt, y, rt))

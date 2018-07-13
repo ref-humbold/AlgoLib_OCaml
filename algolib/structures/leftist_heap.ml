@@ -1,23 +1,25 @@
-(** LEFTIST HEAP STRUCTURE *)
+(* LEFTIST HEAP STRUCTURE *)
 module type COMPARABLE =
 sig
+  type c = Less | Equal | Greater
   type t
-  val cmp: t -> t -> int
+  val cmp: t -> t -> c
 end
 
-module type LEFTIST_HEAP =
+module type HEAP =
 sig
   type elem
   type t
+  exception EmptyHeap
   val empty: t
   val is_empty: t -> bool
-  val top: t -> elem
+  val peek: t -> elem
   val push: elem -> t -> t
   val pop: t -> t
   val merge: t -> t -> t
 end
 
-module Make(Cmp: COMPARABLE): (LEFTIST_HEAP with type elem = Cmp.t) =
+module Make(Cmp: COMPARABLE) =
 struct
   type elem = Cmp.t
   type t = Null | Node of int * elem * t * t
@@ -31,11 +33,6 @@ struct
     | Node _ -> false
     | Null -> true
 
-  let top v =
-    match v with
-    | Node (_, x, _, _) -> x
-    | Null -> raise EmptyHeap
-
   let rec merge h1 h2 =
     let rank v =
       match v with
@@ -47,11 +44,16 @@ struct
       else Node ((rank b) + 1, x, a, b) in
     match (h1, h2) with
     | (Node (_, x, lt1, rt1), Node (_, y, lt2, rt2)) ->
-      if x < y
-      then make_node x lt1 (merge rt1 h2)
-      else make_node y lt2 (merge rt2 h1)
+      (match Cmp.cmp x y with
+       | Less ->  make_node x lt1 (merge rt1 h2)
+       | Equal | Greater -> make_node y lt2 (merge rt2 h1))
     | (Node (_, _, _, _), Null) -> h1
     | (Null, _) -> h2
+
+  let peek v =
+    match v with
+    | Node (_, x, _, _) -> x
+    | Null -> raise EmptyHeap
 
   let push x h = merge h @@ Node (1, x, Null, Null)
 
