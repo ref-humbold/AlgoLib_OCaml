@@ -1,12 +1,12 @@
 (** RED-BLACK TREE STRUCTURE *)
 module type COMPARABLE =
 sig
-  type c = Less | Equal | Greater
   type t
+  type c = Less | Equal | Greater
   val cmp: t -> t -> c
 end
 
-module type RED_BLACK_TREE =
+module type TREE =
 sig
   (** The type of elements of tree. *)
   type elem
@@ -33,4 +33,4 @@ sig
   val add: elem -> t -> t
 end
 
-module Make(Cmp: COMPARABLE): (RED_BLACK_TREE with type elem = Cmp.t)
+module Make(Cmp: COMPARABLE): TREE with type elem = Cmp.t

@@ -1,12 +1,12 @@
 (* RED-BLACK TREE STRUCTURE *)
 module type COMPARABLE =
 sig
-  type c = Less | Equal | Greater
   type t
+  type c = Less | Equal | Greater
   val cmp: t -> t -> c
 end
 
-module type RED_BLACK_TREE =
+module type TREE =
 sig
   type elem
   type t
@@ -22,8 +22,8 @@ module Make(Cmp: COMPARABLE) =
 struct
   type elem = Cmp.t
   type colour = Black | Red
-  type rbtree = Leaf | Node of colour * rbtree * elem * rbtree
-  type t = int * rbtree
+  type tree = Leaf | Node of colour * tree * elem * tree
+  type t = int * tree
 
   let empty = (0, Leaf)
 

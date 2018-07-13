@@ -13,12 +13,12 @@ let is_empty ts =
   | [] -> true
   | _ -> false
 
-let size t =
+let size_tree' t =
   match t with
   | Leaf _ -> 1
   | Node (s, _, _) -> s
 
-let link' t1 t2 = Node (size t1 + size t2, t1, t2)
+let link' t1 t2 = Node (size_tree' t1 + size_tree' t2, t1, t2)
 
 let rec uncons_tree' t =
   match t with
@@ -55,13 +55,13 @@ let rec elem i ts =
       else elem_tree (ix - s / 2) t2 in
   match ts with
   | (One t)::ts_ ->
-    if i < size t
+    if i < size_tree' t
     then elem_tree i t
-    else elem (i - size t) ts_
+    else elem (i - size_tree' t) ts_
   | (Two (t1, t2))::ts_ ->
-    if i < size t1 + size t2
+    if i < size_tree' t1 + size_tree' t2
     then elem_tree i @@ link' t1 t2
-    else elem (i - size t1 - size t2) ts_
+    else elem (i - size_tree' t1 - size_tree' t2) ts_
   | [] -> raise InvalidIndex
 
 let rec update i e ts =
@@ -74,13 +74,13 @@ let rec update i e ts =
       else Node (s, t1, update_tree (i - s / 2) t2) in
   match ts with
   | ((One tx) as t)::ts_ ->
-    if i < size tx
+    if i < size_tree' tx
     then (One (update_tree i tx))::ts_
-    else t::(update (i - size tx) e ts_)
+    else t::(update (i - size_tree' tx) e ts_)
   | ((Two (t1, t2)) as t)::ts_ ->
-    if i < size t1
+    if i < size_tree' t1
     then Two (update_tree i t1, t2)::ts_
-    else if i - size t1 < size t2
-    then Two (t1, update_tree (i - size t1) t2)::ts_
-    else t::(update (i - size t1 - size t2) e ts_)
+    else if i - size_tree' t1 < size_tree' t2
+    then Two (t1, update_tree (i - size_tree' t1) t2)::ts_
+    else t::(update (i - size_tree' t1 - size_tree' t2) e ts_)
   | [] -> raise InvalidIndex

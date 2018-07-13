@@ -1,8 +1,8 @@
 (* LEFTIST HEAP STRUCTURE *)
 module type COMPARABLE =
 sig
-  type c = Less | Equal | Greater
   type t
+  type c = Less | Equal | Greater
   val cmp: t -> t -> c
 end
 
@@ -13,10 +13,10 @@ sig
   exception EmptyHeap
   val empty: t
   val is_empty: t -> bool
+  val merge: t -> t -> t
   val peek: t -> elem
   val push: elem -> t -> t
   val pop: t -> t
-  val merge: t -> t -> t
 end
 
 module Make(Cmp: COMPARABLE) =

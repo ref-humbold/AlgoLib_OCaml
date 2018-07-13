@@ -14,9 +14,6 @@ val create: unit -> 'a t
 (** [is_empty lst] checks if indexed list [lst] is empty. *)
 val is_empty: 'a t -> bool
 
-(** [size lst] returns number of elements in indexed list [lst]. *)
-val size: 'a t -> int
-
 (** [head lst] retrieves the first element of indexed list [lst]. *)
 val head: 'a t -> 'a
 

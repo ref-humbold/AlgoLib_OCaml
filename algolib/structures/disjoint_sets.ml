@@ -1,8 +1,8 @@
 (** UNION-FIND DISJOINT SETS STRUCTURE *)
 module type COMPARABLE =
 sig
-  type c = Less | Equal | Greater
   type t
+  type c = Less | Equal | Greater
   val cmp: t -> t -> c
 end
 
