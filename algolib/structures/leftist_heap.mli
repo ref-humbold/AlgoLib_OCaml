@@ -36,4 +36,4 @@ sig
   val pop: t -> t
 end
 
-module Make(Cmp: COMPARABLE): HEAP with type elem = Cmp.t
+module Make(Cmp: COMPARABLE): HEAP with type elem := Cmp.t

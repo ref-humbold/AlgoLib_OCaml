@@ -36,4 +36,4 @@ sig
   val union_set: elem * elem -> t -> t
 end
 
-module Make(Cmp: COMPARABLE): DISJOINT_SETS with type elem = Cmp.t
+module Make(Cmp: COMPARABLE): DISJOINT_SETS with type elem := Cmp.t

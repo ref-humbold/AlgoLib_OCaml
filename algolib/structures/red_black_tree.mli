@@ -33,4 +33,4 @@ sig
   val add: elem -> t -> t
 end
 
-module Make(Cmp: COMPARABLE): TREE with type elem = Cmp.t
+module Make(Cmp: COMPARABLE): TREE with type elem := Cmp.t
