@@ -3,7 +3,7 @@ algolib/Delay
 algolib/Maximum_subarray
 algolib/Sorting
 
-algolib/maths/Maths
+algolib/math/Maths
 
 algolib/structures/Binomial_heap
 algolib/structures/Deque
