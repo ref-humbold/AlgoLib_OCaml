@@ -1,7 +1,6 @@
 (* INDEXED LIST STRUCTURE *)
-type 'a tree = Leaf of 'a | Node of int * 'a tree * 'a tree
-type 'a count = One of 'a tree | Two of 'a tree * 'a tree
-type 'a t = 'a count list
+type 'a tree = Leaf | Node of 'a tree * 'a * 'a tree
+type 'a t = (int * 'a tree) list
 
 exception EmptyList
 exception InvalidIndex
@@ -13,74 +12,47 @@ let is_empty ts =
   | [] -> true
   | _ -> false
 
-let size_tree' t =
-  match t with
-  | Leaf _ -> 1
-  | Node (s, _, _) -> s
-
-let link' t1 t2 = Node (size_tree' t1 + size_tree' t2, t1, t2)
-
-let rec uncons_tree' t =
-  match t with
-  | [One t] -> (t, [])
-  | (Two (t1, t2))::ts -> (t1, (One t2)::ts)
-  | (One t)::ts ->
-    (match uncons_tree' ts with
-     | (Node (_, t1, t2), nts) -> (t, (Two (t1, t2))::nts)
-     | (Leaf _, _) -> failwith "UNEXPECTED")
-  | [] -> raise EmptyList
-
 let head ts =
-  match uncons_tree' ts with
-  | (Leaf e, _) -> e
-  | (Node _, _) -> failwith "UNEXPECTED"
+  match ts with
+  | (_, Node (_, e, _))::_ -> e
+  | [] -> raise EmptyList
+  | (_, Leaf)::_ -> failwith "UNEXPECTED"
 
 let cons e ts =
-  let rec cons_tree t trs =
-    match trs with
-    | (One tx)::txs -> (Two (t, tx))::txs
-    | (Two (tx1, tx2))::txs -> (One t)::(cons_tree (link' tx1 tx2) txs)
-    | [] -> [One t] in
-  cons_tree (Leaf e) ts
+  match ts with
+  | (s1, t1)::(s2, t2)::ts_ when s1 = s2 ->
+    (s1 + s2 + 1, Node (t1, e, t2))::ts_
+  | _ -> (1, Node (Leaf, e, Leaf))::ts
 
-let tail ts = let (_, nts) = uncons_tree' ts in nts
+let tail ts =
+  match ts with
+  | (1, Node _)::ts_ -> ts_
+  | (s, Node (t1, _, t2))::ts_ -> (s / 2, t1)::(s / 2, t2)::ts_
+  | [] -> raise EmptyList
+  | (_, Leaf)::_ -> failwith "UNEXPECTED"
 
 let rec elem i ts =
-  let rec elem_tree ix t =
-    match t with
-    | Leaf e -> if ix = 0 then e else raise InvalidIndex
-    | Node (s, t1, t2) ->
-      if ix < s / 2
-      then elem_tree ix t1
-      else elem_tree (ix - s / 2) t2 in
+  let rec elem_tree ix s t =
+    match (ix, t) with
+    | (0, Node (_, e, _)) -> e
+    | (_, Node (t1, _, t2)) ->
+      if 2 * ix < s
+      then elem_tree ((s - 1) / 2) (ix - 1) t1
+      else elem_tree ((s - 1) / 2) (ix - (s + 1) / 2) t2
+    | (_, Leaf) -> failwith "UNEXPECTED" in
   match ts with
-  | (One t)::ts_ ->
-    if i < size_tree' t
-    then elem_tree i t
-    else elem (i - size_tree' t) ts_
-  | (Two (t1, t2))::ts_ ->
-    if i < size_tree' t1 + size_tree' t2
-    then elem_tree i @@ link' t1 t2
-    else elem (i - size_tree' t1 - size_tree' t2) ts_
+  | (s, t)::ts_ -> if i < s then elem_tree i s t else elem (i - s) ts_
   | [] -> raise InvalidIndex
 
 let rec update i e ts =
-  let rec update_tree ix t =
-    match t with
-    | Leaf _ -> if ix = 0 then Leaf e else raise InvalidIndex
-    | Node (s, t1, t2) ->
-      if ix < s / 2
-      then Node (s, update_tree ix t1, t2)
-      else Node (s, t1, update_tree (i - s / 2) t2) in
+  let rec update_tree ix s t =
+    match (ix, t) with
+    | (0, Node (t1, _, t2)) -> (s, Node (t1, e, t2))
+    | (_, Node (t1, _, t2)) ->
+      if 2 * ix < s
+      then update_tree ((s - 1) / 2) (ix - 1) t1
+      else update_tree ((s - 1) / 2) (ix - (s + 1) / 2) t2
+    | (_, Leaf) -> failwith "UNEXPECTED" in
   match ts with
-  | ((One tx) as t)::ts_ ->
-    if i < size_tree' tx
-    then (One (update_tree i tx))::ts_
-    else t::(update (i - size_tree' tx) e ts_)
-  | ((Two (t1, t2)) as t)::ts_ ->
-    if i < size_tree' t1
-    then Two (update_tree i t1, t2)::ts_
-    else if i - size_tree' t1 < size_tree' t2
-    then Two (t1, update_tree (i - size_tree' t1) t2)::ts_
-    else t::(update (i - size_tree' t1 - size_tree' t2) e ts_)
+  | (s, t)::ts_ -> if i < s then (update_tree i s t)::ts_ else update (i - s) e ts_
   | [] -> raise InvalidIndex

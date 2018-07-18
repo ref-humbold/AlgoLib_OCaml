@@ -4,6 +4,7 @@ algolib/Maximum_subarray
 algolib/Sorting
 
 algolib/math/Maths
+algolib/math/Primes
 
 algolib/structures/Binomial_heap
 algolib/structures/Deque
@@ -13,4 +14,3 @@ algolib/structures/Indexed_list
 algolib/structures/Leftist_heap
 algolib/structures/Pairing_heap
 algolib/structures/Red_black_tree
-algolib/structures/Skew_indexed_list
