@@ -42,13 +42,14 @@ struct
       if rank a < rank b
       then Node ((rank a) + 1, x, b, a)
       else Node ((rank b) + 1, x, a, b) in
-    match (h1, h2) with
-    | (Node (_, x, lt1, rt1), Node (_, y, lt2, rt2)) ->
-      (match Cmp.cmp x y with
-       | Less ->  make_node x lt1 (merge rt1 h2)
-       | Equal | Greater -> make_node y lt2 (merge rt2 h1))
-    | (Node (_, _, _, _), Null) -> h1
-    | (Null, _) -> h2
+    match h1, h2 with
+    | Node (_, x, lt1, rt1), Node (_, y, lt2, rt2) ->
+      ( match Cmp.cmp x y with
+        | Cmp.Less ->  make_node x lt1 (merge rt1 h2)
+        | Cmp.Equal | Cmp.Greater -> make_node y lt2 (merge rt2 h1)
+      )
+    | Node (_, _, _, _), Null -> h1
+    | Null, _ -> h2
 
   let peek v =
     match v with

@@ -10,8 +10,8 @@ exception EmptyQueue
 let create () = (0, [], Null, 0, [])
 
 let is_empty (flen, ft, _, _, bk) =
-  match (flen, ft, bk) with
-  | (0, [], []) -> true
+  match flen, ft, bk with
+  | 0, [], [] -> true
   | _ -> false
 
 let front (_, ft, _, _, _) =
@@ -19,7 +19,7 @@ let front (_, ft, _, _, _) =
   | x::_ -> x
   | [] -> raise EmptyQueue
 
-let rebalance' ((flen, ft, _, blen, bk) as q) =
+let rebalance_ ((flen, ft, _, blen, bk) as q) =
   let comb rs =
     match rs with
     | Rev (len, x::ft_, rft, y::bk_, rbk) -> Rev (len, ft_, x::rft, bk_, y::rbk)
@@ -36,7 +36,7 @@ let rebalance' ((flen, ft, _, blen, bk) as q) =
   then combine q
   else let rev = Rev (0, ft, [], bk, []) in combine (flen + blen, ft, rev, 0, [])
 
-let push x (flen, ft, rs, blen, bk) = rebalance' (flen, ft, rs, blen + 1, x::bk)
+let push x (flen, ft, rs, blen, bk) = rebalance_ (flen, ft, rs, blen + 1, x::bk)
 
 let pop (flen, ft, rs, blen, bk) =
   let decrement rs =
@@ -46,5 +46,5 @@ let pop (flen, ft, rs, blen, bk) =
     | Apd (len, ft, bk) -> Apd (len -1, ft, bk)
     | End _ | Null -> rs in
   match ft with
-  | _::xs -> rebalance' (flen - 1, xs, decrement rs, blen, bk)
+  | _::xs -> rebalance_ (flen - 1, xs, decrement rs, blen, bk)
   | [] -> raise EmptyQueue

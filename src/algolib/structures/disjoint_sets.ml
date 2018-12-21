@@ -26,9 +26,9 @@ struct
       type t = elem
       let compare x y =
         match Cmp.cmp x y with
-        | Less -> -1
-        | Equal -> 0
-        | Greater -> 1
+        | Cmp.Less -> -1
+        | Cmp.Equal -> 0
+        | Cmp.Greater -> 1
     end)
   type t = int * (elem Repr.t)
 
@@ -46,15 +46,15 @@ struct
   let rec find_set element ((_, ds) as dset) =
     let value = Repr.find element ds in
     match Cmp.cmp value element with
-    | Equal -> (element, dset)
-    | Less | Greater ->
+    | Cmp.Equal -> (element, dset)
+    | Cmp.Less | Cmp.Greater ->
       let (repr, (new_n, new_ds)) = find_set value dset in
       (repr, (new_n, Repr.add element repr new_ds))
 
   let is_same_set (element1, element2) dset =
     let (repr1, new_ds1) = find_set element1 dset in
     let (repr2, new_ds2) = find_set element2 new_ds1 in
-    (Cmp.cmp repr1 repr2 = Equal, new_ds2)
+    (Cmp.cmp repr1 repr2 = Cmp.Equal, new_ds2)
 
   let union_set ((element1, element2) as e) dset =
     let (same, dset0) = is_same_set e dset in

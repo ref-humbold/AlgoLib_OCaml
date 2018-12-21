@@ -1,5 +1,5 @@
 (* SORTING ALGORITHMS *)
-type point = float * float;;
+type point = float * float
 
 let angle_sort lst =
   let angle (x, y) =
@@ -7,16 +7,18 @@ let angle_sort lst =
     then (atan2 y x) *. 45.0 /. (atan 1.0)
     else (atan2 y x) *. 45.0 /. (atan 1.0) +. 360.0
   and distance (x, y) = x *. x +. y *. y in
-  let comparator p1 p2 = Pervasives.compare (angle p1, distance p1) (angle p2, distance p2) in
-  List.sort comparator lst;;
+  let cmp p1 p2 = Pervasives.compare (angle p1, distance p1) (angle p2, distance p2) in
+  List.sort cmp lst
 
 let merge_sort lst =
-  let rec drop n lst_ =
+  let rec drop n lst' =
     if n > 0
-    then (match lst_ with
+    then
+      ( match lst' with
         | _::xs -> drop (n - 1) xs
-        | [] -> lst_)
-    else lst_ in
+        | [] -> lst'
+      )
+    else lst' in
   let rec merge p =
     match p with
     | ([], lx) | (lx, []) -> lx
@@ -24,10 +26,10 @@ let merge_sort lst =
       if x <= y
       then x::(merge (xs, ly))
       else y::(merge (lx, ys)) in
-  let rec msort n lst_ =
-    match (n, lst_) with
-    | (0, _) -> []
-    | (1, x::_) -> [x]
+  let rec msort n lst' =
+    match n, lst' with
+    | 0, _ -> []
+    | 1, x::_ -> [x]
     | _ -> let nd = n / 2 in
-      merge (msort nd lst_, msort (n - nd) (drop n lst_))in
+      merge (msort nd lst', msort (n - nd) (drop n lst'))in
   msort (List.length lst) lst

@@ -34,11 +34,12 @@ struct
     | Null -> true
 
   let merge h1 h2 =
-    match (h1, h2) with
-    | (Node (e1, hs1), Node (e2, hs2)) ->
-      (match Cmp.cmp e1 e2 with
-       | Less | Equal -> Node (e1, h2::hs1)
-       | Greater ->  Node (e2, h1::hs2))
+    match h1, h2 with
+    | Node (e1, hs1), Node (e2, hs2) ->
+      ( match Cmp.cmp e1 e2 with
+        | Cmp.Less | Cmp.Equal -> Node (e1, h2::hs1)
+        | Cmp.Greater ->  Node (e2, h1::hs2)
+      )
     | (Node _ , Null) -> h1
     | (Null, _) -> h2
 

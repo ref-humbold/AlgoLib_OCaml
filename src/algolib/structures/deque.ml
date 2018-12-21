@@ -34,26 +34,26 @@ let push_back e dq =
   | ([y], [x1; x2]) -> ([y; x2], [e; x1])
   | (ft, bk) -> (ft, e::bk)
 
-let balance' d =
-  let rec balance'_ d_ n_ =
-    match d_ with
+let balance_ d =
+  let rec balance_' d' n =
+    match d' with
     | e::ds ->
-      if n_ > 0
-      then let (nft, nbk) = balance'_ ds (n_ - 1) in (nft, e::nbk)
-      else (List.rev d_, [])
+      if n > 0
+      then let (nft, nbk) = balance_' ds (n - 1) in (nft, e::nbk)
+      else (List.rev d', [])
     | [] -> ([], []) in
-  balance'_ d ((List.length d) / 2)
+  balance_' d @@ (List.length d) / 2
 
 let pop_front dq =
   match dq with
-  | ([_], bk) -> balance' bk
+  | ([_], bk) -> balance_ bk
   | (_::ft, bk) -> (ft, bk)
   | ([], _::bk) -> ([], bk)
   | ([], []) -> raise EmptyDeque
 
 let pop_back dq =
   match dq with
-  | (ft, [_]) -> let (nbk, nft) = balance' ft in (nft, nbk)
+  | (ft, [_]) -> let (nbk, nft) = balance_ ft in (nft, nbk)
   | (ft, _::bk) -> (ft, bk)
   | (_::ft, []) -> (ft, [])
   | ([], []) -> raise EmptyDeque
