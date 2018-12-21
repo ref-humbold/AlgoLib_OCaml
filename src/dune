@@ -1,0 +1,8 @@
+(library
+    (name algolib)
+    (public_name algolib)
+    (modes native)
+    (flags (-w A))
+)
+
+(include_subdirs unqualified)

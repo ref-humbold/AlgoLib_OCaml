@@ -1,21 +1,18 @@
-OCB = ocamlbuild
-OCBFLAGS = -classic-display
-BUILD = $(OCB) $(OCBFLAGS)
+DIR = _build/install/default/lib/algolib
+LIB = lib
+CMXA = algolib.cmxa
 
-.PHONY : all clean refresh docs
+.PHONY : all clean refresh
 
-all : algolib.cma algolib.cmxa
+all : algolib
 
 clean :
-	$(OCB) -clean
+	rm -fr $(LIB)
+	dune clean
 
 refresh : clean all
 
-docs :
-	$(OCB) algolib.docdir/index.html
-
-algolib.cma :
-	$(BUILD) algolib.cma
-
-algolib.cmxa :
-	$(BUILD) algolib.cmxa
+algolib :
+	dune build
+	@mkdir -p $(LIB)
+	@ln -sfn ../$(DIR)/$(CMXA) $(LIB)/$(CMXA)

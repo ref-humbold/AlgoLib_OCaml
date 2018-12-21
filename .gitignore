@@ -1,5 +1,5 @@
-# OCaml, OCamlbuild
+# OCaml, Dune
 _build
-*.cma
-*.cmxa
-*.docdir
+lib
+*.install
+**/.merlin
