@@ -14,8 +14,8 @@ sig
   (** The type of sets structures. *)
   type t
 
-  (** The empty sets structure. *)
-  val empty: t
+  (** [create ()] produces empty sets structure. *)
+  val create: unit -> t
 
   (** [size s] returns number of sets in structure [s]. *)
   val size: t -> int
@@ -24,16 +24,16 @@ sig
   val contains: elem -> t -> bool
 
   (** [add_elem x s] adds new singleton set with [x] to structure [s]. *)
-  val add_elem: elem -> t -> t
+  val add_elem: elem -> t -> unit
 
   (** [find_set x s] finds the representant of [x] in structure [s]. *)
-  val find_set: elem -> t -> elem * t
+  val find_set: elem -> t -> elem
 
   (** [is_same_set x y s] checks if [x] and [y] belong to the same set in structure [s]. *)
-  val is_same_set: elem * elem -> t -> bool * t
+  val is_same_set: elem -> elem -> t -> bool
 
   (** [union_set x y s] joins sets containing [x] and [y] in structure [s]. *)
-  val union_set: elem * elem -> t -> t
+  val union_set: elem -> elem -> t -> unit
 end
 
-module Make(Cmp: COMPARABLE): DISJOINT_SETS with type elem := Cmp.t
+module Make(Cmp: COMPARABLE): DISJOINT_SETS with type elem = Cmp.t
