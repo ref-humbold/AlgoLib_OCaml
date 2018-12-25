@@ -1,5 +1,5 @@
 DIR = _build/install/default/lib/algolib
-LIB = lib
+BIN = bin
 CMXA = algolib.cmxa
 
 .PHONY : all clean refresh
@@ -7,12 +7,12 @@ CMXA = algolib.cmxa
 all : algolib
 
 clean :
-	rm -fr $(LIB)
+	rm -fr $(BIN)
 	dune clean
 
 refresh : clean all
 
 algolib :
 	dune build
-	@mkdir -p $(LIB)
-	@ln -sfn ../$(DIR)/$(CMXA) $(LIB)/$(CMXA)
+	@mkdir -p $(BIN)
+	@ln -sfn ../$(DIR)/$(CMXA) $(BIN)/$(CMXA)
