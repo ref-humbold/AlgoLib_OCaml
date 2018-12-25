@@ -1,5 +1,5 @@
 # OCaml, Dune
 _build
-lib
+bin
 *.install
 **/.merlin
