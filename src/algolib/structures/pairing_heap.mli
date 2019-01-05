@@ -1,4 +1,4 @@
-(** PAIRING HEAP STRUCTURE *)
+(* PAIRING HEAP STRUCTURE *)
 module type COMPARABLE =
 sig
   type t
