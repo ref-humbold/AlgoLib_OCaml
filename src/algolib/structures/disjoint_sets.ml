@@ -22,7 +22,8 @@ end
 module Make(Cmp: COMPARABLE) =
 struct
   type elem = Cmp.t
-  module Repr = Map.Make(struct
+  module Repr = Map.Make(
+    struct
       type t = elem
       let compare x y =
         match Cmp.cmp x y with
