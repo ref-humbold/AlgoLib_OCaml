@@ -14,5 +14,5 @@ refresh : clean all
 
 algolib :
 	dune build
-	@mkdir -p $(BIN)
-	@ln -sfn ../$(DIR)/$(CMXA) $(BIN)/$(CMXA)
+	mkdir -p $(BIN)
+	ln -sfn ../$(DIR)/$(CMXA) $(BIN)/$(CMXA)

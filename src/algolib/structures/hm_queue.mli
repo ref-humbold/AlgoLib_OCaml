@@ -1,4 +1,4 @@
-(** REAL-TIME HOOD-MELVILLE QUEUE STRUCTURE *)
+(* REAL-TIME HOOD-MELVILLE QUEUE STRUCTURE *)
 (** The type of queues containing elements of type 'a. *)
 type 'a t
 
