@@ -62,7 +62,9 @@ struct
   let is_same_set element1 element2 dset =
     let repr1 = find_set element1 dset
     and repr2 = find_set element2 dset in
-    Cmp.cmp repr1 repr2 = Cmp.Equal
+    match Cmp.cmp repr1 repr2 with
+    | Cmp.Equal -> true
+    | Cmp.Less | Cmp.Greater -> false
 
   let union_set element1 element2 dset =
     let repr1 = find_set element1 dset
