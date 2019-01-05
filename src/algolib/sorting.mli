@@ -1,4 +1,4 @@
-(** SORTING ALGORITHMS *)
+(* SORTING ALGORITHMS *)
 type point = float * float;;
 
 (** [angle_sort lst] sorts points [lst] on a plane with respect to the angle. *)

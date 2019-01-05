@@ -1,4 +1,4 @@
-(** MATHS ALGORITHMS *)
+(* MATHS ALGORITHMS *)
 
 (** [gcdiv n1 n2] computes the greatest common divisor of given two non-negative integers [n1] and [n2]. *)
 val gcdiv: int -> int -> int

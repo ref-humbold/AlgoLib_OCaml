@@ -1,5 +1,4 @@
-(** GRAHAM'S ALGORITHM FOR CONVEX HULL ON A PLANE *)
-
+(* GRAHAM'S ALGORITHM FOR CONVEX HULL ON A PLANE *)
 (** The type of points in 2D *)
 type point = float * float
 
