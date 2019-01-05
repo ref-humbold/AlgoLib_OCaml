@@ -1,4 +1,4 @@
-(** BINOMIAL HEAP STRUCTURE *)
+(* BINOMIAL HEAP STRUCTURE *)
 module type COMPARABLE =
 sig
   type t

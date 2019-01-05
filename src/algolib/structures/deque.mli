@@ -1,4 +1,4 @@
-(** DOUBLE-ENDED QUEUE STRUCTURE *)
+(* DOUBLE-ENDED QUEUE STRUCTURE *)
 (** The type of deques containing elements of type 'a. *)
 type 'a t
 
