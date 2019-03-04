@@ -1,4 +1,4 @@
-(* UNION-FIND DISJOINT SETS STRUCTURE *)
+(* DISJOINT SETS STRUCTURE (UNION-FIND) *)
 module type COMPARABLE =
 sig
   type t
@@ -9,13 +9,13 @@ module type DISJOINT_SETS =
 sig
   type elem
   type t
-  val empty: t
+  val create: unit -> t
   val size: t -> int
   val contains: elem -> t -> bool
-  val add_elem: elem -> t -> t
-  val find_set: elem -> t -> elem * t
-  val is_same_set: elem * elem -> t -> bool * t
-  val union_set: elem * elem -> t -> t
+  val add_elem: elem -> t -> unit
+  val find_set: elem -> t -> elem
+  val is_same_set: elem -> elem -> t -> bool
+  val union_set: elem -> elem -> t -> unit
 end
 
 module Make(Cmp: COMPARABLE) =
@@ -24,37 +24,45 @@ struct
 
   module Repr = Map.Make(Cmp)
 
-  type t = int * (elem Repr.t)
+  type t = {mutable size: int; mutable map: elem Repr.t}
 
-  let empty = (0, Repr.empty)
+  let create (): t = {size=0; map=Repr.empty}
 
-  let size (n, _) = n
+  let size {size; _} = size
 
-  let contains element (_, ds) = Repr.mem element ds
+  let contains element {map; _} = Repr.mem element map
 
-  let add_elem element ((n, ds) as dset) =
-    if Repr.mem element ds
-    then dset
-    else (n + 1, Repr.add element element ds)
+  let add_elem element dset =
+    if not @@ Repr.mem element dset.map
+    then
+      begin
+        dset.size <- dset.size + 1;
+        dset.map <- Repr.add element element dset.map
+      end
 
-  let rec find_set element ((_, ds) as dset) =
-    let value = Repr.find element ds in
+  let rec find_set element dset =
+    let value = Repr.find element dset.map in
     if Cmp.compare value element = 0
-    then (element, dset)
+    then element
     else
-      let (repr, (new_n, new_ds)) = find_set value dset in
-      (repr, (new_n, Repr.add element repr new_ds))
+      let repr = find_set value dset in
+      begin
+        dset.map <- Repr.add element repr dset.map;
+        repr
+      end
 
-  let is_same_set (element1, element2) dset =
-    let (repr1, new_ds1) = find_set element1 dset in
-    let (repr2, new_ds2) = find_set element2 new_ds1 in
-    (Cmp.compare repr1 repr2 = 0, new_ds2)
+  let is_same_set element1 element2 dset =
+    let repr1 = find_set element1 dset
+    and repr2 = find_set element2 dset in
+    Cmp.compare repr1 repr2 = 0
 
-  let union_set ((element1, element2) as e) dset =
-    let (same, dset0) = is_same_set e dset in
-    if same
-    then dset0
-    else let (repr1, new_ds1) = find_set element1 dset0 in
-      let (repr2, (new_n, new_ds2)) = find_set element2 new_ds1 in
-      (new_n - 1, Repr.add repr1 repr2 new_ds2)
+  let union_set element1 element2 dset =
+    let repr1 = find_set element1 dset
+    and repr2 = find_set element2 dset in
+    if not @@ is_same_set repr1 repr2 dset
+    then
+      begin
+        dset.size <- dset.size - 1;
+        dset.map <- Repr.add repr1 repr2 dset.map
+      end
 end
