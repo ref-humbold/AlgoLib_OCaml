@@ -1,9 +1,8 @@
-(* UNION-FIND DISJOINT SETS STRUCTURE *)
+(* DISJOINT SETS STRUCTURE (UNION-FIND) *)
 module type COMPARABLE =
 sig
   type t
-  type c = Less | Equal | Greater
-  val cmp: t -> t -> c
+  val compare: t -> t -> int
 end
 
 module type DISJOINT_SETS =
@@ -22,15 +21,9 @@ end
 module Make(Cmp: COMPARABLE) =
 struct
   type elem = Cmp.t
-  module Repr = Map.Make(
-    struct
-      type t = elem
-      let compare x y =
-        match Cmp.cmp x y with
-        | Cmp.Less -> -1
-        | Cmp.Equal -> 0
-        | Cmp.Greater -> 1
-    end)
+
+  module Repr = Map.Make(Cmp)
+
   type t = {mutable size: int; mutable map: elem Repr.t}
 
   let create (): t = {size=0; map=Repr.empty}
@@ -40,9 +33,8 @@ struct
   let contains element {map; _} = Repr.mem element map
 
   let add_elem element dset =
-    if Repr.mem element dset.map
-    then ()
-    else
+    if not @@ Repr.mem element dset.map
+    then
       begin
         dset.size <- dset.size + 1;
         dset.map <- Repr.add element element dset.map
@@ -50,9 +42,9 @@ struct
 
   let rec find_set element dset =
     let value = Repr.find element dset.map in
-    match Cmp.cmp value element with
-    | Cmp.Equal -> element
-    | Cmp.Less | Cmp.Greater ->
+    if Cmp.compare value element = 0
+    then element
+    else
       let repr = find_set value dset in
       begin
         dset.map <- Repr.add element repr dset.map;
@@ -62,16 +54,13 @@ struct
   let is_same_set element1 element2 dset =
     let repr1 = find_set element1 dset
     and repr2 = find_set element2 dset in
-    match Cmp.cmp repr1 repr2 with
-    | Cmp.Equal -> true
-    | Cmp.Less | Cmp.Greater -> false
+    Cmp.compare repr1 repr2 = 0
 
   let union_set element1 element2 dset =
     let repr1 = find_set element1 dset
     and repr2 = find_set element2 dset in
-    if is_same_set repr1 repr2 dset
-    then ()
-    else
+    if not @@ is_same_set repr1 repr2 dset
+    then
       begin
         dset.size <- dset.size - 1;
         dset.map <- Repr.add repr1 repr2 dset.map
