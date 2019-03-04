@@ -2,8 +2,7 @@
 module type COMPARABLE =
 sig
   type t
-  type c = Less | Equal | Greater
-  val cmp: t -> t -> c
+  val compare: t -> t -> int
 end
 
 module type DISJOINT_SETS =
@@ -22,14 +21,9 @@ end
 module Make(Cmp: COMPARABLE) =
 struct
   type elem = Cmp.t
-  module Repr = Map.Make(struct
-      type t = elem
-      let compare x y =
-        match Cmp.cmp x y with
-        | Cmp.Less -> -1
-        | Cmp.Equal -> 0
-        | Cmp.Greater -> 1
-    end)
+
+  module Repr = Map.Make(Cmp)
+
   type t = int * (elem Repr.t)
 
   let empty = (0, Repr.empty)
@@ -45,16 +39,16 @@ struct
 
   let rec find_set element ((_, ds) as dset) =
     let value = Repr.find element ds in
-    match Cmp.cmp value element with
-    | Cmp.Equal -> (element, dset)
-    | Cmp.Less | Cmp.Greater ->
+    if Cmp.compare value element = 0
+    then (element, dset)
+    else
       let (repr, (new_n, new_ds)) = find_set value dset in
       (repr, (new_n, Repr.add element repr new_ds))
 
   let is_same_set (element1, element2) dset =
     let (repr1, new_ds1) = find_set element1 dset in
     let (repr2, new_ds2) = find_set element2 new_ds1 in
-    (Cmp.cmp repr1 repr2 = Cmp.Equal, new_ds2)
+    (Cmp.compare repr1 repr2 = 0, new_ds2)
 
   let union_set ((element1, element2) as e) dset =
     let (same, dset0) = is_same_set e dset in

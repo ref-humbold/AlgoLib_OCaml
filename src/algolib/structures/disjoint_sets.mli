@@ -2,8 +2,7 @@
 module type COMPARABLE =
 sig
   type t
-  type c = Less | Equal | Greater
-  val cmp: t -> t -> c
+  val compare: t -> t -> int
 end
 
 module type DISJOINT_SETS =

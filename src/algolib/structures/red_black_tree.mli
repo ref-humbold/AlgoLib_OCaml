@@ -2,11 +2,10 @@
 module type COMPARABLE =
 sig
   type t
-  type c = Less | Equal | Greater
-  val cmp: t -> t -> c
+  val compare: t -> t -> int
 end
 
-module type TREE =
+module type RBTREE =
 sig
   (** The type of elements of tree. *)
   type elem
@@ -33,4 +32,4 @@ sig
   val add: elem -> t -> t
 end
 
-module Make(Cmp: COMPARABLE): TREE with type elem := Cmp.t
+module Make(Cmp: COMPARABLE): RBTREE with type elem := Cmp.t

@@ -2,8 +2,7 @@
 module type COMPARABLE =
 sig
   type t
-  type c = Less | Equal | Greater
-  val cmp: t -> t -> c
+  val compare: t -> t -> int
 end
 
 module type HEAP =
@@ -22,6 +21,7 @@ end
 module Make(Cmp: COMPARABLE) =
 struct
   type elem = Cmp.t
+
   type t = Null | Node of int * elem * t * t
 
   exception EmptyHeap
@@ -44,10 +44,9 @@ struct
       else Node ((rank b) + 1, x, a, b) in
     match h1, h2 with
     | Node (_, x, lt1, rt1), Node (_, y, lt2, rt2) ->
-      ( match Cmp.cmp x y with
-        | Cmp.Less ->  make_node x lt1 (merge rt1 h2)
-        | Cmp.Equal | Cmp.Greater -> make_node y lt2 (merge rt2 h1)
-      )
+      if Cmp.compare x y < 0
+      then make_node x lt1 @@ merge rt1 h2
+      else make_node y lt2 @@ merge rt2 h1
     | Node (_, _, _, _), Null -> h1
     | Null, _ -> h2
 
