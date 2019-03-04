@@ -2,11 +2,10 @@
 module type COMPARABLE =
 sig
   type t
-  type c = Less | Equal | Greater
-  val cmp: t -> t -> c
+  val compare: t -> t -> int
 end
 
-module type TREE =
+module type RBTREE =
 sig
   type elem
   type t
@@ -21,8 +20,11 @@ end
 module Make(Cmp: COMPARABLE) =
 struct
   type elem = Cmp.t
+
   type colour = Black | Red
+
   type tree = Leaf | Node of colour * tree * elem * tree
+
   type t = int * tree
 
   let empty = (0, Leaf)
@@ -42,11 +44,12 @@ struct
     let rec contains' tx =
       match tx with
       | Node (_, lt, y, rt) ->
-        ( match Cmp.cmp x y with
-          | Cmp.Equal -> true
-          | Cmp.Less -> contains' lt
-          | Cmp.Greater -> contains' rt
-        )
+        let cond = Cmp.compare x y in
+        if cond = 0
+        then true
+        else if cond < 0
+        then contains' lt
+        else contains' rt
       | Leaf -> false in
     contains' t
 
@@ -66,24 +69,25 @@ struct
     | Red, Leaf, _, Node _ | (Red, Leaf, _, Leaf) -> Node (c, lt, e, rt)
 
   let add x ((n, t) as s) =
-    let rec add_ tx =
+    let rec add' tx =
       match tx with
       | Node (c, lt, y, rt) ->
-        ( match Cmp.cmp x y with
-          | Cmp.Equal -> None
-          | Cmp.Less ->
-            ( match add_ lt with
-              | Some ltn -> Some (rebalance_ c ltn y rt)
-              | None -> None
-            )
-          | Cmp.Greater ->
-            ( match add_ rt with
-              | Some rtn -> Some (rebalance_ c lt y rtn)
-              | None -> None
-            )
-        )
+        let cond = Cmp.compare x y in
+        if cond = 0
+        then None
+        else if cond < 0
+        then
+          ( match add' lt with
+            | Some ltn -> Some (rebalance_ c ltn y rt)
+            | None -> None
+          )
+        else
+          ( match add' rt with
+            | Some rtn -> Some (rebalance_ c lt y rtn)
+            | None -> None
+          )
       | Leaf -> Some (Node (Red, Leaf, x, Leaf)) in
-    match add_ t with
+    match add' t with
     | Some (Node (_, lt, y, rt)) -> (n + 1, Node (Black, lt, y, rt))
     | None -> s
     | Some Leaf -> failwith "UNEXPECTED"
