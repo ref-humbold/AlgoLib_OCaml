@@ -13,23 +13,21 @@ let angle_sort lst =
 let merge_sort lst =
   let rec drop n lst' =
     if n > 0
-    then
-      ( match lst' with
-        | _::xs -> drop (n - 1) xs
-        | [] -> lst'
-      )
+    then match lst' with
+      | _ :: xs -> drop (n - 1) xs
+      | [] -> lst'
     else lst' in
-  let rec merge p =
-    match p with
-    | ([], lx) | (lx, []) -> lx
-    | (((x::xs) as lx), ((y::ys) as ly)) ->
+  let rec merge lst1 lst2 =
+    match lst1, lst2 with
+    | [], ls | ls, [] -> ls
+    | ((x :: xs) as lx), ((y :: ys) as ly) ->
       if x <= y
-      then x::(merge (xs, ly))
-      else y::(merge (lx, ys)) in
-  let rec msort n lst' =
-    match n, lst' with
-    | 0, _ -> []
-    | 1, x::_ -> [x]
+      then x :: (merge xs ly)
+      else y :: (merge lx ys) in
+  let rec msort lst' n =
+    match lst', n with
+    | _, 0 -> []
+    | x :: _, 1 -> [x]
     | _ -> let nd = n / 2 in
-      merge (msort nd lst', msort (n - nd) (drop n lst'))in
-  msort (List.length lst) lst
+      merge (msort lst' nd) @@ msort (drop n lst') @@ n - nd in
+  msort lst @@ List.length lst
