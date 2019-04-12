@@ -1,4 +1,4 @@
-(* RED-BLACK TREE STRUCTURE *)
+(* Red-black tree structure *)
 module type COMPARABLE =
 sig
   type t
@@ -20,11 +20,8 @@ end
 module Make(Cmp: COMPARABLE) =
 struct
   type elem = Cmp.t
-
   type colour = Black | Red
-
   type tree = Leaf | Node of colour * tree * elem * tree
-
   type t = int * tree
 
   let empty = (0, Leaf)
@@ -34,15 +31,15 @@ struct
   let size (n, _) = n
 
   let to_list (_, t) =
-    let rec to_list' tx acc =
-      match tx with
-      | Node (_, lt, x, rt) -> to_list' lt @@ x::(to_list' rt acc)
+    let rec to_list' t' acc =
+      match t' with
+      | Node (_, lt, x, rt) -> to_list' lt @@ x :: (to_list' rt acc)
       | Leaf -> acc in
     to_list' t []
 
   let contains x (_, t) =
-    let rec contains' tx =
-      match tx with
+    let rec contains' t' =
+      match t' with
       | Node (_, lt, y, rt) ->
         let cond = Cmp.compare x y in
         if cond = 0
@@ -63,32 +60,30 @@ struct
       Node (Red, Node (Black, a, x, b), y, Node (Black, c, z, d))
     | Black, a, x, Node (Red, Node (Red, b, y, c), z, d) ->
       Node (Red, Node (Black, a, x, b), y, Node (Black, c, z, d))
-    | Black, Node _, _, Node _ | (Black, Node _, _, Leaf)
-    | Black, Leaf, _, Node _ | (Black, Leaf, _, Leaf)
-    | Red, Node _, _, Node _ | (Red, Node _, _, Leaf)
-    | Red, Leaf, _, Node _ | (Red, Leaf, _, Leaf) -> Node (c, lt, e, rt)
+    | Black, Node _, _, Node _ | Black, Node _, _, Leaf
+    | Black, Leaf, _, Node _ | Black, Leaf, _, Leaf
+    | Red, Node _, _, Node _ | Red, Node _, _, Leaf
+    | Red, Leaf, _, Node _ | Red, Leaf, _, Leaf -> Node (c, lt, e, rt)
 
   let add x ((n, t) as s) =
-    let rec add' tx =
-      match tx with
+    let rec add' t' =
+      match t' with
       | Node (c, lt, y, rt) ->
         let cond = Cmp.compare x y in
         if cond = 0
         then None
         else if cond < 0
-        then
-          ( match add' lt with
-            | Some ltn -> Some (rebalance_ c ltn y rt)
+        then begin match add' lt with
+            | Some lt' -> Some (rebalance_ c lt' y rt)
             | None -> None
-          )
-        else
-          ( match add' rt with
-            | Some rtn -> Some (rebalance_ c lt y rtn)
+          end
+        else begin match add' rt with
+            | Some rt' -> Some (rebalance_ c lt y rt')
             | None -> None
-          )
+          end
       | Leaf -> Some (Node (Red, Leaf, x, Leaf)) in
     match add' t with
     | Some (Node (_, lt, y, rt)) -> (n + 1, Node (Black, lt, y, rt))
     | None -> s
-    | Some Leaf -> failwith "UNEXPECTED"
+    | Some Leaf -> failwith "unexpected"
 end
