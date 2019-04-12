@@ -1,4 +1,4 @@
-(* DYNAMIC ALGORITHM FOR MAXIMUM SUBARRAY *)
+(** Dynamic algorithm for maximum subarray *)
 
-(** [find_maximum_subarray lst] finds a subarray of maximal sum in given sequence [lst]. *)
 val find_maximum_subarray: float list -> float list
+(** [find_maximum_subarray lst] finds a subarray of maximal sum in given sequence [lst]. *)
