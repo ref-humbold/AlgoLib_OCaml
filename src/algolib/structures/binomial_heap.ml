@@ -1,4 +1,4 @@
-(* BINOMIAL HEAP STRUCTURE *)
+(* Binomial heap structure *)
 module type COMPARABLE =
 sig
   type t
@@ -21,9 +21,7 @@ end
 module Make(Cmp: COMPARABLE) =
 struct
   type elem = Cmp.t
-
   type bitree = Tree of elem * bitree list
-
   type t = (int * bitree) list
 
   exception EmptyHeap
@@ -43,7 +41,7 @@ struct
       if Cmp.compare x y < 0
       then (r1 + 1, Tree (x, t2 :: ts1))
       else (r1 + 1, Tree (y, t1 :: ts2))
-    | Tree _, Tree _ -> failwith "UNEXPECTED"
+    | Tree _, Tree _ -> failwith "unexpected"
 
   let rec insert_tree_ t ts =
     match ts with
@@ -66,11 +64,11 @@ struct
   let peek h =
     let rec peek' ts min =
       match ts, min with
-      | (_, Tree (y, _)) :: tsx, Some x ->
+      | (_, Tree (y, _)) :: ts', Some x ->
         if Cmp.compare y x <= 0
-        then peek' tsx @@ Some y
-        else peek' tsx min
-      | (_, Tree (y, _)) :: tsx, None -> peek' tsx @@ Some y
+        then peek' ts' @@ Some y
+        else peek' ts' min
+      | (_, Tree (y, _)) :: ts', None -> peek' ts' @@ Some y
       | [], x -> x in
     match peek' h None with
     | Some x -> x
@@ -83,12 +81,12 @@ struct
       match h' with
       | [t] -> (t, [])
       | ((_, Tree (x, _)) as t) :: ts ->
-        ( match remove_min ts with
+        begin match remove_min ts with
           | ((_, Tree (y, _)) as tx, tsx) ->
             if Cmp.compare x y <= 0
             then (t, ts)
             else (tx, t :: tsx)
-        )
+        end
       | [] -> raise EmptyHeap in
     let rec rank_trees rk ts acc =
       match ts with
