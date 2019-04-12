@@ -1,4 +1,4 @@
-(* PAIRING HEAP STRUCTURE *)
+(* Pairing heap structure *)
 module type COMPARABLE =
 sig
   type t
@@ -21,7 +21,6 @@ end
 module Make(Cmp: COMPARABLE) =
 struct
   type elem = Cmp.t
-
   type t = Null | Node of elem * t list
 
   exception EmptyHeap
@@ -37,8 +36,8 @@ struct
     match h1, h2 with
     | Node (e1, hs1), Node (e2, hs2) ->
       if Cmp.compare e1 e2 <= 0
-      then Node (e1, h2::hs1)
-      else Node (e2, h1::hs2)
+      then Node (e1, h2 :: hs1)
+      else Node (e2, h1 :: hs2)
     | Node _ , Null -> h1
     | Null, _ -> h2
 
