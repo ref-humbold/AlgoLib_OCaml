@@ -25,7 +25,7 @@ val tail: 'a t -> 'a t
 (** [tail lst] returns indexed list without first element of indexed list [lst] *)
 
 val elem: int -> 'a t -> 'a
-(** [elem n lst] retrieves element indexed with [n] in indexed list [lst] *)
+(** [elem i lst] retrieves element indexed with [i] in indexed list [lst] *)
 
 val update: int -> 'a -> 'a t -> 'a t
-(** [update n x lst] sets [x] as element indexed with [n] in indexed list [lst] *)
+(** [update i x lst] sets [x] as element indexed with [i] in indexed list [lst] *)
