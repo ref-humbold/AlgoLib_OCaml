@@ -1,4 +1,5 @@
 (** Double-ended queue structure *)
+
 type 'a t
 (** The type of deques containing elements of type 'a *)
 
