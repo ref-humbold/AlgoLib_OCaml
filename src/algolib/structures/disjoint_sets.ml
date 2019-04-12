@@ -34,8 +34,7 @@ struct
 
   let add_elem element dset =
     if not @@ Repr.mem element dset.map
-    then
-      begin
+    then begin
         dset.size <- dset.size + 1;
         dset.map <- Repr.add element element dset.map
       end
@@ -60,8 +59,7 @@ struct
     let repr1 = find_set element1 dset
     and repr2 = find_set element2 dset in
     if not @@ is_same_set repr1 repr2 dset
-    then
-      begin
+    then begin
         dset.size <- dset.size - 1;
         dset.map <- Repr.add repr1 repr2 dset.map
       end
