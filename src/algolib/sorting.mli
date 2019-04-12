@@ -1,4 +1,4 @@
-(** SORTING ALGORITHMS *)
+(** Sorting algorithms *)
 
 type point = float * float
 
