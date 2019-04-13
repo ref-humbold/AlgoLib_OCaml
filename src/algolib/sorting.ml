@@ -1,4 +1,4 @@
-(* SORTING ALGORITHMS *)
+(* Sorting algorithms *)
 type point = float * float
 
 let angle_sort lst =
@@ -11,23 +11,23 @@ let angle_sort lst =
   List.sort cmp lst
 
 let merge_sort lst =
-  let rec drop n lst' =
-    if n > 0
+  let rec drop lst' n' =
+    if n' > 0
     then match lst' with
-      | _ :: xs -> drop (n - 1) xs
+      | _ :: xs -> drop xs @@ n' - 1
       | [] -> lst'
     else lst' in
-  let rec merge lst1 lst2 =
-    match lst1, lst2 with
+  let rec merge lx ly =
+    match lx, ly with
     | [], ls | ls, [] -> ls
-    | ((x :: xs) as lx), ((y :: ys) as ly) ->
+    | x :: xs, y :: ys ->
       if x <= y
       then x :: (merge xs ly)
       else y :: (merge lx ys) in
-  let rec msort lst' n =
-    match lst', n with
+  let rec msort lst' n' =
+    match lst', n' with
     | _, 0 -> []
     | x :: _, 1 -> [x]
-    | _ -> let nd = n / 2 in
-      merge (msort lst' nd) @@ msort (drop n lst') @@ n - nd in
+    | _ -> let nd = n' / 2 in
+      merge (msort lst' nd) @@ msort (drop lst' n') @@ n' - nd in
   msort lst @@ List.length lst

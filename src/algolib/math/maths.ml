@@ -1,4 +1,4 @@
-(* MATHS ALGORITHMS *)
+(* Mathematics algorithms *)
 
 let rec gcdiv number1 number2 =
   if number1 < number2

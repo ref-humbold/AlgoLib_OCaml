@@ -1,4 +1,4 @@
-(* GRAHAM'S ALGORITHM FOR CONVEX HULL ON A PLANE *)
+(* Graham's algorithm for convex hull on a plane *)
 type point = float * float
 
 let find_convex_hull (points : point list) =

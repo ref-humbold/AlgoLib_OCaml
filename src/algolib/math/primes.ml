@@ -1,11 +1,11 @@
-(* ALGORITHMS FOR PRIME NUMBERS *)
+(* Algorithms for prime numbers *)
 
-let rec rands_ x n =
+let rec rands_ maxim num =
   begin
     Random.self_init ();
-    if n = 0
+    if num = 0
     then []
-    else (1 + Random.int x)::(rands_ x (n - 1))
+    else (1 + Random.int maxim) :: (rands_ maxim @@ num - 1)
   end
 
 let test_fermat number =
@@ -32,13 +32,14 @@ let test_miller number =
   else if number < 2 || number mod 2 = 0 || number mod 3 = 0
   then false
   else
-    let rec range n lst =
+    let rec range acc n =
       if n = 0
-      then 0::lst
-      else range (n - 1) @@ n::lst in
+      then 0 :: acc
+      else range (n :: acc) @@ n - 1 in
     let e, m = distribute_ (number - 1) in
-    not @@ List.exists (fun rdv ->
+    not
+    @@ List.exists (fun rdv ->
         Maths.power_mod rdv m number <> 1
         && List.for_all (fun i ->
-            (Maths.power_mod rdv ((1 lsl i) * m) number <> number - 1)) (range (e - 1) []))
+            (Maths.power_mod rdv ((1 lsl i) * m) number <> number - 1)) (range [] @@ e - 1))
     @@ rands_ (number - 1) 12
