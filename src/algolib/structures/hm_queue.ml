@@ -29,11 +29,11 @@ let rebalance_ ({front=(flen, ft); back=(blen, bk); _} as q) =
     | Apd {len=0; bck; _} -> End bck
     | Apd {len; frt=x :: ft'; bck} -> Apd {len; frt=ft'; bck=x :: bck}
     | Rev _ | Apd _ | End _ | Null -> rt in
-  let combine {front=(flen', ft'); rotation=rt'; back=(blen', bk')} =
-    match comb (comb rt') with
-    | End ft'' -> (flen', ft'', Null, blen', bk')
-    | (Rev _ as rt'') | (Apd _ as rt'') | (Null as rt'') ->
-      (flen', ft', rt'', blen', bk') in
+  let combine ({front=(flen', _); rotation=rt'; _} as q') =
+    let rt'' = comb (comb rt') in
+    match rt'' with
+    | End ft'' -> {q' with front=(flen', ft''); rotation=Null}
+    | Rev _  | Apd _ | Null -> {q' with rotation=rt''} in
   if blen <= flen
   then combine q
   else let rev = Rev {len=0; frt=ft; rev_frt=[]; bck=bk; rev_bck=[]} in
