@@ -1,4 +1,4 @@
-(* LEFTIST HEAP STRUCTURE *)
+(* Leftist heap structure *)
 module type COMPARABLE =
 sig
   type t
