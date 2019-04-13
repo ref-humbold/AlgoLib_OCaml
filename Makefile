@@ -1,14 +1,16 @@
-DIR = _build/install/default/lib/algolib
+BUILD_SRC = _build/default/src
+BUILD_DOC = _build/default/_doc
 BIN = bin
+DOC = doc
 CMXA = algolib.cmxa
 CMA = algolib.cma
 
-.PHONY : all clean refresh
+.PHONY : all clean refresh doc
 
 all : algolib
 
 clean :
-	rm -fr $(BIN)
+	rm -fr $(BIN) $(DOC)
 	dune clean
 
 refresh : clean all
@@ -16,5 +18,9 @@ refresh : clean all
 algolib :
 	dune build
 	mkdir -p $(BIN)
-	ln -sfn ../$(DIR)/$(CMXA) $(BIN)/$(CMXA)
+	ln -sfn ../$(BUILD_SRC)/$(CMXA) $(BIN)/$(CMXA)
 	ln -sfn ../$(DIR)/$(CMA) $(BIN)/$(CMA)
+
+doc :
+	dune build @doc
+	ln -sfn ./$(BUILD_DOC)/_html $(DOC)

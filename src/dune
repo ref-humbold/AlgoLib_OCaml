@@ -10,4 +10,6 @@
     )
 )
 
+(documentation)
+
 (include_subdirs unqualified)

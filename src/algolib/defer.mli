@@ -1,10 +1,10 @@
-(* STRUCTURE OF DEFERRED COMPUTATIONS WITH MEMOIZATION *)
+(** Structure of defrerred computations with memoization *)
 
-(** The type of deferred computations structure. *)
 type 'a t
+(** The type of deferred computations *)
 
-(** [delay f] creates new deferred computation. *)
 val defer: (unit -> 'a) -> 'a t
+(** [delay f] creates new deferred computation *)
 
-(** [force d] forces deferred computation and memoizes the result. *)
 val force: 'a t -> 'a
+(** [force d] forces deferred computation and memoizes the result *)

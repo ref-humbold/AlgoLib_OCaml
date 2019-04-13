@@ -1,4 +1,5 @@
-(* BINOMIAL HEAP STRUCTURE *)
+(** Binomial heap structure *)
+
 module type COMPARABLE =
 sig
   type t
@@ -7,32 +8,32 @@ end
 
 module type HEAP =
 sig
-  (** The type of elements of heap. *)
   type elem
+  (** The type of elements of heap *)
 
-  (** The type of heaps. *)
   type t
+  (** The type of heaps *)
 
-  (** Exception raised when retrieving or removing elements from empty heap. *)
   exception EmptyHeap
+  (** Exception raised when retrieving or removing elements from empty heap *)
 
-  (** The empty heap. *)
   val empty: t
+  (** The empty heap *)
 
-  (** [is_empty h] checks if heap [h] is empty. *)
   val is_empty: t -> bool
+  (** [is_empty h] checks if heap [h] is empty *)
 
-  (** [merge h1 h2] joins heaps [h1] and [h2] together. *)
   val merge: t -> t -> t
+  (** [merge h1 h2] joins heaps [h1] and [h2] together *)
 
-  (** [peek h] retrieves the least element from heap [h]. *)
   val peek: t -> elem
+  (** [peek h] retrieves the least element from heap [h] *)
 
-  (** [push x h] adds [x] to heap [h]. *)
   val push: elem -> t -> t
+  (** [push x h] adds [x] to heap [h] *)
 
-  (** [pop h] removes the least element from heap [h]. *)
   val pop: t -> t
+  (** [pop h] removes the least element from heap [h] *)
 end
 
 module Make(Cmp: COMPARABLE): HEAP with type elem := Cmp.t

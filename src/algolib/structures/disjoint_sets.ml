@@ -1,4 +1,4 @@
-(* DISJOINT SETS STRUCTURE (UNION-FIND) *)
+(* Disjoint sets structure (union-find) *)
 module type COMPARABLE =
 sig
   type t
