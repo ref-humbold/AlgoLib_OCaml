@@ -1,11 +1,10 @@
 (* Algorithms for prime numbers *)
 
-let rec rands_ maxim num =
+let rands_ maxim num =
+  let rec rands_' m' n' = if n' = 0 then [] else (1 + Random.int m') :: (rands_' m' @@ n' - 1) in
   begin
     Random.self_init ();
-    if num = 0
-    then []
-    else (1 + Random.int maxim) :: (rands_ maxim @@ num - 1)
+    rands_' (maxim - 1) num
   end
 
 let test_fermat number =
@@ -13,11 +12,9 @@ let test_fermat number =
   then true
   else if number < 2 || number mod 2 = 0 || number mod 3 = 0
   then false
-  else not
-    @@ List.exists (fun rdv ->
-        Maths.gcdiv rdv number > 1
-        || Maths.power_mod rdv (number - 1) number <> 1)
-    @@ rands_ (number - 1) 12
+  else List.for_all (fun rdv -> Maths.gcdiv rdv number == 1
+                                && Maths.power_mod rdv (number - 1) number == 1)
+    @@ rands_ number 12
 
 let distribute_ n =
   let rec distribute_' e p =
@@ -32,14 +29,27 @@ let test_miller number =
   else if number < 2 || number mod 2 = 0 || number mod 3 = 0
   then false
   else
-    let rec range acc n =
-      if n = 0
-      then 0 :: acc
-      else range (n :: acc) @@ n - 1 in
-    let e, m = distribute_ (number - 1) in
-    not
-    @@ List.exists (fun rdv ->
-        Maths.power_mod rdv m number <> 1
-        && List.for_all (fun i ->
-            (Maths.power_mod rdv ((1 lsl i) * m) number <> number - 1)) (range [] @@ e - 1))
-    @@ rands_ (number - 1) 12
+    <<<<<<< HEAD
+let rec range acc n =
+  if n = 0
+  then 0 :: acc
+  else range (n :: acc) @@ n - 1 in
+let e, m = distribute_ (number - 1) in
+not
+@@ List.exists (fun rdv ->
+    Maths.power_mod rdv m number <> 1
+    && List.for_all (fun i ->
+        (Maths.power_mod rdv ((1 lsl i) * m) number <> number - 1)) (range [] @@ e - 1))
+@@ rands_ (number - 1) 12
+   =======
+   let rec range lst n =
+     if n <= 1
+     then 0 :: lst
+     else range ((n - 1) :: lst) @@ n - 1 in
+   let s, d = distribute_ (number - 1) in
+   List.for_all (fun rdv ->
+       Maths.power_mod rdv d number == 1
+       || List.exists (fun s' -> (Maths.power_mod rdv ((1 lsl s') * d) number == number - 1))
+         (range [] s))
+   @@ rands_ number 12
+   >>>>>>> master

@@ -3,6 +3,7 @@ BUILD_DOC = _build/default/_doc
 BIN = bin
 DOC = doc
 CMXA = algolib.cmxa
+CMA = algolib.cma
 
 .PHONY : all clean refresh doc
 
@@ -18,6 +19,7 @@ algolib :
 	dune build
 	mkdir -p $(BIN)
 	ln -sfn ../$(BUILD_SRC)/$(CMXA) $(BIN)/$(CMXA)
+	ln -sfn ../$(DIR)/$(CMA) $(BIN)/$(CMA)
 
 doc :
 	dune build @doc
