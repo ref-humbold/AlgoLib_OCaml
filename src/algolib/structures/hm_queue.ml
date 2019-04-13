@@ -1,50 +1,53 @@
 (* Real-time Hood-Melville queue structure *)
-type 'a combining = Rev of int * 'a list * 'a list * 'a list * 'a list
-                  | Apd of int * 'a list * 'a list
-                  | End of 'a list
-                  | Null
-type 'a t = int * 'a list * 'a combining * int * 'a list
+type 'a rot = Rev of {len: int; frt: 'a list; rev_frt: 'a list; bck: 'a list; rev_bck: 'a list}
+            | Apd of {len: int; frt: 'a list; bck: 'a list}
+            | End of 'a list
+            | Null
+type 'a t = {front: int * 'a list; rotation: 'a rot; back: int * 'a list}
 
 exception EmptyQueue
 
-let create () = (0, [], Null, 0, [])
+let empty = {front=(0, []); rotation=Null; back=(0, [])}
 
-let is_empty (flen, ft, _, _, bk) =
-  match flen, ft, bk with
-  | 0, [], [] -> true
+let is_empty {front=(_, ft); back=(_, bk); _} =
+  match ft, bk with
+  | [], [] -> true
   | _ -> false
 
-let front (_, ft, _, _, _) =
+let front {front=(_, ft); _} =
   match ft with
   | x :: _ -> x
   | [] -> raise EmptyQueue
 
-let rebalance_ ((flen, ft, _, blen, bk) as q) =
-  let comb rs =
-    match rs with
-    | Rev (len, x :: ft', rft, y :: bk', rbk) -> Rev (len, ft', x :: rft, bk', y :: rbk)
-    | Rev (len, [], ft', [y], bk') -> Apd (len, ft', y :: bk')
-    | Apd (0, _, bk') -> End bk'
-    | Apd (len, x :: ft', bk') -> Apd (len, ft', x :: bk')
-    | Rev _ | Apd _ | End _ | Null -> rs in
-  let combine (flen', ft', rs', blen', bk') =
-    match comb (comb rs') with
+let rebalance_ ({front=(flen, ft); back=(blen, bk); _} as q) =
+  let comb rt =
+    match rt with
+    | Rev {len; frt=x :: ft'; rev_frt; bck=y :: bk'; rev_bck} ->
+      Rev {len; frt=ft'; rev_frt=x :: rev_frt; bck=bk'; rev_bck=y :: rev_bck}
+    | Rev {len; frt=[]; rev_frt; bck=[y]; rev_bck} ->
+      Apd {len; frt=rev_frt; bck=y :: rev_bck}
+    | Apd {len=0; bck; _} -> End bck
+    | Apd {len; frt=x :: ft'; bck} -> Apd {len; frt=ft'; bck=x :: bck}
+    | Rev _ | Apd _ | End _ | Null -> rt in
+  let combine {front=(flen', ft'); rotation=rt'; back=(blen', bk')} =
+    match comb (comb rt') with
     | End ft'' -> (flen', ft'', Null, blen', bk')
-    | (Rev _ as rs'') | (Apd _ as rs'') | (Null as rs'') ->
-      (flen', ft', rs'', blen', bk') in
+    | (Rev _ as rt'') | (Apd _ as rt'') | (Null as rt'') ->
+      (flen', ft', rt'', blen', bk') in
   if blen <= flen
   then combine q
-  else let rev = Rev (0, ft, [], bk, []) in combine (flen + blen, ft, rev, 0, [])
+  else let rev = Rev {len=0; frt=ft; rev_frt=[]; bck=bk; rev_bck=[]} in
+    combine {front=(flen + blen, ft); rotation=rev; back=(0, [])}
 
-let push x (flen, ft, rs, blen, bk) = rebalance_ (flen, ft, rs, blen + 1, x :: bk)
+let push x ({back=(blen, bk); _} as q) = rebalance_ {q with back=(blen + 1, x :: bk)}
 
-let pop (flen, ft, rs, blen, bk) =
-  let decrement rs =
-    match rs with
-    | Rev (len, ft, rft, bk, rbk) -> Rev (len - 1, ft, rft, bk, rbk)
-    | Apd (0, _, _ :: bk) -> End bk
-    | Apd (len, ft, bk) -> Apd (len - 1, ft, bk)
-    | End _ | Null -> rs in
+let pop {front=(flen, ft); rotation=rt; back} =
+  let decrement rt =
+    match rt with
+    | Rev ({len; _} as rv) -> Rev {rv with len=len - 1}
+    | Apd {len=0; bck=_ :: bk'; _} -> End bk'
+    | Apd ({len; _} as rv) -> Apd {rv with len=len - 1}
+    | End _ | Null -> rt in
   match ft with
-  | _ :: xs -> rebalance_ (flen - 1, xs, decrement rs, blen, bk)
+  | _ :: xs -> rebalance_ {front=(flen - 1, xs); rotation=decrement rt; back}
   | [] -> raise EmptyQueue

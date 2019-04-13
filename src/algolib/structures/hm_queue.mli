@@ -5,8 +5,8 @@ type 'a t
 (** Exception raised when retrieving or removing elements from empty queue. *)
 exception EmptyQueue
 
-(** [create ()] returns a new queue. *)
-val create: unit -> 'a t
+(** The empty queue. *)
+val empty: 'a t
 
 (** [is_empty q] checks if queue [q] is empty. *)
 val is_empty: 'a t -> bool
