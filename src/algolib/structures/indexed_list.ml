@@ -5,7 +5,7 @@ type 'a t = (int * 'a tree) list
 exception EmptyList
 exception InvalidIndex
 
-let create () = []
+let empty = []
 
 let is_empty ts =
   match ts with

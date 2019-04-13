@@ -8,8 +8,8 @@ exception EmptyList
 (** Exception raised when index is out of range. *)
 exception InvalidIndex
 
-(** [create ()] returns a new indexed list. *)
-val create: unit -> 'a t
+(** The empty indexed list. *)
+val empty: 'a t
 
 (** [is_empty lst] checks if indexed list [lst] is empty. *)
 val is_empty: 'a t -> bool

@@ -3,7 +3,7 @@ type 'a t = 'a list * 'a list
 
 exception EmptyDeque
 
-let create () = ([], [])
+let empty = ([], [])
 
 let is_empty dq =
   match dq with
@@ -12,14 +12,12 @@ let is_empty dq =
 
 let front dq =
   match dq with
-  | (e :: _, _) -> e
-  | ([], e :: _) -> e
+  | (e :: _, _) | ([], e :: _) -> e
   | ([], []) -> raise EmptyDeque
 
 let back dq =
   match dq with
-  | (_, e :: _) -> e
-  | (e :: _, []) -> e
+  | (_, e :: _) | (e :: _, []) -> e
   | ([], []) -> raise EmptyDeque
 
 let push_front e dq =
@@ -39,7 +37,7 @@ let balance_ d =
     match d' with
     | e :: ds ->
       if n > 0
-      then let nft, nbk = balance_' ds (n - 1) in (nft, e :: nbk)
+      then let ft', bk' = balance_' ds (n - 1) in (ft', e :: bk')
       else (List.rev d', [])
     | [] -> ([], []) in
   balance_' d @@ (List.length d) / 2
@@ -53,7 +51,7 @@ let pop_front dq =
 
 let pop_back dq =
   match dq with
-  | (ft, [_]) -> let nbk, nft = balance_ ft in (nft, nbk)
+  | (ft, [_]) -> let bk', ft' = balance_ ft in (ft', bk')
   | (ft, _ :: bk) -> (ft, bk)
   | (_ :: ft, []) -> (ft, [])
   | ([], []) -> raise EmptyDeque

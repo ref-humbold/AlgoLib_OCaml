@@ -5,8 +5,8 @@ type 'a t
 (** Exception raised when retrieving or removing elements from empty deque. *)
 exception EmptyDeque
 
-(** [create ()] returns a new deque. *)
-val create: unit -> 'a t
+(** The empty deque. *)
+val empty: 'a t
 
 (** [is_empty d] checks if deque [d] is empty. *)
 val is_empty: 'a t -> bool
