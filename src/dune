@@ -1,7 +1,7 @@
 (library
     (name algolib)
     (public_name algolib)
-    (modes native)
+    (modes native byte)
 )
 
 (env

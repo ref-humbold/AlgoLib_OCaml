@@ -1,6 +1,7 @@
 DIR = _build/install/default/lib/algolib
 BIN = bin
 CMXA = algolib.cmxa
+CMA = algolib.cma
 
 .PHONY : all clean refresh
 
@@ -16,3 +17,4 @@ algolib :
 	dune build
 	mkdir -p $(BIN)
 	ln -sfn ../$(DIR)/$(CMXA) $(BIN)/$(CMXA)
+	ln -sfn ../$(DIR)/$(CMA) $(BIN)/$(CMA)
