@@ -1,4 +1,4 @@
-(* Sorting algorithms *)
+(* Sorting algorithms. *)
 type point = float * float
 
 let angle_sort lst =

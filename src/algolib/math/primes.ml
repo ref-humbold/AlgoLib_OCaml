@@ -1,4 +1,4 @@
-(* Algorithms for prime numbers *)
+(* Algorithms for prime numbers. *)
 
 let rands_ maxim num =
   let rec rands_' m' n' = if n' = 0 then [] else (1 + Random.int m') :: (rands_' m' @@ n' - 1) in
