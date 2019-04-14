@@ -19,7 +19,7 @@ algolib :
 	dune build
 	mkdir -p $(BIN)
 	ln -sfn ../$(BUILD_SRC)/$(CMXA) $(BIN)/$(CMXA)
-	ln -sfn ../$(DIR)/$(CMA) $(BIN)/$(CMA)
+	ln -sfn ../$(BUILD_SRC)/$(CMA) $(BIN)/$(CMA)
 
 doc :
 	dune build @doc
