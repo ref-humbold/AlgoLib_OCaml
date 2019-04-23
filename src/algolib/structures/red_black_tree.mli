@@ -1,4 +1,4 @@
-(** Red-black tree structure. *)
+(** Red-black tree structure *)
 
 module type COMPARABLE =
 sig

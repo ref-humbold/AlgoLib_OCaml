@@ -1,4 +1,4 @@
-(* Disjoint sets structure (union-find). *)
+(* Disjoint sets structure (union-find) *)
 module type COMPARABLE =
 sig
   type t
@@ -35,9 +35,9 @@ struct
   let add_elem element dset =
     if not @@ Repr.mem element dset.map
     then begin
-        dset.size <- dset.size + 1;
-        dset.map <- Repr.add element element dset.map
-      end
+      dset.size <- dset.size + 1;
+      dset.map <- Repr.add element element dset.map
+    end
 
   let rec find_set element dset =
     let value = Repr.find element dset.map in
@@ -60,7 +60,7 @@ struct
     and repr2 = find_set element2 dset in
     if not @@ is_same_set repr1 repr2 dset
     then begin
-        dset.size <- dset.size - 1;
-        dset.map <- Repr.add repr1 repr2 dset.map
-      end
+      dset.size <- dset.size - 1;
+      dset.map <- Repr.add repr1 repr2 dset.map
+    end
 end

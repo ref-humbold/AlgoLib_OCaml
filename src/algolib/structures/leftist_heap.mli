@@ -1,4 +1,4 @@
-(** Leftist heap structure. *)
+(** Leftist heap structure *)
 
 module type COMPARABLE =
 sig
@@ -27,13 +27,15 @@ sig
   (** [merge h1 h2] joins heaps [h1] and [h2] together. *)
 
   val peek: t -> elem
-  (** [peek h] retrieves the least element from heap [h]. *)
+  (** [peek h] retrieves the least element from heap [h].
+      @raise EmptyHeap if heap is empty. *)
 
   val push: elem -> t -> t
   (** [push x h] adds [x] to heap [h]. *)
 
   val pop: t -> t
-  (** [pop h] removes the least element from heap [h]. *)
+  (** [pop h] removes the least element from heap [h].
+      @raise EmptyHeap if heap is empty. *)
 end
 
 module Make(Cmp: COMPARABLE): HEAP with type elem := Cmp.t

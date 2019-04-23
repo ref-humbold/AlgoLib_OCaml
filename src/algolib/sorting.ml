@@ -1,4 +1,4 @@
-(* Sorting algorithms. *)
+(* Sorting algorithms *)
 type point = float * float
 
 let angle_sort lst =
@@ -10,7 +10,7 @@ let angle_sort lst =
   let cmp p1 p2 = Pervasives.compare (angle p1, distance p1) (angle p2, distance p2) in
   List.sort cmp lst
 
-let merge_sort lst =
+let merge_sort cmp lst =
   let rec drop lst' n' =
     if n' > 0
     then match lst' with
@@ -21,7 +21,7 @@ let merge_sort lst =
     match lx, ly with
     | [], ls | ls, [] -> ls
     | x :: xs, y :: ys ->
-      if x <= y
+      if cmp x y
       then x :: (merge xs ly)
       else y :: (merge lx ys) in
   let rec msort lst' n' =

@@ -1,4 +1,4 @@
-(* Red-black tree structure. *)
+(* Red-black tree structure *)
 module type COMPARABLE =
 sig
   type t
@@ -74,13 +74,13 @@ struct
         then None
         else if cond < 0
         then begin match add' lt with
-            | Some lt' -> Some (rebalance_ c lt' y rt)
-            | None -> None
-          end
+          | Some lt' -> Some (rebalance_ c lt' y rt)
+          | None -> None
+        end
         else begin match add' rt with
-            | Some rt' -> Some (rebalance_ c lt y rt')
-            | None -> None
-          end
+          | Some rt' -> Some (rebalance_ c lt y rt')
+          | None -> None
+        end
       | Leaf -> Some (Node (Red, Leaf, x, Leaf)) in
     match add' t with
     | Some (Node (_, lt, y, rt)) -> (n + 1, Node (Black, lt, y, rt))

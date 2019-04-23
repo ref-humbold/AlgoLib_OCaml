@@ -1,4 +1,4 @@
-(** Real-time Hood-Melville queue structure. *)
+(** Real-time Hood-Melville queue structure *)
 
 type 'a t
 (** The type of queues containing elements of type 'a. *)
@@ -13,10 +13,12 @@ val is_empty: 'a t -> bool
 (** [is_empty q] checks if queue [q] is empty. *)
 
 val front: 'a t -> 'a
-(** [front q] retrieves element from the front of queue [q]. *)
+(** [front q] retrieves element from the front of queue [q].
+    @raise EmptyQueue if queue is empty. *)
 
 val push: 'a -> 'a t -> 'a t
 (** [push x d] adds element [x] at the back of queue [q]. *)
 
 val pop: 'a t -> 'a t
-(** [pop q] removes element from the front of queue [q]. *)
+(** [pop q] removes element from the front of queue [q].
+    @raise EmptyQueue if queue is empty. *)

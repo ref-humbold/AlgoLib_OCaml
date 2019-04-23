@@ -1,4 +1,4 @@
-(* Dynamic algorithm for maximum subarray. *)
+(* Dynamic algorithm for maximum subarray *)
 let find_maximum_subarray sequence =
   let push e (sum, arr) = (e +. sum, e :: arr) in
   let rec subarray sq actual maximal =
