@@ -1,4 +1,4 @@
-(* Red-black tree structure *)
+(* Red-black tree structure. *)
 module type COMPARABLE =
 sig
   type t
@@ -17,7 +17,7 @@ sig
   val add: elem -> t -> t
 end
 
-module Make(Cmp: COMPARABLE) =
+module Make(Cmp: COMPARABLE): RBTREE with type elem = Cmp.t =
 struct
   type elem = Cmp.t
   type colour = Black | Red

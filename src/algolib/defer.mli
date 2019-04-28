@@ -1,4 +1,4 @@
-(** Structure of defrerred computations with memoization *)
+(** Structure of defrerred computations with memoization. *)
 
 type 'a t
 (** The type of deferred computations. *)

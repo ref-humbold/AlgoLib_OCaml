@@ -1,4 +1,4 @@
-(** Indexed list structure *)
+(** Indexed list structure. *)
 
 type 'a t
 (** The type of indexed lists. *)

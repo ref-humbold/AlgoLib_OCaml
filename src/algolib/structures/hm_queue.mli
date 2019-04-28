@@ -1,4 +1,4 @@
-(** Real-time Hood-Melville queue structure *)
+(** Real-time Hood-Melville queue structure. *)
 
 type 'a t
 (** The type of queues containing elements of type 'a. *)

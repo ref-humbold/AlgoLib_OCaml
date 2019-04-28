@@ -1,4 +1,4 @@
-(** Leftist heap structure *)
+(** Leftist heap structure. *)
 
 module type COMPARABLE =
 sig
@@ -38,4 +38,4 @@ sig
       @raise EmptyHeap if heap is empty. *)
 end
 
-module Make(Cmp: COMPARABLE): HEAP with type elem := Cmp.t
+module Make(Cmp: COMPARABLE): HEAP with type elem = Cmp.t

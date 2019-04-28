@@ -1,4 +1,4 @@
-(** Red-black tree structure *)
+(** Red-black tree structure. *)
 
 module type COMPARABLE =
 sig
@@ -33,4 +33,4 @@ sig
   (** [add x t] adds [x] to tree [t]. *)
 end
 
-module Make(Cmp: COMPARABLE): RBTREE with type elem := Cmp.t
+module Make(Cmp: COMPARABLE): RBTREE with type elem = Cmp.t

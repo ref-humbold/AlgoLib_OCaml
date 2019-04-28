@@ -1,4 +1,4 @@
-(* Pairing heap structure *)
+(* Pairing heap structure. *)
 module type COMPARABLE =
 sig
   type t
@@ -18,7 +18,7 @@ sig
   val pop: t -> t
 end
 
-module Make(Cmp: COMPARABLE) =
+module Make(Cmp: COMPARABLE): HEAP with type elem = Cmp.t =
 struct
   type elem = Cmp.t
   type t = Null | Node of elem * t list

@@ -1,4 +1,4 @@
-(* Mathematics algorithms *)
+(* Mathematics algorithms. *)
 
 let gcdiv number1 number2 =
   let rec gcdiv' n1 n2 =

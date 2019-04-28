@@ -1,4 +1,4 @@
-(* Disjoint sets structure (union-find) *)
+(* Disjoint sets structure (union-find). *)
 module type COMPARABLE =
 sig
   type t
@@ -18,7 +18,7 @@ sig
   val union_set: elem -> elem -> t -> unit
 end
 
-module Make(Cmp: COMPARABLE) =
+module Make(Cmp: COMPARABLE): DISJOINT_SETS with type elem = Cmp.t =
 struct
   type elem = Cmp.t
 
