@@ -1,5 +1,5 @@
 (* Points on a plane. *)
-type point = float * float
+type point2d = float * float
 
 let angle (x, y) =
   if y >= 0.0
