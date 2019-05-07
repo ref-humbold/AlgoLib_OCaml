@@ -6,9 +6,9 @@ let find_maximum_subarray sequence =
     | e :: es ->
       if fst actual < 0.0
       then subarray sq (0.0, []) maximal
-      else let newer = push e actual in
-        if fst newer > fst maximal
-        then subarray es newer newer
-        else subarray es newer maximal
-    | [] -> List.rev @@ snd maximal in
+      else
+        let newer = push e actual in
+        if fst newer > fst maximal then subarray es newer newer else subarray es newer maximal
+    | [] -> List.rev @@ snd maximal
+  in
   subarray sequence (0.0, []) (0.0, [])
