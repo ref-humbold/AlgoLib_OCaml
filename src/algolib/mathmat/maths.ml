@@ -14,48 +14,25 @@ let mult_mod factor1 factor2 modulo =
   let rec mult' fc1 fc2 res step =
     if fc2 > 0
     then
-<<<<<<< HEAD
       let fc1'', res'' = step fc1 res in
-      if fc2 mod 2 = 1
-      then mult' fc1'' (fc2 / 2) res'' step
-      else mult' fc1'' (fc2 / 2) res step
-    else res in
-  if modulo < 0
-  then failwith "Negative modulo"
-  else let step_mod =
-         if modulo = 0
-         then fun fc1' res' -> (fc1' + fc1', fc1' + res')
-         else fun fc1' res' -> ((fc1' + fc1') mod modulo, (fc1' + res') mod modulo) in
-=======
-      let fc1'', res'' = step' factor1' res' in
-      if factor2' mod 2 = 1
-      then mult' fc1'' (factor2' / 2) res'' step'
-      else mult' fc1'' (factor2' / 2) res' step'
-    else res'
+      if fc2 mod 2 = 1 then mult' fc1'' (fc2 / 2) res'' step else mult' fc1'' (fc2 / 2) res step
+    else res
   in
   if modulo < 0
   then failwith "Negative modulo"
   else
-    let step =
+    let step_mod =
       if modulo = 0
       then fun fc1' res' -> (fc1' + fc1', fc1' + res')
       else fun fc1' res' -> ((fc1' + fc1') mod modulo, (fc1' + res') mod modulo)
     in
->>>>>>> master
     if factor1 < 0 && factor2 < 0
     then mult' (-factor1) (-factor2) 0 step_mod
     else if factor1 < 0
-<<<<<<< HEAD
-    then modulo - (mult' (-factor1) factor2 0 step_mod)
+    then modulo - mult' (-factor1) factor2 0 step_mod
     else if factor2 < 0
-    then modulo - (mult' factor1 (-factor2) 0 step_mod)
+    then modulo - mult' factor1 (-factor2) 0 step_mod
     else mult' factor1 factor2 0 step_mod
-=======
-    then modulo - mult' (-factor1) factor2 0 step
-    else if factor2 < 0
-    then modulo - mult' factor1 (-factor2) 0 step
-    else mult' factor1 factor2 0 step
->>>>>>> master
 
 let power_mod base expon modulo =
   let rec power' base' expon' res' =
