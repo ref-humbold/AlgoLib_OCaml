@@ -17,6 +17,7 @@ refresh : clean all
 
 algolib :
 	dune build
+	dune build @fmt --auto-promote > /dev/null 2> /dev/null; test $$? -le 1
 	mkdir -p $(BIN)
 	ln -sfn ../$(BUILD_SRC)/$(CMXA) $(BIN)/$(CMXA)
 	ln -sfn ../$(BUILD_SRC)/$(CMA) $(BIN)/$(CMA)
