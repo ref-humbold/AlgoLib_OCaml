@@ -12,7 +12,7 @@ let test_fermat number =
   then false
   else
     List.for_all (fun rdv ->
-        Maths.gcdiv rdv number == 1 && Maths.power_mod rdv (number - 1) number == 1)
+        Maths.gcdiv rdv number == 1 && Maths.power_mod rdv (number - 1) number == 1 )
     @@ rands_ number 12
 
 let distribute_ n =
@@ -33,5 +33,5 @@ let test_miller number =
         Maths.power_mod rdv d number == 1
         || List.exists
              (fun s' -> Maths.power_mod rdv ((1 lsl s') * d) number == number - 1)
-             (range [] s))
+             (range [] s) )
     @@ rands_ number 12

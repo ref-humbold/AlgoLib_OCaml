@@ -33,7 +33,7 @@ module Make (Cmp : COMPARABLE) : DISJOINT_SETS with type elem = Cmp.t = struct
     if not @@ Repr.mem element dset.map
     then (
       dset.size <- dset.size + 1 ;
-      dset.map <- Repr.add element element dset.map)
+      dset.map <- Repr.add element element dset.map )
 
   let rec find_set element dset =
     let value = Repr.find element dset.map in
@@ -53,5 +53,5 @@ module Make (Cmp : COMPARABLE) : DISJOINT_SETS with type elem = Cmp.t = struct
     if not @@ is_same_set repr1 repr2 dset
     then (
       dset.size <- dset.size - 1 ;
-      dset.map <- Repr.add repr1 repr2 dset.map)
+      dset.map <- Repr.add repr1 repr2 dset.map )
 end

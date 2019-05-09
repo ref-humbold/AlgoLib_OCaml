@@ -69,7 +69,7 @@ module Make (Cmp : COMPARABLE) : RBTREE with type elem = Cmp.t = struct
   let add x ((n, t) as s) =
     let rec add' t' =
       match t' with
-      | Node (c, lt, y, rt) -> (
+      | Node (c, lt, y, rt) ->
         let cond = Cmp.compare x y in
         if cond = 0
         then None
@@ -78,10 +78,10 @@ module Make (Cmp : COMPARABLE) : RBTREE with type elem = Cmp.t = struct
           match add' lt with
           | Some lt' -> Some (rebalance_ c lt' y rt)
           | None -> None
-        else
+        else (
           match add' rt with
           | Some rt' -> Some (rebalance_ c lt y rt')
-          | None -> None)
+          | None -> None )
       | Leaf -> Some (Node (Red, Leaf, x, Leaf))
     in
     match add' t with
