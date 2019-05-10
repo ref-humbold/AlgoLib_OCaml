@@ -1,24 +1,35 @@
 (* Binomial heap structure. *)
 module type COMPARABLE = sig
   type t
+
   val compare : t -> t -> int
 end
 
 module type HEAP = sig
   type elem
+
   type t
+
   exception EmptyHeap
+
   val empty : t
+
   val is_empty : t -> bool
+
   val merge : t -> t -> t
+
   val peek : t -> elem
+
   val push : elem -> t -> t
+
   val pop : t -> t
 end
 
 module Make (Cmp : COMPARABLE) : HEAP with type elem = Cmp.t = struct
   type elem = Cmp.t
+
   type bitree = Tree of elem * bitree list
+
   type t = (int * bitree) list
 
   exception EmptyHeap
