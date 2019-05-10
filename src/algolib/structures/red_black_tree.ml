@@ -1,25 +1,35 @@
 (* Red-black tree structure. *)
 module type COMPARABLE = sig
   type t
+
   val compare : t -> t -> int
 end
 
 module type RBTREE = sig
   type elem
+
   type t
 
   val empty : t
+
   val is_empty : t -> bool
+
   val size : t -> int
+
   val to_list : t -> elem list
+
   val contains : elem -> t -> bool
+
   val add : elem -> t -> t
 end
 
 module Make (Cmp : COMPARABLE) : RBTREE with type elem = Cmp.t = struct
   type elem = Cmp.t
+
   type colour = Black | Red
+
   type tree = Leaf | Node of colour * tree * elem * tree
+
   type t = int * tree
 
   let empty = (0, Leaf)

@@ -2,6 +2,7 @@
 
 module type COMPARABLE = sig
   type t
+
   val compare : t -> t -> int
 end
 

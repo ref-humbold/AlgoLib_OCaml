@@ -1,14 +1,12 @@
 (* Graham's algorithm for convex hull on a plane. *)
-type point = float * float
-
-let find_convex_hull (points : point list) =
+let find_convex_hull (points : Point_2d.point2d list) =
   let cross_product (p1X, p1Y) (p2X, p2Y) (p3X, p3Y) =
     ((p1X -. p2X) *. (p3Y -. p2Y)) -. ((p3X -. p2X) *. (p1Y -. p2Y))
   in
   let rec half_hull pts acc =
     match (pts, acc) with
     | p :: ps, h1 :: h2 :: _ ->
-      if cross_product h2 h1 p <= 0.0 then half_hull ps @@ List.tl acc else half_hull ps (p :: acc)
+      if cross_product h2 h1 p <= 0.0 then half_hull ps (List.tl acc) else half_hull ps (p :: acc)
     | p :: ps, _ -> half_hull ps (p :: acc)
     | [], acc -> acc
   in
