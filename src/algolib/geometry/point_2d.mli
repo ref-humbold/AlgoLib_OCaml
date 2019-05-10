@@ -9,3 +9,7 @@ val angle : point2d -> float
 
 val radius : point2d -> float
 (** [radius p] computes distance of point [p] from zero point. *)
+
+val compare : point2d -> point2d -> int
+(** [compare p1 p2] compares two points by their coordinates. First compares their X coordinate,
+    then Y coordinate. *)
