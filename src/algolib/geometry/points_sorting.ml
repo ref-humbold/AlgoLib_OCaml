@@ -7,6 +7,6 @@ let angle_sort lst =
   in
   List.sort cmp lst
 
-let sort_by_x lst = List.sort Point_2d.compare lst
+let sort_by_x lst = List.sort compare lst
 
-let sort_by_y lst = List.sort (fun (x1, y1) (x2, y2) -> Pervasives.compare (y1, x1) (y2, x2)) lst
+let sort_by_y lst = List.sort (fun (x1, y1) (x2, y2) -> compare (y1, x1) (y2, x2)) lst
