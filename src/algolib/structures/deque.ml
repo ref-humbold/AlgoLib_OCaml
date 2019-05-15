@@ -26,15 +26,15 @@ let push_front e dq =
   | [x1; x2], [y] -> ([e; x1], [y; x2])
   | ft, bk -> (e :: ft, bk)
 
-let (@>>) = push_front
+let (@++) = push_front
 
-let push_back e dq =
+let push_back dq e =
   match dq with
   | [], [x] -> ([x], [e])
   | [y], [x1; x2] -> ([y; x2], [e; x1])
   | ft, bk -> (ft, e :: bk)
 
-let (@<<) = push_back
+let (&++) = push_back
 
 let balance_ lst =
   let rec balance_' lst' ft n =
