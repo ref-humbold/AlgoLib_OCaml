@@ -29,7 +29,7 @@ val (@++) : 'a -> 'a t -> 'a t
 val push_back : 'a t -> 'a -> 'a t
 (** [push_back d x] adds element [x] at the back of deque [d]. *)
 
-val (&++) : 'a -> 'a t -> 'a t
+val (&++) : 'a t -> 'a -> 'a t
 (** [(&++)] is an alias of [push_back]. Left associative. *)
 
 val pop_front : 'a t -> 'a t
