@@ -26,7 +26,7 @@ let push_front e dq =
   | [x1; x2], [y] -> ([e; x1], [y; x2])
   | ft, bk -> (e :: ft, bk)
 
-let (@++) = push_front
+let ( @++ ) = push_front
 
 let push_back dq e =
   match dq with
@@ -34,18 +34,15 @@ let push_back dq e =
   | [y], [x1; x2] -> ([y; x2], [e; x1])
   | ft, bk -> (ft, e :: bk)
 
-let (&++) = push_back
+let ( &++ ) = push_back
 
 let balance_ lst =
   let rec balance_' lst' ft n =
     match lst' with
-    | e :: es ->
-      if n > 0
-      then balance_' es (e :: ft) (n - 1)
-      else (List.rev ft, List.rev lst')
+    | x :: xs -> if n > 0 then balance_' xs (x :: ft) (n - 1) else (List.rev ft, List.rev lst')
     | [] -> ([], [])
   in
-  balance_' lst [] @@ List.length lst / 2
+  balance_' lst [] (List.length lst / 2)
 
 let pop_front dq =
   match dq with
