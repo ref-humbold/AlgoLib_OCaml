@@ -23,8 +23,14 @@ val back : 'a t -> 'a
 val push_front : 'a -> 'a t -> 'a t
 (** [push_front x d] adds element [x] at the front of deque [d]. *)
 
-val push_back : 'a -> 'a t -> 'a t
-(** [push_back x d] adds element [x] at the back of deque [d]. *)
+val (@++) : 'a -> 'a t -> 'a t
+(** [(@++)] is an alias of [push_front]. Right associative. *)
+
+val push_back : 'a t -> 'a -> 'a t
+(** [push_back d x] adds element [x] at the back of deque [d]. *)
+
+val (&++) : 'a -> 'a t -> 'a t
+(** [(&++)] is an alias of [push_back]. Left associative. *)
 
 val pop_front : 'a t -> 'a t
 (** [pop_front d] removes element from the front element of deque [d].
