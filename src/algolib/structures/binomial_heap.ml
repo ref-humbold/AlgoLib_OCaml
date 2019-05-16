@@ -83,9 +83,8 @@ module Make (Cmp : COMPARABLE) : HEAP with type elem = Cmp.t = struct
       match h' with
       | [t] -> (t, [])
       | ((_, Tree (x, _)) as t) :: ts ->
-        ( match remove_min ts with
-        | ((_, Tree (y, _)) as tx), tsx -> if Cmp.compare x y <= 0 then (t, ts) else (tx, t :: tsx)
-        )
+        let ((_, Tree (y, _)) as tx), tsx = remove_min ts in
+        if Cmp.compare x y <= 0 then (t, ts) else (tx, t :: tsx)
       | [] -> raise EmptyHeap
     in
     let rec rank_trees rk ts acc =

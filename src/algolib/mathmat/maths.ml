@@ -1,14 +1,18 @@
 (* Mathematics algorithms. *)
 
-let ( **/ ) number1 number2 =
-  let rec gcdiv n1 n2 =
-    if n1 < n2 then gcdiv n2 n1 else if n2 = 0 then n1 else gcdiv n2 (n1 mod n2)
+let gcdiv number1 number2 =
+  let rec gcdiv' n1 n2 =
+    if n1 < n2 then gcdiv' n2 n1 else if n2 = 0 then n1 else gcdiv' n2 (n1 mod n2)
   in
-  gcdiv (abs number1) (abs number2)
+  gcdiv' (abs number1) (abs number2)
 
-let ( **^ ) number1 number2 =
-  let lcm n1 n2 = max n1 n2 / (n1 **/ n2) * min n1 n2 in
-  lcm (abs number1) (abs number2)
+let ( **/ ) = gcdiv
+
+let lcmul number1 number2 =
+  let lcmul' n1 n2 = max n1 n2 / (n1 **/ n2) * min n1 n2 in
+  lcmul' (abs number1) (abs number2)
+
+let ( **^ ) = lcmul
 
 let mult_mod factor1 factor2 modulo =
   let rec mult' factor1' factor2' res' step' =
