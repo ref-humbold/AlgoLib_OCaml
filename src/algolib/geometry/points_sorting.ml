@@ -1,9 +1,7 @@
 (* Points sorting algorithms. *)
 let angle_sort lst =
   let cmp p1 p2 =
-    Pervasives.compare
-      (Point_2d.angle p1, Point_2d.radius p1)
-      (Point_2d.angle p2, Point_2d.radius p2)
+    Pervasives.compare (Point2d.angle p1, Point2d.radius p1) (Point2d.angle p2, Point2d.radius p2)
   in
   List.sort cmp lst
 
