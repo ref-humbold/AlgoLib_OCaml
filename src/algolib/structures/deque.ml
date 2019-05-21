@@ -26,24 +26,23 @@ let push_front e dq =
   | [x1; x2], [y] -> ([e; x1], [y; x2])
   | ft, bk -> (e :: ft, bk)
 
-let push_back e dq =
+let ( @++ ) = push_front
+
+let push_back dq e =
   match dq with
   | [], [x] -> ([x], [e])
   | [y], [x1; x2] -> ([y; x2], [e; x1])
   | ft, bk -> (ft, e :: bk)
 
-let balance_ d =
-  let rec balance_' d' n =
-    match d' with
-    | e :: ds ->
-      if n > 0
-      then
-        let ft', bk' = balance_' ds (n - 1) in
-        (ft', e :: bk')
-      else (List.rev d', [])
+let ( &++ ) = push_back
+
+let balance_ lst =
+  let rec balance_' lst' ft n =
+    match lst' with
+    | x :: xs -> if n > 0 then balance_' xs (x :: ft) (n - 1) else (List.rev ft, List.rev lst')
     | [] -> ([], [])
   in
-  balance_' d (List.length d / 2)
+  balance_' lst [] (List.length lst / 2)
 
 let pop_front dq =
   match dq with
@@ -54,9 +53,7 @@ let pop_front dq =
 
 let pop_back dq =
   match dq with
-  | ft, [_] ->
-    let bk', ft' = balance_ ft in
-    (ft', bk')
+  | ft, [_] -> balance_ ft
   | ft, _ :: bk -> (ft, bk)
   | _ :: ft, [] -> (ft, [])
   | [], [] -> raise EmptyDeque

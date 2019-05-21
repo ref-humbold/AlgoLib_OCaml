@@ -5,6 +5,8 @@ type 'a t = 'a mem ref
 
 let defer f = ref (Deferred f)
 
+let ( ~$ ) = defer
+
 let force d =
   match !d with
   | Value v -> v
@@ -12,3 +14,5 @@ let force d =
     let v = f () in
     d := Value v ;
     v
+
+let ( !$ ) = force
