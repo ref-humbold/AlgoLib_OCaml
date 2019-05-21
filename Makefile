@@ -5,9 +5,9 @@ DOC = doc
 CMXA = algolib.cmxa
 CMA = algolib.cma
 
-.PHONY : all clean refresh doc
+.PHONY : all clean refresh format doc
 
-all : fmt algolib
+all : format algolib
 
 clean :
 	rm -fr $(BIN) $(DOC)
@@ -21,7 +21,7 @@ algolib :
 	ln -sfn ../$(BUILD_SRC)/$(CMXA) $(BIN)/$(CMXA)
 	ln -sfn ../$(BUILD_SRC)/$(CMA) $(BIN)/$(CMA)
 
-fmt :
+format :
 	dune build @fmt --auto-promote > /dev/null 2> /dev/null; test $$? -le 1
 
 doc :
