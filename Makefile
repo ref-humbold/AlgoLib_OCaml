@@ -5,9 +5,9 @@ DOC = doc
 CMXA = algolib.cmxa
 CMA = algolib.cma
 
-.PHONY : all clean refresh format doc
+.PHONY : all clean refresh test format doc
 
-all : format algolib
+all : algolib test
 
 clean :
 	rm -fr $(BIN) $(DOC)
@@ -15,11 +15,14 @@ clean :
 
 refresh : clean all
 
-algolib :
+algolib : format
 	dune build
 	mkdir -p $(BIN)
 	ln -sfn ../$(BUILD_SRC)/$(CMXA) $(BIN)/$(CMXA)
 	ln -sfn ../$(BUILD_SRC)/$(CMA) $(BIN)/$(CMA)
+
+test :
+	dune runtest
 
 format :
 	dune build @fmt --auto-promote > /dev/null 2> /dev/null; test $$? -le 1

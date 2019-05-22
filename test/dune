@@ -1,0 +1,8 @@
+(tests
+ (names maths_test)
+ (libraries oUnit algolib))
+
+(env
+ (dev
+  (flags
+   (:standard -warn-error -A -w +A))))
