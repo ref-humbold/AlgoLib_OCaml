@@ -14,7 +14,7 @@ let lcmul number1 number2 =
 
 let ( **^ ) = lcmul
 
-let mult_mod factor1 factor2 modulo =
+let mult_mod ?(modulo = 0) factor1 factor2 =
   let rec mult' fc1 fc2 res step =
     if fc2 > 0
     then
@@ -38,17 +38,17 @@ let mult_mod factor1 factor2 modulo =
     then modulo - mult' factor1 (-factor2) 0 step_mod
     else mult' factor1 factor2 0 step_mod
 
-let power_mod base expon modulo =
+let power_mod ?(modulo = 0) base expon =
   let rec power' base' expon' res' =
     if expon' > 0
     then
       if expon' mod 2 = 1
-      then power' (mult_mod base' base' modulo) (expon' / 2) (mult_mod base' res' modulo)
-      else power' (mult_mod base' base' modulo) (expon' / 2) res'
+      then power' (mult_mod ~modulo base' base') (expon' / 2) (mult_mod ~modulo base' res')
+      else power' (mult_mod ~modulo base' base') (expon' / 2) res'
     else res'
   in
-  if modulo <= 0
-  then failwith "Non-positive modulo"
+  if modulo < 0
+  then failwith "Negative modulo"
   else if expon < 0
   then failwith "Negative exponent"
   else if base = 0 && expon = 0
