@@ -2,6 +2,8 @@ BUILD_SRC = _build/default/src
 BUILD_DOC = _build/default/_doc
 BIN = bin
 DOC = doc
+SRC = src
+TEST = test
 CMXA = algolib.cmxa
 CMA = algolib.cma
 
@@ -26,6 +28,8 @@ test :
 
 format :
 	dune build @fmt --auto-promote > /dev/null 2> /dev/null; test $$? -le 1
+	for F in $$(find $(SRC) -regextype egrep -regex '.+\.mli?'); do ocp-indent -i $$F; done
+	for F in $$(find $(TEST) -regextype egrep -regex '.+\.mli?'); do ocp-indent -i $$F; done
 
 doc :
 	dune build @doc

@@ -67,13 +67,13 @@ module Make (Cmp : COMPARABLE) : RBTREE with type elem = Cmp.t = struct
     | Black, a, x, Node (Red, Node (Red, b, y, c), z, d) ->
       Node (Red, Node (Black, a, x, b), y, Node (Black, c, z, d))
     | Black, Node _, _, Node _
-     |Black, Node _, _, Leaf
-     |Black, Leaf, _, Node _
-     |Black, Leaf, _, Leaf
-     |Red, Node _, _, Node _
-     |Red, Node _, _, Leaf
-     |Red, Leaf, _, Node _
-     |Red, Leaf, _, Leaf ->
+    |Black, Node _, _, Leaf
+    |Black, Leaf, _, Node _
+    |Black, Leaf, _, Leaf
+    |Red, Node _, _, Node _
+    |Red, Node _, _, Leaf
+    |Red, Leaf, _, Node _
+    |Red, Leaf, _, Leaf ->
       Node (c, lt, e, rt)
 
   let add x ((n, t) as s) =
