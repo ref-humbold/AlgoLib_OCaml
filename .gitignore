@@ -1,6 +1,7 @@
 # OCaml, Dune, ODoc
 _build
-bin
-doc
 *.install
 **/.merlin
+doc
+algolib.cma
+algolib.cmxa

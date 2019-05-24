@@ -1,27 +1,25 @@
 BUILD_SRC = _build/default/src
-BUILD_DOC = _build/default/_doc
-BIN = bin
+BUILD_DOC_HTML = _build/default/_doc/_html
 DOC = doc
 SRC = src
 TEST = test
-CMXA = algolib.cmxa
-CMA = algolib.cma
+ALGOLIB_CMXA = algolib.cmxa
+ALGOLIB_CMA = algolib.cma
 
-.PHONY : all clean refresh test format doc
+.PHONY : all clean compile doc format refresh test
 
-all : algolib test
+all : format compile test
 
 clean :
-	rm -fr $(BIN) $(DOC)
+	rm -fr $(ALGOLIB_CMXA) $(ALGOLIB_CMA) $(DOC)
 	dune clean
 
 refresh : clean all
 
-algolib : format
+compile :
 	dune build
-	mkdir -p $(BIN)
-	ln -sfn ../$(BUILD_SRC)/$(CMXA) $(BIN)/$(CMXA)
-	ln -sfn ../$(BUILD_SRC)/$(CMA) $(BIN)/$(CMA)
+	ln -sfn $(BUILD_SRC)/$(ALGOLIB_CMXA)
+	ln -sfn $(BUILD_SRC)/$(ALGOLIB_CMA)
 
 test :
 	dune runtest
@@ -33,4 +31,4 @@ format :
 
 doc :
 	dune build @doc
-	ln -sfn ./$(BUILD_DOC)/_html $(DOC)
+	ln -sfn $(BUILD_DOC_HTML) $(DOC)
