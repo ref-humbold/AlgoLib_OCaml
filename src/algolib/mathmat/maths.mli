@@ -12,11 +12,11 @@ val lcmul : int -> int -> int
 val ( **^ ) : int -> int -> int
 (** [( **/ )] is an infix alias of [lcmul]. Right associative. *)
 
-val mult_mod : int -> int -> int -> int
-(** [mult_mod f1 f2 m] performs fast integer multiplication of [f1] and [f2] taken modulo [m].
+val mult_mod : ?modulo:int -> int -> int -> int
+(** [mult_mod ?m f1 f2] performs fast integer multiplication of [f1] and [f2] taken modulo [m].
     @raise Failure if arithmetic error occurs. *)
 
-val power_mod : int -> int -> int -> int
-(** [power_mod b e m] performs fast integer exponentiation of [b] to the power of [e] taken modulo
+val power_mod : ?modulo:int -> int -> int -> int
+(** [power_mod ?m b e] performs fast integer exponentiation of [b] to the power of [e] taken modulo
     [m].
     @raise Failure if arithmetic error occurs. *)
