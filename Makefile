@@ -1,29 +1,30 @@
 BUILD_SRC = _build/default/src
-BUILD_DOC = _build/default/_doc
+BUILD_DOC = _build/default/_doc/_html
 BIN = bin
+SRC = src
 DOC = doc
 CMXA = algolib.cmxa
 CMA = algolib.cma
 
 .PHONY : all clean refresh format doc
 
-all : format algolib
+all : format compile
 
 clean :
-	rm -fr $(BIN) $(DOC)
+	rm -fr $(CMA) $(CMXA) $(DOC)
 	dune clean
 
 refresh : clean all
 
-algolib :
+compile :
 	dune build
-	mkdir -p $(BIN)
-	ln -sfn ../$(BUILD_SRC)/$(CMXA) $(BIN)/$(CMXA)
-	ln -sfn ../$(BUILD_SRC)/$(CMA) $(BIN)/$(CMA)
+	ln -sfn $(BUILD_SRC)/$(CMXA) $(CMXA)
+	ln -sfn $(BUILD_SRC)/$(CMA) $(CMA)
 
 format :
 	dune build @fmt --auto-promote > /dev/null 2> /dev/null; test $$? -le 1
+	for F in $$(find $(SRC) -regextype egrep -regex '.+\.mli?'); do ocp-indent -i $$F; done
 
 doc :
 	dune build @doc
-	ln -sfn ./$(BUILD_DOC)/_html $(DOC)
+	ln -sfn $(BUILD_DOC) $(DOC)
