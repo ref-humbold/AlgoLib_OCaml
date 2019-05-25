@@ -30,8 +30,8 @@ let test_miller number =
     let rec range lst n = if n <= 1 then 0 :: lst else range ((n - 1) :: lst) (n - 1) in
     let s, d = distribute_ (number - 1) in
     List.for_all (fun rdv ->
-        power_mod ~modulo:number rdv d == 1
-        || List.exists
-          (fun s' -> power_mod ~modulo:number rdv ((1 lsl s') * d) == number - 1)
-          (range [] s) )
+                   power_mod ~modulo:number rdv d == 1
+                   || List.exists
+                     (fun s' -> power_mod ~modulo:number rdv ((1 lsl s') * d) == number - 1)
+                     (range [] s) )
     @@ rands_ number 12
