@@ -1,7 +1,11 @@
-# OCaml, Dune, ODoc
+# [ OCaml ]
+# output
+bin
+
+# Dune
 _build
 *.install
 **/.merlin
+
+# ODoc
 doc
-algolib.cma
-algolib.cmxa
