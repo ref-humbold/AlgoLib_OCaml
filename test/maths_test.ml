@@ -1,38 +1,39 @@
+(* Tests: Basic mathematics algorithms. *)
 open OUnit2
 open Algolib.Maths
 
 (* gcdiv *)
 
 let test_gcdiv_when_numbers_are_composite =
-  "test_gcdiv_when_numbers_are_composite"
+  "Greatest common divisor of two composite numbers"
   >:: fun _ ->
     let number1 = 161 and number2 = 46 in
     let result = number1 **/ number2 in
     assert_equal ~printer:string_of_int 23 result
 
 let test_gcdiv_when_numbers_are_prime =
-  "test_gcdiv_when_numbers_are_prime"
+  "Greatest common divisor of two prime numbers"
   >:: fun _ ->
     let number1 = 127 and number2 = 41 in
     let result = number1 **/ number2 in
     assert_equal ~printer:string_of_int 1 result
 
 let test_gcdiv_when_numbers_are_mutually_prime =
-  "test_gcdiv_when_numbers_are_mutually_prime"
+  "Greatest common divisor of two mutually prime numbers"
   >:: fun _ ->
     let number1 = 119 and number2 = 57 in
     let result = number1 **/ number2 in
     assert_equal ~printer:string_of_int 1 result
 
 let test_gcdiv_when_one_of_numbers_is_multiple_of_another =
-  "test_gcdiv_when_one_of_numbers_is_multiple_of_another"
+  "Greatest common divisor of multiple"
   >:: fun _ ->
     let number1 = 272 and number2 = 34 in
     let result = number1 **/ number2 in
     assert_equal ~printer:string_of_int number2 result
 
 let test_gcdiv_when_one_of_numbers_is_zero =
-  "test_gcdiv_when_one_of_numbers_is_zero"
+  "Greatest common divisor with zero"
   >:: fun _ ->
     let number1 = 96 and number2 = 0 in
     let result = number1 **/ number2 in
@@ -41,35 +42,35 @@ let test_gcdiv_when_one_of_numbers_is_zero =
 (* lcmul *)
 
 let test_lcmul_when_numbers_are_composite =
-  "test_lcmul_when_numbers_are_composite"
+  "Lowest common multiple of two composite numbers"
   >:: fun _ ->
     let number1 = 161 and number2 = 46 in
     let result = number1 **^ number2 in
     assert_equal ~printer:string_of_int 322 result
 
 let test_lcmul_when_numbers_are_prime =
-  "test_lcmul_when_numbers_are_prime"
+  "Lowest common multiple of two prime numbers"
   >:: fun _ ->
     let number1 = 127 and number2 = 41 in
     let result = number1 **^ number2 in
     assert_equal ~printer:string_of_int 5207 result
 
 let test_lcmul_when_numbers_are_mutually_prime =
-  "test_lcmul_when_numbers_are_mutually_prime"
+  "Lowest common multiple of two mutually prime numbers"
   >:: fun _ ->
     let number1 = 119 and number2 = 57 in
     let result = number1 **^ number2 in
     assert_equal ~printer:string_of_int 6783 result
 
 let test_lcmul_when_one_of_numbers_is_multiple_of_another =
-  "test_lcmul_when_one_of_numbers_is_multiple_of_another"
+  "Lowest common multiple with multiple"
   >:: fun _ ->
     let number1 = 272 and number2 = 34 in
     let result = number1 **^ number2 in
     assert_equal ~printer:string_of_int number1 result
 
 let test_lcmul_when_one_of_numbers_is_zero =
-  "test_lcmul_when_one_of_numbers_is_zero"
+  "Lowest common multiple with zero"
   >:: fun _ ->
     let number1 = 96 and number2 = 0 in
     let result = number1 **^ number2 in
@@ -229,7 +230,7 @@ let test_mult_mod_when_modulo_is_negative =
 (* maths test *)
 
 let maths_test =
-  "maths_test"
+  "Tests for basic mathematics algorithms"
   >::: [ test_gcdiv_when_numbers_are_composite; test_gcdiv_when_numbers_are_prime;
          test_gcdiv_when_numbers_are_mutually_prime;
          test_gcdiv_when_one_of_numbers_is_multiple_of_another;
