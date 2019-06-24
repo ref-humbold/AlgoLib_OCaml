@@ -4,35 +4,35 @@ open Algolib.Maths
 
 (* gcdiv *)
 
-let test_gcdiv_when_numbers_are_composite =
+let gcdiv_when_numbers_are_composite_then_returns_gcd =
   "Greatest common divisor of two composite numbers"
   >:: fun _ ->
     let number1 = 161 and number2 = 46 in
     let result = number1 **/ number2 in
     assert_equal ~printer:string_of_int 23 result
 
-let test_gcdiv_when_numbers_are_prime =
+let gcdiv_when_numbers_are_prime_then_returns_one =
   "Greatest common divisor of two prime numbers"
   >:: fun _ ->
     let number1 = 127 and number2 = 41 in
     let result = number1 **/ number2 in
     assert_equal ~printer:string_of_int 1 result
 
-let test_gcdiv_when_numbers_are_mutually_prime =
+let gcdiv_when_numbers_are_mutually_prime_then_returns_one =
   "Greatest common divisor of two mutually prime numbers"
   >:: fun _ ->
     let number1 = 119 and number2 = 57 in
     let result = number1 **/ number2 in
     assert_equal ~printer:string_of_int 1 result
 
-let test_gcdiv_when_one_of_numbers_is_multiple_of_another =
+let gcdiv_when_number1_is_multiple_of_number2_then_returns_second =
   "Greatest common divisor of multiple"
   >:: fun _ ->
     let number1 = 272 and number2 = 34 in
     let result = number1 **/ number2 in
     assert_equal ~printer:string_of_int number2 result
 
-let test_gcdiv_when_one_of_numbers_is_zero =
+let gcdiv_when_number2_is_zero_then_returns_number1 =
   "Greatest common divisor with zero"
   >:: fun _ ->
     let number1 = 96 and number2 = 0 in
@@ -41,35 +41,35 @@ let test_gcdiv_when_one_of_numbers_is_zero =
 
 (* lcmul *)
 
-let test_lcmul_when_numbers_are_composite =
+let lcmul_when_numbers_are_composite_then_returns_lcm =
   "Lowest common multiple of two composite numbers"
   >:: fun _ ->
     let number1 = 161 and number2 = 46 in
     let result = number1 **^ number2 in
     assert_equal ~printer:string_of_int 322 result
 
-let test_lcmul_when_numbers_are_prime =
+let lcmul_when_numbers_are_prime_then_returns_product =
   "Lowest common multiple of two prime numbers"
   >:: fun _ ->
     let number1 = 127 and number2 = 41 in
     let result = number1 **^ number2 in
     assert_equal ~printer:string_of_int 5207 result
 
-let test_lcmul_when_numbers_are_mutually_prime =
+let lcmul_when_numbers_are_mutually_prime_then_returns_product =
   "Lowest common multiple of two mutually prime numbers"
   >:: fun _ ->
     let number1 = 119 and number2 = 57 in
     let result = number1 **^ number2 in
     assert_equal ~printer:string_of_int 6783 result
 
-let test_lcmul_when_one_of_numbers_is_multiple_of_another =
+let lcmul_when_number1_is_multiple_of_number2_then_returns_number1 =
   "Lowest common multiple with multiple"
   >:: fun _ ->
     let number1 = 272 and number2 = 34 in
     let result = number1 **^ number2 in
     assert_equal ~printer:string_of_int number1 result
 
-let test_lcmul_when_one_of_numbers_is_zero =
+let lcmul_when_number2_is_zero_then_returns_zero =
   "Lowest common multiple with zero"
   >:: fun _ ->
     let number1 = 96 and number2 = 0 in
@@ -78,71 +78,71 @@ let test_lcmul_when_one_of_numbers_is_zero =
 
 (* power_mod *)
 
-let test_power_mod_when_base_is_zero =
-  "test_power_mod_when_base_is_zero"
+let power_mod_when_base_is_zero_then_returns_zero =
+  "power_mod_when_base_is_zero"
   >:: fun _ ->
     let number1 = 0 and number2 = 14 in
     let result = power_mod number1 number2 in
     assert_equal ~printer:string_of_int number1 result
 
-let test_power_mod_when_exponent_is_zero =
-  "test_power_mod_when_exponent_is_zero"
+let power_mod_when_exponent_is_zero_then_returns_one =
+  "power_mod_when_exponent_is_zero"
   >:: fun _ ->
     let number1 = 14 and number2 = 0 in
     let result = power_mod number1 number2 in
     assert_equal ~printer:string_of_int 1 result
 
-let test_power_mod_when_base_and_exponent_are_zero =
-  "test_power_mod_when_base_and_exponent_are_zero"
+let power_mod_when_base_and_exponent_are_zero_then_raises_failure =
+  "power_mod_when_base_and_exponent_are_zero"
   >:: fun _ ->
     let number1 = 0 and number2 = 0 in
     let result () = power_mod number1 number2 in
     assert_raises (Failure "Not a number") result
 
-let test_power_mod_when_base_and_exponent_are_positive =
-  "test_power_mod_when_base_and_exponent_are_positive"
+let power_mod_when_base_and_exponent_are_positive =
+  "power_mod_when_base_and_exponent_are_positive"
   >:: fun _ ->
     let number1 = 3 and number2 = 10 in
     let result = power_mod number1 number2 in
     assert_equal ~printer:string_of_int 59049 result
 
-let test_power_mod_when_base_is_negative_and_exponent_is_even =
-  "test_power_mod_when_base_is_negative_and_exponent_is_even"
+let power_mod_when_base_is_negative_and_exponent_is_even =
+  "power_mod_when_base_is_negative_and_exponent_is_even"
   >:: fun _ ->
     let number1 = -3 and number2 = 10 in
     let result = power_mod number1 number2 in
     assert_equal ~printer:string_of_int 59049 result
 
-let test_power_mod_when_base_is_negative_and_exponent_is_odd =
-  "test_power_mod_when_base_is_negative_and_exponent_is_odd"
+let power_mod_when_base_is_negative_and_exponent_is_odd =
+  "power_mod_when_base_is_negative_and_exponent_is_odd"
   >:: fun _ ->
     let number1 = -3 and number2 = 9 in
     let result = power_mod number1 number2 in
     assert_equal ~printer:string_of_int (-19683) result
 
-let test_power_mod_when_exponent_is_negative =
-  "test_power_mod_when_exponent_is_negative"
+let power_mod_when_exponent_is_negative_then_raises_failure =
+  "power_mod_when_exponent_is_negative"
   >:: fun _ ->
     let number1 = 3 and number2 = -10 in
     let result () = power_mod number1 number2 in
     assert_raises (Failure "Negative exponent") result
 
-let test_power_mod_when_modulo_and_base_are_positive =
-  "test_power_mod_when_modulo_and_base_are_positive"
+let power_mod_when_modulo_and_base_are_positive =
+  "power_mod_when_modulo_and_base_are_positive"
   >:: fun _ ->
     let number1 = 5 and number2 = 11 and number3 = 10000 in
     let result = power_mod ~modulo:number3 number1 number2 in
     assert_equal ~printer:string_of_int 8125 result
 
-let test_power_mod_when_modulo_is_positive_and_base_is_negative =
-  "test_power_mod_when_modulo_is_positive_and_base_is_negative"
+let power_mod_when_modulo_is_positive_and_base_is_negative =
+  "power_mod_when_modulo_is_positive_and_base_is_negative"
   >:: fun _ ->
     let number1 = -5 and number2 = 11 and number3 = 10000 in
     let result = power_mod ~modulo:number3 number1 number2 in
     assert_equal ~printer:string_of_int 1875 result
 
-let test_power_mod_when_modulo_is_negative =
-  "test_power_mod_when_modulo_is_negative"
+let power_mod_when_modulo_is_negative_then_raises_failure =
+  "power_mod_when_modulo_is_negative"
   >:: fun _ ->
     let number1 = 5 and number2 = 11 and number3 = -10000 in
     let result () = power_mod ~modulo:number3 number1 number2 in
@@ -150,78 +150,78 @@ let test_power_mod_when_modulo_is_negative =
 
 (* mult_mod *)
 
-let test_mult_mod_when_factor1_is_zero =
-  "test_mult_mod_when_factor1_is_zero"
+let mult_mod_when_factor1_is_zero_then_returns_zero =
+  "mult_mod_when_factor1_is_zero"
   >:: fun _ ->
     let number1 = 0 and number2 = 14 in
     let result = mult_mod number1 number2 in
     assert_equal ~printer:string_of_int number1 result
 
-let test_mult_mod_when_factor2_is_zero =
-  "test_mult_mod_when_factor2_is_zero"
+let mult_mod_when_factor2_is_zero_then_returns_zero =
+  "mult_mod_when_factor2_is_zero"
   >:: fun _ ->
     let number1 = 14 and number2 = 0 in
     let result = mult_mod number1 number2 in
     assert_equal ~printer:string_of_int number2 result
 
-let test_mult_mod_when_factors_are_zero =
-  "test_mult_mod_when_factors_are_zero"
+let mult_mod_when_factors_are_zero_then_returns_zero =
+  "mult_mod_when_factors_are_zero"
   >:: fun _ ->
     let number1 = 0 and number2 = 0 in
     let result = mult_mod number1 number2 in
     assert_equal ~printer:string_of_int number1 result
 
-let test_mult_mod_when_factor1_is_negative_and_factor2_is_positive =
-  "test_mult_mod_when_factor1_is_negative_and_factor2_is_positive"
+let mult_mod_when_factor1_is_negative_and_factor2_is_positive =
+  "mult_mod_when_factor1_is_negative_and_factor2_is_positive"
   >:: fun _ ->
     let number1 = -3 and number2 = 10 in
     let result = mult_mod number1 number2 in
     assert_equal ~printer:string_of_int (-30) result
 
-let test_mult_mod_when_factor1_is_positive_and_factor2_is_negative =
-  "test_mult_mod_when_factor1_is_positive_and_factor2_is_negative"
+let mult_mod_when_factor1_is_positive_and_factor2_is_negative =
+  "mult_mod_when_factor1_is_positive_and_factor2_is_negative"
   >:: fun _ ->
     let number1 = 3 and number2 = -10 in
     let result = mult_mod number1 number2 in
     assert_equal ~printer:string_of_int (-30) result
 
-let test_mult_mod_when_factors_are_negative =
-  "test_mult_mod_when_factors_are_negative"
+let mult_mod_when_factors_are_negative =
+  "mult_mod_when_factors_are_negative"
   >:: fun _ ->
     let number1 = -3 and number2 = -10 in
     let result = mult_mod number1 number2 in
     assert_equal ~printer:string_of_int 30 result
 
-let test_mult_mod_when_modulo_and_factors_are_positive =
-  "test_mult_mod_when_modulo_and_factors_are_positive"
+let mult_mod_when_modulo_and_factors_are_positive =
+  "mult_mod_when_modulo_and_factors_are_positive"
   >:: fun _ ->
     let number1 = 547 and number2 = 312 and number3 = 10000 in
     let result = mult_mod ~modulo:number3 number1 number2 in
     assert_equal ~printer:string_of_int 664 result
 
-let test_mult_mod_when_modulo_is_positive_and_factor1_is_negative =
-  "test_mult_mod_when_modulo_is_positive_and_factor1_is_negative"
+let mult_mod_when_modulo_is_positive_and_factor1_is_negative =
+  "mult_mod_when_modulo_is_positive_and_factor1_is_negative"
   >:: fun _ ->
     let number1 = -547 and number2 = 312 and number3 = 10000 in
     let result = mult_mod ~modulo:number3 number1 number2 in
     assert_equal ~printer:string_of_int 9336 result
 
-let test_mult_mod_when_modulo_is_positive_and_factor2_is_negative =
-  "test_mult_mod_when_modulo_is_positive_and_factor2_is_negative"
+let mult_mod_when_modulo_is_positive_and_factor2_is_negative =
+  "mult_mod_when_modulo_is_positive_and_factor2_is_negative"
   >:: fun _ ->
     let number1 = 547 and number2 = -312 and number3 = 10000 in
     let result = mult_mod ~modulo:number3 number1 number2 in
     assert_equal ~printer:string_of_int 9336 result
 
-let test_mult_mod_when_modulo_is_positive_and_factors_are_negative =
-  "test_mult_mod_when_modulo_is_positive_and_factors_are_negative"
+let mult_mod_when_modulo_is_positive_and_factors_are_negative =
+  "mult_mod_when_modulo_is_positive_and_factors_are_negative"
   >:: fun _ ->
     let number1 = -547 and number2 = -312 and number3 = 10000 in
     let result = mult_mod ~modulo:number3 number1 number2 in
     assert_equal ~printer:string_of_int 664 result
 
-let test_mult_mod_when_modulo_is_negative =
-  "test_mult_mod_when_modulo_is_negative"
+let mult_mod_when_modulo_is_negative_then_raises_failure =
+  "mult_mod_when_modulo_is_negative"
   >:: fun _ ->
     let number1 = 547 and number2 = 312 and number3 = -10000 in
     let result () = mult_mod ~modulo:number3 number1 number2 in
@@ -231,29 +231,35 @@ let test_mult_mod_when_modulo_is_negative =
 
 let maths_test =
   "Tests for basic mathematics algorithms"
-  >::: [ test_gcdiv_when_numbers_are_composite; test_gcdiv_when_numbers_are_prime;
-         test_gcdiv_when_numbers_are_mutually_prime;
-         test_gcdiv_when_one_of_numbers_is_multiple_of_another;
-         test_gcdiv_when_one_of_numbers_is_zero; test_lcmul_when_numbers_are_composite;
-         test_lcmul_when_numbers_are_prime; test_lcmul_when_numbers_are_mutually_prime;
-         test_lcmul_when_one_of_numbers_is_multiple_of_another;
-         test_lcmul_when_one_of_numbers_is_zero; test_power_mod_when_base_is_zero;
-         test_power_mod_when_exponent_is_zero; test_power_mod_when_base_and_exponent_are_zero;
-         test_power_mod_when_base_and_exponent_are_positive;
-         test_power_mod_when_base_is_negative_and_exponent_is_even;
-         test_power_mod_when_base_is_negative_and_exponent_is_odd;
-         test_power_mod_when_exponent_is_negative;
-         test_power_mod_when_modulo_and_base_are_positive;
-         test_power_mod_when_modulo_is_positive_and_base_is_negative;
-         test_power_mod_when_modulo_is_negative; test_mult_mod_when_factor1_is_zero;
-         test_mult_mod_when_factor2_is_zero; test_mult_mod_when_factors_are_zero;
-         test_mult_mod_when_factor1_is_negative_and_factor2_is_positive;
-         test_mult_mod_when_factor1_is_positive_and_factor2_is_negative;
-         test_mult_mod_when_factors_are_negative;
-         test_mult_mod_when_modulo_and_factors_are_positive;
-         test_mult_mod_when_modulo_is_positive_and_factor1_is_negative;
-         test_mult_mod_when_modulo_is_positive_and_factor2_is_negative;
-         test_mult_mod_when_modulo_is_positive_and_factors_are_negative;
-         test_mult_mod_when_modulo_is_negative ]
+  >::: [ gcdiv_when_numbers_are_composite_then_returns_gcd;
+         gcdiv_when_numbers_are_prime_then_returns_one;
+         gcdiv_when_numbers_are_mutually_prime_then_returns_one;
+         gcdiv_when_number1_is_multiple_of_number2_then_returns_second;
+         gcdiv_when_number2_is_zero_then_returns_number1;
+         lcmul_when_numbers_are_composite_then_returns_lcm;
+         lcmul_when_numbers_are_prime_then_returns_product;
+         lcmul_when_numbers_are_mutually_prime_then_returns_product;
+         lcmul_when_number1_is_multiple_of_number2_then_returns_number1;
+         lcmul_when_number2_is_zero_then_returns_zero;
+         power_mod_when_base_is_zero_then_returns_zero;
+         power_mod_when_exponent_is_zero_then_returns_one;
+         power_mod_when_base_and_exponent_are_zero_then_raises_failure;
+         power_mod_when_base_and_exponent_are_positive;
+         power_mod_when_base_is_negative_and_exponent_is_even;
+         power_mod_when_base_is_negative_and_exponent_is_odd;
+         power_mod_when_exponent_is_negative_then_raises_failure;
+         power_mod_when_modulo_and_base_are_positive;
+         power_mod_when_modulo_is_positive_and_base_is_negative;
+         power_mod_when_modulo_is_negative_then_raises_failure;
+         mult_mod_when_factor1_is_zero_then_returns_zero;
+         mult_mod_when_factor2_is_zero_then_returns_zero;
+         mult_mod_when_factors_are_zero_then_returns_zero;
+         mult_mod_when_factor1_is_negative_and_factor2_is_positive;
+         mult_mod_when_factor1_is_positive_and_factor2_is_negative;
+         mult_mod_when_factors_are_negative; mult_mod_when_modulo_and_factors_are_positive;
+         mult_mod_when_modulo_is_positive_and_factor1_is_negative;
+         mult_mod_when_modulo_is_positive_and_factor2_is_negative;
+         mult_mod_when_modulo_is_positive_and_factors_are_negative;
+         mult_mod_when_modulo_is_negative_then_raises_failure ]
 
 let _ = run_test_tt_main maths_test
