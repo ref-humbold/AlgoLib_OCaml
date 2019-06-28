@@ -25,7 +25,7 @@ let gcdiv_when_numbers_are_mutually_prime_then_returns_one =
     let result = number1 **/ number2 in
     assert_equal ~printer:string_of_int 1 result
 
-let gcdiv_when_number1_is_multiple_of_number2_then_returns_second =
+let gcdiv_when_number1_is_multiple_of_number2_then_returns_number2 =
   "Greatest common divisor of multiple"
   >:: fun _ ->
     let number1 = 272 and number2 = 34 in
@@ -74,7 +74,7 @@ let lcmul_when_number2_is_zero_then_returns_zero =
   >:: fun _ ->
     let number1 = 96 and number2 = 0 in
     let result = number1 **^ number2 in
-    assert_equal ~printer:string_of_int number2 result
+    assert_equal ~printer:string_of_int 0 result
 
 (* power_mod *)
 
@@ -83,7 +83,7 @@ let power_mod_when_base_is_zero_then_returns_zero =
   >:: fun _ ->
     let number1 = 0 and number2 = 14 in
     let result = power_mod number1 number2 in
-    assert_equal ~printer:string_of_int number1 result
+    assert_equal ~printer:string_of_int 0 result
 
 let power_mod_when_exponent_is_zero_then_returns_one =
   "power_mod_when_exponent_is_zero"
@@ -155,21 +155,21 @@ let mult_mod_when_factor1_is_zero_then_returns_zero =
   >:: fun _ ->
     let number1 = 0 and number2 = 14 in
     let result = mult_mod number1 number2 in
-    assert_equal ~printer:string_of_int number1 result
+    assert_equal ~printer:string_of_int 0 result
 
 let mult_mod_when_factor2_is_zero_then_returns_zero =
   "mult_mod_when_factor2_is_zero"
   >:: fun _ ->
     let number1 = 14 and number2 = 0 in
     let result = mult_mod number1 number2 in
-    assert_equal ~printer:string_of_int number2 result
+    assert_equal ~printer:string_of_int 0 result
 
 let mult_mod_when_factors_are_zero_then_returns_zero =
   "mult_mod_when_factors_are_zero"
   >:: fun _ ->
     let number1 = 0 and number2 = 0 in
     let result = mult_mod number1 number2 in
-    assert_equal ~printer:string_of_int number1 result
+    assert_equal ~printer:string_of_int 0 result
 
 let mult_mod_when_factor1_is_negative_and_factor2_is_positive =
   "mult_mod_when_factor1_is_negative_and_factor2_is_positive"

@@ -1,12 +1,13 @@
 # [ OCaml ]
 # OCaml / Dune output
-dist
-_build
+bin/
+dist/
+_build/
 *.install
-**/.merlin
+.merlin
 
 # ODoc output
-doc
+doc/
 
 # Visual Studio Code
 .vscode
