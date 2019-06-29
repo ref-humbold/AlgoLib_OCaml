@@ -7,13 +7,13 @@ let rands_ maxim num =
   rands_' (maxim - 1) num
 
 let test_fermat number =
-  if number = 2 || number = 3
+  let n = abs number in
+  if n = 2 || n = 3
   then true
-  else if number < 2 || number mod 2 = 0 || number mod 3 = 0
+  else if n < 2 || n mod 2 = 0 || n mod 3 = 0
   then false
   else
-    List.for_all (fun rdv -> rdv **/ number == 1 && power_mod ~modulo:number rdv (number - 1) == 1)
-    @@ rands_ number 12
+    List.for_all (fun rdv -> rdv **/ n == 1 && power_mod ~modulo:n rdv (n - 1) == 1) @@ rands_ n 12
 
 let distribute_ n =
   let rec distribute_' e p =
@@ -22,16 +22,15 @@ let distribute_ n =
   distribute_' 1 2
 
 let test_miller number =
-  if number = 2 || number = 3
+  let n = abs number in
+  if n = 2 || n = 3
   then true
-  else if number < 2 || number mod 2 = 0 || number mod 3 = 0
+  else if n < 2 || n mod 2 = 0 || n mod 3 = 0
   then false
   else
     let rec range lst n = if n <= 1 then 0 :: lst else range ((n - 1) :: lst) (n - 1) in
-    let s, d = distribute_ (number - 1) in
+    let s, d = distribute_ (n - 1) in
     List.for_all (fun rdv ->
-                   power_mod ~modulo:number rdv d == 1
-                   || List.exists
-                     (fun s' -> power_mod ~modulo:number rdv ((1 lsl s') * d) == number - 1)
-                     (range [] s) )
-    @@ rands_ number 12
+                   power_mod ~modulo:n rdv d == 1
+                   || List.exists (fun s' -> power_mod ~modulo:n rdv ((1 lsl s') * d) == n - 1) (range [] s))
+    @@ rands_ n 12

@@ -1,10 +1,10 @@
 (** Real-time Hood-Melville queue structure. *)
 
-(** The type of queues containing elements of type 'a. *)
 type 'a t
+(** The type of queues containing elements of type 'a. *)
 
-(** Exception raised when retrieving or removing elements from empty queue. *)
 exception EmptyQueue
+(** Exception raised when retrieving or removing elements from empty queue. *)
 
 val empty : 'a t
 (** The empty queue. *)

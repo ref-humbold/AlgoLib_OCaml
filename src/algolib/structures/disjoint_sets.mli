@@ -7,11 +7,11 @@ module type COMPARABLE = sig
 end
 
 module type DISJOINT_SETS = sig
-  (** The type of elements of sets structure. *)
   type elem
+  (** The type of elements of sets structure. *)
 
-  (** The type of sets structures. *)
   type t
+  (** The type of sets structures. *)
 
   val create : unit -> t
   (** [create ()] produces empty sets structure. *)

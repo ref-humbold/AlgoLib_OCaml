@@ -1,7 +1,7 @@
 (** Points on a plane. *)
 
-(** The type of points on a plane. *)
 type point2d = float * float
+(** The type of points on a plane. *)
 
 val p2d : float -> float -> point2d
 (** [p2d x y] creates a point [(x, y)]. *)

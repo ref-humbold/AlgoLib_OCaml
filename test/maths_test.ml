@@ -234,7 +234,7 @@ let maths_test =
   >::: [ gcdiv_when_numbers_are_composite_then_returns_gcd;
          gcdiv_when_numbers_are_prime_then_returns_one;
          gcdiv_when_numbers_are_mutually_prime_then_returns_one;
-         gcdiv_when_number1_is_multiple_of_number2_then_returns_second;
+         gcdiv_when_number1_is_multiple_of_number2_then_returns_number2;
          gcdiv_when_number2_is_zero_then_returns_number1;
          lcmul_when_numbers_are_composite_then_returns_lcm;
          lcmul_when_numbers_are_prime_then_returns_product;
