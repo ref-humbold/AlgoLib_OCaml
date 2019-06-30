@@ -1,10 +1,10 @@
 (* Algorithms for prime numbers. *)
 open Maths
 
-let rands_ maxim num =
+let rands_ maximum num =
   let rec rands_' m' n' = if n' = 0 then [] else (1 + Random.int m') :: rands_' m' (n' - 1) in
   Random.self_init () ;
-  rands_' (maxim - 1) num
+  rands_' (maximum - 1) num
 
 let test_fermat number =
   let n = abs number in
@@ -12,14 +12,7 @@ let test_fermat number =
   then true
   else if n < 2 || n mod 2 = 0 || n mod 3 = 0
   then false
-  else
-    List.for_all (fun rdv -> rdv **/ n == 1 && power_mod ~modulo:n rdv (n - 1) == 1) @@ rands_ n 12
-
-let distribute_ n =
-  let rec distribute_' e p =
-    if n mod p = 0 then (e - 1, n / (1 lsl (e - 1))) else distribute_' (e + 1) (p lsl 1)
-  in
-  distribute_' 1 2
+  else List.for_all (fun r -> r **/ n == 1 && power_mod ~modulo:n r (n - 1) == 1) @@ rands_ n 12
 
 let test_miller number =
   let n = abs number in
@@ -28,9 +21,10 @@ let test_miller number =
   else if n < 2 || n mod 2 = 0 || n mod 3 = 0
   then false
   else
-    let rec range lst n = if n <= 1 then 0 :: lst else range ((n - 1) :: lst) (n - 1) in
-    let s, d = distribute_ (n - 1) in
-    List.for_all (fun rdv ->
-                   power_mod ~modulo:n rdv d == 1
-                   || List.exists (fun s' -> power_mod ~modulo:n rdv ((1 lsl s') * d) == n - 1) (range [] s))
+    let rec remove_twos n' = if n' mod 2 == 0 then remove_twos (n' / 2) else n' in
+    let rec mult_twos acc d' = if d' <= n / 2 then mult_twos (d' :: acc) (d' lsl 1) else acc in
+    let d = remove_twos (n - 1) in
+    List.for_all (fun r ->
+                   power_mod ~modulo:n r d == 1
+                   || List.exists (fun d' -> power_mod ~modulo:n r d' == n - 1) (mult_twos [] d))
     @@ rands_ n 12
