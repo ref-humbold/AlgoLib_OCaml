@@ -1,4 +1,4 @@
-BUILD_LIB = _build/install/default/lib
+BUILD_LIB = _build/install/default/lib/algolib
 BUILD_DOC_HTML = _build/default/_doc/_html
 
 DIST = dist
