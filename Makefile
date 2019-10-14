@@ -9,15 +9,17 @@ TEST = test
 CMXA_DIST = algolib.cmxa
 CMA_DIST = algolib.cma
 
-.PHONY : all clean compile doc format refresh test
+.PHONY : all build clean compile doc format refresh test
 
-all : format compile test
+all : compile test
 
 clean :
 	rm -fr $(DIST) $(DOC)
 	dune clean
 
 refresh : clean all
+
+build : format all
 
 compile :
 	dune build
