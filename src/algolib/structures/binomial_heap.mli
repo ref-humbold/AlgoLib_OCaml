@@ -27,6 +27,7 @@ module type HEAP = sig
 
   val peek : t -> elem
   (** [peek h] retrieves the least element from heap [h].
+
       @raise EmptyHeap if heap is empty. *)
 
   val push : elem -> t -> t
@@ -34,6 +35,7 @@ module type HEAP = sig
 
   val pop : t -> t
   (** [pop h] removes the least element from heap [h].
+
       @raise EmptyHeap if heap is empty. *)
 end
 

@@ -14,10 +14,12 @@ val is_empty : 'a t -> bool
 
 val front : 'a t -> 'a
 (** [front d] retrieves element from the front of deque [d].
+
     @raise EmptyDeque if deque is empty. *)
 
 val back : 'a t -> 'a
 (** [back d] retrieves element from the back of deque [d].
+
     @raise EmptyDeque if deque is empty. *)
 
 val push_front : 'a -> 'a t -> 'a t
@@ -34,8 +36,10 @@ val ( &++ ) : 'a t -> 'a -> 'a t
 
 val pop_front : 'a t -> 'a t
 (** [pop_front d] removes element from the front element of deque [d].
+
     @raise EmptyDeque if deque is empty. *)
 
 val pop_back : 'a t -> 'a t
 (** [pop_back d] removes element from the back of deque [d].
+
     @raise EmptyDeque if deque is empty. *)

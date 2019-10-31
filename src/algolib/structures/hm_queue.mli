@@ -14,6 +14,7 @@ val is_empty : 'a t -> bool
 
 val front : 'a t -> 'a
 (** [front q] retrieves element from the front of queue [q].
+
     @raise EmptyQueue if queue is empty. *)
 
 val push : 'a -> 'a t -> 'a t
@@ -21,4 +22,5 @@ val push : 'a -> 'a t -> 'a t
 
 val pop : 'a t -> 'a t
 (** [pop q] removes element from the front of queue [q].
+
     @raise EmptyQueue if queue is empty. *)

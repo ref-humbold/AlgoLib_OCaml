@@ -14,9 +14,11 @@ val ( **^ ) : int -> int -> int
 
 val mult_mod : ?modulo:int -> int -> int -> int
 (** [mult_mod ?m f1 f2] performs fast integer multiplication of [f1] and [f2] taken modulo [m].
+
     @raise Failure if arithmetic error occurs. *)
 
 val power_mod : ?modulo:int -> int -> int -> int
 (** [power_mod ?m b e] performs fast integer exponentiation of [b] to the power of [e] taken modulo
     [m].
+
     @raise Failure if arithmetic error occurs. *)

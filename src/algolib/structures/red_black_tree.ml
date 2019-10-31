@@ -7,14 +7,21 @@ end
 
 module type RBTREE = sig
   type elem
+
   type t
 
   val empty : t
+
   val is_empty : t -> bool
+
   val size : t -> int
+
   val to_list : t -> elem list
+
   val to_seq : t -> elem Seq.t
+
   val contains : elem -> t -> bool
+
   val add : elem -> t -> t
 end
 
