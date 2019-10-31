@@ -25,6 +25,9 @@ module type RBTREE = sig
   val to_list : t -> elem list
   (** [to_list t] converts tree [t] to list containing the same elements in ascending order. *)
 
+  val to_seq : t -> elem Seq.t
+  (** [to_seq t] converts tree [t] to sequence containing the same elements in ascending order. *)
+
   val contains : elem -> t -> bool
   (** [contains x t] checks if [x] is element of tree [t]. *)
 

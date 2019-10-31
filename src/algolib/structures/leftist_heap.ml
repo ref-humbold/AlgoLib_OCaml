@@ -7,21 +7,15 @@ end
 
 module type HEAP = sig
   type elem
-
   type t
 
   exception EmptyHeap
 
   val empty : t
-
   val is_empty : t -> bool
-
   val merge : t -> t -> t
-
   val peek : t -> elem
-
   val push : elem -> t -> t
-
   val pop : t -> t
 end
 

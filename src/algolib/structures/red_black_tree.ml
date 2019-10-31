@@ -7,19 +7,14 @@ end
 
 module type RBTREE = sig
   type elem
-
   type t
 
   val empty : t
-
   val is_empty : t -> bool
-
   val size : t -> int
-
   val to_list : t -> elem list
-
+  val to_seq : t -> elem Seq.t
   val contains : elem -> t -> bool
-
   val add : elem -> t -> t
 end
 
@@ -45,6 +40,14 @@ module Make (Cmp : COMPARABLE) : RBTREE with type elem = Cmp.t = struct
       | Leaf -> acc
     in
     to_list' t []
+
+  let to_seq (_, t) =
+    let rec to_seq' t' acc =
+      match t' with
+      | Node (_, lt, x, rt) -> to_seq' lt @@ Seq.Cons (x, to_seq' rt acc)
+      | Leaf -> fun () -> acc
+    in
+    to_seq' t Seq.Nil
 
   let contains x (_, t) =
     let rec contains' t' =

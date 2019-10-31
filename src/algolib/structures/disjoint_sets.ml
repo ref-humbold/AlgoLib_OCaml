@@ -7,21 +7,14 @@ end
 
 module type DISJOINT_SETS = sig
   type elem
-
   type t
 
   val create : unit -> t
-
   val size : t -> int
-
   val contains : elem -> t -> bool
-
   val add_elem : elem -> t -> unit
-
   val find_set : elem -> t -> elem
-
   val is_same_set : elem -> elem -> t -> bool
-
   val union_set : elem -> elem -> t -> unit
 end
 
