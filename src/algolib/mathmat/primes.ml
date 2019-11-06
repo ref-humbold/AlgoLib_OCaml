@@ -2,8 +2,8 @@
 open Maths
 
 let rands_ maximum num =
-  let rec rands_' m' n' = if n' = 0 then [] else (1 + Random.int m') :: rands_' m' (n' - 1) in
   Random.self_init () ;
+  let rec rands_' m' n' = if n' = 0 then [] else (1 + Random.int m') :: rands_' m' (n' - 1) in
   rands_' (maximum - 1) num
 
 let test_fermat number =

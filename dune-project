@@ -1,3 +1,2 @@
-(lang dune 1.2)
+(lang dune 1.11)
 (name algolib)
-(using fmt 1.1)

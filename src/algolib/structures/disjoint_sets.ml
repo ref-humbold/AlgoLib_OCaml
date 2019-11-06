@@ -30,9 +30,9 @@ module Make (Cmp : COMPARABLE) : DISJOINT_SETS with type elem = Cmp.t = struct
 
   module Repr = Map.Make (Cmp)
 
-  type t = {mutable size: int; mutable map: elem Repr.t}
+  type t = {mutable size : int; mutable map : elem Repr.t}
 
-  let create () : t = {size= 0; map= Repr.empty}
+  let create () : t = {size = 0; map = Repr.empty}
 
   let size {size; _} = size
 
