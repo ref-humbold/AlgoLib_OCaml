@@ -15,6 +15,12 @@ val empty : 'a t
 val is_empty : 'a t -> bool
 (** [is_empty lst] checks if indexed list [lst] is empty. *)
 
+val to_list : 'a t -> 'a list
+(** [to_list lst] converts indexed list [lst] to list containing the same elements. *)
+
+val to_seq : 'a t -> 'a Seq.t
+(** [to_seq lst] converts indexed list [lst] to sequence containing the same elements. *)
+
 val head : 'a t -> 'a
 (** [head lst] retrieves the first element of indexed list [lst].
 

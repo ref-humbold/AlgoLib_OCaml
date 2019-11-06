@@ -20,6 +20,32 @@ let head ts =
   | [] -> raise EmptyList
   | (_, Leaf) :: _ -> failwith "UNEXPECTED"
 
+let to_list ts =
+  let rec tree_list t acc =
+    match t with
+    | Node (lt, x, rt) -> tree_list lt (x :: tree_list rt acc)
+    | Leaf -> acc
+  in
+  let rec to_list' ts' acc =
+    match ts' with
+    | (_, t) :: ts_ -> to_list' ts_ @@ tree_list t acc
+    | [] -> acc
+  in
+  to_list' ts []
+
+let to_seq ts =
+  let rec tree_seq t acc =
+    match t with
+    | Node (lt, x, rt) -> tree_seq lt @@ Seq.Cons (x, tree_seq rt acc)
+    | Leaf -> fun () -> acc
+  in
+  let rec to_seq' ts' acc =
+    match ts' with
+    | (_, t) :: ts_ -> to_seq' ts_ @@ tree_seq t acc ()
+    | [] -> fun () -> acc
+  in
+  to_seq' ts Seq.Nil
+
 let cons e ts =
   match ts with
   | (s1, t1) :: (s2, t2) :: ts_ when s1 = s2 -> (s1 + s2 + 1, Node (t1, e, t2)) :: ts_
