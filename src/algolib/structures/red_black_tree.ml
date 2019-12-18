@@ -30,52 +30,68 @@ module Make (Cmp : COMPARABLE) : RBTREE with type elem = Cmp.t = struct
 
   type colour = Black | Red
 
-  type tree = Leaf | Node of colour * tree * elem * tree
+  type tree = Leaf | Node of {cl : colour; lt : tree; e : elem; rt : tree}
 
-  type t = int * tree
+  type t = {size : int; t : tree}
 
-  let empty = (0, Leaf)
+  let empty = {size = 0; t = Leaf}
 
-  let is_empty (n, _) = n > 0
+  let is_empty {size; _} = size > 0
 
-  let size (n, _) = n
+  let size {size; _} = size
 
-  let to_list (_, t) =
+  let to_list {t; _} =
     let rec to_list' t' acc =
       match t' with
-      | Node (_, lt, x, rt) -> to_list' lt (x :: to_list' rt acc)
+      | Node {lt; e; rt; _} -> to_list' lt (e :: to_list' rt acc)
       | Leaf -> acc
     in
     to_list' t []
 
-  let to_seq (_, t) =
+  let to_seq {t; _} =
     let rec to_seq' t' acc =
       match t' with
-      | Node (_, lt, x, rt) -> to_seq' lt @@ Seq.Cons (x, to_seq' rt acc)
+      | Node {lt; e; rt; _} -> to_seq' lt @@ Seq.Cons (e, to_seq' rt acc)
       | Leaf -> fun () -> acc
     in
     to_seq' t Seq.Nil
 
-  let contains x (_, t) =
+  let contains x {t; _} =
     let rec contains' t' =
       match t' with
-      | Node (_, lt, y, rt) ->
-        let cond = Cmp.compare x y in
+      | Node {lt; e; rt; _} ->
+        let cond = Cmp.compare x e in
         if cond = 0 then true else if cond < 0 then contains' lt else contains' rt
       | Leaf -> false
     in
     contains' t
 
-  let rebalance_ c lt e rt =
-    match (c, lt, e, rt) with
-    | Black, Node (Red, Node (Red, a, x, b), y, c), z, d ->
-      Node (Red, Node (Black, a, x, b), y, Node (Black, c, z, d))
-    | Black, Node (Red, a, x, Node (Red, b, y, c)), z, d ->
-      Node (Red, Node (Black, a, x, b), y, Node (Black, c, z, d))
-    | Black, a, x, Node (Red, b, y, Node (Red, c, z, d)) ->
-      Node (Red, Node (Black, a, x, b), y, Node (Black, c, z, d))
-    | Black, a, x, Node (Red, Node (Red, b, y, c), z, d) ->
-      Node (Red, Node (Black, a, x, b), y, Node (Black, c, z, d))
+  let rebalance_ cl lt e rt =
+    match (cl, lt, e, rt) with
+    | Black, Node {cl = Red; lt = Node {cl = Red; lt = a; e = x; rt = b}; e = y; rt = c}, z, d ->
+      Node
+        { cl = Red;
+          lt = Node {cl = Black; lt = a; e = x; rt = b};
+          e = y;
+          rt = Node {cl = Black; lt = c; e = z; rt = d} }
+    | Black, Node {cl = Red; lt = a; e = x; rt = Node {cl = Red; lt = b; e = y; rt = c}}, z, d ->
+      Node
+        { cl = Red;
+          lt = Node {cl = Black; lt = a; e = x; rt = b};
+          e = y;
+          rt = Node {cl = Black; lt = c; e = z; rt = d} }
+    | Black, a, x, Node {cl = Red; lt = b; e = y; rt = Node {cl = Red; lt = c; e = z; rt = d}} ->
+      Node
+        { cl = Red;
+          lt = Node {cl = Black; lt = a; e = x; rt = b};
+          e = y;
+          rt = Node {cl = Black; lt = c; e = z; rt = d} }
+    | Black, a, x, Node {cl = Red; lt = Node {cl = Red; lt = b; e = y; rt = c}; e = z; rt = d} ->
+      Node
+        { cl = Red;
+          lt = Node {cl = Black; lt = a; e = x; rt = b};
+          e = y;
+          rt = Node {cl = Black; lt = c; e = z; rt = d} }
     | Black, Node _, _, Node _
     |Black, Node _, _, Leaf
     |Black, Leaf, _, Node _
@@ -84,28 +100,28 @@ module Make (Cmp : COMPARABLE) : RBTREE with type elem = Cmp.t = struct
     |Red, Node _, _, Leaf
     |Red, Leaf, _, Node _
     |Red, Leaf, _, Leaf ->
-      Node (c, lt, e, rt)
+      Node {cl; lt; e; rt}
 
-  let add x ((n, t) as s) =
+  let add x ({size; t} as s) =
     let rec add' t' =
       match t' with
-      | Node (c, lt, y, rt) ->
-        let cond = Cmp.compare x y in
+      | Node {cl; lt; e; rt} ->
+        let cond = Cmp.compare x e in
         if cond = 0
         then None
         else if cond < 0
         then
           match add' lt with
-          | Some lt' -> Some (rebalance_ c lt' y rt)
+          | Some lt' -> Some (rebalance_ cl lt' e rt)
           | None -> None
         else (
           match add' rt with
-          | Some rt' -> Some (rebalance_ c lt y rt')
+          | Some rt' -> Some (rebalance_ cl lt e rt')
           | None -> None )
-      | Leaf -> Some (Node (Red, Leaf, x, Leaf))
+      | Leaf -> Some (Node {cl = Red; lt = Leaf; e = x; rt = Leaf})
     in
     match add' t with
-    | Some (Node (_, lt, y, rt)) -> (n + 1, Node (Black, lt, y, rt))
+    | Some (Node nd) -> {size = size + 1; t = Node {nd with cl = Black}}
     | None -> s
     | Some Leaf -> failwith "unexpected"
 end
