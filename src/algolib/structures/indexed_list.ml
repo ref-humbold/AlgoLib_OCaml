@@ -1,5 +1,5 @@
 (* Indexed list structure. *)
-type 'a tree = Leaf | Node of 'a tree * 'a * 'a tree
+type 'a tree = Leaf | Node of {lt : 'a tree; e : 'a; rt : 'a tree}
 
 type 'a t = (int * 'a tree) list
 
@@ -16,14 +16,14 @@ let is_empty ts =
 
 let head ts =
   match ts with
-  | (_, Node (_, e, _)) :: _ -> e
+  | (_, Node {e; _}) :: _ -> e
   | [] -> raise EmptyList
   | (_, Leaf) :: _ -> failwith "UNEXPECTED"
 
 let to_list ts =
   let rec tree_list t acc =
     match t with
-    | Node (lt, x, rt) -> tree_list lt (x :: tree_list rt acc)
+    | Node {lt; e; rt} -> tree_list lt (e :: tree_list rt acc)
     | Leaf -> acc
   in
   let rec to_list' ts' acc =
@@ -36,7 +36,7 @@ let to_list ts =
 let to_seq ts =
   let rec tree_seq t acc =
     match t with
-    | Node (lt, x, rt) -> tree_seq lt @@ Seq.Cons (x, tree_seq rt acc)
+    | Node {lt; e; rt} -> tree_seq lt @@ Seq.Cons (e, tree_seq rt acc)
     | Leaf -> fun () -> acc
   in
   let rec to_seq' ts' acc =
@@ -48,24 +48,24 @@ let to_seq ts =
 
 let cons e ts =
   match ts with
-  | (s1, t1) :: (s2, t2) :: ts_ when s1 = s2 -> (s1 + s2 + 1, Node (t1, e, t2)) :: ts_
-  | _ -> (1, Node (Leaf, e, Leaf)) :: ts
+  | (s1, lt) :: (s2, rt) :: ts_ when s1 = s2 -> (s1 + s2 + 1, Node {lt; e; rt}) :: ts_
+  | _ -> (1, Node {lt = Leaf; e; rt = Leaf}) :: ts
 
 let tail ts =
   match ts with
   | (1, Node _) :: ts_ -> ts_
-  | (s, Node (t1, _, t2)) :: ts_ -> (s / 2, t1) :: (s / 2, t2) :: ts_
+  | (s, Node {lt; rt; _}) :: ts_ -> (s / 2, lt) :: (s / 2, rt) :: ts_
   | [] -> raise EmptyList
   | (_, Leaf) :: _ -> failwith "UNEXPECTED"
 
 let rec elem i ts =
   let rec elem' ix s t =
     match (ix, t) with
-    | 0, Node (_, e, _) -> e
-    | _, Node (t1, _, t2) ->
+    | 0, Node {e; _} -> e
+    | _, Node {lt; rt; _} ->
       if 2 * ix < s
-      then elem' ((s - 1) / 2) (ix - 1) t1
-      else elem' ((s - 1) / 2) (ix - ((s + 1) / 2)) t2
+      then elem' ((s - 1) / 2) (ix - 1) lt
+      else elem' ((s - 1) / 2) (ix - ((s + 1) / 2)) rt
     | _, Leaf -> failwith "UNEXPECTED"
   in
   match ts with
@@ -75,11 +75,11 @@ let rec elem i ts =
 let rec update i e ts =
   let rec update' ix s t =
     match (ix, t) with
-    | 0, Node (t1, _, t2) -> (s, Node (t1, e, t2))
-    | _, Node (t1, _, t2) ->
+    | 0, Node {lt; rt; _} -> (s, Node {lt; e; rt})
+    | _, Node {lt; rt; _} ->
       if 2 * ix < s
-      then update' ((s - 1) / 2) (ix - 1) t1
-      else update' ((s - 1) / 2) (ix - ((s + 1) / 2)) t2
+      then update' ((s - 1) / 2) (ix - 1) lt
+      else update' ((s - 1) / 2) (ix - ((s + 1) / 2)) rt
     | _, Leaf -> failwith "UNEXPECTED"
   in
   match ts with
