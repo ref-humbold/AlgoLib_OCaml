@@ -28,7 +28,7 @@ end
 module Make (Cmp : COMPARABLE) : HEAP with type elem = Cmp.t = struct
   type elem = Cmp.t
 
-  type t = Null | Node of int * elem * t * t
+  type t = Null | Node of {rank : int; e : elem; lt : t; rt : t}
 
   exception EmptyHeap
 
@@ -40,31 +40,33 @@ module Make (Cmp : COMPARABLE) : HEAP with type elem = Cmp.t = struct
     | Null -> true
 
   let rec merge h1 h2 =
-    let rank v =
+    let rank' v =
       match v with
-      | Node (r, _, _, _) -> r
+      | Node {rank; _} -> rank
       | Null -> 0
     in
-    let make_node x a b =
-      if rank a < rank b then Node (rank a + 1, x, b, a) else Node (rank b + 1, x, a, b)
+    let make_node e a b =
+      if rank' a < rank' b
+      then Node {rank = rank' a + 1; e; lt = b; rt = a}
+      else Node {rank = rank' b + 1; e; lt = a; rt = b}
     in
     match (h1, h2) with
-    | Node (_, x, lt1, rt1), Node (_, y, lt2, rt2) ->
+    | Node {e = x; lt = lt1; rt = rt1; _}, Node {e = y; lt = lt2; rt = rt2; _} ->
       if Cmp.compare x y < 0
       then make_node x lt1 @@ merge rt1 h2
       else make_node y lt2 @@ merge rt2 h1
-    | Node (_, _, _, _), Null -> h1
+    | Node _, Null -> h1
     | Null, _ -> h2
 
   let peek v =
     match v with
-    | Node (_, x, _, _) -> x
+    | Node {e; _} -> e
     | Null -> raise EmptyHeap
 
-  let push x h = merge h @@ Node (1, x, Null, Null)
+  let push e h = merge h @@ Node {rank = 1; e; lt = Null; rt = Null}
 
   let pop v =
     match v with
-    | Node (_, _, lt, rt) -> merge lt rt
+    | Node {lt; rt; _} -> merge lt rt
     | Null -> raise EmptyHeap
 end
