@@ -1,5 +1,5 @@
 (tests
- (names maths_test list_sorting_test)
+ (names maths_test list_sorting_test primes_test)
  (libraries oUnit algolib))
 
 (env
