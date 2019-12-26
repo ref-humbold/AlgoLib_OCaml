@@ -1,15 +1,17 @@
 (library
- (name algolib)
- (public_name algolib)
- (modes native byte))
+  (name algolib)
+  (public_name algolib)
+  (modes native byte)
+)
 
 (env
- (dev
-  (flags
-   (:standard -warn-error -A -w +A))))
+  (dev
+    (flags
+      (:standard -warn-error -A -w +A)
+    )
+  )
+)
 
 (documentation)
 
 (include_subdirs unqualified)
-
-; (include_subdirs qualified)

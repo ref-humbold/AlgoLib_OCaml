@@ -1,8 +1,12 @@
 (tests
- (names maths_test list_sorting_test primes_test)
- (libraries oUnit algolib))
+  (names maths_test list_sorting_test primes_test)
+  (libraries oUnit algolib)
+)
 
 (env
- (dev
-  (flags
-   (:standard -warn-error -A -w +A))))
+  (dev
+    (flags
+      (:standard -warn-error -A -w +A)
+    )
+  )
+)
