@@ -1,4 +1,4 @@
-BUILD_LIB = _build/install/default/lib/algolib
+BUILD_SRC = _build/default/src
 BUILD_DOC_HTML = _build/default/_doc/_html
 
 DIST = dist
@@ -24,8 +24,8 @@ build : format all
 compile :
 	dune build
 	mkdir -p $(DIST)
-	ln -sfn ../$(BUILD_LIB)/$(CMXA_DIST) $(DIST)/$(CMXA_DIST)
-	ln -sfn ../$(BUILD_LIB)/$(CMA_DIST) $(DIST)/$(CMA_DIST)
+	cp $(BUILD_SRC)/$(CMXA_DIST) $(DIST)/$(CMXA_DIST)
+	cp $(BUILD_SRC)/$(CMA_DIST) $(DIST)/$(CMA_DIST)
 
 test :
 	dune runtest
@@ -38,4 +38,4 @@ format :
 
 doc :
 	dune build @doc
-	ln -sfn $(BUILD_DOC_HTML) $(DOC)
+	cp -r $(BUILD_DOC_HTML) $(DOC)
