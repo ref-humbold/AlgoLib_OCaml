@@ -1,2 +1,1 @@
-let int_list lst =
-  "[" ^ List.fold_left (fun acc x -> acc ^ ", " ^ string_of_int x) "" lst ^ "]"
+let int_list lst = "[" ^ String.concat "; " (List.map string_of_int lst) ^ "]"
