@@ -6,10 +6,12 @@ DOC = doc
 SRC = src
 TEST = test
 
-CMXA_DIST = algolib.cmxa
-CMA_DIST = algolib.cma
+SOURCES = $(wildcard $(SRC)/*.{ml,mli})
+TEST_FILES = $(wildcard $(TEST)/*.{ml,mli})
+CMXA_LIBRARY = algolib.cmxa
+CMA_LIBRARY = algolib.cma
 
-.PHONY : all build clean compile doc format refresh test
+.PHONY : all build clean compile dirs doc format refresh test
 
 all : compile test
 
@@ -19,22 +21,22 @@ clean :
 
 refresh : clean all
 
+dirs :
+	mkdir -p $(DIST)
+
 build : format all
 
-compile :
+compile : dirs
 	dune build
-	mkdir -p $(DIST)
-	cp $(BUILD_SRC)/$(CMXA_DIST) $(DIST)/$(CMXA_DIST)
-	cp $(BUILD_SRC)/$(CMA_DIST) $(DIST)/$(CMA_DIST)
+	cp $(BUILD_SRC)/$(CMXA_LIBRARY) $(DIST)/$(CMXA_LIBRARY)
+	cp $(BUILD_SRC)/$(CMA_LIBRARY) $(DIST)/$(CMA_LIBRARY)
 
 test :
 	dune runtest
 
 format :
-	for F in $$(find $(SRC) -regextype egrep -regex '.+\.mli?') ;\
-	  do ocamlformat -i $$F ; ocp-indent -i $$F ; done
-	for F in $$(find $(TEST) -regextype egrep -regex '.+\.mli?') ;\
-	  do ocamlformat -i $$F ; ocp-indent -i $$F ; done
+	for F in $(SOURCES) ; do ocamlformat -i $$F ; ocp-indent -i $$F ; done
+	for F in $(TEST_FILES) ; do ocamlformat -i $$F ; ocp-indent -i $$F ; done
 
 doc :
 	dune build @doc
