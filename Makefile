@@ -6,8 +6,6 @@ DOC = doc
 SRC = src
 TEST = test
 
-SOURCES = $(wildcard $(SRC)/*.{ml,mli})
-TEST_FILES = $(wildcard $(TEST)/*.{ml,mli})
 CMXA_LIBRARY = algolib.cmxa
 CMA_LIBRARY = algolib.cma
 
@@ -35,8 +33,8 @@ test :
 	dune runtest
 
 format :
-	for F in $(SOURCES) ; do ocamlformat -i $$F ; ocp-indent -i $$F ; done
-	for F in $(TEST_FILES) ; do ocamlformat -i $$F ; ocp-indent -i $$F ; done
+	find $(SRC) -regex .+\.mli? -exec ocamlformat -i {} \; -exec ocp-indent -i {} \;
+	find $(TEST) -regex .+\.mli? -exec ocamlformat -i {} \; -exec ocp-indent -i {} \;
 
 doc :
 	dune build @doc
