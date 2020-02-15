@@ -24,7 +24,7 @@ module type DISJOINT_SETS = sig
 
   val find_set : elem -> t -> elem
 
-  val find_set_or_default : elem -> elem -> t -> elem
+  val find_set_opt : elem -> t -> elem option
 
   val is_same_set : elem -> elem -> t -> bool
 
@@ -65,9 +65,9 @@ module Make (Cmp : COMPARABLE) : DISJOINT_SETS with type elem = Cmp.t = struct
       dset.map <- Repr.add element repr dset.map ;
       repr
 
-  let find_set_or_default element default dset =
-    try find_set element dset with
-    | Not_found -> default
+  let find_set_opt element dset =
+    try Some (find_set element dset) with
+    | Not_found -> None
 
   let is_same_set element1 element2 dset =
     let repr1 = find_set element1 dset and repr2 = find_set element2 dset in

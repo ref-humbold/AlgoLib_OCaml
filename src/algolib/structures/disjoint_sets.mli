@@ -35,9 +35,9 @@ module type DISJOINT_SETS = sig
   (** [find_set x s] finds the representant of [x] in structure [s]. Raises [Not_found] when [x] is
       not present in the structure. *)
 
-  val find_set_or_default : elem -> elem -> t -> elem
-  (** [find_set_or_default x d s] finds the representant of [x] in structure [s] if it exists,
-      otherwise returns [d]. *)
+  val find_set_opt : elem -> t -> elem option
+  (** [find_set_opt x d s] finds the representant of [x] in structure [s] if it exists, otherwise
+      returns [None]. *)
 
   val is_same_set : elem -> elem -> t -> bool
   (** [is_same_set x y s] checks if [x] and [y] belong to the same set in structure [s]. Raises
