@@ -30,6 +30,6 @@ let size_Test_list =
 
 (* disjoint_sets test *)
 
-let disjoint_sets_Test = "Tests for disjoint sets structure" >::: [size_Test_list]
+let disjoint_sets_Test = "Tests: Disjoint sets structure (union-find)" >::: [size_Test_list]
 
 let _ = run_test_tt_main disjoint_sets_Test
