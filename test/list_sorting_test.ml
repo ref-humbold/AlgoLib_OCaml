@@ -2,7 +2,7 @@
 open OUnit2
 open Algolib.List_sorting
 
-(* merge_sort *)
+(* merge_sort_Test_list *)
 
 let merge_sort_When_standard_compare_Then_returns_ascending_order =
   "merge_sort When standard compare Then returns ascending order"
@@ -35,7 +35,7 @@ let merge_sort_Test_list =
       merge_sort_When_all_members_equal_Then_returns_unchanged_list;
       merge_sort_When_empty_list_Then_returns_empty_list ]
 
-(* list_sorting test *)
+(* list_sorting_Test *)
 
 let list_sorting_Test = "Tests: List sorting algorithms" >::: [merge_sort_Test_list]
 

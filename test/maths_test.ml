@@ -2,7 +2,7 @@
 open OUnit2
 open Algolib.Maths
 
-(* gcdiv *)
+(* gcdiv_Test_list *)
 
 let gcdiv_When_numbers_are_composite_Then_returns_gcd =
   "gcdiv When numbers are composite Then returns gcd"
@@ -47,7 +47,7 @@ let gcdiv_Test_list =
       gcdiv_When_number1_is_multiple_of_number2_Then_returns_number2;
       gcdiv_When_number2_is_zero_Then_returns_number1 ]
 
-(* lcmul *)
+(* lcmul_Test_list *)
 
 let lcmul_When_numbers_are_composite_Then_returns_lcm =
   "lcmul When numbers are composite Then returns lcm"
@@ -92,7 +92,7 @@ let lcmul_Test_list =
       lcmul_When_number1_is_multiple_of_number2_Then_returns_number1;
       lcmul_When_number2_is_zero_Then_returns_zero ]
 
-(* power_mod *)
+(* power_mod_Test_list *)
 
 let power_mod_When_base_is_zero_Then_returns_zero =
   "power_mod When base is zero Then returns zero"
@@ -177,7 +177,7 @@ let power_mod_Test_list =
       power_mod_When_modulo_is_positive_and_base_is_negative;
       power_mod_When_modulo_is_negative_Then_raises_failure ]
 
-(* mult_mod *)
+(* mult_mod_Test_list *)
 
 let mult_mod_When_factor1_is_zero_Then_returns_zero =
   "mult_mod When factor1 is zero Then returns zero"
@@ -269,9 +269,10 @@ let mult_mod_Test_list =
       mult_mod_When_modulo_is_positive_and_factors_are_negative;
       mult_mod_When_modulo_is_negative_Then_raises_failure ]
 
-(* maths test *)
+(* maths_Test *)
 
 let maths_Test =
-  "Tests: Basic mathematics algorithms" >::: [gcdiv_Test_list; lcmul_Test_list; power_mod_Test_list; mult_mod_Test_list]
+  "Tests: Basic mathematics algorithms"
+  >::: [gcdiv_Test_list; lcmul_Test_list; power_mod_Test_list; mult_mod_Test_list]
 
 let _ = run_test_tt_main maths_Test

@@ -2,7 +2,7 @@
 open OUnit2
 open Algolib.Primes
 
-(* test_fermat *)
+(* test_fermat_Test_list *)
 
 let test_fermat_When_zero_Then_false =
   "test_fermat When zero Then false"
@@ -47,7 +47,7 @@ let test_fermat_Test_list =
       test_fermat_When_two_Then_true; test_fermat_When_prime_Then_true;
       test_fermat_When_composite_Then_false; test_fermat_When_carmichael_number_Then_false ]
 
-(* test_miller *)
+(* test_miller_Test_list *)
 
 let test_miller_When_zero_Then_false =
   "test_miller When zero Then false"
@@ -92,8 +92,9 @@ let test_miller_Test_list =
       test_miller_When_two_Then_true; test_miller_When_prime_Then_true;
       test_miller_When_composite_Then_false; test_miller_When_carmichael_number_Then_false ]
 
-(* primes test *)
+(* primes_Test *)
 
-let primes_Test = "Tests: Algorithms for prime numbers" >::: [test_fermat_Test_list; test_miller_Test_list]
+let primes_Test =
+  "Tests: Algorithms for prime numbers" >::: [test_fermat_Test_list; test_miller_Test_list]
 
 let _ = run_test_tt_main primes_Test

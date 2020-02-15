@@ -18,9 +18,9 @@ module type DISJOINT_SETS = sig
 
   val contains : elem -> t -> bool
 
-  val add_list : elem list -> t -> unit
-
   val add_seq : elem Seq.t -> t -> unit
+
+  val add_list : elem list -> t -> unit
 
   val find_set : elem -> t -> elem
 
@@ -29,6 +29,10 @@ module type DISJOINT_SETS = sig
   val is_same_set : elem -> elem -> t -> bool
 
   val union_set : elem -> elem -> t -> unit
+
+  val of_seq : elem Seq.t -> t
+
+  val of_list : elem list -> t
 end
 
 module Make (Cmp : COMPARABLE) : DISJOINT_SETS with type elem = Cmp.t = struct
@@ -46,6 +50,14 @@ module Make (Cmp : COMPARABLE) : DISJOINT_SETS with type elem = Cmp.t = struct
 
   let contains element {map; _} = Repr.mem element map
 
+  let add_seq elements dset =
+    Seq.iter (fun e -> if Repr.mem e dset.map then raise @@ ElementPresent e) elements ;
+    Seq.iter
+      (fun e ->
+         dset.map <- Repr.add e e dset.map ;
+         dset.size <- dset.size + 1)
+      elements
+
   let add_list elements dset =
     List.iter (fun e -> if Repr.mem e dset.map then raise @@ ElementPresent e) elements ;
     List.iter
@@ -53,8 +65,6 @@ module Make (Cmp : COMPARABLE) : DISJOINT_SETS with type elem = Cmp.t = struct
          dset.map <- Repr.add e e dset.map ;
          dset.size <- dset.size + 1)
       elements
-
-  let add_seq elements dset = add_list (List.of_seq elements) dset
 
   let rec find_set element dset =
     let value = Repr.find element dset.map in
@@ -79,4 +89,12 @@ module Make (Cmp : COMPARABLE) : DISJOINT_SETS with type elem = Cmp.t = struct
     then (
       dset.size <- dset.size - 1 ;
       dset.map <- Repr.add repr1 repr2 dset.map )
+
+  let of_seq elements =
+    { size = Seq.fold_left (fun acc _ -> acc + 1) 0 elements;
+      map = Repr.of_seq @@ Seq.map (fun x -> (x, x)) elements }
+
+  let of_list elements =
+    { size = List.length elements;
+      map = Repr.of_seq @@ Seq.map (fun x -> (x, x)) @@ List.to_seq elements }
 end
