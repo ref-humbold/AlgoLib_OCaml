@@ -57,6 +57,14 @@ let contains_When_absent_Then_false =
 
 let contains_Test_list = test_list [contains_When_present_Then_true; contains_When_absent_Then_false]
 
+(* add_list_Test_list *)
+
+let add_list_Test_list = test_list []
+
+(* add_seq_Test_list *)
+
+let add_seq_Test_list = test_list []
+
 (* find_set_Test_list *)
 
 let find_set_When_present_Then_represent =
@@ -193,6 +201,6 @@ let is_same_set_Test_list =
 let disjoint_sets_Test =
   "Tests: Disjoint sets structure (union-find)"
   >::: [ size_Test_list; contains_Test_list; find_set_Test_list; find_set_opt_Test_list;
-         union_set_Test_list; is_same_set_Test_list ]
+         add_list_Test_list; add_seq_Test_list; union_set_Test_list; is_same_set_Test_list ]
 
 let _ = run_test_tt_main disjoint_sets_Test
