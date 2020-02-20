@@ -43,7 +43,7 @@ let contains_When_present_Then_true =
     (* when *)
     let result = IDS.contains 4 test_object in
     (* then *)
-    assert_bool "Expected true value" result
+    assert_bool Messages.true_value result
 
 let contains_When_absent_Then_false =
   "contains When absent Then false"
@@ -53,17 +53,65 @@ let contains_When_absent_Then_false =
     (* when *)
     let result = IDS.contains 18 test_object in
     (* then *)
-    assert_bool "Expected false value" @@ not result
+    assert_bool Messages.false_value @@ not result
 
 let contains_Test_list = test_list [contains_When_present_Then_true; contains_When_absent_Then_false]
 
 (* add_list_Test_list *)
 
-let add_list_Test_list = test_list []
+let add_list_When_new_elements_Then_singleton_sets =
+  "add_list When new elements Then singleton sets"
+  >:: fun _ ->
+    (* given *)
+    let test_object = IDS.of_list [1; 2; 3; 4; 5; 6; 7; 8; 9] and elems = [14; 18; 23] in
+    (* when *)
+    IDS.add_list elems test_object ;
+    (* then *)
+    List.iter (fun e -> assert_bool Messages.true_value @@ IDS.contains e test_object) elems
+
+let add_list_When_present_element_Then_raise_element_present =
+  "add_list When present element Then raise ElementPresent"
+  >:: fun _ ->
+    (* given *)
+    let test_object = IDS.of_list [1; 2; 3; 4; 5; 6; 7; 8; 9] and elems = [11; 7; 15] in
+    (* when *)
+    let result () = IDS.add_list elems test_object in
+    (* then *)
+    assert_raises (IDS.ElementPresent 7) result
+
+let add_list_Test_list =
+  test_list
+    [ add_list_When_new_elements_Then_singleton_sets;
+      add_list_When_present_element_Then_raise_element_present ]
 
 (* add_seq_Test_list *)
 
-let add_seq_Test_list = test_list []
+let add_seq_When_new_elements_Then_singleton_sets =
+  "add_seq When new elements Then singleton sets"
+  >:: fun _ ->
+    (* given *)
+    let test_object = IDS.of_list [1; 2; 3; 4; 5; 6; 7; 8; 9]
+    and elems () = Seq.Cons (14, fun () -> Seq.Cons (18, Seq.return 23)) in
+    (* when *)
+    IDS.add_seq elems test_object ;
+    (* then *)
+    Seq.iter (fun e -> assert_bool Messages.true_value @@ IDS.contains e test_object) elems
+
+let add_seq_When_present_element_Then_raise_element_present =
+  "add_seq When present element Then raise ElementPresent"
+  >:: fun _ ->
+    (* given *)
+    let test_object = IDS.of_list [1; 2; 3; 4; 5; 6; 7; 8; 9]
+    and elems () = Seq.Cons (11, fun () -> Seq.Cons (7, Seq.return 15)) in
+    (* when *)
+    let result () = IDS.add_seq elems test_object in
+    (* then *)
+    assert_raises (IDS.ElementPresent 7) result
+
+let add_seq_Test_list =
+  test_list
+    [ add_seq_When_new_elements_Then_singleton_sets;
+      add_seq_When_present_element_Then_raise_element_present ]
 
 (* find_set_Test_list *)
 
@@ -78,8 +126,8 @@ let find_set_When_present_Then_represent =
     (* then *)
     assert_equal ~printer:string_of_int elem result
 
-let find_set_When_absent_Then_not_found =
-  "find_set When absent Then Not_found"
+let find_set_When_absent_Then_raise_not_found =
+  "find_set When absent Then raise Not_found"
   >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list [1; 2; 3; 4; 5; 6; 7; 8; 9] in
@@ -89,7 +137,7 @@ let find_set_When_absent_Then_not_found =
     assert_raises Not_found result
 
 let find_set_Test_list =
-  test_list [find_set_When_present_Then_represent; find_set_When_absent_Then_not_found]
+  test_list [find_set_When_present_Then_represent; find_set_When_absent_Then_raise_not_found]
 
 (* find_set_opt_Test_list *)
 
@@ -128,14 +176,14 @@ let union_set_When_different_sets_Then_same_represent =
     (* when *)
     IDS.union_set elem1 elem2 test_object ;
     (* then *)
-    assert_bool "Expected true value" @@ IDS.is_same_set elem1 elem2 test_object ;
+    assert_bool Messages.true_value @@ IDS.is_same_set elem1 elem2 test_object ;
     assert_equal
       ~printer:string_of_int
       (IDS.find_set elem1 test_object)
       (IDS.find_set elem2 test_object)
 
-let union_set_When_absent_Then_not_found =
-  "union_set When absent Then Not_found"
+let union_set_When_absent_Then_raise_not_found =
+  "union_set When absent Then raise Not_found"
   >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list [1; 2; 3; 4; 5; 6; 7; 8; 9] in
@@ -145,7 +193,8 @@ let union_set_When_absent_Then_not_found =
     assert_raises Not_found result
 
 let union_set_Test_list =
-  test_list [union_set_When_different_sets_Then_same_represent; union_set_When_absent_Then_not_found]
+  test_list
+    [union_set_When_different_sets_Then_same_represent; union_set_When_absent_Then_raise_not_found]
 
 (* is_same_set_Test_list *)
 
@@ -157,7 +206,7 @@ let is_same_set_When_different_sets_Then_false =
     (* when *)
     let result = IDS.is_same_set 4 6 test_object in
     (* then *)
-    assert_bool "Expected false value" @@ not result
+    assert_bool Messages.false_value @@ not result
 
 let is_same_set_When_same_element_Then_true =
   "is_same_set When different sets Then true"
@@ -167,7 +216,7 @@ let is_same_set_When_same_element_Then_true =
     (* when *)
     let result = IDS.is_same_set 4 4 test_object in
     (* then *)
-    assert_bool "Expected false value" result
+    assert_bool Messages.false_value result
 
 let is_same_set_When_same_set_Then_true =
   "is_same_set When different sets Then true"
@@ -179,10 +228,10 @@ let is_same_set_When_same_set_Then_true =
     (* when *)
     let result = IDS.is_same_set elem1 elem2 test_object in
     (* then *)
-    assert_bool "Expected false value" result
+    assert_bool Messages.false_value result
 
-let is_same_set_When_absent_Then_not_found =
-  "is_same_set When absent Then Not_found"
+let is_same_set_When_absent_Then_raise_not_found =
+  "is_same_set When absent Then raise Not_found"
   >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list [1; 2; 3; 4; 5; 6; 7; 8; 9] in
@@ -194,7 +243,7 @@ let is_same_set_When_absent_Then_not_found =
 let is_same_set_Test_list =
   test_list
     [ is_same_set_When_different_sets_Then_false; is_same_set_When_same_element_Then_true;
-      is_same_set_When_same_set_Then_true; is_same_set_When_absent_Then_not_found ]
+      is_same_set_When_same_set_Then_true; is_same_set_When_absent_Then_raise_not_found ]
 
 (* disjoint_sets_Test *)
 
