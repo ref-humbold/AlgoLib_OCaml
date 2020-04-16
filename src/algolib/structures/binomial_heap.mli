@@ -7,14 +7,14 @@ module type COMPARABLE = sig
 end
 
 module type HEAP = sig
-  type elem
   (** The type of elements of heap. *)
+  type elem
 
-  type t
   (** The type of heaps. *)
+  type t
 
-  exception EmptyHeap
   (** Exception raised when retrieving or removing elements from empty heap. *)
+  exception EmptyHeap
 
   val empty : t
   (** The empty heap. *)

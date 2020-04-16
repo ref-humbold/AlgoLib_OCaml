@@ -7,11 +7,11 @@ module type COMPARABLE = sig
 end
 
 module type RBTREE = sig
-  type elem
   (** The type of elements of tree. *)
+  type elem
 
-  type t
   (** The type of trees. *)
+  type t
 
   val empty : t
   (** The empty tree. *)

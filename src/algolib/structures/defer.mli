@@ -1,7 +1,7 @@
 (** Structure of defrerred computations with memoization *)
 
-type 'a t
 (** The type of deferred computations. *)
+type 'a t
 
 val defer : (unit -> 'a) -> 'a t
 (** [defer f] creates new deferred computation. *)

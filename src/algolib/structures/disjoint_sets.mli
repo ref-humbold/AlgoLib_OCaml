@@ -7,14 +7,14 @@ module type COMPARABLE = sig
 end
 
 module type DISJOINT_SETS = sig
-  type elem
   (** The type of elements of sets structure. *)
+  type elem
 
-  type t
   (** The type of sets structures. *)
+  type t
 
-  exception ElementPresent of elem
   (** Exception raised when adding already present element. *)
+  exception ElementPresent of elem
 
   val create : unit -> t
   (** [create ()] produces empty sets structure. *)

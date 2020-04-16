@@ -1,13 +1,13 @@
 (** Structure of indexed list *)
 
-type 'a t
 (** The type of indexed lists. *)
+type 'a t
 
-exception EmptyList
 (** Exception raised when retrieving or removing elements from empty indexed lists. *)
+exception EmptyList
 
-exception InvalidIndex
 (** Exception raised when index is out of range. *)
+exception InvalidIndex
 
 val empty : 'a t
 (** The empty indexed list. *)
