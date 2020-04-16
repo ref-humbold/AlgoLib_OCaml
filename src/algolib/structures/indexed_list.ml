@@ -51,7 +51,7 @@ let cons e ts =
   | (s1, lt) :: (s2, rt) :: ts' when s1 = s2 -> (s1 + s2 + 1, Node {lt; e; rt}) :: ts'
   | _ -> (1, Node {lt = Leaf; e; rt = Leaf}) :: ts
 
-let (@::) e ts = cons e ts
+let ( @:: ) e ts = cons e ts
 
 let tail ts =
   match ts with
