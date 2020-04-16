@@ -6,13 +6,13 @@ let gcdiv number1 number2 =
   in
   gcdiv' (abs number1) (abs number2)
 
-let ( **/ ) = gcdiv
+let ( **/ ) number1 number2 = gcdiv number1 number2
 
 let lcmul number1 number2 =
   let lcmul' n1 n2 = max n1 n2 / (n1 **/ n2) * min n1 n2 in
   lcmul' (abs number1) (abs number2)
 
-let ( **^ ) = lcmul
+let ( **^ ) number1 number2 = lcmul number1 number2
 
 let mult_mod ?(modulo = 0) factor1 factor2 =
   let rec mult' fc1 fc2 res step =

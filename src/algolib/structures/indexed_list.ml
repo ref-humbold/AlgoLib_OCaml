@@ -28,7 +28,7 @@ let to_list ts =
   in
   let rec to_list' ts' acc =
     match ts' with
-    | (_, t) :: ts_ -> to_list' ts_ @@ tree_list t acc
+    | (_, t) :: ts'' -> to_list' ts'' @@ tree_list t acc
     | [] -> acc
   in
   to_list' ts []
@@ -41,47 +41,51 @@ let to_seq ts =
   in
   let rec to_seq' ts' acc =
     match ts' with
-    | (_, t) :: ts_ -> to_seq' ts_ @@ tree_seq t acc ()
+    | (_, t) :: ts'' -> to_seq' ts'' @@ tree_seq t acc ()
     | [] -> fun () -> acc
   in
   to_seq' ts Seq.Nil
 
 let cons e ts =
   match ts with
-  | (s1, lt) :: (s2, rt) :: ts_ when s1 = s2 -> (s1 + s2 + 1, Node {lt; e; rt}) :: ts_
+  | (s1, lt) :: (s2, rt) :: ts' when s1 = s2 -> (s1 + s2 + 1, Node {lt; e; rt}) :: ts'
   | _ -> (1, Node {lt = Leaf; e; rt = Leaf}) :: ts
+
+let (@::) e ts = cons e ts
 
 let tail ts =
   match ts with
-  | (1, Node _) :: ts_ -> ts_
-  | (s, Node {lt; rt; _}) :: ts_ -> (s / 2, lt) :: (s / 2, rt) :: ts_
+  | (1, Node _) :: ts' -> ts'
+  | (s, Node {lt; rt; _}) :: ts' -> (s / 2, lt) :: (s / 2, rt) :: ts'
   | [] -> raise EmptyList
   | (_, Leaf) :: _ -> failwith "UNEXPECTED"
 
 let rec elem i ts =
-  let rec elem' ix s t =
-    match (ix, t) with
+  let rec elem' i' s t =
+    match (i', t) with
     | 0, Node {e; _} -> e
     | _, Node {lt; rt; _} ->
-      if 2 * ix < s
-      then elem' ((s - 1) / 2) (ix - 1) lt
-      else elem' ((s - 1) / 2) (ix - ((s + 1) / 2)) rt
+      if 2 * i' < s
+      then elem' ((s - 1) / 2) (i' - 1) lt
+      else elem' ((s - 1) / 2) (i' - ((s + 1) / 2)) rt
     | _, Leaf -> failwith "UNEXPECTED"
   in
   match ts with
-  | (s, t) :: ts_ when i >= 0 -> if i < s then elem' i s t else elem (i - s) ts_
+  | (s, t) :: ts' when i >= 0 -> if i < s then elem' i s t else elem (i - s) ts'
   | _ -> raise InvalidIndex
 
+let ( *! ) ts i = elem i ts
+
 let rec update i e ts =
-  let rec update' ix s t =
-    match (ix, t) with
+  let rec update' i' s t =
+    match (i', t) with
     | 0, Node {lt; rt; _} -> (s, Node {lt; e; rt})
     | _, Node {lt; rt; _} ->
-      if 2 * ix < s
-      then update' ((s - 1) / 2) (ix - 1) lt
-      else update' ((s - 1) / 2) (ix - ((s + 1) / 2)) rt
+      if 2 * i' < s
+      then update' ((s - 1) / 2) (i' - 1) lt
+      else update' ((s - 1) / 2) (i' - ((s + 1) / 2)) rt
     | _, Leaf -> failwith "UNEXPECTED"
   in
   match ts with
-  | (s, t) :: ts_ when i >= 0 -> if i < s then update' i s t :: ts_ else update (i - s) e ts_
+  | (s, t) :: ts' when i >= 0 -> if i < s then update' i s t :: ts' else update (i - s) e ts'
   | _ -> raise InvalidIndex
