@@ -1,4 +1,4 @@
-(* Indexed list structure. *)
+(* Structure of indexed list *)
 type 'a tree = Leaf | Node of {lt : 'a tree; e : 'a; rt : 'a tree}
 
 type 'a t = (int * 'a tree) list

@@ -1,4 +1,4 @@
-(* Real-time Hood-Melville queue structure. *)
+(* Structure of real-time Hood-Melville queue *)
 type 'a rot =
   | Rev of {len : int; frt : 'a list; rev_frt : 'a list; bck : 'a list; rev_bck : 'a list}
   | Apd of {len : int; frt : 'a list; bck : 'a list}

@@ -1,4 +1,4 @@
-(* Binomial heap structure. *)
+(* Structure of binomial heap *)
 module type COMPARABLE = sig
   type t
 
@@ -51,17 +51,17 @@ module Make (Cmp : COMPARABLE) : HEAP with type elem = Cmp.t = struct
 
   let rec insert_tree_ t ts =
     match ts with
-    | tx :: tsx -> if rank_ t < rank_ tx then t :: ts else insert_tree_ (link_ t tx) tsx
+    | t' :: ts' -> if rank_ t < rank_ t' then t :: ts else insert_tree_ (link_ t t') ts'
     | [] -> [t]
 
   let rec merge ts1 ts2 =
     match (ts1, ts2) with
-    | tx1 :: tsx1, tx2 :: tsx2 ->
-      if rank_ tx1 < rank_ tx2
-      then tx1 :: merge tsx1 ts2
-      else if rank_ tx1 > rank_ tx2
-      then tx2 :: merge ts1 tsx2
-      else insert_tree_ (link_ tx1 tx2) (merge tsx1 tsx2)
+    | t1' :: ts1', t2' :: ts2' ->
+      if rank_ t1' < rank_ t2'
+      then t1' :: merge ts1' ts2
+      else if rank_ t1' > rank_ t2'
+      then t2' :: merge ts1 ts2'
+      else insert_tree_ (link_ t1' t2') (merge ts1' ts2')
     | ts, [] | [], ts -> ts
 
   let peek h =
@@ -89,9 +89,9 @@ module Make (Cmp : COMPARABLE) : HEAP with type elem = Cmp.t = struct
     in
     let rec rank_trees rk ts acc =
       match ts with
-      | tx :: tsx -> rank_trees (rk - 1) tsx ((rk, tx) :: acc)
+      | t' :: ts' -> rank_trees (rk - 1) ts' ((rk, t') :: acc)
       | [] -> acc
     in
-    let (r, Tree (_, ts)), hx = remove_min h in
-    merge (rank_trees (r - 1) ts []) hx
+    let (r, Tree (_, ts)), h' = remove_min h in
+    merge (rank_trees (r - 1) ts []) h'
 end

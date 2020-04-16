@@ -1,4 +1,4 @@
-(* Graham's algorithm for convex hull on a plane. *)
+(* Algorithm for convex hull on a plane (monotone chain) *)
 let find_convex_hull (points : Point2d.point2d list) =
   let cross_product (p1X, p1Y) (p2X, p2Y) (p3X, p3Y) =
     ((p1X -. p2X) *. (p3Y -. p2Y)) -. ((p3X -. p2X) *. (p1Y -. p2Y))

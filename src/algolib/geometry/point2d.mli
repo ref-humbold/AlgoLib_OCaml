@@ -1,4 +1,4 @@
-(** Points on a plane. *)
+(** Structure of point on a plane *)
 
 type point2d = float * float
 (** The type of points on a plane. *)

@@ -1,4 +1,4 @@
-(* Algorithms for subsequences. *)
+(* Algorithms for subsequences *)
 let maximum_subarray sequence =
   let push e (sum, arr) = (e +. sum, e :: arr) in
   let rec subarray sq actual maximal =

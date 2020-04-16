@@ -1,4 +1,4 @@
-(* Points on a plane. *)
+(* Structure of point on a plane *)
 type point2d = float * float
 
 let p2d x y = (x, y)
