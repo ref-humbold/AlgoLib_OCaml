@@ -1,11 +1,13 @@
 (* Structure of point on a plane *)
-type point2d = float * float
+type point2d = Pt2D of float * float
 
-let p2d x y = (x, y)
+let pt2d x y = Pt2D (x, y)
 
-let p2d_i x y = (float_of_int x, float_of_int y)
+let pt2d_i x y = Pt2D (float_of_int x, float_of_int y)
 
-let angle (x, y) =
-  if y >= 0.0 then atan2 y x *. 45.0 /. atan 1.0 else (atan2 y x *. 45.0 /. atan 1.0) +. 360.0
+let angle_rad (Pt2D (x, y)) = atan2 y x
 
-let radius (x, y) = (x *. x) +. (y *. y)
+let angle_deg (Pt2D (_, y) as p) =
+  if y >= 0.0 then angle_rad p *. 45.0 /. atan 1.0 else (angle_rad p *. 45.0 /. atan 1.0) +. 360.0
+
+let radius (Pt2D (x, y)) = sqrt @@ ((x *. x) +. (y *. y))
