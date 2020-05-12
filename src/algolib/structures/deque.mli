@@ -1,10 +1,10 @@
 (** Structure of double-ended queue *)
 
-(** The type of deques containing elements of type ['a]. *)
 type 'a t
+(** The type of deques containing elements of type ['a]. *)
 
-(** Exception raised when retrieving or removing elements from empty deque. *)
 exception EmptyDeque
+(** Exception raised when retrieving or removing elements from empty deque. *)
 
 val empty : 'a t
 (** The empty deque. *)
