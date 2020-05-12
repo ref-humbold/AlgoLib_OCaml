@@ -22,7 +22,7 @@ let test_miller number =
   then false
   else
     let rec remove_twos n' = if n' mod 2 == 0 then remove_twos (n' / 2) else n' in
-    let rec mult_twos acc d' = if d' <= n / 2 then mult_twos (d' :: acc) (d' lsl 1) else acc in
+    let rec mult_twos acc d' = if d' <= n / 2 then mult_twos (d' :: acc) (d' * 2) else acc in
     let d = remove_twos (n - 1) in
     List.for_all (fun r ->
                    power_mod ~modulo:n r d == 1
