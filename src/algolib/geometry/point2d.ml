@@ -10,4 +10,4 @@ let angle_rad (Pt2D (x, y)) = atan2 y x
 let angle_deg (Pt2D (_, y) as p) =
   if y >= 0.0 then angle_rad p *. 45.0 /. atan 1.0 else (angle_rad p *. 45.0 /. atan 1.0) +. 360.0
 
-let radius (Pt2D (x, y)) = sqrt @@ ((x *. x) +. (y *. y))
+let radius (Pt2D (x, y)) = sqrt ((x *. x) +. (y *. y))
