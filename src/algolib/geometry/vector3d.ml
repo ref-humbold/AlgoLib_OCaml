@@ -21,6 +21,6 @@ let dot (Vec3D (x1, y1, z1)) (Vec3D (x2, y2, z2)) = (x1 *. x2) +. (y1 *. y2) +. 
 let cross (Vec3D (x1, y1, z1)) (Vec3D (x2, y2, z2)) =
   Vec3D ((y1 *. z2) -. (z1 *. y2), (z1 *. x2) -. (x1 *. z2), (x1 *. y2) -. (y1 *. x2))
 
-let area v1 v2 = length (v1 ^* v2)
+let area v1 v2 = length @@ cross v1 v2
 
-let volume v1 v2 v3 = v1 @* v2 ^* v3
+let volume v1 v2 v3 = dot v1 @@ cross v2 v3

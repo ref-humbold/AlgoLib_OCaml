@@ -26,5 +26,5 @@ let test_miller number =
     let d = remove_twos (n - 1) in
     List.for_all (fun r ->
                    power_mod ~modulo:n r d == 1
-                   || List.exists (fun d' -> power_mod ~modulo:n r d' == n - 1) (mult_twos [] d))
+                   || List.exists (fun d' -> power_mod ~modulo:n r d' == n - 1) (mult_twos [] d) )
     @@ rands_ n 12

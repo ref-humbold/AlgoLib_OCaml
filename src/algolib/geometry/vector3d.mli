@@ -27,7 +27,7 @@ val ( /$ ) : vector3d -> float -> vector3d
 val dot : vector3d -> vector3d -> float
 (** [dot v1 v2] counts the dot product of vectors [v1] and [v2]. *)
 
-val cross : vector3d -> vector3d -> float
+val cross : vector3d -> vector3d -> vector3d
 (** [cross v1 v2] counts the cross product of vectors [v1] and [v2]. *)
 
 val area : vector3d -> vector3d -> float

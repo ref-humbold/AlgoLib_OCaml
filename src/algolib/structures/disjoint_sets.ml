@@ -53,7 +53,7 @@ module Make (Cmp : COMPARABLE) : DISJOINT_SETS with type elem = Cmp.t = struct
     Seq.iter
       (fun e ->
          Hashtbl.add dset.map e e ;
-         dset.size <- dset.size + 1)
+         dset.size <- dset.size + 1 )
       elements
 
   let add_list elements dset =
@@ -61,7 +61,7 @@ module Make (Cmp : COMPARABLE) : DISJOINT_SETS with type elem = Cmp.t = struct
     List.iter
       (fun e ->
          Hashtbl.add dset.map e e ;
-         dset.size <- dset.size + 1)
+         dset.size <- dset.size + 1 )
       elements
 
   let rec find_set element dset =
