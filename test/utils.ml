@@ -1,7 +1,7 @@
 module Printers = struct
-  let list_str printer lst = "[" ^ String.concat "; " (List.map printer lst) ^ "]"
+  let list printer lst = "[" ^ String.concat "; " (List.map printer lst) ^ "]"
 
-  let opt_str printer opt =
+  let option printer opt =
     match opt with
     | Some x -> "Some " ^ printer x
     | None -> "None"
