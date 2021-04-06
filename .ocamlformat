@@ -1,3 +1,4 @@
+# version 0.18
 align-cases = false
 align-constructors-decl = false
 align-variants-decl = false
