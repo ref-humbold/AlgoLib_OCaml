@@ -22,10 +22,15 @@ let size {size; _} = size
 
 let contains text {tree; _} =
   let rec contains' node i n =
-    match node with
-    | Empty -> false
-    | Terminus a -> if i = n then true else contains' a.(Char.code text.[i]) (i + 1) n
-    | Node a -> contains' a.(Char.code text.[i]) (i + 1) n
+    if i = n
+    then
+      match node with
+      | Empty | Node _ -> false
+      | Terminus _ -> true
+    else
+      match node with
+      | Empty -> false
+      | Terminus a | Node a -> contains' a.(Char.code text.[i]) (i + 1) n
   in
   contains' tree 0 @@ String.length text
 
