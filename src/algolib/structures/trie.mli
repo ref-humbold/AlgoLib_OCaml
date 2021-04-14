@@ -3,9 +3,6 @@
 type t
 (** The type of trie. *)
 
-exception EmptyTrie
-(** Exception raised when removing elements from empty trie. *)
-
 val empty : t
 (** The empty trie. *)
 
@@ -20,6 +17,9 @@ val contains : string -> t -> bool
 
 val add : string -> t -> t
 (** [add s t] adds text [s] to trie [t]. *)
+
+val remove : string -> t -> t
+(** [remove s t] removes text [s] from trie [t]. *)
 
 val of_seq : string Seq.t -> t
 (** [of_seq xs] creates new trie with elements of Seq [xs]. *)
