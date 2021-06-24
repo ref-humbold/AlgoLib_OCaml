@@ -14,3 +14,6 @@ let sort_by_z lst =
   List.stable_sort
     (fun (Point_3d.Point3D (_, _, z1)) (Point_3d.Point3D (_, _, z2)) -> compare z1 z2)
     lst
+
+let translate (Point_3d.Point3D (px, py, pz)) (Vector_3d.Vector3D (vx, vy, vz)) =
+  Point_3d.pt3d (px +. vx) (py +. vy) (pz +. vz)

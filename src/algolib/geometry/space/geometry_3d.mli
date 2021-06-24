@@ -11,3 +11,6 @@ val sort_by_y : Point_3d.point3d list -> Point_3d.point3d list
 val sort_by_z : Point_3d.point3d list -> Point_3d.point3d list
 (** [sort_by_z lst] sorts points [lst] with respect to their Z coordinates. Sorting is guaranteed to
     be stable. *)
+
+val translate : Point_3d.point3d -> Vector_3d.vector3d -> Point_3d.point3d
+(** [translate p v] moves point [p] by vector [v]. *)

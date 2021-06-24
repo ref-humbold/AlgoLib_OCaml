@@ -11,3 +11,6 @@ let sort_by_angle lst =
     compare (Point_2d.angle_deg p1, Point_2d.radius p1) (Point_2d.angle_deg p2, Point_2d.radius p2)
   in
   List.stable_sort cmp lst
+
+let translate (Point_2d.Point2D (px, py)) (Vector_2d.Vector2D (vx, vy)) =
+  Point_2d.pt2d (px +. vx) (py +. vy)

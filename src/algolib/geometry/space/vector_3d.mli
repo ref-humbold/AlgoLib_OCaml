@@ -9,6 +9,9 @@ val vec3d : float -> float -> float -> vector3d
 val vec3d_i : int -> int -> int -> vector3d
 (** [vec3d_i x y z] creates a vector [\[x, y, z\]]. *)
 
+val vec_between : Point_3d.point3d -> Point_3d.point3d -> vector3d
+(** [vec_between p1 p2] creates a vector between points [p1] and [p2] *)
+
 val length : vector3d -> float
 (** [length v] computes length of vector [v]. *)
 
