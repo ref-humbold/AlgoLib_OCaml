@@ -1,7 +1,7 @@
-(** Structure of vector on a plane *)
+(** Structure of vector in 2D *)
 
-(** The type of vectors on a plane. *)
-type vector2d = Vec2D of float * float
+(** The type of vectors in 2D. *)
+type vector2d = Vector2D of float * float
 
 val vec2d : float -> float -> vector2d
 (** [vec2d x y] creates a vector [\[x, y\]]. *)

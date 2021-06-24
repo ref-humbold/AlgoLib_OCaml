@@ -1,7 +1,7 @@
-(** Structure of point in a space *)
+(** Structure of point in 3D *)
 
-(** The type of points in a space. *)
-type point3d = Pt3D of float * float * float
+(** The type of points in 3D. *)
+type point3d = Point3D of float * float * float
 
 val pt3d : float -> float -> float -> point3d
 (** [p3d x y z] creates a point [(x, y, z)]. *)

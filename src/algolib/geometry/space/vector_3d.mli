@@ -1,7 +1,7 @@
-(** Structure of vector in a space *)
+(** Structure of vector in 3D *)
 
-(** The type of vectors in a space. *)
-type vector3d = Vec3D of float * float * float
+(** The type of vectors in 3D. *)
+type vector3d = Vector3D of float * float * float
 
 val vec3d : float -> float -> float -> vector3d
 (** [vec3d x y z] creates a vector [\[x, y, z\]]. *)
