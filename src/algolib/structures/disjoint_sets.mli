@@ -48,10 +48,10 @@ module type DISJOINT_SETS = sig
       neither [x] nor [y] is present in the structure. *)
 
   val of_seq : elem Seq.t -> t
-  (** [of_seq xs s] creates new structure [s] of singleton sets from elements of Seq [xs]. *)
+  (** [of_seq xs] creates new structure of singleton sets from elements of Seq [xs]. *)
 
   val of_list : elem list -> t
-  (** [of_list xs s] creates new structure [s] of singleton sets from elements of list [xs]. *)
+  (** [of_list xs] creates new structure of singleton sets from elements of list [xs]. *)
 end
 
 module Make (Cmp : COMPARABLE) : DISJOINT_SETS with type elem = Cmp.t

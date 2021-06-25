@@ -3,13 +3,15 @@ open OUnit2
 open Algolib.List_sorting
 open Utils
 
+let numbers = [3; 17; -6; 0; 9; -12; 7; 4; 2]
+
 (* merge_sort_Test_list *)
 
 let merge_sort__when_standard_compare__then_returns_ascending_order =
   "merge_sort When standard compare Then returns ascending order"
   >:: fun _ ->
     (* when *)
-    let result = merge_sort compare [3; 17; -6; 0; 9; -12; 7; 4; 2] in
+    let result = merge_sort compare numbers in
     (* then *)
     assert_equal ~printer:(Printers.list string_of_int) [-12; -6; 0; 2; 3; 4; 7; 9; 17] result
 
@@ -17,7 +19,7 @@ let merge_sort__when_reversed_compare__then_returns_descending_order =
   "merge_sort When reversed compare Then returns descending order"
   >:: fun _ ->
     (* when *)
-    let result = merge_sort (fun x y -> -compare x y) [3; 17; -6; 0; 9; -12; 7; 4; 2] in
+    let result = merge_sort (fun x y -> -compare x y) numbers in
     (* then *)
     assert_equal ~printer:(Printers.list string_of_int) [17; 9; 7; 4; 3; 2; 0; -6; -12] result
 
