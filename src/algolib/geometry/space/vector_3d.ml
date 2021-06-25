@@ -6,7 +6,7 @@ let vec3d x y z = Vector3D (x, y, z)
 
 let vec3d_i x y z = Vector3D (float_of_int x, float_of_int y, float_of_int z)
 
-let vec_between (Point_3d.Point3D (p1x, p1y, p1z)) (Point_3d.Point3D (p2x, p2y, p2z)) =
+let between (Point_3d.Point3D (p1x, p1y, p1z)) (Point_3d.Point3D (p2x, p2y, p2z)) =
   vec3d (p2x -. p1x) (p2y -. p1y) (p2z -. p1z)
 
 let length (Vector3D (x, y, z)) = sqrt ((x *. x) +. (y *. y) +. (z *. z))

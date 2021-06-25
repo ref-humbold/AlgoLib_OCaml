@@ -9,8 +9,8 @@ val vec2d : float -> float -> vector2d
 val vec2d_i : int -> int -> vector2d
 (** [vec2d_i x y] creates a vector [\[x, y\]]. *)
 
-val vec_between : Point_2d.point2d -> Point_2d.point2d -> vector2d
-(** [vec_between p1 p2] creates a vector between points [p1] and [p2] *)
+val between : Point_2d.point2d -> Point_2d.point2d -> vector2d
+(** [between p1 p2] creates a vector between points [p1] and [p2] *)
 
 val length : vector2d -> float
 (** [length v] computes length of vector [v]. *)

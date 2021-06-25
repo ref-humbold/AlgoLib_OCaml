@@ -6,7 +6,7 @@ let vec2d x y = Vector2D (x, y)
 
 let vec2d_i x y = Vector2D (float_of_int x, float_of_int y)
 
-let vec_between (Point_2d.Point2D (p1x, p1y)) (Point_2d.Point2D (p2x, p2y)) =
+let between (Point_2d.Point2D (p1x, p1y)) (Point_2d.Point2D (p2x, p2y)) =
   vec2d (p2x -. p1x) (p2y -. p1y)
 
 let length (Vector2D (x, y)) = sqrt ((x *. x) +. (y *. y))

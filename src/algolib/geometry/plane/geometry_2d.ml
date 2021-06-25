@@ -12,5 +12,8 @@ let sort_by_angle lst =
   in
   List.stable_sort cmp lst
 
+let distance (Point_2d.Point2D (p1x, p1y)) (Point_2d.Point2D (p2x, p2y)) =
+  sqrt (((p2x -. p1x) *. (p2x -. p1x)) +. ((p2y -. p1y) *. (p2y -. p1y)))
+
 let translate (Point_2d.Point2D (px, py)) (Vector_2d.Vector2D (vx, vy)) =
   Point_2d.pt2d (px +. vx) (py +. vy)
