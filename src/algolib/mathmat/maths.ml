@@ -12,7 +12,7 @@ let lcm number1 number2 =
 
 let ( **^ ) = lcm
 
-let multiply_mod ?(modulo = 0) factor1 factor2 =
+let multiply factor1 factor2 =
   let rec mult' fc1 fc2 res step =
     if fc2 > 0
     then
@@ -20,14 +20,27 @@ let multiply_mod ?(modulo = 0) factor1 factor2 =
       if fc2 mod 2 = 1 then mult' fc1'' (fc2 / 2) res'' step else mult' fc1'' (fc2 / 2) res step
     else res
   in
-  if modulo < 0
-  then failwith "Negative modulo"
+  let step fc1' res' = (fc1' + fc1', fc1' + res') in
+  if factor1 < 0 && factor2 < 0
+  then mult' (-factor1) (-factor2) 0 step
+  else if factor1 < 0
+  then -mult' (-factor1) factor2 0 step
+  else if factor2 < 0
+  then -mult' factor1 (-factor2) 0 step
+  else mult' factor1 factor2 0 step
+
+let multiply_mod factor1 factor2 modulo =
+  let rec mult' fc1 fc2 res step =
+    if fc2 > 0
+    then
+      let fc1'', res'' = step fc1 res in
+      if fc2 mod 2 = 1 then mult' fc1'' (fc2 / 2) res'' step else mult' fc1'' (fc2 / 2) res step
+    else res
+  in
+  if modulo <= 0
+  then failwith "Non-positive modulo"
   else
-    let step_mod =
-      if modulo = 0
-      then fun fc1' res' -> (fc1' + fc1', fc1' + res')
-      else fun fc1' res' -> ((fc1' + fc1') mod modulo, (fc1' + res') mod modulo)
-    in
+    let step_mod fc1' res' = ((fc1' + fc1') mod modulo, (fc1' + res') mod modulo) in
     if factor1 < 0 && factor2 < 0
     then mult' (-factor1) (-factor2) 0 step_mod
     else if factor1 < 0
@@ -36,17 +49,32 @@ let multiply_mod ?(modulo = 0) factor1 factor2 =
     then modulo - mult' factor1 (-factor2) 0 step_mod
     else mult' factor1 factor2 0 step_mod
 
-let power_mod ?(modulo = 0) base expon =
+let power base expon =
   let rec power' base' expon' res' =
     if expon' > 0
     then
       if expon' mod 2 = 1
-      then power' (multiply_mod ~modulo base' base') (expon' / 2) (multiply_mod ~modulo base' res')
-      else power' (multiply_mod ~modulo base' base') (expon' / 2) res'
+      then power' (multiply base' base') (expon' / 2) (multiply base' res')
+      else power' (multiply base' base') (expon' / 2) res'
     else res'
   in
-  if modulo < 0
-  then failwith "Negative modulo"
+  if expon < 0
+  then failwith "Negative exponent"
+  else if base = 0 && expon = 0
+  then failwith "Not a number"
+  else power' base expon 1
+
+let power_mod base expon modulo =
+  let rec power' base' expon' res' =
+    if expon' > 0
+    then
+      if expon' mod 2 = 1
+      then power' (multiply_mod base' base' modulo) (expon' / 2) (multiply_mod base' res' modulo)
+      else power' (multiply_mod base' base' modulo) (expon' / 2) res'
+    else res'
+  in
+  if modulo <= 0
+  then failwith "Non-positive modulo"
   else if expon < 0
   then failwith "Negative exponent"
   else if base = 0 && expon = 0

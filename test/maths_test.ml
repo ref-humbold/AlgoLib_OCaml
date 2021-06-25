@@ -108,61 +108,163 @@ let lcm_Test_list =
       lcm__when_number1_is_multiple_of_number2__then_returns_number1;
       lcm__when_number2_is_zero__then_returns_zero ]
 
-(* power_mod_Test_list *)
+(* multiply_Test_list *)
 
-let power_mod__when_base_is_zero__then_returns_zero =
-  "power_mod When base is zero Then returns zero"
+let multiply__when_factor1_is_zero__then_returns_zero =
+  "multiply When factor1 is zero Then returns zero"
   >:: fun _ ->
     (* when *)
-    let result = power_mod 0 14 in
+    let result = multiply 0 14 in
     (* then *)
     assert_equal ~printer:string_of_int 0 result
 
-let power_mod__when_exponent_is_zero__then_returns_one =
-  "power_mod When exponent is zero Then returns one"
+let multiply__when_factor2_is_zero__then_returns_zero =
+  "multiply When factor2 is zero Then returns zero"
   >:: fun _ ->
     (* when *)
-    let result = power_mod 14 0 in
+    let result = multiply 14 0 in
+    (* then *)
+    assert_equal ~printer:string_of_int 0 result
+
+let multiply__when_factors_are_zero__then_returns_zero =
+  "multiply When factors are zero Then returns zero"
+  >:: fun _ ->
+    (* when *)
+    let result = multiply 0 0 in
+    (* then *)
+    assert_equal ~printer:string_of_int 0 result
+
+let multiply__when_factor1_is_negative_and_factor2_is_positive =
+  "multiply When factor1 is negative and factor2 is positive"
+  >:: fun _ ->
+    (* when *)
+    let result = multiply (-3) 10 in
+    (* then *)
+    assert_equal ~printer:string_of_int (-30) result
+
+let multiply__when_factor1_is_positive_and_factor2_is_negative =
+  "multiply When factor1 is positive and factor2 is negative"
+  >:: fun _ ->
+    (* when *)
+    let result = multiply 3 (-10) in
+    (* then *)
+    assert_equal ~printer:string_of_int (-30) result
+
+let multiply__when_factors_are_negative =
+  "multiply When factors are negative"
+  >:: fun _ ->
+    let result = multiply (-3) (-10) in
+    (* then *)
+    assert_equal ~printer:string_of_int 30 result
+
+let multiply_mod__when_modulo_and_factors_are_positive =
+  "multiply_mod When modulo and factors are positive"
+  >:: fun _ ->
+    (* when *)
+    let result = multiply_mod 547 312 10000 in
+    (* then *)
+    assert_equal ~printer:string_of_int 664 result
+
+let multiply_mod__when_modulo_is_positive_and_factor1_is_negative =
+  "multiply_mod When modulo is positive and factor1 is negative"
+  >:: fun _ ->
+    (* when *)
+    let result = multiply_mod (-547) 312 10000 in
+    (* then *)
+    assert_equal ~printer:string_of_int 9336 result
+
+let multiply_mod__when_modulo_is_positive_and_factor2_is_negative =
+  "multiply_mod When modulo is positive and factor2 is negative"
+  >:: fun _ ->
+    (* when *)
+    let result = multiply_mod 547 (-312) 10000 in
+    (* then *)
+    assert_equal ~printer:string_of_int 9336 result
+
+let multiply_mod__when_modulo_is_positive_and_factors_are_negative =
+  "multiply_mod When modulo is positive and factors are negative"
+  >:: fun _ ->
+    (* when *)
+    let result = multiply_mod (-547) (-312) 10000 in
+    (* then *)
+    assert_equal ~printer:string_of_int 664 result
+
+let multiply_mod__when_modulo_is_negative__then_raises_failure =
+  "multiply_mod When modulo is negative Then raises failure"
+  >:: fun _ ->
+    (* when *)
+    let result () = multiply_mod 547 312 (-10000) in
+    (* then *)
+    assert_raises (Failure "Non-positive modulo") result
+
+let multiply_Test_list =
+  test_list
+    [ multiply__when_factor1_is_zero__then_returns_zero;
+      multiply__when_factor2_is_zero__then_returns_zero;
+      multiply__when_factors_are_zero__then_returns_zero;
+      multiply__when_factor1_is_negative_and_factor2_is_positive;
+      multiply__when_factor1_is_positive_and_factor2_is_negative;
+      multiply__when_factors_are_negative; multiply_mod__when_modulo_and_factors_are_positive;
+      multiply_mod__when_modulo_is_positive_and_factor1_is_negative;
+      multiply_mod__when_modulo_is_positive_and_factor2_is_negative;
+      multiply_mod__when_modulo_is_positive_and_factors_are_negative;
+      multiply_mod__when_modulo_is_negative__then_raises_failure ]
+
+(* power_Test_list *)
+
+let power__when_base_is_zero__then_returns_zero =
+  "power When base is zero Then returns zero"
+  >:: fun _ ->
+    (* when *)
+    let result = power 0 14 in
+    (* then *)
+    assert_equal ~printer:string_of_int 0 result
+
+let power__when_exponent_is_zero__then_returns_one =
+  "power When exponent is zero Then returns one"
+  >:: fun _ ->
+    (* when *)
+    let result = power 14 0 in
     (* then *)
     assert_equal ~printer:string_of_int 1 result
 
-let power_mod__when_base_and_exponent_are_zero__then_raises_failure =
-  "power_mod When base and exponent are zero Then raises failure"
+let power__when_base_and_exponent_are_zero__then_raises_failure =
+  "power When base and exponent are zero Then raises failure"
   >:: fun _ ->
     (* when *)
-    let result () = power_mod 0 0 in
+    let result () = power 0 0 in
     (* then *)
     assert_raises (Failure "Not a number") result
 
-let power_mod__when_base_and_exponent_are_positive =
-  "power_mod When base and exponent are positive"
+let power__when_base_and_exponent_are_positive =
+  "power When base and exponent are positive"
   >:: fun _ ->
     (* when *)
-    let result = power_mod 3 10 in
+    let result = power 3 10 in
     (* then *)
     assert_equal ~printer:string_of_int 59049 result
 
-let power_mod__when_base_is_negative_and_exponent_is_even =
-  "power_mod When base is negative and exponent is even"
+let power__when_base_is_negative_and_exponent_is_even =
+  "power When base is negative and exponent is even"
   >:: fun _ ->
     (* when *)
-    let result = power_mod (-3) 10 in
+    let result = power (-3) 10 in
     (* then *)
     assert_equal ~printer:string_of_int 59049 result
 
-let power_mod__when_base_is_negative_and_exponent_is_odd =
-  "power_mod When base is negative and exponent is odd"
+let power__when_base_is_negative_and_exponent_is_odd =
+  "power When base is negative and exponent is odd"
   >:: fun _ ->
     (* when *)
-    let result = power_mod (-3) 9 in
+    let result = power (-3) 9 in
     (* then *)
     assert_equal ~printer:string_of_int (-19683) result
 
-let power_mod__when_exponent_is_negative__then_raises_failure =
-  "power_mod When exponent is negative Then raises failure"
+let power__when_exponent_is_negative__then_raises_failure =
+  "power When exponent is negative Then raises failure"
   >:: fun _ ->
     (* when *)
-    let result () = power_mod 3 (-10) in
+    let result () = power 3 (-10) in
     (* then *)
     assert_raises (Failure "Negative exponent") result
 
@@ -170,7 +272,7 @@ let power_mod__when_modulo_and_base_are_positive =
   "power_mod When modulo and base are positive"
   >:: fun _ ->
     (* when *)
-    let result = power_mod ~modulo:10000 5 11 in
+    let result = power_mod 5 11 10000 in
     (* then *)
     assert_equal ~printer:string_of_int 8125 result
 
@@ -178,7 +280,7 @@ let power_mod__when_modulo_is_positive_and_base_is_negative =
   "power_mod When modulo is positive and base is negative"
   >:: fun _ ->
     (* when *)
-    let result = power_mod ~modulo:10000 (-5) 11 in
+    let result = power_mod (-5) 11 10000 in
     (* then *)
     assert_equal ~printer:string_of_int 1875 result
 
@@ -186,119 +288,25 @@ let power_mod__when_modulo_is_negative__then_raises_failure =
   "power_mod When modulo is negative Then raises failure"
   >:: fun _ ->
     (* when *)
-    let result () = power_mod ~modulo:(-10000) 5 11 in
+    let result () = power_mod 5 11 (-10000) in
     (* then *)
-    assert_raises (Failure "Negative modulo") result
+    assert_raises (Failure "Non-positive modulo") result
 
-let power_mod_Test_list =
+let power_Test_list =
   test_list
-    [ power_mod__when_base_is_zero__then_returns_zero;
-      power_mod__when_exponent_is_zero__then_returns_one;
-      power_mod__when_base_and_exponent_are_zero__then_raises_failure;
-      power_mod__when_base_and_exponent_are_positive;
-      power_mod__when_base_is_negative_and_exponent_is_even;
-      power_mod__when_base_is_negative_and_exponent_is_odd;
-      power_mod__when_exponent_is_negative__then_raises_failure;
+    [ power__when_base_is_zero__then_returns_zero; power__when_exponent_is_zero__then_returns_one;
+      power__when_base_and_exponent_are_zero__then_raises_failure;
+      power__when_base_and_exponent_are_positive; power__when_base_is_negative_and_exponent_is_even;
+      power__when_base_is_negative_and_exponent_is_odd;
+      power__when_exponent_is_negative__then_raises_failure;
       power_mod__when_modulo_and_base_are_positive;
       power_mod__when_modulo_is_positive_and_base_is_negative;
       power_mod__when_modulo_is_negative__then_raises_failure ]
-
-(* multiply_mod_Test_list *)
-
-let multiply_mod__when_factor1_is_zero__then_returns_zero =
-  "multiply_mod When factor1 is zero Then returns zero"
-  >:: fun _ ->
-    let number1 = 0 and number2 = 14 in
-    let result = multiply_mod number1 number2 in
-    assert_equal ~printer:string_of_int 0 result
-
-let multiply_mod__when_factor2_is_zero__then_returns_zero =
-  "multiply_mod When factor2 is zero Then returns zero"
-  >:: fun _ ->
-    let number1 = 14 and number2 = 0 in
-    let result = multiply_mod number1 number2 in
-    assert_equal ~printer:string_of_int 0 result
-
-let multiply_mod__when_factors_are_zero__then_returns_zero =
-  "multiply_mod When factors are zero Then returns zero"
-  >:: fun _ ->
-    let number1 = 0 and number2 = 0 in
-    let result = multiply_mod number1 number2 in
-    assert_equal ~printer:string_of_int 0 result
-
-let multiply_mod__when_factor1_is_negative_and_factor2_is_positive =
-  "multiply_mod When factor1 is negative and factor2 is positive"
-  >:: fun _ ->
-    let number1 = -3 and number2 = 10 in
-    let result = multiply_mod number1 number2 in
-    assert_equal ~printer:string_of_int (-30) result
-
-let multiply_mod__when_factor1_is_positive_and_factor2_is_negative =
-  "multiply_mod When factor1 is positive and factor2 is negative"
-  >:: fun _ ->
-    let number1 = 3 and number2 = -10 in
-    let result = multiply_mod number1 number2 in
-    assert_equal ~printer:string_of_int (-30) result
-
-let multiply_mod__when_factors_are_negative =
-  "multiply_mod When factors are negative"
-  >:: fun _ ->
-    let number1 = -3 and number2 = -10 in
-    let result = multiply_mod number1 number2 in
-    assert_equal ~printer:string_of_int 30 result
-
-let multiply_mod__when_modulo_and_factors_are_positive =
-  "multiply_mod When modulo and factors are positive"
-  >:: fun _ ->
-    let number1 = 547 and number2 = 312 and number3 = 10000 in
-    let result = multiply_mod ~modulo:number3 number1 number2 in
-    assert_equal ~printer:string_of_int 664 result
-
-let multiply_mod__when_modulo_is_positive_and_factor1_is_negative =
-  "multiply_mod When modulo is positive and factor1 is negative"
-  >:: fun _ ->
-    let number1 = -547 and number2 = 312 and number3 = 10000 in
-    let result = multiply_mod ~modulo:number3 number1 number2 in
-    assert_equal ~printer:string_of_int 9336 result
-
-let multiply_mod__when_modulo_is_positive_and_factor2_is_negative =
-  "multiply_mod When modulo is positive and factor2 is negative"
-  >:: fun _ ->
-    let number1 = 547 and number2 = -312 and number3 = 10000 in
-    let result = multiply_mod ~modulo:number3 number1 number2 in
-    assert_equal ~printer:string_of_int 9336 result
-
-let multiply_mod__when_modulo_is_positive_and_factors_are_negative =
-  "multiply_mod When modulo is positive and factors are negative"
-  >:: fun _ ->
-    let number1 = -547 and number2 = -312 and number3 = 10000 in
-    let result = multiply_mod ~modulo:number3 number1 number2 in
-    assert_equal ~printer:string_of_int 664 result
-
-let multiply_mod__when_modulo_is_negative__then_raises_failure =
-  "multiply_mod When modulo is negative Then raises failure"
-  >:: fun _ ->
-    let number1 = 547 and number2 = 312 and number3 = -10000 in
-    let result () = multiply_mod ~modulo:number3 number1 number2 in
-    assert_raises (Failure "Negative modulo") result
-
-let multiply_mod_Test_list =
-  test_list
-    [ multiply_mod__when_factor1_is_zero__then_returns_zero;
-      multiply_mod__when_factor2_is_zero__then_returns_zero;
-      multiply_mod__when_factors_are_zero__then_returns_zero;
-      multiply_mod__when_factor1_is_negative_and_factor2_is_positive;
-      multiply_mod__when_factor1_is_positive_and_factor2_is_negative;
-      multiply_mod__when_factors_are_negative; multiply_mod__when_modulo_and_factors_are_positive;
-      multiply_mod__when_modulo_is_positive_and_factor1_is_negative;
-      multiply_mod__when_modulo_is_positive_and_factor2_is_negative;
-      multiply_mod__when_modulo_is_positive_and_factors_are_negative;
-      multiply_mod__when_modulo_is_negative__then_raises_failure ]
 
 (* maths_Test *)
 
 let maths_Test =
   "Tests: Basic mathematics algorithms"
-  >::: [gcd_Test_list; lcm_Test_list; power_mod_Test_list; multiply_mod_Test_list]
+  >::: [gcd_Test_list; lcm_Test_list; multiply_Test_list; power_Test_list]
 
 let _ = run_test_tt_main maths_Test

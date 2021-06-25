@@ -12,7 +12,7 @@ let test_fermat number =
   then true
   else if n < 2 || n mod 2 = 0 || n mod 3 = 0
   then false
-  else List.for_all (fun r -> r **/ n == 1 && power_mod ~modulo:n r (n - 1) == 1) @@ rands_ n 12
+  else List.for_all (fun r -> r **/ n == 1 && power_mod r (n - 1) n == 1) @@ rands_ n 12
 
 let test_miller number =
   let n = abs number in
@@ -25,6 +25,5 @@ let test_miller number =
     let rec mult_twos acc d' = if d' <= n / 2 then mult_twos (d' :: acc) (d' * 2) else acc in
     let d = remove_twos (n - 1) in
     List.for_all (fun r ->
-                   power_mod ~modulo:n r d == 1
-                   || List.exists (fun d' -> power_mod ~modulo:n r d' == n - 1) (mult_twos [] d) )
+                   power_mod r d n == 1 || List.exists (fun d' -> power_mod r d' n == n - 1) (mult_twos [] d) )
     @@ rands_ n 12
