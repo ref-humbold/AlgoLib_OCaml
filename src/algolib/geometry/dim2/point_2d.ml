@@ -6,6 +6,8 @@ let pt2d x y = Point2D (x, y)
 
 let pt2d_i x y = Point2D (float_of_int x, float_of_int y)
 
+let coordinates (Point2D (x, y)) = (x, y)
+
 let radius (Point2D (x, y)) = sqrt ((x *. x) +. (y *. y))
 
 let angle_rad (Point2D (x, y)) = atan2 y x

@@ -9,6 +9,9 @@ val pt2d : float -> float -> point2d
 val pt2d_i : int -> int -> point2d
 (** [pt2d_i x y] creates a point [(x, y)]. *)
 
+val coordinates : point2d -> float * float
+(** [coordeinates p] returns tuple of point coordinates. *)
+
 val radius : point2d -> float
 (** [radius p] computes distance of point [p] from zero point. *)
 

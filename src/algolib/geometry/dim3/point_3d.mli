@@ -9,5 +9,8 @@ val pt3d : float -> float -> float -> point3d
 val pt3d_i : int -> int -> int -> point3d
 (** [p3d_i x y z] creates a point [(x, y, z)]. *)
 
+val coordinates : point3d -> float * float * float
+(** [coordeinates p] returns tuple of point coordinates. *)
+
 val radius : point3d -> float
 (** [radius p] computes distance of point [p] from zero point. *)

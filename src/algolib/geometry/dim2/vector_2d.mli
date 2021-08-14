@@ -10,10 +10,16 @@ val vec2d_i : int -> int -> vector2d
 (** [vec2d_i x y] creates a vector [\[x, y\]]. *)
 
 val between : Point_2d.point2d -> Point_2d.point2d -> vector2d
-(** [between p1 p2] creates a vector from point [p1] to point [p2] *)
+(** [between p1 p2] creates a vector from point [p1] to point [p2]. *)
+
+val coordinates : vector2d -> float * float
+(** [coordeinates v] returns tuple of vector coordinates. *)
 
 val length : vector2d -> float
 (** [length v] computes length of vector [v]. *)
+
+val ( ~-$ ) : vector2d -> vector2d
+(** [~-$ v] negates vector [v]. *)
 
 val ( +$ ) : vector2d -> vector2d -> vector2d
 (** [v1 +$ v2] adds vectors [v1] and [v2]. Left associative. *)

@@ -10,10 +10,16 @@ val vec3d_i : int -> int -> int -> vector3d
 (** [vec3d_i x y z] creates a vector [\[x, y, z\]]. *)
 
 val between : Point_3d.point3d -> Point_3d.point3d -> vector3d
-(** [between p1 p2] creates a vector from point [p1] to point [p2] *)
+(** [between p1 p2] creates a vector from point [p1] to point [p2]. *)
+
+val coordinates : vector3d -> float * float * float
+(** [coordeinates v] returns tuple of vector coordinates. *)
 
 val length : vector3d -> float
 (** [length v] computes length of vector [v]. *)
+
+val ( ~-$ ) : vector3d -> vector3d
+(** [~-$ v] negates vector [v]. *)
 
 val ( +$ ) : vector3d -> vector3d -> vector3d
 (** [v1 +$ v2] adds vectors [v1] and [v2]. Left associative. *)
