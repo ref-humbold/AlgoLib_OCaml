@@ -1,12 +1,13 @@
 (tests
-  (names disjoint_sets_test maths_test list_sorting_test primes_test)
-  (libraries oUnit algolib)
-)
+ (names
+  disjoint_sets_test
+  maths_test
+  list_sorting_test
+  primes_test
+  vector_2d_test)
+ (libraries oUnit algolib))
 
 (env
-  (dev
-    (flags
-      (:standard -warn-error -A -w +A)
-    )
-  )
-)
+ (dev
+  (flags
+   (:standard -warn-error -A -w +A))))

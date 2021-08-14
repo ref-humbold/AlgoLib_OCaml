@@ -72,8 +72,8 @@ let add_list__when_new_elements__then_singleton_sets =
     (* then *)
     List.iter (fun e -> assert_bool Messages.true_value @@ IDS.contains e test_object) elems
 
-let add_list__when_present_element__then_raise_element_present =
-  "add_list When present element Then raise ElementPresent"
+let add_list__when_present_element__then_element_present =
+  "add_list When present element Then ElementPresent"
   >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list numbers and elems = [11; 7; 15] in
@@ -85,7 +85,7 @@ let add_list__when_present_element__then_raise_element_present =
 let add_list_Test_list =
   test_list
     [ add_list__when_new_elements__then_singleton_sets;
-      add_list__when_present_element__then_raise_element_present ]
+      add_list__when_present_element__then_element_present ]
 
 (* add_seq_Test_list *)
 
@@ -100,8 +100,8 @@ let add_seq__when_new_elements__then_singleton_sets =
     (* then *)
     Seq.iter (fun e -> assert_bool Messages.true_value @@ IDS.contains e test_object) elems
 
-let add_seq__when_present_element__then_raise_element_present =
-  "add_seq When present element Then raise ElementPresent"
+let add_seq__when_present_element__then_element_present =
+  "add_seq When present element Then ElementPresent"
   >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list numbers
@@ -114,7 +114,7 @@ let add_seq__when_present_element__then_raise_element_present =
 let add_seq_Test_list =
   test_list
     [ add_seq__when_new_elements__then_singleton_sets;
-      add_seq__when_present_element__then_raise_element_present ]
+      add_seq__when_present_element__then_element_present ]
 
 (* find_set_Test_list *)
 
@@ -129,8 +129,8 @@ let find_set__when_present__then_represent =
     (* then *)
     assert_equal ~printer:string_of_int elem result
 
-let find_set__when_absent__then_raise_not_found =
-  "find_set When absent Then raise Not_found"
+let find_set__when_absent__then_not_found =
+  "find_set When absent Then Not_found"
   >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list numbers in
@@ -140,7 +140,7 @@ let find_set__when_absent__then_raise_not_found =
     assert_raises Not_found result
 
 let find_set_Test_list =
-  test_list [find_set__when_present__then_represent; find_set__when_absent__then_raise_not_found]
+  test_list [find_set__when_present__then_represent; find_set__when_absent__then_not_found]
 
 (* find_set_opt_Test_list *)
 
@@ -186,8 +186,8 @@ let union_set__when_different_sets__then_same_represent =
       (IDS.find_set elem1 test_object)
       (IDS.find_set elem2 test_object)
 
-let union_set__when_absent__then_raise_not_found =
-  "union_set When absent Then raise Not_found"
+let union_set__when_absent__then_not_found =
+  "union_set When absent Then Not_found"
   >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list numbers in
@@ -198,8 +198,7 @@ let union_set__when_absent__then_raise_not_found =
 
 let union_set_Test_list =
   test_list
-    [ union_set__when_different_sets__then_same_represent;
-      union_set__when_absent__then_raise_not_found ]
+    [union_set__when_different_sets__then_same_represent; union_set__when_absent__then_not_found]
 
 (* is_same_set_Test_list *)
 
@@ -235,8 +234,8 @@ let is_same_set__when_same_set__then_true =
     (* then *)
     assert_bool Messages.false_value result
 
-let is_same_set__when_absent__then_raise_not_found =
-  "is_same_set When absent Then raise Not_found"
+let is_same_set__when_absent__then_not_found =
+  "is_same_set When absent Then Not_found"
   >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list numbers in
@@ -248,7 +247,7 @@ let is_same_set__when_absent__then_raise_not_found =
 let is_same_set_Test_list =
   test_list
     [ is_same_set__when_different_sets__then_false; is_same_set__when_same_element__then_true;
-      is_same_set__when_same_set__then_true; is_same_set__when_absent__then_raise_not_found ]
+      is_same_set__when_same_set__then_true; is_same_set__when_absent__then_not_found ]
 
 (* disjoint_sets_Test *)
 
