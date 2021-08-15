@@ -13,7 +13,13 @@ val between : Point_2d.point2d -> Point_2d.point2d -> vector2d
 (** [between p1 p2] creates a vector from point [p1] to point [p2]. *)
 
 val coordinates : vector2d -> float * float
-(** [coordeinates v] returns tuple of vector coordinates. *)
+(** [coordinates v] returns tuple of vector coordinates. *)
+
+val coordinates_list : vector2d -> float list
+(** [coordinates_list v] returns list of vector coordinates. *)
+
+val equal : vector2d -> vector2d -> bool
+(** [vector v1 v2] checks whether vectors [v1] and [v2] are equal. *)
 
 val length : vector2d -> float
 (** [length v] computes length of vector [v]. *)

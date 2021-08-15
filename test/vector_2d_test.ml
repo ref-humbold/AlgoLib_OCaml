@@ -7,9 +7,7 @@ open Utils
 let print_vector (Vector2D (x, y)) =
   "Vector2D(" ^ string_of_float x ^ ", " ^ string_of_float y ^ ")"
 
-let float_cmp = cmp_float ~epsilon:1e-9
-
-let vector_cmp (Vector2D (x1, y1)) (Vector2D (x2, y2)) = float_cmp x1 x2 && float_cmp y1 y2
+let float_cmp = cmp_float ~epsilon:Geometry_object.epsilon
 
 (* methods_Test_list *)
 
@@ -19,7 +17,7 @@ let between__then_vector_from_begin_to_end =
     (* when *)
     let result = between (Point_2d.Point2D (2.4, 7.8)) (Point_2d.Point2D (-1.5, 13.2)) in
     (* then *)
-    assert_equal ~cmp:vector_cmp ~printer:print_vector (Vector2D (-3.9, 5.4)) result
+    assert_equal ~cmp:equal ~printer:print_vector (Vector2D (-3.9, 5.4)) result
 
 let coordinates__then_pair_of_coordinates =
   "coordinates Then pair of coordinates"
@@ -49,7 +47,7 @@ let op_tilde_minus_dollar__then_negate_each_coordinate =
     (* when *)
     let result = ~-$(Vector2D (5.4, 9.0)) in
     (* then *)
-    assert_equal ~cmp:vector_cmp ~printer:print_vector (Vector2D (-5.4, -9.0)) result
+    assert_equal ~cmp:equal ~printer:print_vector (Vector2D (-5.4, -9.0)) result
 
 let op_plus_dollar__then_add_each_coordinate =
   "op_plus_dollar Then add each coordinate"
@@ -57,7 +55,7 @@ let op_plus_dollar__then_add_each_coordinate =
     (* when *)
     let result = Vector2D (5.4, 9.0) +$ Vector2D (7.9, -8.1) in
     (* then *)
-    assert_equal ~cmp:vector_cmp ~printer:print_vector (Vector2D (13.3, 0.9)) result
+    assert_equal ~cmp:equal ~printer:print_vector (Vector2D (13.3, 0.9)) result
 
 let op_minus_dollar__then_subtract_each_coordinate =
   "op_minus_dollar Then subtract each coordinate"
@@ -65,7 +63,7 @@ let op_minus_dollar__then_subtract_each_coordinate =
     (* when *)
     let result = Vector2D (5.4, 9.0) -$ Vector2D (7.9, -8.1) in
     (* then *)
-    assert_equal ~cmp:vector_cmp ~printer:print_vector (Vector2D (-2.5, 17.1)) result
+    assert_equal ~cmp:equal ~printer:print_vector (Vector2D (-2.5, 17.1)) result
 
 let op_asterisk_dollar__then_multiply_each_coordinate =
   "op_asterisk_dollar Then multiply each coordinate"
@@ -73,7 +71,7 @@ let op_asterisk_dollar__then_multiply_each_coordinate =
     (* when *)
     let result = Vector2D (5.4, 9.0) *$ 3.0 in
     (* then *)
-    assert_equal ~cmp:vector_cmp ~printer:print_vector (Vector2D (16.2, 27.0)) result
+    assert_equal ~cmp:equal ~printer:print_vector (Vector2D (16.2, 27.0)) result
 
 let op_asterisk_dollar__when_multiplication_by_zero__then_zero_vector =
   "op_asterisk_dollar When multiplication by zero Then zero vector"
@@ -81,7 +79,7 @@ let op_asterisk_dollar__when_multiplication_by_zero__then_zero_vector =
     (* when *)
     let result = Vector2D (5.4, 9.0) *$ 0.0 in
     (* then *)
-    assert_equal ~cmp:vector_cmp ~printer:print_vector (Vector2D (0.0, 0.0)) result
+    assert_equal ~cmp:equal ~printer:print_vector (Vector2D (0.0, 0.0)) result
 
 let op_slash_dollar__then_divide_each_coordinate =
   "op_slash_dollar Then divide each coordinate"
@@ -89,7 +87,7 @@ let op_slash_dollar__then_divide_each_coordinate =
     (* when *)
     let result = Vector2D (5.4, 9.0) /$ 3.0 in
     (* then *)
-    assert_equal ~cmp:vector_cmp ~printer:print_vector (Vector2D (1.8, 3.0)) result
+    assert_equal ~cmp:equal ~printer:print_vector (Vector2D (1.8, 3.0)) result
 
 let op_slash_dollar__when_division_by_zero__then_division_by_zero =
   "op_slash_dollar When division by zero Then Division_by_zero"

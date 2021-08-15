@@ -1,4 +1,5 @@
 (* Structure of vector in 3D *)
+open Geometry_object
 
 type vector3d = Vector3D of float * float * float
 
@@ -10,6 +11,10 @@ let between (Point_3d.Point3D (p1x, p1y, p1z)) (Point_3d.Point3D (p2x, p2y, p2z)
   vec3d (p2x -. p1x) (p2y -. p1y) (p2z -. p1z)
 
 let coordinates (Vector3D (x, y, z)) = (x, y, z)
+
+let coordinates_list (Vector3D (x, y, z)) = [x; y; z]
+
+let equal v1 v2 = coordinates_equal (coordinates_list v1) (coordinates_list v2)
 
 let length (Vector3D (x, y, z)) = sqrt ((x *. x) +. (y *. y) +. (z *. z))
 

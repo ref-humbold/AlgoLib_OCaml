@@ -1,4 +1,5 @@
 (* Structure of vector in 2D *)
+open Geometry_object
 
 type vector2d = Vector2D of float * float
 
@@ -10,6 +11,10 @@ let between (Point_2d.Point2D (p1x, p1y)) (Point_2d.Point2D (p2x, p2y)) =
   vec2d (p2x -. p1x) (p2y -. p1y)
 
 let coordinates (Vector2D (x, y)) = (x, y)
+
+let coordinates_list (Vector2D (x, y)) = [x; y]
+
+let equal v1 v2 = coordinates_equal (coordinates_list v1) (coordinates_list v2)
 
 let length (Vector2D (x, y)) = sqrt ((x *. x) +. (y *. y))
 

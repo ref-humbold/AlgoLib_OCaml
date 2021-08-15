@@ -10,7 +10,13 @@ val pt2d_i : int -> int -> point2d
 (** [pt2d_i x y] creates a point [(x, y)]. *)
 
 val coordinates : point2d -> float * float
-(** [coordeinates p] returns tuple of point coordinates. *)
+(** [coordinates p] returns tuple of point coordinates. *)
+
+val coordinates_list : point2d -> float list
+(** [coordinates_list p] returns list of point coordinates. *)
+
+val equal : point2d -> point2d -> bool
+(** [equal p1 p2] checks whether points [p1] and [p2] are equal. *)
 
 val radius : point2d -> float
 (** [radius p] computes distance of point [p] from zero point. *)
