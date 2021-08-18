@@ -27,6 +27,14 @@ let coordinates__then_pair_of_coordinates =
     (* then *)
     assert_equal ~printer:(Printers.tuple2 string_of_float string_of_float) (5.0, -19.0) result
 
+let coordinates_list__then_list_of_coordinates =
+  "coordinates_list Then list of coordinates"
+  >:: fun _ ->
+    (* when *)
+    let result = coordinates_list @@ Vector2D (5.0, -19.0) in
+    (* then *)
+    assert_equal ~printer:(Printers.list string_of_float) [5.0; -19.0] result
+
 let length__then_length_of_vector =
   "length Then length of vector"
   >:: fun _ ->
@@ -38,7 +46,7 @@ let length__then_length_of_vector =
 let methods_Test_list =
   test_list
     [ between__then_vector_from_begin_to_end; coordinates__then_pair_of_coordinates;
-      length__then_length_of_vector ]
+      coordinates_list__then_list_of_coordinates; length__then_length_of_vector ]
 
 (* operators_Test_list *)
 let op_tilde_minus_dollar__then_negate_each_coordinate =
@@ -93,9 +101,9 @@ let op_slash_dollar__when_division_by_zero__then_division_by_zero =
   "op_slash_dollar When division by zero Then Division_by_zero"
   >:: fun _ ->
     (* when *)
-    let result () = Vector2D (1.0, 1.0) /$ 0.0 in
+    let exec () = Vector2D (1.0, 1.0) /$ 0.0 in
     (* then *)
-    assert_raises Division_by_zero result
+    assert_raises Division_by_zero exec
 
 let operators_Test_list =
   test_list

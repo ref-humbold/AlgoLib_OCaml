@@ -193,9 +193,9 @@ let multiply_mod__when_modulo_is_negative__then_failure =
   "multiply_mod When modulo is negative Then Failure"
   >:: fun _ ->
     (* when *)
-    let result () = multiply_mod 547 312 (-10000) in
+    let exec () = multiply_mod 547 312 (-10000) in
     (* then *)
-    assert_raises (Failure "Non-positive modulo") result
+    assert_raises (Failure "Non-positive modulo") exec
 
 let multiply_Test_list =
   test_list
@@ -232,9 +232,9 @@ let power__when_base_and_exponent_are_zero__then_failure =
   "power When base and exponent are zero Then Failure"
   >:: fun _ ->
     (* when *)
-    let result () = power 0 0 in
+    let exec () = power 0 0 in
     (* then *)
-    assert_raises (Failure "Not a number") result
+    assert_raises (Failure "Not a number") exec
 
 let power__when_base_and_exponent_are_positive =
   "power When base and exponent are positive"
@@ -264,9 +264,9 @@ let power__when_exponent_is_negative__then_failure =
   "power When exponent is negative Then Failure"
   >:: fun _ ->
     (* when *)
-    let result () = power 3 (-10) in
+    let exec () = power 3 (-10) in
     (* then *)
-    assert_raises (Failure "Negative exponent") result
+    assert_raises (Failure "Negative exponent") exec
 
 let power_mod__when_modulo_and_base_are_positive =
   "power_mod When modulo and base are positive"
@@ -288,9 +288,9 @@ let power_mod__when_modulo_is_negative__then_failure =
   "power_mod When modulo is negative Then Failure"
   >:: fun _ ->
     (* when *)
-    let result () = power_mod 5 11 (-10000) in
+    let exec () = power_mod 5 11 (-10000) in
     (* then *)
-    assert_raises (Failure "Non-positive modulo") result
+    assert_raises (Failure "Non-positive modulo") exec
 
 let power_Test_list =
   test_list
