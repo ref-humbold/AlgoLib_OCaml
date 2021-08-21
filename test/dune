@@ -1,6 +1,7 @@
 (tests
  (names
   disjoint_sets_test
+  geometry_2d_test
   maths_test
   list_sorting_test
   primes_test

@@ -43,12 +43,47 @@ let length__then_length_of_vector =
     (* then *)
     assert_equal ~cmp:float_cmp ~printer:string_of_float 10.0 result
 
+let dot__then_scalar_product =
+  "dot Then scalar product"
+  >:: fun _ ->
+    (* when *)
+    let result = dot (Vector2D (1.5, -4.0)) (Vector2D (9.0, -2.5)) in
+    (* then *)
+    assert_equal ~cmp:float_cmp ~printer:string_of_float 23.5 result
+
+let dot__when_orthogonal__then_zero =
+  "dot When orthogonal Then zero"
+  >:: fun _ ->
+    (* when *)
+    let result = dot (Vector2D (1.0, 0.0)) (Vector2D (0.0, -2.0)) in
+    (* then *)
+    assert_equal ~cmp:float_cmp ~printer:string_of_float 0.0 result
+
+let area__then_length_of_cross_product =
+  "area Then length of cross product"
+  >:: fun _ ->
+    (* when *)
+    let result = area (Vector2D (1.5, -4.0)) (Vector2D (9.0, -2.5)) in
+    (* then *)
+    assert_equal ~cmp:float_cmp ~printer:string_of_float 32.25 result
+
+let area__when_parallel__then_zero =
+  "area When parallel Then zero"
+  >:: fun _ ->
+    (* when *)
+    let result = area (Vector2D (3.0, 3.0)) (Vector2D (-8.0, -8.0)) in
+    (* then *)
+    assert_equal ~cmp:float_cmp ~printer:string_of_float 0.0 result
+
 let methods_Test_list =
   test_list
     [ between__then_vector_from_begin_to_end; coordinates__then_pair_of_coordinates;
-      coordinates_list__then_list_of_coordinates; length__then_length_of_vector ]
+      coordinates_list__then_list_of_coordinates; length__then_length_of_vector;
+      dot__then_scalar_product; dot__when_orthogonal__then_zero; area__then_length_of_cross_product;
+      area__when_parallel__then_zero ]
 
 (* operators_Test_list *)
+
 let op_tilde_minus_dollar__then_negate_each_coordinate =
   "op_tilde_minus_dollar Then negate each coordinate"
   >:: fun _ ->
@@ -114,49 +149,8 @@ let operators_Test_list =
       op_slash_dollar__then_divide_each_coordinate;
       op_slash_dollar__when_division_by_zero__then_division_by_zero ]
 
-(* operations_Test_list *)
-
-let dot__then_scalar_product =
-  "dot Then scalar product"
-  >:: fun _ ->
-    (* when *)
-    let result = dot (Vector2D (1.5, -4.0)) (Vector2D (9.0, -2.5)) in
-    (* then *)
-    assert_equal ~cmp:float_cmp ~printer:string_of_float 23.5 result
-
-let dot__when_orthogonal__then_zero =
-  "dot When orthogonal Then zero"
-  >:: fun _ ->
-    (* when *)
-    let result = dot (Vector2D (1.0, 0.0)) (Vector2D (0.0, -2.0)) in
-    (* then *)
-    assert_equal ~cmp:float_cmp ~printer:string_of_float 0.0 result
-
-let area__then_length_of_cross_product =
-  "area Then length of cross product"
-  >:: fun _ ->
-    (* when *)
-    let result = area (Vector2D (1.5, -4.0)) (Vector2D (9.0, -2.5)) in
-    (* then *)
-    assert_equal ~cmp:float_cmp ~printer:string_of_float 32.25 result
-
-let area__when_parallel__then_zero =
-  "area When parallel Then zero"
-  >:: fun _ ->
-    (* when *)
-    let result = area (Vector2D (3.0, 3.0)) (Vector2D (-8.0, -8.0)) in
-    (* then *)
-    assert_equal ~cmp:float_cmp ~printer:string_of_float 0.0 result
-
-let operations_Test_list =
-  test_list
-    [ dot__then_scalar_product; dot__when_orthogonal__then_zero; area__then_length_of_cross_product;
-      area__when_parallel__then_zero ]
-
 (* vector_2d_Test *)
 
-let vector_2d_Test =
-  "Tests: Structure of vector in 2D"
-  >::: [methods_Test_list; operators_Test_list; operations_Test_list]
+let vector_2d_Test = "Tests: Structure of vector in 2D" >::: [methods_Test_list; operators_Test_list]
 
 let _ = run_test_tt_main vector_2d_Test

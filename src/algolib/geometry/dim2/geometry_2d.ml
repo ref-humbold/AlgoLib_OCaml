@@ -1,4 +1,4 @@
-(* Algorithms for basic geometrical computations *)
+(* Algorithms for basic geometrical computations in 2D *)
 
 let sort_by_x lst =
   List.stable_sort (fun (Point_2d.Point2D (x1, _)) (Point_2d.Point2D (x2, _)) -> compare x1 x2) lst
