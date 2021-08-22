@@ -13,7 +13,7 @@ let find_convex_hull__when_one_point__then_empty =
   "find_convex_hull When one point Then empty"
   >:: fun _ ->
     (* when *)
-    let result = find_convex_hull [Point_2d.Point2D (3.0, 2.0)] in
+    let result = find_convex_hull [Point_2d.pt2d_i 3 2] in
     (* then *)
     assert_equal ~printer:(Printers.list print_point) [] result
 
@@ -21,7 +21,7 @@ let find_convex_hull__when_two_points__then_empty =
   "find_convex_hull When two points Then empty"
   >:: fun _ ->
     (* when *)
-    let result = find_convex_hull [Point_2d.Point2D (2.0, 3.0); Point_2d.Point2D (3.0, 2.0)] in
+    let result = find_convex_hull [Point_2d.pt2d_i 2 3; Point_2d.pt2d_i 3 2] in
     (* then *)
     assert_equal ~printer:(Printers.list print_point) [] result
 
@@ -29,9 +29,7 @@ let find_convex_hull__when_three_points__then_these_points_are_hull =
   "find_convex_hull When three points Then these points are hull"
   >:: fun _ ->
     (* given *)
-    let points =
-      [Point_2d.Point2D (1.0, -1.0); Point_2d.Point2D (5.0, 1.0); Point_2d.Point2D (3.0, 4.0)]
-    in
+    let points = [Point_2d.pt2d_i 1 (-1); Point_2d.pt2d_i 5 1; Point_2d.pt2d_i 3 4] in
     (* when *)
     let result = find_convex_hull points in
     (* then *)
