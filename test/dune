@@ -1,5 +1,6 @@
 (tests
  (names
+  convex_hull_test
   disjoint_sets_test
   geometry_2d_test
   geometry_3d_test
