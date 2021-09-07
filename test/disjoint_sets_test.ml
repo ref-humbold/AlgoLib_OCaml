@@ -1,7 +1,7 @@
 (* Tests: Disjoint sets structure (union-find) *)
 open OUnit2
 open Algolib.Disjoint_sets
-open Utils
+open Test_utils
 
 let numbers = [1; 2; 3; 4; 5; 6; 7; 8; 9]
 

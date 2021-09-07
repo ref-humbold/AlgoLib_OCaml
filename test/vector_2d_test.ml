@@ -1,13 +1,12 @@
 (* Tests: Structure of vector in 2D *)
 open OUnit2
-open Algolib
+open Algolib.Geometry_object
 open Algolib.Vector_2d
-open Utils
 
 let print_vector (Vector2D (x, y)) =
   "Vector2D(" ^ string_of_float x ^ ", " ^ string_of_float y ^ ")"
 
-let float_cmp = cmp_float ~epsilon:Geometry_object.epsilon
+let float_cmp = cmp_float ~epsilon
 
 (* methods_Test_list *)
 
@@ -15,7 +14,7 @@ let between__then_vector_from_begin_to_end =
   "between Then vector from begin to end"
   >:: fun _ ->
     (* when *)
-    let result = between (Point_2d.pt2d 2.4 7.8) (Point_2d.pt2d (-1.5) 13.2) in
+    let result = Algolib.Point_2d.(between (pt2d 2.4 7.8) (pt2d (-1.5) 13.2)) in
     (* then *)
     assert_equal ~cmp:equal ~printer:print_vector (vec2d (-3.9) 5.4) result
 
@@ -25,7 +24,10 @@ let coordinates__then_pair_of_coordinates =
     (* when *)
     let result = coordinates @@ vec2d_i 5 (-19) in
     (* then *)
-    assert_equal ~printer:(Printers.tuple2 string_of_float string_of_float) (5.0, -19.0) result
+    assert_equal
+      ~printer:Test_utils.Printers.(tuple2 string_of_float string_of_float)
+      (5.0, -19.0)
+      result
 
 let coordinates_list__then_list_of_coordinates =
   "coordinates_list Then list of coordinates"
@@ -33,7 +35,7 @@ let coordinates_list__then_list_of_coordinates =
     (* when *)
     let result = coordinates_list @@ vec2d_i 5 (-19) in
     (* then *)
-    assert_equal ~printer:(Printers.list string_of_float) [5.0; -19.0] result
+    assert_equal ~printer:Test_utils.Printers.(list string_of_float) [5.0; -19.0] result
 
 let length__then_length_of_vector =
   "length Then length of vector"

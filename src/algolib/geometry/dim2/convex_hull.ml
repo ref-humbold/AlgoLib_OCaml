@@ -5,8 +5,8 @@ let find_convex_hull (points : Point_2d.point2d list) =
   let rec half_hull pts acc =
     match (pts, acc) with
     | p :: ps, h1 :: (h2 :: _ as htl) ->
-      if cross_product h2 h1 p >= 0.0 then half_hull pts htl else half_hull ps @@ p :: acc
-    | p :: ps, _ -> half_hull ps @@ p :: acc
+      if cross_product h2 h1 p >= 0.0 then half_hull pts htl else half_hull ps (p :: acc)
+    | p :: ps, _ -> half_hull ps (p :: acc)
     | [], acc -> acc
   in
   let sorted = Geometry_2d.sort_by_x points in
