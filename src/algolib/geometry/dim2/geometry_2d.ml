@@ -17,3 +17,6 @@ let distance (Point_2d.Point2D (p1x, p1y)) (Point_2d.Point2D (p2x, p2y)) =
 
 let translate (Point_2d.Point2D (px, py)) (Vector_2d.Vector2D (vx, vy)) =
   Point_2d.pt2d (px +. vx) (py +. vy)
+
+let reflect (Point_2d.Point2D (px, py)) (Point_2d.Point2D (cx, cy)) =
+  Point_2d.pt2d (-.px +. cx +. cx) (-.py +. cy +. cy)

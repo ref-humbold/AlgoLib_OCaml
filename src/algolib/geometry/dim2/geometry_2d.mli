@@ -17,3 +17,6 @@ val distance : Point_2d.point2d -> Point_2d.point2d -> float
 
 val translate : Point_2d.point2d -> Vector_2d.vector2d -> Point_2d.point2d
 (** [translate p v] moves point [p] by vector [v]. *)
+
+val reflect : Point_2d.point2d -> Point_2d.point2d -> Point_2d.point2d
+(** [reflect p c] reflects point [p] in centre point [c]. *)
