@@ -76,6 +76,6 @@ let find_convex_hull_Test_list =
 (* find_convex_hull_Test *)
 
 let find_convex_hull_Test =
-  "Tests: Algorithm for convex hull (monotone chain) in 2D" >::: [find_convex_hull_Test_list]
+  "Tests: Algorithm for convex hull in 2D (monotone chain)" >::: [find_convex_hull_Test_list]
 
 let _ = run_test_tt_main find_convex_hull_Test

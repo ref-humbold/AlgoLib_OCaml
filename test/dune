@@ -1,5 +1,6 @@
 (tests
  (names
+  closest_points_test
   convex_hull_test
   disjoint_sets_test
   geometry_2d_test
