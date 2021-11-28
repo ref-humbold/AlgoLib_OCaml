@@ -1,7 +1,7 @@
-(** Structure of vector in a space *)
+(** Structure of vector in 3D *)
 
-(** The type of vectors in a space. *)
-type vector3d = Vec3D of float * float * float
+(** The type of vectors in 3D. *)
+type vector3d = Vector3D of float * float * float
 
 val vec3d : float -> float -> float -> vector3d
 (** [vec3d x y z] creates a vector [\[x, y, z\]]. *)
@@ -9,8 +9,23 @@ val vec3d : float -> float -> float -> vector3d
 val vec3d_i : int -> int -> int -> vector3d
 (** [vec3d_i x y z] creates a vector [\[x, y, z\]]. *)
 
+val between : Point_3d.point3d -> Point_3d.point3d -> vector3d
+(** [between p1 p2] creates a vector from point [p1] to point [p2]. *)
+
+val coordinates : vector3d -> float * float * float
+(** [coordinates v] returns tuple of vector coordinates. *)
+
+val coordinates_list : vector3d -> float list
+(** [coordinates_list v] returns list of vector coordinates. *)
+
+val equal : vector3d -> vector3d -> bool
+(** [vector v1 v2] checks whether vectors [v1] and [v2] are equal. *)
+
 val length : vector3d -> float
 (** [length v] computes length of vector [v]. *)
+
+val ( ~-$ ) : vector3d -> vector3d
+(** [~-$ v] negates vector [v]. *)
 
 val ( +$ ) : vector3d -> vector3d -> vector3d
 (** [v1 +$ v2] adds vectors [v1] and [v2]. Left associative. *)
@@ -19,10 +34,10 @@ val ( -$ ) : vector3d -> vector3d -> vector3d
 (** [v1 -$ v2] subtracts vectors [v1] and [v2]. Left associative. *)
 
 val ( *$ ) : vector3d -> float -> vector3d
-(** [v *$ c] multiplies each coefficient of vector [v] by a constant [c]. Left associative. *)
+(** [v *$ c] multiplies vector [v] by a scalar [c]. Left associative. *)
 
 val ( /$ ) : vector3d -> float -> vector3d
-(** [v1 /$ v2] divides each coefficient of vector [v] by a constant [c]. Left associative. *)
+(** [v1 /$ v2] divides vector [v] by a scalar [c]. Left associative. *)
 
 val dot : vector3d -> vector3d -> float
 (** [dot v1 v2] counts the dot product of vectors [v1] and [v2]. *)
