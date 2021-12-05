@@ -7,8 +7,8 @@
   geometry_3d_test
   maths_test
   list_sorting_test
+  maximum_subarray_test
   primes_test
-  subsequences_test
   vector_2d_test
   vector_3d_test)
  (libraries oUnit algolib))

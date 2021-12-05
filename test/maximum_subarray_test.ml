@@ -1,6 +1,6 @@
-(* Tests: Algorithms for subsequences *)
+(* Tests: Algorithms for maximum_subarray *)
 open OUnit2
-open Algolib.Subsequences
+open Algolib.Maximum_subarray
 open Test_utils
 
 (* maximum_subarray_Test_list *)
@@ -79,8 +79,9 @@ let maximum_subarray_Test_list =
       maximum_subarray_i__when_negative_less_than_subsum__then_include_negative;
       maximum_subarray_i__when_negative_greater_than_subsum__then_exclude_negative ]
 
-(* subsequences_Test *)
+(* maximum_subarray_Test *)
 
-let subsequences_Test = "Tests: Algorithms for subsequences" >::: [maximum_subarray_Test_list]
+let maximum_subarray_Test =
+  "Tests: Algorithms for maximum_subarray" >::: [maximum_subarray_Test_list]
 
-let _ = run_test_tt_main subsequences_Test
+let _ = run_test_tt_main maximum_subarray_Test

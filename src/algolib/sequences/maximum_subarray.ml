@@ -1,4 +1,4 @@
-(* Algorithms for subsequences *)
+(* Algorithms for maximum_subarray *)
 
 let maximum_subarray sequence =
   let initial = (0.0, Seq.empty) in
