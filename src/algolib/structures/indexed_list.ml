@@ -18,7 +18,7 @@ let head ts =
   match ts with
   | (_, Node {e; _}) :: _ -> e
   | [] -> raise EmptyList
-  | (_, Leaf) :: _ -> failwith "UNEXPECTED"
+  | (_, Leaf) :: _ -> failwith "unexpected"
 
 let to_list ts =
   let rec tree_list t acc =
@@ -58,7 +58,7 @@ let tail ts =
   | (1, Node _) :: ts' -> ts'
   | (s, Node {lt; rt; _}) :: ts' -> (s / 2, lt) :: (s / 2, rt) :: ts'
   | [] -> raise EmptyList
-  | (_, Leaf) :: _ -> failwith "UNEXPECTED"
+  | (_, Leaf) :: _ -> failwith "unexpected"
 
 let rec elem i ts =
   let rec elem' i' s t =
@@ -68,7 +68,7 @@ let rec elem i ts =
       if 2 * i' < s
       then elem' ((s - 1) / 2) (i' - 1) lt
       else elem' ((s - 1) / 2) (i' - ((s + 1) / 2)) rt
-    | _, Leaf -> failwith "UNEXPECTED"
+    | _, Leaf -> failwith "unexpected"
   in
   match ts with
   | (s, t) :: ts' when i >= 0 -> if i < s then elem' i s t else elem (i - s) ts'
@@ -84,7 +84,7 @@ let rec update i e ts =
       if 2 * i' < s
       then update' ((s - 1) / 2) (i' - 1) lt
       else update' ((s - 1) / 2) (i' - ((s + 1) / 2)) rt
-    | _, Leaf -> failwith "UNEXPECTED"
+    | _, Leaf -> failwith "unexpected"
   in
   match ts with
   | (s, t) :: ts' when i >= 0 -> if i < s then update' i s t :: ts' else update (i - s) e ts'
