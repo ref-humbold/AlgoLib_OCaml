@@ -7,6 +7,7 @@
   geometry_3d_test
   maths_test
   list_sorting_test
+  longest_common_subsequence_test
   maximum_subarray_test
   primes_test
   vector_2d_test

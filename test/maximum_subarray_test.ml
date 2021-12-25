@@ -1,4 +1,4 @@
-(* Tests: Algorithms for maximum_subarray *)
+(* Tests: Algorithm for maximum_subarray *)
 open OUnit2
 open Algolib.Maximum_subarray
 open Test_utils
@@ -68,7 +68,6 @@ let maximum_subarray_Test_list =
 
 (* maximum_subarray_Test *)
 
-let maximum_subarray_Test =
-  "Tests: Algorithms for maximum_subarray" >::: [maximum_subarray_Test_list]
+let maximum_subarray_Test = "Tests: Algorithm for maximum_subarray" >::: [maximum_subarray_Test_list]
 
 let _ = run_test_tt_main maximum_subarray_Test
