@@ -85,9 +85,9 @@ let count_lcs_length_Test_list =
       count_lcs_length__when_same_sequence__then_sequence_length;
       count_lcs_length__when_common_subsequence__then_common_subsequence_length ]
 
-(* count_lcs_length_Test *)
+(* longest_common_subsequence_Test *)
 
-let count_lcs_length_Test =
+let longest_common_subsequence_Test =
   "Tests: Algorithm for longest common subsequence" >::: [count_lcs_length_Test_list]
 
-let _ = run_test_tt_main count_lcs_length_Test
+let _ = run_test_tt_main longest_common_subsequence_Test

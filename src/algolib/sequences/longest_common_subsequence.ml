@@ -1,25 +1,25 @@
 (* Algorithm for longest common subsequence *)
 
 let count_lcs_length sequence1 sequence2 =
-  let rec iter_short short element prev_lcs next_lcs =
+  let rec iter_short short element prev_lcs next_lcs_rev =
     match short with
     | x :: xs ->
-      if x = element
-      then
-        let v = List.hd prev_lcs + 1 in
-        iter_short xs element (List.tl prev_lcs) (v :: next_lcs)
-      else
-        let vs = List.tl prev_lcs in
-        let n = max (List.hd vs) (List.hd next_lcs) in
-        iter_short xs element vs (n :: next_lcs)
-    | [] -> next_lcs
+      ( match prev_lcs with
+        | v :: vs ->
+          if x = element
+          then iter_short xs element vs ((v + 1) :: next_lcs_rev)
+          else
+            let n = max (List.hd vs) (List.hd next_lcs_rev) in
+            iter_short xs element vs (n :: next_lcs_rev)
+        | [] -> failwith "unexpected" )
+    | [] -> next_lcs_rev
   in
-  let rec iter_long long short lcs =
+  let rec iter_long long short lcs_rev =
     match long with
     | x :: xs ->
-      let next_lcs = iter_short short x (List.rev lcs) [0] in
-      iter_long xs short next_lcs
-    | [] -> lcs
+      let next_lcs_rev = iter_short short x (List.rev lcs_rev) [0] in
+      iter_long xs short next_lcs_rev
+    | [] -> lcs_rev
   in
   let short_list, long_list =
     if List.compare_lengths sequence1 sequence2 <= 0
@@ -35,25 +35,25 @@ let count_lcs_length sequence1 sequence2 =
     List.hd lcs
 
 let count_lcs_length_str text1 text2 =
-  let rec iter_short short len_short i element prev_lcs next_lcs =
+  let rec iter_short short len_short i element prev_lcs next_rev_lcs =
     if i < len_short
     then
-      if short.[i] = element
-      then
-        let v = List.hd prev_lcs + 1 in
-        iter_short short len_short (i + 1) element (List.tl prev_lcs) (v :: next_lcs)
-      else
-        let vs = List.tl prev_lcs in
-        let n = max (List.hd vs) (List.hd next_lcs) in
-        iter_short short len_short (i + 1) element vs (n :: next_lcs)
-    else next_lcs
+      match prev_lcs with
+      | v :: vs ->
+        if short.[i] = element
+        then iter_short short len_short (i + 1) element vs ((v + 1) :: next_rev_lcs)
+        else
+          let n = max (List.hd vs) (List.hd next_rev_lcs) in
+          iter_short short len_short (i + 1) element vs (n :: next_rev_lcs)
+      | [] -> failwith "unexpected"
+    else next_rev_lcs
   in
-  let rec iter_long long short len_long len_short i lcs =
+  let rec iter_long long short len_long len_short i lcs_rev =
     if i < len_long
     then
-      let next_lcs = iter_short short len_short 0 long.[i] (List.rev lcs) [0] in
-      iter_long long short len_long len_short (i + 1) next_lcs
-    else lcs
+      let next_lcs_rev = iter_short short len_short 0 long.[i] (List.rev lcs_rev) [0] in
+      iter_long long short len_long len_short (i + 1) next_lcs_rev
+    else lcs_rev
   in
   let short_text, long_text =
     if compare (String.length text1) (String.length text2) <= 0
