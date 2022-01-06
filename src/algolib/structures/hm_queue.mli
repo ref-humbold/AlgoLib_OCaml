@@ -3,7 +3,7 @@
 type 'a t
 (** The type of queues containing elements of type 'a. *)
 
-exception EmptyQueue
+exception Empty_queue
 (** Exception raised when retrieving or removing elements from empty queue. *)
 
 val empty : 'a t
@@ -15,7 +15,7 @@ val is_empty : 'a t -> bool
 val front : 'a t -> 'a
 (** [front q] retrieves element from the front of queue [q].
 
-    @raise EmptyQueue if queue is empty. *)
+    @raise Empty_queue if queue is empty. *)
 
 val push : 'a -> 'a t -> 'a t
 (** [push x d] adds element [x] at the back of queue [q]. *)
@@ -23,4 +23,4 @@ val push : 'a -> 'a t -> 'a t
 val pop : 'a t -> 'a t
 (** [pop q] removes element from the front of queue [q].
 
-    @raise EmptyQueue if queue is empty. *)
+    @raise Empty_queue if queue is empty. *)

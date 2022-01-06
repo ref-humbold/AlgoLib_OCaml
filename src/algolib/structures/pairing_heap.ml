@@ -10,7 +10,7 @@ module type HEAP = sig
 
   type t
 
-  exception EmptyHeap
+  exception Empty_heap
 
   val empty : t
 
@@ -30,7 +30,7 @@ module Make (Cmp : COMPARABLE) : HEAP with type elem = Cmp.t = struct
 
   type t = Null | Node of elem * t list
 
-  exception EmptyHeap
+  exception Empty_heap
 
   let empty = Null
 
@@ -49,7 +49,7 @@ module Make (Cmp : COMPARABLE) : HEAP with type elem = Cmp.t = struct
   let peek h =
     match h with
     | Node (e, _) -> e
-    | Null -> raise EmptyHeap
+    | Null -> raise Empty_heap
 
   let push e h = merge h @@ Node (e, [])
 
@@ -62,5 +62,5 @@ module Make (Cmp : COMPARABLE) : HEAP with type elem = Cmp.t = struct
     in
     match h with
     | Node (_, hs) -> merge_pairs hs
-    | Null -> raise EmptyHeap
+    | Null -> raise Empty_heap
 end

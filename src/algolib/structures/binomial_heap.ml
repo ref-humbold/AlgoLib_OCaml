@@ -10,7 +10,7 @@ module type HEAP = sig
 
   type t
 
-  exception EmptyHeap
+  exception Empty_heap
 
   val empty : t
 
@@ -32,7 +32,7 @@ module Make (Cmp : COMPARABLE) : HEAP with type elem = Cmp.t = struct
 
   type t = (int * bitree) list
 
-  exception EmptyHeap
+  exception Empty_heap
 
   let empty = []
 
@@ -74,7 +74,7 @@ module Make (Cmp : COMPARABLE) : HEAP with type elem = Cmp.t = struct
     in
     match peek' h None with
     | Some x -> x
-    | None -> raise EmptyHeap
+    | None -> raise Empty_heap
 
   let push x h = insert_tree_ (0, Tree (x, [])) h
 
@@ -85,7 +85,7 @@ module Make (Cmp : COMPARABLE) : HEAP with type elem = Cmp.t = struct
       | ((_, Tree (x, _)) as t) :: ts ->
         let ((_, Tree (y, _)) as tx), tsx = remove_min ts in
         if Cmp.compare x y <= 0 then (t, ts) else (tx, t :: tsx)
-      | [] -> raise EmptyHeap
+      | [] -> raise Empty_heap
     in
     let rec rank_trees rk ts acc =
       match ts with

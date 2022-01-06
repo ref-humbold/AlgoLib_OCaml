@@ -13,7 +13,7 @@ module type DISJOINT_SETS = sig
   type t
   (** The type of sets structures. *)
 
-  exception ElementPresent of elem
+  exception Element_present of elem
   (** Exception raised when adding already present element. *)
 
   val create : unit -> t
@@ -32,20 +32,23 @@ module type DISJOINT_SETS = sig
   (** [add_list xs s] adds new singleton sets from list [xs] to structure [s]. *)
 
   val find_set : elem -> t -> elem
-  (** [find_set x s] finds the representant of [x] in structure [s]. Raises [Not_found] when [x] is
-      not present in the structure. *)
+  (** [find_set x s] finds the representant of [x] in structure [s].
+
+      @raise Not_found if [x] is not present in the structure. *)
 
   val find_set_opt : elem -> t -> elem option
   (** [find_set_opt x d s] finds the representant of [x] in structure [s] if it exists, otherwise
       returns [None]. *)
 
   val is_same_set : elem -> elem -> t -> bool
-  (** [is_same_set x y s] checks if [x] and [y] belong to the same set in structure [s]. Raises
-      [Not_found] when neither [x] nor [y] is present in the structure. *)
+  (** [is_same_set x y s] checks if [x] and [y] belong to the same set in structure [s].
+
+      @raise Not_found if neither [x] nor [y] is present in the structure. *)
 
   val union_set : elem -> elem -> t -> unit
-  (** [union_set x y s] joins sets containing [x] and [y] in structure [s]. Raises [Not_found] when
-      neither [x] nor [y] is present in the structure. *)
+  (** [union_set x y s] joins sets containing [x] and [y] in structure [s].
+
+      @raise Not_found if neither [x] nor [y] is present in the structure. *)
 
   val of_seq : elem Seq.t -> t
   (** [of_seq xs] creates new structure of singleton sets from elements of Seq [xs]. *)

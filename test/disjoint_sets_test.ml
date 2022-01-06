@@ -73,14 +73,14 @@ let add_list__when_new_elements__then_singleton_sets =
     List.iter (fun e -> assert_bool Messages.true_value @@ IDS.contains e test_object) elems
 
 let add_list__when_present_element__then_element_present =
-  "add_list When present element Then ElementPresent"
+  "add_list When present element Then Element_present"
   >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list numbers and elems = [11; 7; 15] in
     (* when *)
     let exec () = IDS.add_list elems test_object in
     (* then *)
-    assert_raises (IDS.ElementPresent 7) exec
+    assert_raises (IDS.Element_present 7) exec
 
 let add_list_Test_list =
   test_list
@@ -101,7 +101,7 @@ let add_seq__when_new_elements__then_singleton_sets =
     Seq.iter (fun e -> assert_bool Messages.true_value @@ IDS.contains e test_object) elems
 
 let add_seq__when_present_element__then_element_present =
-  "add_seq When present element Then ElementPresent"
+  "add_seq When present element Then Element_present"
   >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list numbers
@@ -109,7 +109,7 @@ let add_seq__when_present_element__then_element_present =
     (* when *)
     let exec () = IDS.add_seq elems test_object in
     (* then *)
-    assert_raises (IDS.ElementPresent 7) exec
+    assert_raises (IDS.Element_present 7) exec
 
 let add_seq_Test_list =
   test_list

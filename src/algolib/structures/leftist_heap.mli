@@ -13,7 +13,7 @@ module type HEAP = sig
   type t
   (** The type of heaps. *)
 
-  exception EmptyHeap
+  exception Empty_heap
   (** Exception raised when retrieving or removing elements from empty heap. *)
 
   val empty : t
@@ -28,7 +28,7 @@ module type HEAP = sig
   val peek : t -> elem
   (** [peek h] retrieves the least element from heap [h].
 
-      @raise EmptyHeap if heap is empty. *)
+      @raise Empty_heap if heap is empty. *)
 
   val push : elem -> t -> t
   (** [push x h] adds [x] to heap [h]. *)
@@ -36,7 +36,7 @@ module type HEAP = sig
   val pop : t -> t
   (** [pop h] removes the least element from heap [h].
 
-      @raise EmptyHeap if heap is empty. *)
+      @raise Empty_heap if heap is empty. *)
 end
 
 module Make (Cmp : COMPARABLE) : HEAP with type elem = Cmp.t

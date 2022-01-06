@@ -1,7 +1,7 @@
 (* Structure of double-ended queue *)
 type 'a t = 'a list * 'a list
 
-exception EmptyDeque
+exception Empty_deque
 
 let empty = ([], [])
 
@@ -13,12 +13,12 @@ let is_empty dq =
 let front dq =
   match dq with
   | e :: _, _ | [], e :: _ -> e
-  | [], [] -> raise EmptyDeque
+  | [], [] -> raise Empty_deque
 
 let back dq =
   match dq with
   | _, e :: _ | e :: _, [] -> e
-  | [], [] -> raise EmptyDeque
+  | [], [] -> raise Empty_deque
 
 let push_front e dq =
   match dq with
@@ -45,11 +45,11 @@ let pop_front dq =
   | [_], bk -> balance_ bk
   | _ :: ft, bk -> (ft, bk)
   | [], _ :: bk -> ([], bk)
-  | [], [] -> raise EmptyDeque
+  | [], [] -> raise Empty_deque
 
 let pop_back dq =
   match dq with
   | ft, [_] -> balance_ ft
   | ft, _ :: bk -> (ft, bk)
   | _ :: ft, [] -> (ft, [])
-  | [], [] -> raise EmptyDeque
+  | [], [] -> raise Empty_deque

@@ -10,7 +10,7 @@ module type DISJOINT_SETS = sig
 
   type t
 
-  exception ElementPresent of elem
+  exception Element_present of elem
 
   val create : unit -> t
 
@@ -40,7 +40,7 @@ module Make (Cmp : COMPARABLE) : DISJOINT_SETS with type elem = Cmp.t = struct
 
   type t = {mutable size : int; map : (elem, elem) Hashtbl.t}
 
-  exception ElementPresent of elem
+  exception Element_present of elem
 
   let create () : t = {size = 0; map = Hashtbl.create 37}
 
@@ -49,7 +49,7 @@ module Make (Cmp : COMPARABLE) : DISJOINT_SETS with type elem = Cmp.t = struct
   let contains element {map; _} = Hashtbl.mem map element
 
   let add_seq elements dset =
-    Seq.iter (fun e -> if Hashtbl.mem dset.map e then raise @@ ElementPresent e) elements ;
+    Seq.iter (fun e -> if Hashtbl.mem dset.map e then raise @@ Element_present e) elements ;
     Seq.iter
       (fun e ->
          Hashtbl.add dset.map e e ;
@@ -57,7 +57,7 @@ module Make (Cmp : COMPARABLE) : DISJOINT_SETS with type elem = Cmp.t = struct
       elements
 
   let add_list elements dset =
-    List.iter (fun e -> if Hashtbl.mem dset.map e then raise @@ ElementPresent e) elements ;
+    List.iter (fun e -> if Hashtbl.mem dset.map e then raise @@ Element_present e) elements ;
     List.iter
       (fun e ->
          Hashtbl.add dset.map e e ;

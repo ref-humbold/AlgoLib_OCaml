@@ -3,9 +3,9 @@ type 'a tree = Leaf | Node of {lt : 'a tree; e : 'a; rt : 'a tree}
 
 type 'a t = (int * 'a tree) list
 
-exception EmptyList
+exception Empty_list
 
-exception InvalidIndex
+exception Invalid_index
 
 let empty = []
 
@@ -17,7 +17,7 @@ let is_empty ts =
 let head ts =
   match ts with
   | (_, Node {e; _}) :: _ -> e
-  | [] -> raise EmptyList
+  | [] -> raise Empty_list
   | (_, Leaf) :: _ -> failwith "unexpected"
 
 let to_list ts =
@@ -57,7 +57,7 @@ let tail ts =
   match ts with
   | (1, Node _) :: ts' -> ts'
   | (s, Node {lt; rt; _}) :: ts' -> (s / 2, lt) :: (s / 2, rt) :: ts'
-  | [] -> raise EmptyList
+  | [] -> raise Empty_list
   | (_, Leaf) :: _ -> failwith "unexpected"
 
 let rec elem i ts =
@@ -72,7 +72,7 @@ let rec elem i ts =
   in
   match ts with
   | (s, t) :: ts' when i >= 0 -> if i < s then elem' i s t else elem (i - s) ts'
-  | _ -> raise InvalidIndex
+  | _ -> raise Invalid_index
 
 let ( *! ) ts i = elem i ts
 
@@ -88,4 +88,4 @@ let rec update i e ts =
   in
   match ts with
   | (s, t) :: ts' when i >= 0 -> if i < s then update' i s t :: ts' else update (i - s) e ts'
-  | _ -> raise InvalidIndex
+  | _ -> raise Invalid_index

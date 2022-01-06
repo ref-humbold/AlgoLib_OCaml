@@ -7,7 +7,7 @@ type 'a rot =
 
 type 'a t = {front : int * 'a list; rotation : 'a rot; back : int * 'a list}
 
-exception EmptyQueue
+exception Empty_queue
 
 let empty = {front = (0, []); rotation = Null; back = (0, [])}
 
@@ -19,7 +19,7 @@ let is_empty {front = _, ft; back = _, bk; _} =
 let front {front = _, ft; _} =
   match ft with
   | x :: _ -> x
-  | [] -> raise EmptyQueue
+  | [] -> raise Empty_queue
 
 let rebalance_ ({front = flen, ft; back = blen, bk; _} as q) =
   let comb rt =
@@ -56,4 +56,4 @@ let pop {front = flen, ft; rotation = rt; back} =
   in
   match ft with
   | _ :: xs -> rebalance_ {front = (flen - 1, xs); rotation = decrement rt; back}
-  | [] -> raise EmptyQueue
+  | [] -> raise Empty_queue
