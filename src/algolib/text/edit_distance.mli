@@ -9,9 +9,10 @@ val count_levenshtein
   float
 (** [count_levenshtein ~ic ~dc ~sc s1 s2] counts Levenshtein edit distance from string [s1] to
     string [s2] having operation cost [ic] for insertion, [dc] for deletion and [sc] for
-    substitution. Default cost for each operation is [1.0]. Raises []*)
+    substitution. Default cost for each operation is [1.0]. Raises [Invalid_argument] when any cost
+    is negative. *)
 
 val count_lcs : ?insertion_cost:float -> ?deletion_cost:float -> string -> string -> float
 (** [count_levenshtein ~ic ~dc ~sc s1 s2] counts LCS edit distance from string [s1] to string [s2]
     having operation cost [ic] for insertion and [dc] for deletion. Default cost for each operation
-    is [1.0].*)
+    is [1.0]. Raises [Invalid_argument] when any cost is negative.*)

@@ -43,11 +43,20 @@ let count_levenshtein__when_empty_destination__then_sum_of_deletions =
       (float_of_int (String.length text) *. deletion_cost)
       result
 
+let count_levenshtein__when_negative_cost__then_invalid_argument =
+  "count_levenshtein When negative cost Then Invalid_argument"
+  >:: fun _ ->
+    (* when *)
+    let exec () = count_levenshtein ~substitution_cost:(-1.0) "a" "b" in
+    (* then *)
+    assert_raises (Invalid_argument "Cost cannot be negative") exec
+
 let count_levenshtein_Test_list =
   test_list
     [ count_levenshtein__when_same_text__then_zero;
       count_levenshtein__when_empty_source__then_sum_of_insertions;
-      count_levenshtein__when_empty_destination__then_sum_of_deletions ]
+      count_levenshtein__when_empty_destination__then_sum_of_deletions;
+      count_levenshtein__when_negative_cost__then_invalid_argument ]
 
 (* count_lcs_Test_list *)
 
@@ -89,10 +98,19 @@ let count_lcs__when_empty_destination__then_sum_of_deletions =
       (float_of_int (String.length text) *. deletion_cost)
       result
 
+let count_lcs__when_negative_cost__then_invalid_argument =
+  "count_lcs When negative cost Then Invalid_argument"
+  >:: fun _ ->
+    (* when *)
+    let exec () = count_lcs ~deletion_cost:(-1.0) "a" "b" in
+    (* then *)
+    assert_raises (Invalid_argument "Cost cannot be negative") exec
+
 let count_lcs_Test_list =
   test_list
     [ count_lcs__when_same_text__then_zero; count_lcs__when_empty_source__then_sum_of_insertions;
-      count_lcs__when_empty_destination__then_sum_of_deletions ]
+      count_lcs__when_empty_destination__then_sum_of_deletions;
+      count_lcs__when_negative_cost__then_invalid_argument ]
 
 (* edit_distance_Test *)
 
