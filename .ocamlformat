@@ -1,4 +1,4 @@
-# version 0.18
+# version 0.19
 align-cases = false
 align-constructors-decl = false
 align-variants-decl = false
@@ -9,11 +9,11 @@ break-collection-expressions = wrap
 break-fun-decl = smart
 break-fun-sig = smart
 break-infix = wrap
-break-infix-before-func = true
+break-infix-before-func = false
 break-separators = after
 break-sequences = false
 break-string-literals = auto
-break-struct = natural
+break-struct = force
 cases-exp-indent = 2
 cases-matching-exp-indent = compact
 disambiguate-non-breaking-match = false
@@ -29,7 +29,7 @@ function-indent-nested = never
 if-then-else = keyword-first
 indent-after-in = 0
 indicate-multiline-delimiters = space
-indicate-nested-or-patterns = space
+indicate-nested-or-patterns = unsafe-no
 infix-precedence = indent
 leading-nested-match-parens = true
 let-and = compact
