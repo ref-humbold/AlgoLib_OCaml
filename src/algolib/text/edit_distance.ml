@@ -77,3 +77,18 @@ let count_lcs ?(insertion_cost = 1.0) ?(deletion_cost = 1.0) source destination 
     in
     let distance = iter_source source destination length_source length_dest 0 @@ List.rev initial in
     List.hd distance
+
+let count_hamming ?(substitution_cost = 1.0) source destination =
+  if substitution_cost < 0.0
+  then invalid_arg "Cost cannot be negative"
+  else
+    let source' = List.of_seq @@ String.to_seq source
+    and destination' = List.of_seq @@ String.to_seq destination in
+    try
+      List.fold_left2
+        (fun acc c1 c2 -> if c1 = c2 then acc else acc +. substitution_cost)
+        0.0
+        source'
+        destination'
+    with
+    | Invalid_argument _ -> invalid_arg "Texts must have equal length"

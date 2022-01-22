@@ -19,3 +19,9 @@ val count_lcs : ?insertion_cost:float -> ?deletion_cost:float -> string -> strin
     is [1.0].
 
     @raise Invalid_argument if any cost is negative. *)
+
+val count_hamming : ?substitution_cost:float -> string -> string -> float
+(** [count_hamming ~sc s1 s2] counts Hamming edit distance from string [s1] to string [s2] of equal
+    length having operation cost [sc] for substitution. Default cost for each operation is [1.0].
+
+    @raise Invalid_argument if cost is negative or strings have different length *)

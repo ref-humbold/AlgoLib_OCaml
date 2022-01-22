@@ -16,16 +16,14 @@ module IDS = IntDisjointSets
 (* size_Test_list *)
 
 let size__when_empty__then_zero =
-  "size When empty Then zero"
-  >:: fun _ ->
+  "size When empty Then zero" >:: fun _ ->
     (* when *)
     let result = IDS.size @@ IDS.create () in
     (* then *)
     assert_equal ~printer:string_of_int 0 result
 
 let size__when_not_empty__then_sets_count =
-  "size When not empty Then sets count"
-  >:: fun _ ->
+  "size When not empty Then sets count" >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list numbers in
     (* when *)
@@ -38,8 +36,7 @@ let size_Test_list = test_list [size__when_empty__then_zero; size__when_not_empt
 (* contains_Test_list *)
 
 let contains__when_present__then_true =
-  "contains When present Then true"
-  >:: fun _ ->
+  "contains When present Then true" >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list numbers in
     (* when *)
@@ -48,8 +45,7 @@ let contains__when_present__then_true =
     assert_bool Messages.true_value result
 
 let contains__when_absent__then_false =
-  "contains When absent Then false"
-  >:: fun _ ->
+  "contains When absent Then false" >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list numbers in
     (* when *)
@@ -63,8 +59,7 @@ let contains_Test_list =
 (* add_list_Test_list *)
 
 let add_list__when_new_elements__then_singleton_sets =
-  "add_list When new elements Then singleton sets"
-  >:: fun _ ->
+  "add_list When new elements Then singleton sets" >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list numbers and elems = [14; 18; 23] in
     (* when *)
@@ -73,8 +68,7 @@ let add_list__when_new_elements__then_singleton_sets =
     List.iter (fun e -> assert_bool Messages.true_value @@ IDS.contains e test_object) elems
 
 let add_list__when_present_element__then_element_present =
-  "add_list When present element Then Element_present"
-  >:: fun _ ->
+  "add_list When present element Then Element_present" >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list numbers and elems = [11; 7; 15] in
     (* when *)
@@ -90,8 +84,7 @@ let add_list_Test_list =
 (* add_seq_Test_list *)
 
 let add_seq__when_new_elements__then_singleton_sets =
-  "add_seq When new elements Then singleton sets"
-  >:: fun _ ->
+  "add_seq When new elements Then singleton sets" >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list numbers
     and elems () = Seq.Cons (14, fun () -> Seq.Cons (18, Seq.return 23)) in
@@ -101,8 +94,7 @@ let add_seq__when_new_elements__then_singleton_sets =
     Seq.iter (fun e -> assert_bool Messages.true_value @@ IDS.contains e test_object) elems
 
 let add_seq__when_present_element__then_element_present =
-  "add_seq When present element Then Element_present"
-  >:: fun _ ->
+  "add_seq When present element Then Element_present" >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list numbers
     and elems () = Seq.Cons (11, fun () -> Seq.Cons (7, Seq.return 15)) in
@@ -119,8 +111,7 @@ let add_seq_Test_list =
 (* find_set_Test_list *)
 
 let find_set__when_present__then_represent =
-  "find_set When present Then represent"
-  >:: fun _ ->
+  "find_set When present Then represent" >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list numbers in
     let elem = 5 in
@@ -130,8 +121,7 @@ let find_set__when_present__then_represent =
     assert_equal ~printer:string_of_int elem result
 
 let find_set__when_absent__then_not_found =
-  "find_set When absent Then Not_found"
-  >:: fun _ ->
+  "find_set When absent Then Not_found" >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list numbers in
     (* when *)
@@ -145,8 +135,7 @@ let find_set_Test_list =
 (* find_set_opt_Test_list *)
 
 let find_set_opt__when_present__then_some_with_represent =
-  "find_set_opt When present Then Some with represent"
-  >:: fun _ ->
+  "find_set_opt When present Then Some with represent" >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list numbers in
     let elem = 5 in
@@ -156,8 +145,7 @@ let find_set_opt__when_present__then_some_with_represent =
     assert_equal ~printer:(Printers.option string_of_int) (Some elem) result
 
 let find_set_opt__when_absent__then_none =
-  "find_set When absent Then None"
-  >:: fun _ ->
+  "find_set When absent Then None" >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list numbers in
     (* when *)
@@ -172,8 +160,7 @@ let find_set_opt_Test_list =
 (* union_set_Test_list *)
 
 let union_set__when_different_sets__then_same_represent =
-  "union_set When different sets Then same represent"
-  >:: fun _ ->
+  "union_set When different sets Then same represent" >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list numbers in
     let elem1 = 4 and elem2 = 6 in
@@ -187,8 +174,7 @@ let union_set__when_different_sets__then_same_represent =
       (IDS.find_set elem2 test_object)
 
 let union_set__when_absent__then_not_found =
-  "union_set When absent Then Not_found"
-  >:: fun _ ->
+  "union_set When absent Then Not_found" >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list numbers in
     (* when *)
@@ -203,8 +189,7 @@ let union_set_Test_list =
 (* is_same_set_Test_list *)
 
 let is_same_set__when_different_sets__then_false =
-  "is_same_set When different sets Then false"
-  >:: fun _ ->
+  "is_same_set When different sets Then false" >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list numbers in
     (* when *)
@@ -213,8 +198,7 @@ let is_same_set__when_different_sets__then_false =
     assert_bool Messages.false_value @@ not result
 
 let is_same_set__when_same_element__then_true =
-  "is_same_set When different sets Then true"
-  >:: fun _ ->
+  "is_same_set When different sets Then true" >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list numbers in
     (* when *)
@@ -223,8 +207,7 @@ let is_same_set__when_same_element__then_true =
     assert_bool Messages.false_value result
 
 let is_same_set__when_same_set__then_true =
-  "is_same_set When different sets Then true"
-  >:: fun _ ->
+  "is_same_set When different sets Then true" >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list numbers in
     let elem1 = 3 and elem2 = 8 in
@@ -235,8 +218,7 @@ let is_same_set__when_same_set__then_true =
     assert_bool Messages.false_value result
 
 let is_same_set__when_absent__then_not_found =
-  "is_same_set When absent Then Not_found"
-  >:: fun _ ->
+  "is_same_set When absent Then Not_found" >:: fun _ ->
     (* given *)
     let test_object = IDS.of_list numbers in
     (* when *)
@@ -246,14 +228,22 @@ let is_same_set__when_absent__then_not_found =
 
 let is_same_set_Test_list =
   test_list
-    [ is_same_set__when_different_sets__then_false; is_same_set__when_same_element__then_true;
-      is_same_set__when_same_set__then_true; is_same_set__when_absent__then_not_found ]
+    [ is_same_set__when_different_sets__then_false;
+      is_same_set__when_same_element__then_true;
+      is_same_set__when_same_set__then_true;
+      is_same_set__when_absent__then_not_found ]
 
 (* disjoint_sets_Test *)
 
 let disjoint_sets_Test =
   "Tests: Disjoint sets structure (union-find)"
-  >::: [ size_Test_list; contains_Test_list; find_set_Test_list; find_set_opt_Test_list;
-         add_list_Test_list; add_seq_Test_list; union_set_Test_list; is_same_set_Test_list ]
+  >::: [ size_Test_list;
+         contains_Test_list;
+         find_set_Test_list;
+         find_set_opt_Test_list;
+         add_list_Test_list;
+         add_seq_Test_list;
+         union_set_Test_list;
+         is_same_set_Test_list ]
 
 let _ = run_test_tt_main disjoint_sets_Test
