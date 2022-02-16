@@ -1,7 +1,11 @@
 (* Algorithms for edit distance *)
 
 let count_levenshtein
-    ?(insertion_cost = 1.0) ?(deletion_cost = 1.0) ?(substitution_cost = 1.0) source destination
+    ?(insertion_cost = 1.0)
+    ?(deletion_cost = 1.0)
+    ?(substitution_cost = 1.0)
+    source
+    destination
   =
   if insertion_cost < 0.0 || deletion_cost < 0.0 || substitution_cost < 0.0
   then invalid_arg "Cost cannot be negative"

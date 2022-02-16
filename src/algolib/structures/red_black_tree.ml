@@ -99,8 +99,7 @@ module Make (Cmp : COMPARABLE) : RBTREE with type elem = Cmp.t = struct
     | Red, Node _, _, Node _
     | Red, Node _, _, Leaf
     | Red, Leaf, _, Node _
-    | Red, Leaf, _, Leaf ->
-      Node {cl; lt; e; rt}
+    | Red, Leaf, _, Leaf -> Node {cl; lt; e; rt}
 
   let add x ({size; t} as s) =
     let rec add' t' =
