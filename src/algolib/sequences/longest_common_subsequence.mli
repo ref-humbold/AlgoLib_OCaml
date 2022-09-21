@@ -5,5 +5,5 @@ val count_lcs_length : 'a list -> 'a list -> int
     [lst2]. *)
 
 val count_lcs_length_str : string -> string -> int
-(** [count_lcs_length s1 s2] counts length of the longest common subsequence of strings [s1] and
+(** [count_lcs_length_str s1 s2] counts length of the longest common subsequence of strings [s1] and
     [s2]. *)
