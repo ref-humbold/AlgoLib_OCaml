@@ -1,7 +1,7 @@
 (** Algorithms for edit distance *)
 
-val count_levenshtein
-  :  ?insertion_cost:float ->
+val count_levenshtein :
+  ?insertion_cost:float ->
   ?deletion_cost:float ->
   ?substitution_cost:float ->
   string ->
