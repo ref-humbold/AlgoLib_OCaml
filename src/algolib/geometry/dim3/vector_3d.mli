@@ -4,10 +4,10 @@
 type vector3d = Vector3D of float * float * float
 
 val vec3d : float -> float -> float -> vector3d
-(** [vec3d x y z] creates a vector [\[x, y, z\]]. *)
+(** [vec3d x y z] creates a vector [[x, y, z]]. *)
 
 val vec3d_i : int -> int -> int -> vector3d
-(** [vec3d_i x y z] creates a vector [\[x, y, z\]]. *)
+(** [vec3d_i x y z] creates a vector [[x, y, z]]. *)
 
 val between : Point_3d.point3d -> Point_3d.point3d -> vector3d
 (** [between p1 p2] creates a vector from point [p1] to point [p2]. *)
