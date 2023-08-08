@@ -1,4 +1,6 @@
 BUILD_SRC = _build/default/src
+BUILD_CMA = algolib.cma
+BUILD_CMXA = algolib.cmxa
 BUILD_DOC_HTML = _build/default/_doc/_html
 
 SRC = src
@@ -8,15 +10,15 @@ OUTPUT = buildOut
 DIST = $(OUTPUT)/dist
 DOCS = $(OUTPUT)/docs
 
-CMXA_LIBRARY = algolib.cmxa
 CMA_LIBRARY = algolib.cma
+CMXA_LIBRARY = algolib.cmxa
 
 .PHONY : all build clean compile doc format refresh refresh-all test
 
 all : build test
 
 clean :
-	rm -fr $(DOUTPUT)
+	rm -fr $(OUTPUT)
 	dune clean
 
 format :
@@ -26,13 +28,14 @@ format :
 compile :
 	mkdir -p $(DIST)
 	dune build
-	cp $(BUILD_SRC)/$(CMXA_LIBRARY) $(DIST)/$(CMXA_LIBRARY)
-	cp $(BUILD_SRC)/$(CMA_LIBRARY) $(DIST)/$(CMA_LIBRARY)
+	@echo
+	cp $(BUILD_SRC)/$(BUILD_CMA) $(DIST)/$(CMA_LIBRARY)
+	cp $(BUILD_SRC)/$(BUILD_CMXA) $(DIST)/$(CMXA_LIBRARY)
+
+build : format compile
 
 test :
 	dune runtest
-
-build : format compile
 
 refresh : clean build
 
