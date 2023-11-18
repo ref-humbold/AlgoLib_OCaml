@@ -10,7 +10,7 @@
   list_sorting_test
   longest_common_subsequence_test
   maximum_subarray_test
-  primes_test
+  primes_testing_test
   vector_2d_test
   vector_3d_test)
  (libraries oUnit algolib))
