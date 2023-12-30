@@ -1,12 +1,11 @@
 (* Tests: Structure of vector in 3D *)
 open OUnit2
+open Algolib.Geometry_object
 open Algolib.Vector_3d
 open TestUtils
 
 let print_vector (Vector3D (x, y, z)) =
   "Vector3D(" ^ string_of_float x ^ ", " ^ string_of_float y ^ ", " ^ string_of_float z ^ ")"
-
-let float_cmp = Algolib.Geometry_object.(cmp_float ~epsilon)
 
 (* methods_Test_list *)
 
@@ -39,21 +38,21 @@ let length__then_length_of_vector =
     (* when *)
     let result = length @@ vec3d_i 18 (-6) 13 in
     (* then *)
-    assert_equal ~cmp:float_cmp ~printer:string_of_float 23.0 result
+    Assert.Float.assert_close ~epsilon 23.0 result
 
 let dot__then_scalar_product =
   "dot Then scalar product" >:: fun _ ->
     (* when *)
     let result = dot (vec3d 1.5 (-4.0) (-3.5)) (vec3d 9.0 (-2.5) 8.5) in
     (* then *)
-    assert_equal ~cmp:float_cmp ~printer:string_of_float (-6.25) result
+    Assert.Float.assert_close ~epsilon (-6.25) result
 
 let dot__when_orthogonal__then_zero =
   "dot When orthogonal Then zero" >:: fun _ ->
     (* when *)
     let result = dot (vec3d_i 1 0 1) (vec3d_i 0 (-2) 0) in
     (* then *)
-    assert_equal ~cmp:float_cmp ~printer:string_of_float 0.0 result
+    Assert.Float.assert_close ~epsilon 0.0 result
 
 let cross__then_cross_product =
   "cross Then cross product" >:: fun _ ->
@@ -74,35 +73,35 @@ let area__then_length_of_cross_product =
     (* when *)
     let result = area (vec3d 1.5 (-4.0) (-3.5)) (vec3d 9.0 (-2.5) 8.5) in
     (* then *)
-    assert_equal ~cmp:float_cmp ~printer:string_of_float 69.46716850426538 result
+    Assert.Float.assert_close ~epsilon 69.46716850426538 result
 
 let area__when_parallel__then_zero =
   "area When parallel Then zero" >:: fun _ ->
     (* when *)
     let result = area (vec3d_i 3 3 3) (vec3d_i (-8) (-8) (-8)) in
     (* then *)
-    assert_equal ~cmp:float_cmp ~printer:string_of_float 0.0 result
+    Assert.Float.assert_close ~epsilon 0.0 result
 
 let volume__then_scalar_triple_product =
   "volume Then scalar triple product" >:: fun _ ->
     (* when *)
     let result = volume (vec3d 1.5 (-4.0) (-3.5)) (vec3d 9.0 (-2.5) 8.5) (vec3d_i 1 (-1) 1) in
     (* then *)
-    assert_equal ~cmp:float_cmp ~printer:string_of_float 33.75 result
+    Assert.Float.assert_close ~epsilon 33.75 result
 
 let volume__when_parallel__then_zero =
   "volume When parallel Then zero" >:: fun _ ->
     (* when *)
     let result = volume (vec3d_i 3 3 3) (vec3d_i (-8) (-8) (-8)) (vec3d_i 2 (-2) 2) in
     (* then *)
-    assert_equal ~cmp:float_cmp ~printer:string_of_float 0.0 result
+    Assert.Float.assert_close ~epsilon 0.0 result
 
 let volume__when_orthogonal__then_zero =
   "volume When orthogonal Then zero" >:: fun _ ->
     (* when *)
     let result = volume (vec3d_i 3 3 3) (vec3d_i 1 0 1) (vec3d_i 0 (-2) 0) in
     (* then *)
-    assert_equal ~cmp:float_cmp ~printer:string_of_float 0.0 result
+    Assert.Float.assert_close ~epsilon 0.0 result
 
 let methods_Test_list =
   test_list

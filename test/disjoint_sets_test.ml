@@ -40,7 +40,7 @@ let contains__when_present__then_true =
     (* when *)
     let result = IntDS.contains 4 test_object in
     (* then *)
-    Assert.assert_true result
+    Assert.Bool.assert_true result
 
 let contains__when_absent__then_false =
   "contains When absent Then false" >:: fun _ ->
@@ -49,7 +49,7 @@ let contains__when_absent__then_false =
     (* when *)
     let result = IntDS.contains 18 test_object in
     (* then *)
-    Assert.assert_false result
+    Assert.Bool.assert_false result
 
 let contains_Test_list =
   test_list [contains__when_present__then_true; contains__when_absent__then_false]
@@ -63,7 +63,7 @@ let add_list__when_new_elements__then_singleton_sets =
     (* when *)
     IntDS.add_list elems test_object ;
     (* then *)
-    List.iter (fun e -> Assert.assert_true @@ IntDS.contains e test_object) elems
+    List.iter (fun e -> Assert.Bool.assert_true @@ IntDS.contains e test_object) elems
 
 let add_list__when_present_element__then_element_present =
   "add_list When present element Then Element_present" >:: fun _ ->
@@ -89,7 +89,7 @@ let add_seq__when_new_elements__then_singleton_sets =
     (* when *)
     IntDS.add_seq elems test_object ;
     (* then *)
-    Seq.iter (fun e -> Assert.assert_true @@ IntDS.contains e test_object) elems
+    Seq.iter (fun e -> Assert.Bool.assert_true @@ IntDS.contains e test_object) elems
 
 let add_seq__when_present_element__then_element_present =
   "add_seq When present element Then Element_present" >:: fun _ ->
@@ -165,7 +165,7 @@ let union_set__when_different_sets__then_same_represent =
     (* when *)
     IntDS.union_set elem1 elem2 test_object ;
     (* then *)
-    Assert.assert_true @@ IntDS.is_same_set elem1 elem2 test_object ;
+    Assert.Bool.assert_true @@ IntDS.is_same_set elem1 elem2 test_object ;
     assert_equal
       ~printer:string_of_int
       (IntDS.find_set elem1 test_object)
@@ -193,7 +193,7 @@ let is_same_set__when_different_sets__then_false =
     (* when *)
     let result = IntDS.is_same_set 4 6 test_object in
     (* then *)
-    Assert.assert_false result
+    Assert.Bool.assert_false result
 
 let is_same_set__when_same_element__then_true =
   "is_same_set When different sets Then true" >:: fun _ ->
@@ -202,7 +202,7 @@ let is_same_set__when_same_element__then_true =
     (* when *)
     let result = IntDS.is_same_set 4 4 test_object in
     (* then *)
-    Assert.assert_true result
+    Assert.Bool.assert_true result
 
 let is_same_set__when_same_set__then_true =
   "is_same_set When different sets Then true" >:: fun _ ->
@@ -213,7 +213,7 @@ let is_same_set__when_same_set__then_true =
     (* when *)
     let result = IntDS.is_same_set elem1 elem2 test_object in
     (* then *)
-    Assert.assert_true result
+    Assert.Bool.assert_true result
 
 let is_same_set__when_absent__then_not_found =
   "is_same_set When absent Then Not_found" >:: fun _ ->

@@ -1,8 +1,12 @@
 open OUnit2
 
-let assert_true expected = assert_bool "Expected true value" expected
+module Bool = struct
+  let assert_true ?(msg = "Expected true value") = assert_bool msg
 
-let assert_false expected = assert_bool "Expected false value" @@ not expected
+  let assert_false ?(msg = "Expected false value") expected = assert_bool msg @@ not expected
+end
 
-let assert_close ~epsilon expected real =
-  assert_equal ~cmp:(cmp_float ~epsilon) ~printer:string_of_float expected real
+module Float = struct
+  let assert_close ~epsilon ?(printer = string_of_float) =
+    assert_equal ~cmp:(cmp_float ~epsilon) ~printer
+end
