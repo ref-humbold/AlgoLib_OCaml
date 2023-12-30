@@ -1,7 +1,7 @@
 (* Tests: List sorting algorithms *)
 open OUnit2
 open Algolib.List_sorting
-open Test_utils
+open TestUtils
 
 let numbers = [3; 17; -6; 0; 9; -12; 7; 4; 2]
 

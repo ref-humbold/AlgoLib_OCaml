@@ -1,6 +1,7 @@
 (* Tests: Structure of vector in 3D *)
 open OUnit2
 open Algolib.Vector_3d
+open TestUtils
 
 let print_vector (Vector3D (x, y, z)) =
   "Vector3D(" ^ string_of_float x ^ ", " ^ string_of_float y ^ ", " ^ string_of_float z ^ ")"
@@ -22,7 +23,7 @@ let coordinates__then_triple_of_coordinates =
     let result = coordinates @@ vec3d 5.0 (-19.0) 14.2 in
     (* then *)
     assert_equal
-      ~printer:Test_utils.(Printers.tuple3 string_of_float string_of_float string_of_float)
+      ~printer:(Printers.tuple3 string_of_float string_of_float string_of_float)
       (5.0, -19.0, 14.2)
       result
 
@@ -31,7 +32,7 @@ let coordinates_list__then_list_of_coordinates =
     (* when *)
     let result = coordinates_list @@ vec3d 5.0 (-19.0) 14.2 in
     (* then *)
-    assert_equal ~printer:Test_utils.(Printers.list string_of_float) [5.0; -19.0; 14.2] result
+    assert_equal ~printer:(Printers.list string_of_float) [5.0; -19.0; 14.2] result
 
 let length__then_length_of_vector =
   "length Then length of vector" >:: fun _ ->

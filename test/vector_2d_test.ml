@@ -2,6 +2,7 @@
 open OUnit2
 open Algolib.Geometry_object
 open Algolib.Vector_2d
+open TestUtils
 
 let print_vector (Vector2D (x, y)) =
   "Vector2D(" ^ string_of_float x ^ ", " ^ string_of_float y ^ ")"
@@ -22,17 +23,14 @@ let coordinates__then_pair_of_coordinates =
     (* when *)
     let result = coordinates @@ vec2d_i 5 (-19) in
     (* then *)
-    assert_equal
-      ~printer:Test_utils.Printers.(tuple2 string_of_float string_of_float)
-      (5.0, -19.0)
-      result
+    assert_equal ~printer:(Printers.tuple2 string_of_float string_of_float) (5.0, -19.0) result
 
 let coordinates_list__then_list_of_coordinates =
   "coordinates_list Then list of coordinates" >:: fun _ ->
     (* when *)
     let result = coordinates_list @@ vec2d_i 5 (-19) in
     (* then *)
-    assert_equal ~printer:Test_utils.Printers.(list string_of_float) [5.0; -19.0] result
+    assert_equal ~printer:(Printers.list string_of_float) [5.0; -19.0] result
 
 let length__then_length_of_vector =
   "length Then length of vector" >:: fun _ ->

@@ -2,7 +2,7 @@
 open OUnit2
 open Algolib.Longest_common_subsequence
 
-let to_list s = List.of_seq @@ Seq.map Char.code (String.to_seq s)
+let chars_of_string s = List.of_seq @@ Seq.map Char.code @@ String.to_seq s
 
 (* count_lcs_length_Test_list *)
 
@@ -53,7 +53,7 @@ let count_lcs_length__when_common_subtext__then_common_subtext_length =
 let count_lcs_length__when_same_sequence__then_sequence_length =
   "count_lcs_length When same sequence Then sequence length" >:: fun _ ->
     (* given*)
-    let sequence = to_list "qwertyuiop" in
+    let sequence = chars_of_string "qwertyuiop" in
     (* when*)
     let result = count_lcs_length sequence sequence in
     (* then*)
@@ -62,7 +62,9 @@ let count_lcs_length__when_same_sequence__then_sequence_length =
 let count_lcs_length__when_common_subsequence__then_common_subsequence_length =
   "count_lcs_length When common subsequence Then common subsequence length" >:: fun _ ->
     (*when*)
-    let result = count_lcs_length (to_list "qwertyuiop") (to_list "zxrtyasdfuiopcvb") in
+    let result =
+      count_lcs_length (chars_of_string "qwertyuiop") (chars_of_string "zxrtyasdfuiopcvb")
+    in
     (* then*)
     assert_equal ~printer:string_of_int (String.length "rtyuiop") result
 

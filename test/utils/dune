@@ -1,0 +1,9 @@
+(library
+ (name testUtils)
+ (modes native byte)
+ (libraries oUnit))
+
+(env
+ (dev
+  (flags
+   (:standard -warn-error -A -w +A-70))))

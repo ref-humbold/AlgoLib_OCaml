@@ -2,7 +2,7 @@
 open OUnit2
 open Algolib.Point_2d
 open Algolib.Convex_hull
-open Test_utils
+open TestUtils
 
 let print_point (Point2D (x, y)) = "Point2D(" ^ string_of_float x ^ ", " ^ string_of_float y ^ ")"
 

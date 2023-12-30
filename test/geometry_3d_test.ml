@@ -2,7 +2,7 @@
 open OUnit2
 open Algolib.Point_3d
 open Algolib.Geometry_3d
-open Test_utils
+open TestUtils
 
 let print_point (Point3D (x, y, z)) =
   "Point3D(" ^ string_of_float x ^ ", " ^ string_of_float y ^ ", " ^ string_of_float z ^ ")"
