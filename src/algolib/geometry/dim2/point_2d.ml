@@ -1,5 +1,5 @@
 (* Structure of point in 2D *)
-open Geometry_object
+include Geometry_object
 
 type point2d = Point2D of float * float
 

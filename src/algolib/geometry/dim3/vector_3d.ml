@@ -1,5 +1,5 @@
 (* Structure of vector in 3D *)
-open Geometry_object
+include Geometry_object
 
 type vector3d = Vector3D of float * float * float
 

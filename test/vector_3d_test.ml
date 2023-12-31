@@ -1,6 +1,5 @@
 (* Tests: Structure of vector in 3D *)
 open OUnit2
-open Algolib.Geometry_object
 open Algolib.Vector_3d
 open TestUtils
 

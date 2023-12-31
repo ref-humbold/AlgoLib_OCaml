@@ -1,5 +1,5 @@
 (* Structure of vector in 2D *)
-open Geometry_object
+include Geometry_object
 
 type vector2d = Vector2D of float * float
 

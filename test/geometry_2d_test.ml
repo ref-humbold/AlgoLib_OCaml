@@ -129,7 +129,7 @@ let distance__when_different_points__then_distance =
     (* when *)
     let result = distance (pt2d_i 4 5) (pt2d_i (-2) (-3)) in
     (* then *)
-    assert_equal ~printer:string_of_float 10.0 result
+    Assert.Float.assert_close ~epsilon 10.0 result
 
 let distance__when_same_point__then_zero =
   "distance When same point Then zero" >:: fun _ ->
@@ -138,7 +138,7 @@ let distance__when_same_point__then_zero =
     (* when *)
     let result = distance point point in
     (* then *)
-    assert_equal ~printer:string_of_float 0.0 result
+    Assert.Float.assert_close ~epsilon 0.0 result
 
 let distance_Test_list =
   test_list [distance__when_different_points__then_distance; distance__when_same_point__then_zero]

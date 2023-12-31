@@ -1,5 +1,7 @@
 (** Structure of point in 3D *)
 
+include module type of Geometry_object
+
 (** The type of points in 3D. *)
 type point3d = Point3D of float * float * float
 

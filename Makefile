@@ -42,5 +42,6 @@ refresh : clean build
 refresh-all : clean all
 
 doc :
+	mkdir -p $(DOCS)
 	dune build @doc
-	cp -r $(BUILD_DOC_HTML) $(DOCS)
+	cp -r $(BUILD_DOC_HTML)/. $(DOCS)
