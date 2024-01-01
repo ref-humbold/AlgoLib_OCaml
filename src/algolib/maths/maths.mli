@@ -4,13 +4,13 @@ val gcd : int -> int -> int
 (** [gcd n1 n2] computes the greatest common divisor of two integers [n1] and [n2]. *)
 
 val ( **/ ) : int -> int -> int
-(** [( **/ )] is an infix alias of [gcd]. Right associative. *)
+(** [n1 **/ n2] is [gcd n1 n2]. Right associative. *)
 
 val lcm : int -> int -> int
 (** [lcm n1 n2] computes the least common multiple of two integers [n1] and [n2]. *)
 
 val ( **^ ) : int -> int -> int
-(** [( **^ )] is an infix alias of [lcm]. Right associative. *)
+(** [n1 **^ n2] is [lcm n1 n2]. Right associative. *)
 
 val multiply : int -> int -> int
 (** [multiply f1 f2] performs fast integer multiplication of [f1] and [f2].

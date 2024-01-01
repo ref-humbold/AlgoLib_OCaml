@@ -18,7 +18,7 @@ val front : 'a t -> 'a
     @raise Empty_queue if queue is empty. *)
 
 val push : 'a -> 'a t -> 'a t
-(** [push x d] adds element [x] at the back of queue [q]. *)
+(** [push x q] adds element [x] at the back of queue [q]. *)
 
 val pop : 'a t -> 'a t
 (** [pop q] removes element from the front of queue [q].

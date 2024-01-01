@@ -4,13 +4,13 @@ type 'a t
 (** The type of deferred computations. *)
 
 val defer : (unit -> 'a) -> 'a t
-(** [defer f] creates new deferred computation. *)
+(** [defer f] creates new deferred computation [f]. *)
 
 val ( ~$ ) : (unit -> 'a) -> 'a t
-(** [( ~$ )] is a prefix alias of [defer]. *)
+(** [~$ f] is [defer f]. *)
 
 val force : 'a t -> 'a
-(** [force d] forces deferred computation and memoizes the result. *)
+(** [force d] forces deferred computation [d] and memoizes the result. *)
 
 val ( !$ ) : 'a t -> 'a
-(** [( !$ )] is a prefix alias of [force]. *)
+(** [!$ d] is [force d]. *)
