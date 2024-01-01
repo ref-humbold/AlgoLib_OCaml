@@ -18,6 +18,8 @@ module type DISJOINT_SETS = sig
 
   val contains : elem -> t -> bool
 
+  val add : elem -> t -> unit
+
   val add_seq : elem Seq.t -> t -> unit
 
   val add_list : elem list -> t -> unit
@@ -48,21 +50,20 @@ module Make (Cmp : COMPARABLE) : DISJOINT_SETS with type elem = Cmp.t = struct
 
   let contains element {map; _} = Hashtbl.mem map element
 
+  let add_ element dset =
+    Hashtbl.add dset.map element element ;
+    dset.size <- dset.size + 1
+
+  let add element dset =
+    if Hashtbl.mem dset.map element then raise @@ Element_present element else add_ element dset
+
   let add_seq elements dset =
     Seq.iter (fun e -> if Hashtbl.mem dset.map e then raise @@ Element_present e) elements ;
-    Seq.iter
-      (fun e ->
-         Hashtbl.add dset.map e e ;
-         dset.size <- dset.size + 1 )
-      elements
+    Seq.iter (fun e -> add_ e dset) elements
 
   let add_list elements dset =
     List.iter (fun e -> if Hashtbl.mem dset.map e then raise @@ Element_present e) elements ;
-    List.iter
-      (fun e ->
-         Hashtbl.add dset.map e e ;
-         dset.size <- dset.size + 1 )
-      elements
+    List.iter (fun e -> add_ e dset) elements
 
   let rec find_set element dset =
     let value = Hashtbl.find dset.map element in

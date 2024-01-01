@@ -25,11 +25,20 @@ module type DISJOINT_SETS = sig
   val contains : elem -> t -> bool
   (** [contains x s] checks if [x] belongs to any set in structure [s]. *)
 
+  val add : elem -> t -> unit
+  (** [add x s] adds new singleton set with element [x] to structure [s].
+
+      @raise Element_present if [x] is already present in the structure. *)
+
   val add_seq : elem Seq.t -> t -> unit
-  (** [add_seq xs s] adds new singleton sets from Seq [xs] to structure [s]. *)
+  (** [add_seq xs s] adds new singleton sets from Seq [xs] to structure [s].
+
+      @raise Element_present if any value from [xs] is already present in the structure. *)
 
   val add_list : elem list -> t -> unit
-  (** [add_list xs s] adds new singleton sets from list [xs] to structure [s]. *)
+  (** [add_list xs s] adds new singleton sets from list [xs] to structure [s].
+
+      @raise Element_present if any value from [xs] is already present in the structure. *)
 
   val find_set : elem -> t -> elem
   (** [find_set x s] finds the representant of [x] in structure [s].
@@ -37,7 +46,7 @@ module type DISJOINT_SETS = sig
       @raise Not_found if [x] is not present in the structure. *)
 
   val find_set_opt : elem -> t -> elem option
-  (** [find_set_opt x d s] finds the representant of [x] in structure [s] if it exists, otherwise
+  (** [find_set_opt x s] finds the representant of [x] in structure [s] if it exists, otherwise
       returns [None]. *)
 
   val is_same_set : elem -> elem -> t -> bool
