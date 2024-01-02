@@ -54,7 +54,8 @@ let maximum_subarray_i__when_negative_greater_than_subsum__then_exclude_negative
 
 let maximum_subarray_Test_list =
   test_list
-    [ maximum_subarray__when_negative_less_than_subsum__then_include_negative;
+    [ maximum_subarray__when_all_elements_are_positive__then_whole_sequence;
+      maximum_subarray__when_negative_less_than_subsum__then_include_negative;
       maximum_subarray__when_negative_greater_than_subsum__then_exclude_negative;
       maximum_subarray__when_all_elements_are_negative__then_empty;
       maximum_subarray_i__when_negative_less_than_subsum__then_include_negative;

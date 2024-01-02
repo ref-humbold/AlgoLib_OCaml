@@ -31,6 +31,7 @@ compile :
 	@echo
 	cp $(BUILD_SRC)/$(BUILD_CMA) $(DIST)/$(CMA_LIBRARY)
 	cp $(BUILD_SRC)/$(BUILD_CMXA) $(DIST)/$(CMXA_LIBRARY)
+	chmod 664 $(DIST)/*
 
 build : format compile
 
