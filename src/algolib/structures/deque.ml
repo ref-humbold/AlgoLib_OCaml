@@ -5,32 +5,32 @@ exception Empty_deque
 
 let empty = ([], [])
 
-let is_empty dq =
-  match dq with
+let is_empty deque =
+  match deque with
   | [], [] -> true
   | _ -> false
 
-let front dq =
-  match dq with
+let front deque =
+  match deque with
   | e :: _, _ | [], e :: _ -> e
   | [], [] -> raise Empty_deque
 
-let back dq =
-  match dq with
+let back deque =
+  match deque with
   | _, e :: _ | e :: _, [] -> e
   | [], [] -> raise Empty_deque
 
-let push_front e dq =
-  match dq with
-  | [x], [] -> ([e], [x])
-  | [x1; x2], [y] -> ([e; x1], [y; x2])
-  | ft, bk -> (e :: ft, bk)
+let push_front element deque =
+  match deque with
+  | [x], [] -> ([element], [x])
+  | [x1; x2], [y] -> ([element; x1], [y; x2])
+  | ft, bk -> (element :: ft, bk)
 
-let push_back dq e =
-  match dq with
-  | [], [x] -> ([x], [e])
-  | [y], [x1; x2] -> ([y; x2], [e; x1])
-  | ft, bk -> (ft, e :: bk)
+let push_back element deque =
+  match deque with
+  | [], [x] -> ([x], [element])
+  | [y], [x1; x2] -> ([y; x2], [element; x1])
+  | ft, bk -> (ft, element :: bk)
 
 let balance_ lst =
   let rec balance_' lst' ft n =
@@ -40,15 +40,15 @@ let balance_ lst =
   in
   balance_' lst [] (List.length lst / 2)
 
-let pop_front dq =
-  match dq with
+let pop_front deque =
+  match deque with
   | [_], bk -> balance_ bk
   | _ :: ft, bk -> (ft, bk)
   | [], _ :: bk -> ([], bk)
   | [], [] -> raise Empty_deque
 
-let pop_back dq =
-  match dq with
+let pop_back deque =
+  match deque with
   | ft, [_] -> balance_ ft
   | ft, _ :: bk -> (ft, bk)
   | _ :: ft, [] -> (ft, [])

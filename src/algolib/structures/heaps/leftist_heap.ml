@@ -28,45 +28,46 @@ end
 module Make (Cmp : COMPARABLE) : HEAP with type elem = Cmp.t = struct
   type elem = Cmp.t
 
-  type t = Null | Node of {rank : int; e : elem; lt : t; rt : t}
+  type t = Null | Node of {left : t; rank : int; element : elem; right : t}
 
   exception Empty_heap
 
   let empty = Null
 
-  let is_empty h =
-    match h with
+  let is_empty heap =
+    match heap with
     | Node _ -> false
     | Null -> true
 
-  let rec merge h1 h2 =
-    let rank' v =
-      match v with
+  let rec merge heap1 heap2 =
+    let rank' node =
+      match node with
       | Node {rank; _} -> rank
       | Null -> 0
     in
-    let make_node e a b =
-      if rank' a < rank' b
-      then Node {rank = rank' a + 1; e; lt = b; rt = a}
-      else Node {rank = rank' b + 1; e; lt = a; rt = b}
+    let make_node element node1 node2 =
+      if rank' node1 < rank' node2
+      then Node {left = node2; rank = rank' node1 + 1; element; right = node1}
+      else Node {left = node1; rank = rank' node2 + 1; element; right = node2}
     in
-    match (h1, h2) with
-    | Node {e = x; lt = lt1; rt = rt1; _}, Node {e = y; lt = lt2; rt = rt2; _} ->
-      if Cmp.compare x y < 0
-      then make_node x lt1 @@ merge rt1 h2
-      else make_node y lt2 @@ merge rt2 h1
-    | Node _, Null -> h1
-    | Null, _ -> h2
+    match (heap1, heap2) with
+    | ( Node {left = lt1; element = e1; right = rt1; _},
+        Node {left = lt2; element = e2; right = rt2; _} ) ->
+      if Cmp.compare e1 e2 < 0
+      then make_node e1 lt1 @@ merge rt1 heap2
+      else make_node e2 lt2 @@ merge rt2 heap1
+    | Node _, Null -> heap1
+    | Null, _ -> heap2
 
-  let peek v =
-    match v with
-    | Node {e; _} -> e
+  let peek heap =
+    match heap with
+    | Node {element; _} -> element
     | Null -> raise Empty_heap
 
-  let push e h = merge h @@ Node {rank = 1; e; lt = Null; rt = Null}
+  let push element heap = merge heap @@ Node {left = Null; rank = 1; element; right = Null}
 
-  let pop v =
-    match v with
-    | Node {lt; rt; _} -> merge lt rt
+  let pop heap =
+    match heap with
+    | Node {left; right; _} -> merge left right
     | Null -> raise Empty_heap
 end

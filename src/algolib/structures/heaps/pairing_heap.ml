@@ -34,33 +34,33 @@ module Make (Cmp : COMPARABLE) : HEAP with type elem = Cmp.t = struct
 
   let empty = Null
 
-  let is_empty h =
-    match h with
+  let is_empty heap =
+    match heap with
     | Node _ -> false
     | Null -> true
 
-  let merge h1 h2 =
-    match (h1, h2) with
+  let merge heap1 heap2 =
+    match (heap1, heap2) with
     | Node (e1, hs1), Node (e2, hs2) ->
-      if Cmp.compare e1 e2 <= 0 then Node (e1, h2 :: hs1) else Node (e2, h1 :: hs2)
-    | Node _, Null -> h1
-    | Null, _ -> h2
+      if Cmp.compare e1 e2 <= 0 then Node (e1, heap2 :: hs1) else Node (e2, heap1 :: hs2)
+    | Node _, Null -> heap1
+    | Null, _ -> heap2
 
-  let peek h =
-    match h with
+  let peek heap =
+    match heap with
     | Node (e, _) -> e
     | Null -> raise Empty_heap
 
-  let push e h = merge h @@ Node (e, [])
+  let push element heap = merge heap @@ Node (element, [])
 
-  let pop h =
+  let pop heap =
     let rec merge_pairs lst =
       match lst with
       | h1 :: h2 :: hs -> merge (merge h1 h2) @@ merge_pairs hs
       | [h] -> h
       | [] -> Null
     in
-    match h with
+    match heap with
     | Node (_, hs) -> merge_pairs hs
     | Null -> raise Empty_heap
 end

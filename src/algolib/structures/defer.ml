@@ -3,16 +3,16 @@ type 'a mem = Deferred of (unit -> 'a) | Value of 'a
 
 type 'a t = 'a mem ref
 
-let defer f = ref (Deferred f)
+let defer func = ref (Deferred func)
 
 let ( ~$ ) = defer
 
-let force d =
-  match !d with
+let force df =
+  match !df with
   | Value v -> v
   | Deferred f ->
     let v = f () in
-    d := Value v ;
+    df := Value v ;
     v
 
 let ( !$ ) = force
