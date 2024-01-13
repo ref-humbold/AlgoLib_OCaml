@@ -84,7 +84,7 @@ let add_Test_list =
 let add_list__when_new_elements__then_singleton_sets =
   "add_list When new elements Then singleton sets" >:: fun _ ->
     (* given *)
-    let test_object = IntDS.of_list numbers and elements = [14; 18; 23] in
+    let test_object = IntDS.of_list numbers and elements = [20; 17; 35] in
     (* when *)
     IntDS.add_list elements test_object ;
     (* then *)
@@ -95,7 +95,7 @@ let add_list__when_new_elements__then_singleton_sets =
 let add_list__when_present_element__then_element_present =
   "add_list When present element Then Element_present" >:: fun _ ->
     (* given *)
-    let test_object = IntDS.of_list numbers and elements = [11; 7; 15] in
+    let test_object = IntDS.of_list numbers and elements = [20; 7; 35] in
     (* when *)
     let exec () = IntDS.add_list elements test_object in
     (* then *)
@@ -112,7 +112,7 @@ let add_seq__when_new_elements__then_singleton_sets =
   "add_seq When new elements Then singleton sets" >:: fun _ ->
     (* given *)
     let test_object = IntDS.of_list numbers
-    and elements () = Seq.Cons (14, fun () -> Seq.Cons (18, Seq.return 23)) in
+    and elements = Seq.cons 20 @@ Seq.cons 17 @@ Seq.return 35 in
     (* when *)
     IntDS.add_seq elements test_object ;
     (* then *)
@@ -124,7 +124,7 @@ let add_seq__when_present_element__then_element_present =
   "add_seq When present element Then Element_present" >:: fun _ ->
     (* given *)
     let test_object = IntDS.of_list numbers
-    and elements () = Seq.Cons (11, fun () -> Seq.Cons (7, Seq.return 15)) in
+    and elements = Seq.cons 20 @@ Seq.cons 7 @@ Seq.return 35 in
     (* when *)
     let exec () = IntDS.add_seq elements test_object in
     (* then *)
@@ -140,7 +140,7 @@ let add_seq_Test_list =
 let find_set__when_present__then_represent =
   "find_set When present Then represent" >:: fun _ ->
     (* given *)
-    let test_object = IntDS.of_list numbers and element = 5 in
+    let test_object = IntDS.of_list numbers and element = 4 in
     (* when *)
     let result = IntDS.find_set element test_object in
     (* then *)
@@ -151,7 +151,7 @@ let find_set__when_absent__then_not_found =
     (* given *)
     let test_object = IntDS.of_list numbers in
     (* when *)
-    let exec () = IntDS.find_set 12 test_object in
+    let exec () = IntDS.find_set 14 test_object in
     (* then *)
     assert_raises Not_found exec
 
@@ -163,7 +163,7 @@ let find_set_Test_list =
 let find_set_opt__when_present__then_some_with_represent =
   "find_set_opt When present Then Some with represent" >:: fun _ ->
     (* given *)
-    let test_object = IntDS.of_list numbers and element = 5 in
+    let test_object = IntDS.of_list numbers and element = 4 in
     (* when *)
     let result = IntDS.find_set_opt element test_object in
     (* then *)
@@ -174,7 +174,7 @@ let find_set_opt__when_absent__then_none =
     (* given *)
     let test_object = IntDS.of_list numbers in
     (* when *)
-    let result = IntDS.find_set_opt 12 test_object in
+    let result = IntDS.find_set_opt 14 test_object in
     (* then *)
     assert_equal ~printer:(Printers.option string_of_int) None result
 
@@ -197,6 +197,34 @@ let union_set__when_different_sets__then_same_represent =
       (IntDS.find_set element1 test_object)
       (IntDS.find_set element2 test_object)
 
+let union_set__when_single_element__then_same_represent =
+  "union_set When single element Then same represent" >:: fun _ ->
+    (* given *)
+    let test_object = IntDS.of_list numbers and element = 4 in
+    (* when *)
+    IntDS.union_set element element test_object ;
+    (* then *)
+    Assert.Bool.assert_true @@ IntDS.is_same_set element element test_object ;
+    assert_equal
+      ~printer:string_of_int
+      (IntDS.find_set element test_object)
+      (IntDS.find_set element test_object)
+
+let union_set__when_new_elements_in_chain__then_same_represent =
+  "union_set When new elements in chain Then same represent" >:: fun _ ->
+    (* given *)
+    let test_object = IntDS.of_list numbers and elements = [20; 17; 35] in
+    IntDS.add_list elements test_object ;
+    (* when *)
+    IntDS.union_set (List.hd elements) (List.nth elements 1) test_object ;
+    IntDS.union_set (List.nth elements 1) (List.nth elements 2) test_object ;
+    (* then *)
+    Assert.Bool.assert_true @@ IntDS.is_same_set (List.hd elements) (List.nth elements 2) test_object ;
+    assert_equal
+      ~printer:string_of_int
+      (IntDS.find_set (List.hd elements) test_object)
+      (IntDS.find_set (List.nth elements 2) test_object)
+
 let union_set__when_absent__then_not_found =
   "union_set When absent Then Not_found" >:: fun _ ->
     (* given *)
@@ -208,7 +236,10 @@ let union_set__when_absent__then_not_found =
 
 let union_set_Test_list =
   test_list
-    [union_set__when_different_sets__then_same_represent; union_set__when_absent__then_not_found]
+    [ union_set__when_different_sets__then_same_represent;
+      union_set__when_single_element__then_same_represent;
+      union_set__when_new_elements_in_chain__then_same_represent;
+      union_set__when_absent__then_not_found ]
 
 (* is_same_set_Test_list *)
 
@@ -224,9 +255,9 @@ let is_same_set__when_different_sets__then_false =
 let is_same_set__when_same_element__then_true =
   "is_same_set When different sets Then true" >:: fun _ ->
     (* given *)
-    let test_object = IntDS.of_list numbers in
+    let test_object = IntDS.of_list numbers and element = 4 in
     (* when *)
-    let result = IntDS.is_same_set 4 4 test_object in
+    let result = IntDS.is_same_set element element test_object in
     (* then *)
     Assert.Bool.assert_true result
 
@@ -234,9 +265,9 @@ let is_same_set__when_same_set__then_true =
   "is_same_set When different sets Then true" >:: fun _ ->
     (* given *)
     let test_object = IntDS.of_list numbers and element1 = 3 and element2 = 8 in
-    IntDS.union_set 3 8 test_object ;
+    IntDS.union_set element1 element2 test_object ;
     (* when *)
-    let result = IntDS.is_same_set element1 element2 test_object in
+    let result = IntDS.is_same_set element2 element1 test_object in
     (* then *)
     Assert.Bool.assert_true result
 

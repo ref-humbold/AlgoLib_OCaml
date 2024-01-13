@@ -1,12 +1,12 @@
 (* Algorithms for list sorting *)
 let merge_sort cmp lst =
   let rec drop lst' n =
-    if n > 0
-    then
+    if n <= 0
+    then lst'
+    else
       match lst' with
       | _ :: xs -> drop xs (n - 1)
       | [] -> lst'
-    else lst'
   in
   let rec merge cmp' acc lx ly =
     match (lx, ly) with

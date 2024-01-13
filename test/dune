@@ -2,6 +2,7 @@
  (names
   closest_points_test
   convex_hull_test
+  deque_test
   disjoint_sets_test
   edit_distance_test
   geometry_2d_test

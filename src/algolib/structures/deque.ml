@@ -10,6 +10,8 @@ let is_empty deque =
   | [], [] -> true
   | _ -> false
 
+let length deque = (List.length @@ fst deque) + (List.length @@ snd deque)
+
 let front deque =
   match deque with
   | e :: _, _ | [], e :: _ -> e
@@ -53,3 +55,23 @@ let pop_back deque =
   | ft, _ :: bk -> (ft, bk)
   | _ :: ft, [] -> (ft, [])
   | [], [] -> raise Empty_deque
+
+let of_seq xs = Seq.fold_left (fun acc e -> push_back e acc) empty xs
+
+let of_list xs =
+  match xs with
+  | [] -> empty
+  | [x] -> ([], [x])
+  | [x1; x2] -> ([x1], [x2])
+  | _ ->
+    let rec split n lst =
+      if n <= 0
+      then ([], List.rev lst)
+      else
+        match lst with
+        | [] -> ([], [])
+        | y :: ys ->
+          let ft, bk = split (n - 1) ys in
+          (y :: ft, bk)
+    in
+    split (List.length xs / 2) xs
