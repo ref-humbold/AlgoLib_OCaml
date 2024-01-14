@@ -167,7 +167,7 @@ let find_set_opt__when_present__then_some_with_represent =
     (* when *)
     let result = IntSets.find_set_opt element test_object in
     (* then *)
-    assert_equal ~printer:(Printers.option string_of_int) (Some element) result
+    Assert.Option.assert_some ~printer:string_of_int element result
 
 let find_set_opt__when_absent__then_none =
   "find_set When absent Then None" >:: fun _ ->
@@ -176,7 +176,7 @@ let find_set_opt__when_absent__then_none =
     (* when *)
     let result = IntSets.find_set_opt 14 test_object in
     (* then *)
-    assert_equal ~printer:(Printers.option string_of_int) None result
+    Assert.Option.assert_none ~printer:string_of_int result
 
 let find_set_opt_Test_list =
   test_list

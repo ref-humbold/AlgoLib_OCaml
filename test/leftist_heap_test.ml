@@ -65,7 +65,7 @@ let length_Test_list =
 (* peek_Test_list *)
 
 let peek__when_empty__then_empty_heap =
-  "peek When empty Then empty heap" >:: fun _ ->
+  "peek When empty Then Empty_heap" >:: fun _ ->
     (* given *)
     let test_object = IntHeap.empty in
     (* when *)
@@ -92,11 +92,31 @@ let peek__when_multiple_elements__then_minimal_element =
     (* then *)
     assert_equal ~printer:string_of_int minimum result
 
+let peek_opt__when_empty__then_none =
+  "peek_opt When empty Then None" >:: fun _ ->
+    (* given *)
+    let test_object = IntHeap.empty in
+    (* when *)
+    let result = IntHeap.peek_opt test_object in
+    (* then *)
+    Assert.Option.assert_none ~printer:string_of_int result
+
+let peek_opt__when_multiple_elements__then_minimal_element =
+  "peek_opt When multiple elements Then minimal element" >:: fun _ ->
+    (* given *)
+    let test_object = IntHeap.of_list numbers in
+    (* when *)
+    let result = IntHeap.peek_opt test_object in
+    (* then *)
+    Assert.Option.assert_some ~printer:string_of_int minimum result
+
 let peek_Test_list =
   test_list
     [ peek__when_empty__then_empty_heap;
       peek__when_single_element__then_this_element;
-      peek__when_multiple_elements__then_minimal_element ]
+      peek__when_multiple_elements__then_minimal_element;
+      peek_opt__when_empty__then_none;
+      peek_opt__when_multiple_elements__then_minimal_element ]
 
 (* push_Test_list *)
 
@@ -140,7 +160,7 @@ let push_Test_list =
 (* pop_Test_list *)
 
 let pop__when_empty__then_empty_heap =
-  "pop When empty Then empty heap" >:: fun _ ->
+  "pop When empty Then Empty_heap" >:: fun _ ->
     (* given *)
     let test_object = IntHeap.empty in
     (* when *)

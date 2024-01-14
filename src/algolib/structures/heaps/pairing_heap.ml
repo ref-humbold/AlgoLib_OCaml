@@ -22,6 +22,8 @@ module type HEAP = sig
 
   val peek : t -> elem
 
+  val peek_opt : t -> elem option
+
   val push : elem -> t -> t
 
   val pop : t -> t
@@ -59,10 +61,15 @@ module Make (Cmp : COMPARABLE) : HEAP with type elem = Cmp.t = struct
   let merge {size = size1; node = node1} {size = size2; node = node2} =
     {size = size1 + size2; node = merge_ node1 node2}
 
-  let peek heap =
+  let peek_opt heap =
     match heap.node with
-    | Node (e, _) -> e
-    | Null -> raise Empty_heap
+    | Node (e, _) -> Some e
+    | Null -> None
+
+  let peek heap =
+    match peek_opt heap with
+    | Some e -> e
+    | None -> raise Empty_heap
 
   let push element {size; node} = {size = size + 1; node = merge_ node @@ Node (element, [])}
 

@@ -12,3 +12,10 @@ module Float = struct
   let assert_close ~epsilon ?(printer = string_of_float) =
     assert_equal ~cmp:(cmp_float ~epsilon) ~printer
 end
+
+module Option = struct
+  let assert_some ~printer expected actual =
+    assert_equal ~printer:(Printers.option printer) (Some expected) actual
+
+  let assert_none ~printer actual = assert_equal ~printer:(Printers.option printer) None actual
+end

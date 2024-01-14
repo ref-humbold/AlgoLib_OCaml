@@ -33,6 +33,9 @@ module type HEAP = sig
 
       @raise Empty_heap if heap is empty. *)
 
+  val peek_opt : t -> elem option
+  (** [peek h] retrieves the least element from heap [h], or [None] if heap is empty. *)
+
   val push : elem -> t -> t
   (** [push x h] adds [x] to heap [h]. *)
 
