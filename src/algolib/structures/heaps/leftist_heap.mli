@@ -22,6 +22,9 @@ module type HEAP = sig
   val is_empty : t -> bool
   (** [is_empty h] checks if heap [h] is empty. *)
 
+  val length : t -> int
+  (** [length h] returns number of elements in heap [h]. *)
+
   val merge : t -> t -> t
   (** [merge h1 h2] joins heaps [h1] and [h2] together. *)
 

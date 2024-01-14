@@ -16,6 +16,8 @@ module type HEAP = sig
 
   val is_empty : t -> bool
 
+  val length : t -> int
+
   val merge : t -> t -> t
 
   val peek : t -> elem
@@ -32,40 +34,47 @@ end
 module Make (Cmp : COMPARABLE) : HEAP with type elem = Cmp.t = struct
   type elem = Cmp.t
 
-  type t = Null | Node of elem * t list
+  type node = Null | Node of elem * node list
+
+  type t = {size : int; node : node}
 
   exception Empty_heap
 
-  let empty = Null
+  let empty = {size = 0; node = Null}
 
   let is_empty heap =
-    match heap with
+    match heap.node with
     | Node _ -> false
     | Null -> true
 
-  let merge heap1 heap2 =
-    match (heap1, heap2) with
+  let length heap = heap.size
+
+  let merge_ node1 node2 =
+    match (node1, node2) with
     | Node (e1, hs1), Node (e2, hs2) ->
-      if Cmp.compare e1 e2 <= 0 then Node (e1, heap2 :: hs1) else Node (e2, heap1 :: hs2)
-    | Node _, Null -> heap1
-    | Null, _ -> heap2
+      if Cmp.compare e1 e2 <= 0 then Node (e1, node2 :: hs1) else Node (e2, node1 :: hs2)
+    | Node _, Null -> node1
+    | Null, _ -> node2
+
+  let merge {size = size1; node = node1} {size = size2; node = node2} =
+    {size = size1 + size2; node = merge_ node1 node2}
 
   let peek heap =
-    match heap with
+    match heap.node with
     | Node (e, _) -> e
     | Null -> raise Empty_heap
 
-  let push element heap = merge heap @@ Node (element, [])
+  let push element {size; node} = {size = size + 1; node = merge_ node @@ Node (element, [])}
 
-  let pop heap =
+  let pop {size; node} =
     let rec merge_pairs lst =
       match lst with
-      | h1 :: h2 :: hs -> merge (merge h1 h2) @@ merge_pairs hs
+      | h1 :: h2 :: hs -> merge_ (merge_ h1 h2) @@ merge_pairs hs
       | [h] -> h
       | [] -> Null
     in
-    match heap with
-    | Node (_, hs) -> merge_pairs hs
+    match node with
+    | Node (_, hs) -> {size = size - 1; node = merge_pairs hs}
     | Null -> raise Empty_heap
 
   let of_seq xs = Seq.fold_left (fun acc e -> push e acc) empty xs

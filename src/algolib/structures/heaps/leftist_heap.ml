@@ -16,6 +16,8 @@ module type HEAP = sig
 
   val is_empty : t -> bool
 
+  val length : t -> int
+
   val merge : t -> t -> t
 
   val peek : t -> elem
@@ -32,18 +34,22 @@ end
 module Make (Cmp : COMPARABLE) : HEAP with type elem = Cmp.t = struct
   type elem = Cmp.t
 
-  type t = Null | Node of {left : t; rank : int; element : elem; right : t}
+  type node = Null | Node of {left : node; rank : int; element : elem; right : node}
+
+  type t = {size : int; node : node}
 
   exception Empty_heap
 
-  let empty = Null
+  let empty = {size = 0; node = Null}
 
   let is_empty heap =
-    match heap with
+    match heap.node with
     | Node _ -> false
     | Null -> true
 
-  let rec merge heap1 heap2 =
+  let length heap = heap.size
+
+  let rec merge_ heap1 heap2 =
     let rank' node =
       match node with
       | Node {rank; _} -> rank
@@ -58,21 +64,25 @@ module Make (Cmp : COMPARABLE) : HEAP with type elem = Cmp.t = struct
     | ( Node {left = lt1; element = e1; right = rt1; _},
         Node {left = lt2; element = e2; right = rt2; _} ) ->
       if Cmp.compare e1 e2 < 0
-      then make_node e1 lt1 @@ merge rt1 heap2
-      else make_node e2 lt2 @@ merge rt2 heap1
+      then make_node e1 lt1 @@ merge_ rt1 heap2
+      else make_node e2 lt2 @@ merge_ rt2 heap1
     | Node _, Null -> heap1
     | Null, _ -> heap2
 
+  let merge {size = size1; node = node1} {size = size2; node = node2} =
+    {size = size1 + size2; node = merge_ node1 node2}
+
   let peek heap =
-    match heap with
+    match heap.node with
     | Node {element; _} -> element
     | Null -> raise Empty_heap
 
-  let push element heap = merge heap @@ Node {left = Null; rank = 1; element; right = Null}
+  let push element {size; node} =
+    {size = size + 1; node = merge_ node @@ Node {left = Null; rank = 1; element; right = Null}}
 
-  let pop heap =
-    match heap with
-    | Node {left; right; _} -> merge left right
+  let pop {size; node} =
+    match node with
+    | Node {left; right; _} -> {size = size - 1; node = merge_ left right}
     | Null -> raise Empty_heap
 
   let of_seq xs = Seq.fold_left (fun acc e -> push e acc) empty xs
