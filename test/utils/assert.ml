@@ -14,8 +14,13 @@ module Float = struct
 end
 
 module Option = struct
-  let assert_some ~printer expected actual =
-    assert_equal ~printer:(Printers.option printer) (Some expected) actual
+  let assert_some ?(cmp = ( = )) ~printer expected actual =
+    let cmp' opt1 opt2 =
+      match (opt1, opt2) with
+      | Some x, Some y -> cmp x y
+      | _, _ -> opt1 = opt2
+    in
+    assert_equal ~cmp:cmp' ~printer:(Printers.option printer) (Some expected) actual
 
   let assert_none ~printer actual = assert_equal ~printer:(Printers.option printer) None actual
 end
