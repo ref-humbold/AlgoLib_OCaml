@@ -22,17 +22,17 @@ module type RBTREE = sig
   val size : t -> int
   (** [size t] returns number of elements in tree [t]. *)
 
-  val to_list : t -> elem list
-  (** [to_list t] converts tree [t] to list containing the same elements in ascending order. *)
-
-  val to_seq : t -> elem Seq.t
-  (** [to_seq t] converts tree [t] to sequence containing the same elements in ascending order. *)
-
   val contains : elem -> t -> bool
   (** [contains x t] checks if [x] is element of tree [t]. *)
 
   val add : elem -> t -> t
   (** [add x t] adds [x] to tree [t]. *)
+
+  val to_seq : t -> elem Seq.t
+  (** [to_seq t] converts tree [t] to Seq containing the same elements in ascending order. *)
+
+  val to_list : t -> elem list
+  (** [to_list t] converts tree [t] to list containing the same elements in ascending order. *)
 end
 
 module Make (Cmp : COMPARABLE) : RBTREE with type elem = Cmp.t

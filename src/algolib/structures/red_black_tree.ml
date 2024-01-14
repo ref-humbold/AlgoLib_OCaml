@@ -16,13 +16,13 @@ module type RBTREE = sig
 
   val size : t -> int
 
-  val to_list : t -> elem list
-
-  val to_seq : t -> elem Seq.t
-
   val contains : elem -> t -> bool
 
   val add : elem -> t -> t
+
+  val to_seq : t -> elem Seq.t
+
+  val to_list : t -> elem list
 end
 
 module Make (Cmp : COMPARABLE) : RBTREE with type elem = Cmp.t = struct
@@ -30,68 +30,66 @@ module Make (Cmp : COMPARABLE) : RBTREE with type elem = Cmp.t = struct
 
   type colour = Black | Red
 
-  type tree = Leaf | Node of {cl : colour; lt : tree; e : elem; rt : tree}
+  type node = Leaf | Node of {col : colour; left : node; e : elem; right : node}
 
-  type t = {size : int; t : tree}
+  type t = {size : int; node : node}
 
-  let empty = {size = 0; t = Leaf}
+  let empty = {size = 0; node = Leaf}
 
-  let is_empty {size; _} = size > 0
+  let is_empty tree = tree.node = Leaf
 
-  let size {size; _} = size
+  let size tree = tree.size
 
-  let to_list {t; _} =
-    let rec to_list' t' acc =
-      match t' with
-      | Node {lt; e; rt; _} -> to_list' lt (e :: to_list' rt acc)
-      | Leaf -> acc
-    in
-    to_list' t []
-
-  let to_seq {t; _} =
-    let rec to_seq' t' acc =
-      match t' with
-      | Node {lt; e; rt; _} -> to_seq' lt @@ Seq.Cons (e, to_seq' rt acc)
-      | Leaf -> fun () -> acc
-    in
-    to_seq' t Seq.Nil
-
-  let contains x {t; _} =
-    let rec contains' t' =
-      match t' with
-      | Node {lt; e; rt; _} ->
+  let contains x tree =
+    let rec contains' n =
+      match n with
+      | Node {left; e; right; _} ->
         let cond = Cmp.compare x e in
-        if cond = 0 then true else if cond < 0 then contains' lt else contains' rt
+        if cond = 0 then true else if cond < 0 then contains' left else contains' right
       | Leaf -> false
     in
-    contains' t
+    contains' tree.node
 
-  let rebalance_ cl lt e rt =
-    match (cl, lt, e, rt) with
-    | Black, Node {cl = Red; lt = Node {cl = Red; lt = a; e = x; rt = b}; e = y; rt = c}, z, d ->
+  let rebalance_ col left e right =
+    match (col, left, e, right) with
+    | ( Black,
+        Node {col = Red; left = Node {col = Red; left = ltx; e = x; right = rtx}; e = y; right = rty},
+        z,
+        d ) ->
       Node
-        { cl = Red;
-          lt = Node {cl = Black; lt = a; e = x; rt = b};
+        { col = Red;
+          left = Node {col = Black; left = ltx; e = x; right = rtx};
           e = y;
-          rt = Node {cl = Black; lt = c; e = z; rt = d} }
-    | Black, Node {cl = Red; lt = a; e = x; rt = Node {cl = Red; lt = b; e = y; rt = c}}, z, d ->
+          right = Node {col = Black; left = rty; e = z; right = d} }
+    | ( Black,
+        Node {col = Red; left = ltx; e = x; right = Node {col = Red; left = lty; e = y; right = rty}},
+        z,
+        d ) ->
       Node
-        { cl = Red;
-          lt = Node {cl = Black; lt = a; e = x; rt = b};
+        { col = Red;
+          left = Node {col = Black; left = ltx; e = x; right = lty};
           e = y;
-          rt = Node {cl = Black; lt = c; e = z; rt = d} }
-    | Black, a, x, Node {cl = Red; lt = b; e = y; rt = Node {cl = Red; lt = c; e = z; rt = d}} ->
+          right = Node {col = Black; left = rty; e = z; right = d} }
+    | ( Black,
+        ltx,
+        x,
+        Node {col = Red; left = lty; e = y; right = Node {col = Red; left = ltz; e = z; right = rtz}}
+      ) ->
       Node
-        { cl = Red;
-          lt = Node {cl = Black; lt = a; e = x; rt = b};
+        { col = Red;
+          left = Node {col = Black; left = ltx; e = x; right = lty};
           e = y;
-          rt = Node {cl = Black; lt = c; e = z; rt = d} }
-    | Black, a, x, Node {cl = Red; lt = Node {cl = Red; lt = b; e = y; rt = c}; e = z; rt = d} ->
+          right = Node {col = Black; left = ltz; e = z; right = rtz} }
+    | ( Black,
+        ltx,
+        x,
+        Node {col = Red; left = Node {col = Red; left = lty; e = y; right = rty}; e = z; right = rtz}
+      ) ->
       Node
-        { cl = Red;
-          lt = Node {cl = Black; lt = a; e = x; rt = b};
+        { col = Red;
+          left = Node {col = Black; left = ltx; e = x; right = lty};
           e = y;
-          rt = Node {cl = Black; lt = c; e = z; rt = d} }
+          right = Node {col = Black; left = rty; e = z; right = rtz} }
     | Black, Node _, _, Node _
     | Black, Node _, _, Leaf
     | Black, Leaf, _, Node _
@@ -99,28 +97,44 @@ module Make (Cmp : COMPARABLE) : RBTREE with type elem = Cmp.t = struct
     | Red, Node _, _, Node _
     | Red, Node _, _, Leaf
     | Red, Leaf, _, Node _
-    | Red, Leaf, _, Leaf -> Node {cl; lt; e; rt}
+    | Red, Leaf, _, Leaf -> Node {col; left; e; right}
 
-  let add x ({size; t} as s) =
+  let add x tree =
     let rec add' t' =
       match t' with
-      | Node {cl; lt; e; rt} ->
+      | Node {col; left; e; right} ->
         let cond = Cmp.compare x e in
         if cond = 0
         then None
         else if cond < 0
         then
-          match add' lt with
-          | Some lt' -> Some (rebalance_ cl lt' e rt)
+          match add' left with
+          | Some left' -> Some (rebalance_ col left' e right)
           | None -> None
         else (
-          match add' rt with
-          | Some rt' -> Some (rebalance_ cl lt e rt')
+          match add' right with
+          | Some right' -> Some (rebalance_ col left e right')
           | None -> None )
-      | Leaf -> Some (Node {cl = Red; lt = Leaf; e = x; rt = Leaf})
+      | Leaf -> Some (Node {col = Red; left = Leaf; e = x; right = Leaf})
     in
-    match add' t with
-    | Some (Node nd) -> {size = size + 1; t = Node {nd with cl = Black}}
-    | None -> s
+    match add' tree.node with
+    | Some (Node nd) -> {size = tree.size + 1; node = Node {nd with col = Black}}
+    | None -> tree
     | Some Leaf -> failwith "unexpected"
+
+  let to_seq tree =
+    let rec to_seq' n acc =
+      match n with
+      | Node {left; e; right; _} -> to_seq' left @@ Seq.Cons (e, to_seq' right acc)
+      | Leaf -> fun () -> acc
+    in
+    to_seq' tree.node Seq.Nil
+
+  let to_list tree =
+    let rec to_list' n acc =
+      match n with
+      | Node {left; e; right; _} -> to_list' left (e :: to_list' right acc)
+      | Leaf -> acc
+    in
+    to_list' tree.node []
 end
