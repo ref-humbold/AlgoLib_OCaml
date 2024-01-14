@@ -88,11 +88,10 @@ module Make (Cmp : COMPARABLE) : DISJOINT_SETS with type elem = Cmp.t = struct
       dset.size <- dset.size - 1 ;
       Hashtbl.add dset.map repr1 repr2 )
 
-  let of_seq elements =
-    { size = Seq.fold_left (fun acc _ -> acc + 1) 0 elements;
-      map = Hashtbl.of_seq @@ Seq.map (fun x -> (x, x)) elements }
+  let of_seq xs =
+    { size = Seq.fold_left (fun acc _ -> acc + 1) 0 xs;
+      map = Hashtbl.of_seq @@ Seq.map (fun x -> (x, x)) xs }
 
-  let of_list elements =
-    { size = List.length elements;
-      map = Hashtbl.of_seq @@ Seq.map (fun x -> (x, x)) @@ List.to_seq elements }
+  let of_list xs =
+    {size = List.length xs; map = Hashtbl.of_seq @@ Seq.map (fun x -> (x, x)) @@ List.to_seq xs}
 end
