@@ -23,6 +23,10 @@ module type HEAP = sig
   val push : elem -> t -> t
 
   val pop : t -> t
+
+  val of_seq : elem Seq.t -> t
+
+  val of_list : elem list -> t
 end
 
 module Make (Cmp : COMPARABLE) : HEAP with type elem = Cmp.t = struct
@@ -53,7 +57,7 @@ module Make (Cmp : COMPARABLE) : HEAP with type elem = Cmp.t = struct
 
   let rec insert_tree_ t ts =
     match ts with
-    | t' :: ts' -> if t.rank < t.rank then t :: ts else insert_tree_ (link_ t t') ts'
+    | t' :: ts' -> if t.rank < t'.rank then t :: ts else insert_tree_ (link_ t t') ts'
     | [] -> [t]
 
   let rec merge heap1 heap2 =
@@ -96,4 +100,8 @@ module Make (Cmp : COMPARABLE) : HEAP with type elem = Cmp.t = struct
     in
     let {rank; tree = Tree (_, ts)}, h' = remove_min heap in
     merge (rank_trees (rank - 1) ts []) h'
+
+  let of_seq xs = Seq.fold_left (fun acc e -> push e acc) empty xs
+
+  let of_list xs = List.fold_left (fun acc e -> push e acc) empty xs
 end

@@ -1,5 +1,6 @@
 (tests
  (names
+  binomial_heap_test
   closest_points_test
   convex_hull_test
   deque_test

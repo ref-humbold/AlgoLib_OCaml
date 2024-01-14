@@ -37,6 +37,12 @@ module type HEAP = sig
   (** [pop h] removes the least element from heap [h].
 
       @raise Empty_heap if heap is empty. *)
+
+  val of_seq : elem Seq.t -> t
+  (** [of_list xs] creates new heap with elements of Seq [xs]. *)
+
+  val of_list : elem list -> t
+  (** [of_list xs] creates new heap with elements of list [xs]. *)
 end
 
 module Make (Cmp : COMPARABLE) : HEAP with type elem = Cmp.t
