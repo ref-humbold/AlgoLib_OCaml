@@ -18,15 +18,15 @@ let equal v1 v2 = coordinates_equal (coordinates_list v1) (coordinates_list v2)
 
 let length (Vector3D (x, y, z)) = sqrt ((x *. x) +. (y *. y) +. (z *. z))
 
-let ( ~-$ ) (Vector3D (x, y, z)) = Vector3D (-.x, -.y, -.z)
+let ( ~: ) (Vector3D (x, y, z)) = Vector3D (-.x, -.y, -.z)
 
-let ( +$ ) (Vector3D (x1, y1, z1)) (Vector3D (x2, y2, z2)) = Vector3D (x1 +. x2, y1 +. y2, z1 +. z2)
+let ( +: ) (Vector3D (x1, y1, z1)) (Vector3D (x2, y2, z2)) = Vector3D (x1 +. x2, y1 +. y2, z1 +. z2)
 
-let ( -$ ) (Vector3D (x1, y1, z1)) (Vector3D (x2, y2, z2)) = Vector3D (x1 -. x2, y1 -. y2, z1 -. z2)
+let ( -: ) (Vector3D (x1, y1, z1)) (Vector3D (x2, y2, z2)) = Vector3D (x1 -. x2, y1 -. y2, z1 -. z2)
 
-let ( *$ ) (Vector3D (x, y, z)) c = Vector3D (x *. c, y *. c, z *. c)
+let ( *: ) (Vector3D (x, y, z)) c = Vector3D (x *. c, y *. c, z *. c)
 
-let ( /$ ) (Vector3D (x, y, z)) c =
+let ( /: ) (Vector3D (x, y, z)) c =
   if c = 0.0 then raise Division_by_zero else Vector3D (x /. c, y /. c, z /. c)
 
 let dot (Vector3D (x1, y1, z1)) (Vector3D (x2, y2, z2)) = (x1 *. x2) +. (y1 *. y2) +. (z1 *. z2)

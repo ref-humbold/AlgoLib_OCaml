@@ -120,64 +120,64 @@ let methods_Test_list =
 
 (* operators_Test_list *)
 
-let op_tilde_minus_dollar__then_negate_each_coordinate =
-  "op tilde minus dollar Then negate each coordinate" >:: fun _ ->
+let op_tilde_colon__then_negate_each_coordinate =
+  "op tilde colon Then negate each coordinate" >:: fun _ ->
     (* when *)
-    let result = ~-$(vec3d 5.4 9.0 (-12.3)) in
+    let result = ~:(vec3d 5.4 9.0 (-12.3)) in
     (* then *)
     assert_equal ~cmp:equal ~printer:print_vector (vec3d (-5.4) (-9.0) 12.3) result
 
-let op_plus_dollar__then_add_each_coordinate =
-  "op plus dollar Then add each coordinate" >:: fun _ ->
+let op_plus_colon__then_add_each_coordinate =
+  "op plus colon Then add each coordinate" >:: fun _ ->
     (* when *)
-    let result = vec3d 5.4 9.0 (-12.3) +$ vec3d 7.9 (-8.1) 1.4 in
+    let result = vec3d 5.4 9.0 (-12.3) +: vec3d 7.9 (-8.1) 1.4 in
     (* then *)
     assert_equal ~cmp:equal ~printer:print_vector (vec3d 13.3 0.9 (-10.9)) result
 
-let op_minus_dollar__then_subtract_each_coordinate =
-  "op minus dollar Then subtract each coordinate" >:: fun _ ->
+let op_minus_colon__then_subtract_each_coordinate =
+  "op minus colon Then subtract each coordinate" >:: fun _ ->
     (* when *)
-    let result = vec3d 5.4 9.0 (-12.3) -$ vec3d 7.9 (-8.1) 1.4 in
+    let result = vec3d 5.4 9.0 (-12.3) -: vec3d 7.9 (-8.1) 1.4 in
     (* then *)
     assert_equal ~cmp:equal ~printer:print_vector (vec3d (-2.5) 17.1 (-13.7)) result
 
-let op_asterisk_dollar__then_multiply_each_coordinate =
-  "op asterisk dollar Then multiply each coordinate" >:: fun _ ->
+let op_asterisk_colon__then_multiply_each_coordinate =
+  "op asterisk colon Then multiply each coordinate" >:: fun _ ->
     (* when *)
-    let result = vec3d 5.4 9.0 (-12.3) *$ 3.0 in
+    let result = vec3d 5.4 9.0 (-12.3) *: 3.0 in
     (* then *)
     assert_equal ~cmp:equal ~printer:print_vector (vec3d 16.2 27.0 (-36.9)) result
 
-let op_asterisk_dollar__when_multiplication_by_zero__then_zero_vector =
-  "op asterisk dollar When multiplication by zero Then zero vector" >:: fun _ ->
+let op_asterisk_colon__when_multiplication_by_zero__then_zero_vector =
+  "op asterisk colon When multiplication by zero Then zero vector" >:: fun _ ->
     (* when *)
-    let result = vec3d 5.4 9.0 (-12.3) *$ 0.0 in
+    let result = vec3d 5.4 9.0 (-12.3) *: 0.0 in
     (* then *)
     assert_equal ~cmp:equal ~printer:print_vector (vec3d_i 0 0 0) result
 
-let op_slash_dollar__then_divide_each_coordinate =
-  "op slash dollar Then divide each coordinate" >:: fun _ ->
+let op_slash_colon__then_divide_each_coordinate =
+  "op slash colon Then divide each coordinate" >:: fun _ ->
     (* when *)
-    let result = vec3d 5.4 9.0 (-12.3) /$ 3.0 in
+    let result = vec3d 5.4 9.0 (-12.3) /: 3.0 in
     (* then *)
     assert_equal ~cmp:equal ~printer:print_vector (vec3d 1.8 3.0 (-4.1)) result
 
-let op_slash_dollar__when_division_by_zero__then_division_by_zero =
-  "op slash dollar When division by zero Then Division by zero" >:: fun _ ->
+let op_slash_colon__when_division_by_zero__then_division_by_zero =
+  "op slash colon When division by zero Then Division_by_zero" >:: fun _ ->
     (* when *)
-    let exec () = vec3d_i 1 1 1 /$ 0.0 in
+    let exec () = vec3d_i 1 1 1 /: 0.0 in
     (* then *)
     assert_raises Division_by_zero exec
 
 let operators_Test_list =
   test_list
-    [ op_tilde_minus_dollar__then_negate_each_coordinate;
-      op_plus_dollar__then_add_each_coordinate;
-      op_minus_dollar__then_subtract_each_coordinate;
-      op_asterisk_dollar__then_multiply_each_coordinate;
-      op_asterisk_dollar__when_multiplication_by_zero__then_zero_vector;
-      op_slash_dollar__then_divide_each_coordinate;
-      op_slash_dollar__when_division_by_zero__then_division_by_zero ]
+    [ op_tilde_colon__then_negate_each_coordinate;
+      op_plus_colon__then_add_each_coordinate;
+      op_minus_colon__then_subtract_each_coordinate;
+      op_asterisk_colon__then_multiply_each_coordinate;
+      op_asterisk_colon__when_multiplication_by_zero__then_zero_vector;
+      op_slash_colon__then_divide_each_coordinate;
+      op_slash_colon__when_division_by_zero__then_division_by_zero ]
 
 (* vector_3d_Test *)
 

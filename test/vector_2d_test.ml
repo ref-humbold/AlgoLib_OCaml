@@ -77,64 +77,64 @@ let methods_Test_list =
 
 (* operators_Test_list *)
 
-let op_tilde_minus_dollar__then_negate_each_coordinate =
-  "op_tilde_minus_dollar Then negate each coordinate" >:: fun _ ->
+let op_tilde_colon__then_negate_each_coordinate =
+  "op_tilde_colon Then negate each coordinate" >:: fun _ ->
     (* when *)
-    let result = ~-$(vec2d 5.4 9.0) in
+    let result = ~:(vec2d 5.4 9.0) in
     (* then *)
     assert_equal ~cmp:equal ~printer:print_vector (vec2d (-5.4) (-9.0)) result
 
-let op_plus_dollar__then_add_each_coordinate =
-  "op_plus_dollar Then add each coordinate" >:: fun _ ->
+let op_plus_colon__then_add_each_coordinate =
+  "op_plus_colon Then add each coordinate" >:: fun _ ->
     (* when *)
-    let result = vec2d 5.4 9.0 +$ vec2d 7.9 (-8.1) in
+    let result = vec2d 5.4 9.0 +: vec2d 7.9 (-8.1) in
     (* then *)
     assert_equal ~cmp:equal ~printer:print_vector (vec2d 13.3 0.9) result
 
-let op_minus_dollar__then_subtract_each_coordinate =
-  "op_minus_dollar Then subtract each coordinate" >:: fun _ ->
+let op_minus_colon__then_subtract_each_coordinate =
+  "op_minus_colon Then subtract each coordinate" >:: fun _ ->
     (* when *)
-    let result = vec2d 5.4 9.0 -$ vec2d 7.9 (-8.1) in
+    let result = vec2d 5.4 9.0 -: vec2d 7.9 (-8.1) in
     (* then *)
     assert_equal ~cmp:equal ~printer:print_vector (vec2d (-2.5) 17.1) result
 
-let op_asterisk_dollar__then_multiply_each_coordinate =
-  "op_asterisk_dollar Then multiply each coordinate" >:: fun _ ->
+let op_asterisk_colon__then_multiply_each_coordinate =
+  "op_asterisk_colon Then multiply each coordinate" >:: fun _ ->
     (* when *)
-    let result = vec2d 5.4 9.0 *$ 3.0 in
+    let result = vec2d 5.4 9.0 *: 3.0 in
     (* then *)
     assert_equal ~cmp:equal ~printer:print_vector (vec2d 16.2 27.0) result
 
-let op_asterisk_dollar__when_multiplication_by_zero__then_zero_vector =
-  "op_asterisk_dollar When multiplication by zero Then zero vector" >:: fun _ ->
+let op_asterisk_colon__when_multiplication_by_zero__then_zero_vector =
+  "op_asterisk_colon When multiplication by zero Then zero vector" >:: fun _ ->
     (* when *)
-    let result = vec2d 5.4 9.0 *$ 0.0 in
+    let result = vec2d 5.4 9.0 *: 0.0 in
     (* then *)
     assert_equal ~cmp:equal ~printer:print_vector (vec2d_i 0 0) result
 
-let op_slash_dollar__then_divide_each_coordinate =
-  "op_slash_dollar Then divide each coordinate" >:: fun _ ->
+let op_slash_colon__then_divide_each_coordinate =
+  "op_slash_colon Then divide each coordinate" >:: fun _ ->
     (* when *)
-    let result = vec2d 5.4 9.0 /$ 3.0 in
+    let result = vec2d 5.4 9.0 /: 3.0 in
     (* then *)
     assert_equal ~cmp:equal ~printer:print_vector (vec2d 1.8 3.0) result
 
-let op_slash_dollar__when_division_by_zero__then_division_by_zero =
-  "op_slash_dollar When division by zero Then Division_by_zero" >:: fun _ ->
+let op_slash_colon__when_division_by_zero__then_division_by_zero =
+  "op_slash_colon When division by zero Then Division_by_zero" >:: fun _ ->
     (* when *)
-    let exec () = vec2d_i 1 1 /$ 0.0 in
+    let exec () = vec2d_i 1 1 /: 0.0 in
     (* then *)
     assert_raises Division_by_zero exec
 
 let operators_Test_list =
   test_list
-    [ op_tilde_minus_dollar__then_negate_each_coordinate;
-      op_plus_dollar__then_add_each_coordinate;
-      op_minus_dollar__then_subtract_each_coordinate;
-      op_asterisk_dollar__then_multiply_each_coordinate;
-      op_asterisk_dollar__when_multiplication_by_zero__then_zero_vector;
-      op_slash_dollar__then_divide_each_coordinate;
-      op_slash_dollar__when_division_by_zero__then_division_by_zero ]
+    [ op_tilde_colon__then_negate_each_coordinate;
+      op_plus_colon__then_add_each_coordinate;
+      op_minus_colon__then_subtract_each_coordinate;
+      op_asterisk_colon__then_multiply_each_coordinate;
+      op_asterisk_colon__when_multiplication_by_zero__then_zero_vector;
+      op_slash_colon__then_divide_each_coordinate;
+      op_slash_colon__when_division_by_zero__then_division_by_zero ]
 
 (* vector_2d_Test *)
 

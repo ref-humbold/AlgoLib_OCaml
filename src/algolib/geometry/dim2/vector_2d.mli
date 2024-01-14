@@ -26,20 +26,20 @@ val equal : vector2d -> vector2d -> bool
 val length : vector2d -> float
 (** [length v] computes length of vector [v]. *)
 
-val ( ~-$ ) : vector2d -> vector2d
-(** [~-$ v] negates vector [v]. *)
+val ( ~: ) : vector2d -> vector2d
+(** [~: v] negates vector [v]. *)
 
-val ( +$ ) : vector2d -> vector2d -> vector2d
-(** [v1 +$ v2] adds vectors [v1] and [v2]. Left associative. *)
+val ( +: ) : vector2d -> vector2d -> vector2d
+(** [v1 +: v2] adds vectors [v1] and [v2]. Left associative. *)
 
-val ( -$ ) : vector2d -> vector2d -> vector2d
-(** [v1 -$ v2] subtracts vectors [v1] and [v2]. Left associative. *)
+val ( -: ) : vector2d -> vector2d -> vector2d
+(** [v1 -: v2] subtracts vectors [v1] and [v2]. Left associative. *)
 
-val ( *$ ) : vector2d -> float -> vector2d
-(** [v *$ c] multiplies vector [v] by a scalar [c]. Left associative. *)
+val ( *: ) : vector2d -> float -> vector2d
+(** [v *: c] multiplies vector [v] by a scalar [c]. Left associative. *)
 
-val ( /$ ) : vector2d -> float -> vector2d
-(** [v /$ c] divides vector [v] by a scalar [c]. Left associative. *)
+val ( /: ) : vector2d -> float -> vector2d
+(** [v /: c] divides vector [v] by a scalar [c]. Left associative. *)
 
 val dot : vector2d -> vector2d -> float
 (** [dot v1 v2] counts the dot product of vectors [v1] and [v2]. *)

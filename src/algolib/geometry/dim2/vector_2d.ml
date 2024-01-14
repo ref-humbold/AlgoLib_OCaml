@@ -18,15 +18,15 @@ let equal v1 v2 = coordinates_equal (coordinates_list v1) (coordinates_list v2)
 
 let length (Vector2D (x, y)) = sqrt ((x *. x) +. (y *. y))
 
-let ( ~-$ ) (Vector2D (x, y)) = Vector2D (-.x, -.y)
+let ( ~: ) (Vector2D (x, y)) = Vector2D (-.x, -.y)
 
-let ( +$ ) (Vector2D (x1, y1)) (Vector2D (x2, y2)) = Vector2D (x1 +. x2, y1 +. y2)
+let ( +: ) (Vector2D (x1, y1)) (Vector2D (x2, y2)) = Vector2D (x1 +. x2, y1 +. y2)
 
-let ( -$ ) (Vector2D (x1, y1)) (Vector2D (x2, y2)) = Vector2D (x1 -. x2, y1 -. y2)
+let ( -: ) (Vector2D (x1, y1)) (Vector2D (x2, y2)) = Vector2D (x1 -. x2, y1 -. y2)
 
-let ( *$ ) (Vector2D (x, y)) c = Vector2D (x *. c, y *. c)
+let ( *: ) (Vector2D (x, y)) c = Vector2D (x *. c, y *. c)
 
-let ( /$ ) (Vector2D (x, y)) c =
+let ( /: ) (Vector2D (x, y)) c =
   if c = 0.0 then raise Division_by_zero else Vector2D (x /. c, y /. c)
 
 let dot (Vector2D (x1, y1)) (Vector2D (x2, y2)) = (x1 *. x2) +. (y1 *. y2)
