@@ -23,6 +23,10 @@ module type HEAP = sig
   val push : elem -> t -> t
 
   val pop : t -> t
+
+  val of_seq : elem Seq.t -> t
+
+  val of_list : elem list -> t
 end
 
 module Make (Cmp : COMPARABLE) : HEAP with type elem = Cmp.t = struct
@@ -70,4 +74,8 @@ module Make (Cmp : COMPARABLE) : HEAP with type elem = Cmp.t = struct
     match heap with
     | Node {left; right; _} -> merge left right
     | Null -> raise Empty_heap
+
+  let of_seq xs = Seq.fold_left (fun acc e -> push e acc) empty xs
+
+  let of_list xs = List.fold_left (fun acc e -> push e acc) empty xs
 end
