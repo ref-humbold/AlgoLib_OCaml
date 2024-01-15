@@ -6,7 +6,7 @@ type 'a t
 exception Empty_list
 (** Exception raised when retrieving or removing elements from empty indexed lists. *)
 
-exception Invalid_index
+exception Invalid_index of int
 (** Exception raised when index is out of range. *)
 
 val empty : 'a t
@@ -23,16 +23,16 @@ val head : 'a t -> 'a
 
     @raise Empty_list if list is empty. *)
 
+val tail : 'a t -> 'a t
+(** [tail list] returns indexed list without first element of indexed list [list].
+
+    @raise Empty_list if list is empty. *)
+
 val cons : 'a -> 'a t -> 'a t
 (** [cons x list] adds element [x] at the front of indexed list [list]. *)
 
 val ( @:: ) : 'a -> 'a t -> 'a t
 (** [x @:: list] is [cons x list]. Right associative. *)
-
-val tail : 'a t -> 'a t
-(** [tail list] returns indexed list without first element of indexed list [list].
-
-    @raise Empty_list if list is empty. *)
 
 val get : int -> 'a t -> 'a
 (** [get i list] gets element with index [i] in indexed list [list].

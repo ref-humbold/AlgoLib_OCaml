@@ -8,6 +8,7 @@
   edit_distance_test
   geometry_2d_test
   geometry_3d_test
+  indexed_list_test
   maths_test
   leftist_heap_test
   list_sorting_test

@@ -1,6 +1,12 @@
 open OUnit2
 
-let assert_not_equal ?(cmp = ( = )) = assert_equal ~cmp:(fun x y -> not @@ cmp x y)
+let assert_not_equal ?(cmp = ( = )) ?printer expected actual =
+  let message =
+    match printer with
+    | Some p -> Printf.sprintf "expected value different than %s" @@ p actual
+    | None -> "expected different values"
+  in
+  if cmp expected actual then assert_failure message
 
 module Bool = struct
   let assert_true ?(msg = "Expected true value") = assert_bool msg

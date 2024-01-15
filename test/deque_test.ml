@@ -207,7 +207,7 @@ let pop_front__when_multiple_elements__then_first_element_removed =
     let result = pop_front test_object in
     (* then *)
     assert_equal ~printer:string_of_int (List.length numbers - 1) @@ length result ;
-    Assert.assert_not_equal (back result) (List.hd numbers)
+    Assert.assert_not_equal ~printer:string_of_int (back result) (List.hd numbers)
 
 let pop_front_Test_list =
   test_list
@@ -243,7 +243,7 @@ let pop_back__when_multiple_elements__then_last_element_removed =
     let result = pop_back test_object in
     (* then *)
     assert_equal ~printer:string_of_int (List.length numbers - 1) @@ length result ;
-    Assert.assert_not_equal (back result) (list_last numbers)
+    Assert.assert_not_equal ~printer:string_of_int (back result) (list_last numbers)
 
 let pop_back_Test_list =
   test_list

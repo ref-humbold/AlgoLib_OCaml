@@ -1,4 +1,4 @@
-(* Tests: Structure of leftist heap. *)
+(* Tests: Structure of leftist heap *)
 open OUnit2
 open Algolib.Leftist_heap
 open TestUtils

@@ -1,4 +1,4 @@
-(* Tests: Structure of pairing heap. *)
+(* Tests: Structure of pairing heap *)
 open OUnit2
 open Algolib.Pairing_heap
 open TestUtils

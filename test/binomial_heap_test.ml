@@ -1,4 +1,4 @@
-(* Tests: Structure of leftist heap. *)
+(* Tests: Structure of binomial heap *)
 open OUnit2
 open Algolib.Binomial_heap
 open TestUtils
@@ -280,7 +280,7 @@ let merge_Test_list =
 (* binomial_heap_Test *)
 
 let binomial_heap_Test =
-  "Tests: Structure of leftist heap"
+  "Tests: Structure of binomial heap"
   >::: [ is_empty_Test_list;
          length_Test_list;
          peek_Test_list;
