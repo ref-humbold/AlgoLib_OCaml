@@ -67,7 +67,7 @@ let front__when_empty__then_empty_deque =
 let front__when_single_element__then_this_element =
   "front__when_single_element__then_this_element" >:: fun _ ->
     (* given *)
-    let element = 19 in
+    let element = List.hd numbers in
     let test_object = of_seq @@ Seq.return element in
     (* when *)
     let result = front test_object in
@@ -103,7 +103,7 @@ let back__when_empty__then_empty_deque =
 let back__when_single_element__then_this_element =
   "back__when_single_element__then_this_element" >:: fun _ ->
     (* given *)
-    let element = 19 in
+    let element = List.hd numbers in
     let test_object = of_seq @@ Seq.return element in
     (* when *)
     let result = back test_object in
@@ -130,7 +130,7 @@ let back_Test_list =
 let push_front__when_empty__then_added =
   "push_front__when_empty__then_added" >:: fun _ ->
     (* given *)
-    let test_object = empty and element = 19 in
+    let test_object = empty and element = List.hd numbers in
     (* when *)
     let result = push_front element test_object in
     (* then *)
@@ -141,7 +141,7 @@ let push_front__when_empty__then_added =
 let push_front__when_new_element__then_added_first =
   "push_front__when_new_element__then_added_first" >:: fun _ ->
     (* given *)
-    let test_object = of_list numbers and element = 46 in
+    let test_object = of_list numbers and element = 111 in
     (* when *)
     let result = push_front element test_object in
     (* then *)
@@ -157,7 +157,7 @@ let push_front_Test_list =
 let push_back__when_empty__then_added =
   "push_back__when_empty__then_added" >:: fun _ ->
     (* given *)
-    let test_object = empty and element = 19 in
+    let test_object = empty and element = List.hd numbers in
     (* when *)
     let result = push_back element test_object in
     (* then *)
@@ -168,7 +168,7 @@ let push_back__when_empty__then_added =
 let push_back__when_new_element__then_added_last =
   "push_back__when_new_element__then_added_last" >:: fun _ ->
     (* given *)
-    let test_object = of_list numbers and element = 46 in
+    let test_object = of_list numbers and element = 111 in
     (* when *)
     let result = push_back element test_object in
     (* then *)
@@ -193,7 +193,7 @@ let pop_front__when_empty__then_empty_deque =
 let pop_front__when_single_element__then_this_element_removed =
   "pop_front__when_single_element__then_this_element_removed" >:: fun _ ->
     (* given *)
-    let test_object = of_seq @@ Seq.return 19 in
+    let test_object = of_seq @@ Seq.return (List.hd numbers) in
     (* when *)
     let result = pop_front test_object in
     (* then *)
@@ -229,7 +229,7 @@ let pop_back__when_empty__then_empty_deque =
 let pop_back__when_single_element__then_this_element_removed =
   "pop_back__when_single_element__then_this_element_removed" >:: fun _ ->
     (* given *)
-    let test_object = of_seq @@ Seq.return 19 in
+    let test_object = of_seq @@ Seq.return (List.hd numbers) in
     (* when *)
     let result = pop_back test_object in
     (* then *)

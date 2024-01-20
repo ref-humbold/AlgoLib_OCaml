@@ -76,7 +76,7 @@ let peek__when_empty__then_empty_heap =
 let peek__when_single_element__then_this_element =
   "peek__when_single_element__then_this_element" >:: fun _ ->
     (* given *)
-    let element = 19 in
+    let element = List.hd numbers in
     let test_object = IntHeap.of_seq @@ Seq.return element in
     (* when *)
     let result = IntHeap.peek test_object in
@@ -123,7 +123,7 @@ let peek_Test_list =
 let push__when_empty__then_added =
   "push__when_empty__then_added" >:: fun _ ->
     (* given *)
-    let element = 19 in
+    let element = List.hd numbers in
     let test_object = IntHeap.empty in
     (* when *)
     let result = IntHeap.push element test_object in
@@ -136,7 +136,7 @@ let push__when_new_element__then_added =
     (* given *)
     let test_object = IntHeap.of_list numbers in
     (* when *)
-    let result = IntHeap.push 46 test_object in
+    let result = IntHeap.push 111 test_object in
     (* then *)
     assert_equal ~printer:string_of_int (List.length numbers + 1) @@ IntHeap.length result ;
     assert_equal ~printer:string_of_int minimum (IntHeap.peek result)
@@ -171,7 +171,7 @@ let pop__when_empty__then_empty_heap =
 let pop__when_single_element__then_this_element_removed =
   "pop__when_single_element__then_this_element_removed" >:: fun _ ->
     (* given *)
-    let test_object = IntHeap.of_seq @@ Seq.return 19 in
+    let test_object = IntHeap.of_seq @@ Seq.return (List.hd numbers) in
     (* when *)
     let result = IntHeap.pop test_object in
     (* then *)

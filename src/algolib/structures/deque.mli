@@ -42,7 +42,7 @@ val pop_back : 'a t -> 'a t
     @raise Empty_deque if deque is empty. *)
 
 val of_seq : 'a Seq.t -> 'a t
-(** [of_list xs] creates new deque with elements of Seq [xs]. Head of [xs] becomes front of created
+(** [of_seq xs] creates new deque with elements of Seq [xs]. Head of [xs] becomes front of created
     deque. *)
 
 val of_list : 'a list -> 'a t
