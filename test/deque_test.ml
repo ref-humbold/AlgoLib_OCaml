@@ -10,7 +10,7 @@ let list_last xs = List.hd @@ List.rev xs
 (* is_empty_Test_list *)
 
 let is_empty__when_empty__then_true =
-  "is_empty When empty Then true" >:: fun _ ->
+  "is_empty__when_empty__then_true" >:: fun _ ->
     (* given *)
     let test_object = empty in
     (* when *)
@@ -19,7 +19,7 @@ let is_empty__when_empty__then_true =
     Assert.Bool.assert_true result
 
 let is_empty__when_not_empty__then_false =
-  "is_empty When not empty Then false" >:: fun _ ->
+  "is_empty__when_not_empty__then_false" >:: fun _ ->
     (* given *)
     let test_object = of_list numbers in
     (* when *)
@@ -33,7 +33,7 @@ let is_empty_Test_list =
 (* length_Test_list *)
 
 let length__when_empty__then_zero =
-  "length When empty Then true" >:: fun _ ->
+  "length__when_empty__then_zero" >:: fun _ ->
     (* given *)
     let test_object = empty in
     (* when *)
@@ -42,7 +42,7 @@ let length__when_empty__then_zero =
     assert_equal ~printer:string_of_int 0 result
 
 let length__when_not_empty__then_number_of_elements =
-  "length When not empty Then false" >:: fun _ ->
+  "length__when_not_empty__then_number_of_elements" >:: fun _ ->
     (* given *)
     let test_object = of_list numbers in
     (* when *)
@@ -56,7 +56,7 @@ let length_Test_list =
 (* front_Test_list *)
 
 let front__when_empty__then_empty_deque =
-  "front When empty Then Empty_deque" >:: fun _ ->
+  "front__when_empty__then_empty_deque" >:: fun _ ->
     (* given *)
     let test_object = empty in
     (* when *)
@@ -65,7 +65,7 @@ let front__when_empty__then_empty_deque =
     assert_raises Empty_deque exec
 
 let front__when_single_element__then_this_element =
-  "front When single element Then this element" >:: fun _ ->
+  "front__when_single_element__then_this_element" >:: fun _ ->
     (* given *)
     let element = 19 in
     let test_object = of_seq @@ Seq.return element in
@@ -75,7 +75,7 @@ let front__when_single_element__then_this_element =
     assert_equal ~printer:string_of_int element result
 
 let front__when_multiple_elements__then_first_element =
-  "front When multiple elements Then first element" >:: fun _ ->
+  "front__when_multiple_elements__then_first_element" >:: fun _ ->
     (* given *)
     let test_object = of_list numbers in
     (* when *)
@@ -92,7 +92,7 @@ let front_Test_list =
 (* back_Test_list *)
 
 let back__when_empty__then_empty_deque =
-  "back When empty Then Empty_deque" >:: fun _ ->
+  "back__when_empty__then_empty_deque" >:: fun _ ->
     (* given *)
     let test_object = empty in
     (* when *)
@@ -101,7 +101,7 @@ let back__when_empty__then_empty_deque =
     assert_raises Empty_deque exec
 
 let back__when_single_element__then_this_element =
-  "back When single element Then this element" >:: fun _ ->
+  "back__when_single_element__then_this_element" >:: fun _ ->
     (* given *)
     let element = 19 in
     let test_object = of_seq @@ Seq.return element in
@@ -111,7 +111,7 @@ let back__when_single_element__then_this_element =
     assert_equal ~printer:string_of_int element result
 
 let back__when_multiple_elements__then_last_element =
-  "back When multiple elements Then last element" >:: fun _ ->
+  "back__when_multiple_elements__then_last_element" >:: fun _ ->
     (* given *)
     let test_object = of_list numbers in
     (* when *)
@@ -128,7 +128,7 @@ let back_Test_list =
 (* push_front_Test_list *)
 
 let push_front__when_empty__then_added =
-  "push_front When empty Then added" >:: fun _ ->
+  "push_front__when_empty__then_added" >:: fun _ ->
     (* given *)
     let test_object = empty and element = 19 in
     (* when *)
@@ -139,7 +139,7 @@ let push_front__when_empty__then_added =
     assert_equal ~printer:string_of_int element @@ back result
 
 let push_front__when_new_element__then_added_first =
-  "push_front When new element Then added first" >:: fun _ ->
+  "push_front__when_new_element__then_added_first" >:: fun _ ->
     (* given *)
     let test_object = of_list numbers and element = 46 in
     (* when *)
@@ -155,7 +155,7 @@ let push_front_Test_list =
 (* back_Test_list *)
 
 let push_back__when_empty__then_added =
-  "push_back When empty Then added" >:: fun _ ->
+  "push_back__when_empty__then_added" >:: fun _ ->
     (* given *)
     let test_object = empty and element = 19 in
     (* when *)
@@ -166,7 +166,7 @@ let push_back__when_empty__then_added =
     assert_equal ~printer:string_of_int element @@ back result
 
 let push_back__when_new_element__then_added_last =
-  "push_back When new element Then added last" >:: fun _ ->
+  "push_back__when_new_element__then_added_last" >:: fun _ ->
     (* given *)
     let test_object = of_list numbers and element = 46 in
     (* when *)
@@ -182,7 +182,7 @@ let push_back_Test_list =
 (* pop_front_Test_list *)
 
 let pop_front__when_empty__then_empty_deque =
-  "pop_front When empty Then Empty_deque" >:: fun _ ->
+  "pop_front__when_empty__then_empty_deque" >:: fun _ ->
     (* given *)
     let test_object = empty in
     (* when *)
@@ -191,7 +191,7 @@ let pop_front__when_empty__then_empty_deque =
     assert_raises Empty_deque exec
 
 let pop_front__when_single_element__then_this_element_removed =
-  "pop_front When single element Then this element removed" >:: fun _ ->
+  "pop_front__when_single_element__then_this_element_removed" >:: fun _ ->
     (* given *)
     let test_object = of_seq @@ Seq.return 19 in
     (* when *)
@@ -200,7 +200,7 @@ let pop_front__when_single_element__then_this_element_removed =
     Assert.Bool.assert_true @@ is_empty result
 
 let pop_front__when_multiple_elements__then_first_element_removed =
-  "pop_front When multiple elements Then first element removed" >:: fun _ ->
+  "pop_front__when_multiple_elements__then_first_element_removed" >:: fun _ ->
     (* given *)
     let test_object = of_list numbers in
     (* when *)
@@ -218,7 +218,7 @@ let pop_front_Test_list =
 (* pop_back_Test_list *)
 
 let pop_back__when_empty__then_empty_deque =
-  "pop_back When empty Then Empty_deque" >:: fun _ ->
+  "pop_back__when_empty__then_empty_deque" >:: fun _ ->
     (* given *)
     let test_object = empty in
     (* when *)
@@ -227,7 +227,7 @@ let pop_back__when_empty__then_empty_deque =
     assert_raises Empty_deque exec
 
 let pop_back__when_single_element__then_this_element_removed =
-  "pop_back When single element Then this element removed" >:: fun _ ->
+  "pop_back__when_single_element__then_this_element_removed" >:: fun _ ->
     (* given *)
     let test_object = of_seq @@ Seq.return 19 in
     (* when *)
@@ -236,7 +236,7 @@ let pop_back__when_single_element__then_this_element_removed =
     Assert.Bool.assert_true @@ is_empty result
 
 let pop_back__when_multiple_elements__then_last_element_removed =
-  "pop_back When multiple elements Then last element removed" >:: fun _ ->
+  "pop_back__when_multiple_elements__then_last_element_removed" >:: fun _ ->
     (* given *)
     let test_object = of_list numbers in
     (* when *)

@@ -19,7 +19,7 @@ let rec to_list heap =
 (* is_empty_Test_list *)
 
 let is_empty__when_empty__then_true =
-  "is_empty When empty Then true" >:: fun _ ->
+  "is_empty__when_empty__then_true" >:: fun _ ->
     (* given *)
     let test_object = IntHeap.empty in
     (* when *)
@@ -28,7 +28,7 @@ let is_empty__when_empty__then_true =
     Assert.Bool.assert_true result
 
 let is_empty__when_not_empty__then_false =
-  "is_empty When not empty Then false" >:: fun _ ->
+  "is_empty__when_not_empty__then_false" >:: fun _ ->
     (* given *)
     let test_object = IntHeap.of_list numbers in
     (* when *)
@@ -42,7 +42,7 @@ let is_empty_Test_list =
 (* length_Test_list *)
 
 let length__when_empty__then_zero =
-  "length When empty Then zero" >:: fun _ ->
+  "length__when_empty__then_zero" >:: fun _ ->
     (* given *)
     let test_object = IntHeap.empty in
     (* when *)
@@ -51,7 +51,7 @@ let length__when_empty__then_zero =
     assert_equal ~printer:string_of_int 0 result
 
 let length__when_not_empty__then_number_of_elements =
-  "length When not empty Then number of elements" >:: fun _ ->
+  "length__when_not_empty__then_number_of_elements" >:: fun _ ->
     (* given *)
     let test_object = IntHeap.of_list numbers in
     (* when *)
@@ -65,7 +65,7 @@ let length_Test_list =
 (* peek_Test_list *)
 
 let peek__when_empty__then_empty_heap =
-  "peek When empty Then Empty_heap" >:: fun _ ->
+  "peek__when_empty__then_empty_heap" >:: fun _ ->
     (* given *)
     let test_object = IntHeap.empty in
     (* when *)
@@ -74,7 +74,7 @@ let peek__when_empty__then_empty_heap =
     assert_raises IntHeap.Empty_heap exec
 
 let peek__when_single_element__then_this_element =
-  "peek When single element Then this element" >:: fun _ ->
+  "peek__when_single_element__then_this_element" >:: fun _ ->
     (* given *)
     let element = 19 in
     let test_object = IntHeap.of_seq @@ Seq.return element in
@@ -84,7 +84,7 @@ let peek__when_single_element__then_this_element =
     assert_equal ~printer:string_of_int element result
 
 let peek__when_multiple_elements__then_minimal_element =
-  "peek When multiple elements Then minimal element" >:: fun _ ->
+  "peek__when_multiple_elements__then_minimal_element" >:: fun _ ->
     (* given *)
     let test_object = IntHeap.of_list numbers in
     (* when *)
@@ -93,7 +93,7 @@ let peek__when_multiple_elements__then_minimal_element =
     assert_equal ~printer:string_of_int minimum result
 
 let peek_opt__when_empty__then_none =
-  "peek_opt When empty Then None" >:: fun _ ->
+  "peek_opt__when_empty__then_none" >:: fun _ ->
     (* given *)
     let test_object = IntHeap.empty in
     (* when *)
@@ -102,7 +102,7 @@ let peek_opt__when_empty__then_none =
     Assert.Option.assert_none ~printer:string_of_int result
 
 let peek_opt__when_multiple_elements__then_minimal_element =
-  "peek_opt When multiple elements Then minimal element" >:: fun _ ->
+  "peek_opt__when_multiple_elements__then_minimal_element" >:: fun _ ->
     (* given *)
     let test_object = IntHeap.of_list numbers in
     (* when *)
@@ -121,7 +121,7 @@ let peek_Test_list =
 (* push_Test_list *)
 
 let push__when_empty__then_added =
-  "push When empty Then added" >:: fun _ ->
+  "push__when_empty__then_added" >:: fun _ ->
     (* given *)
     let element = 19 in
     let test_object = IntHeap.empty in
@@ -132,7 +132,7 @@ let push__when_empty__then_added =
     assert_equal ~printer:string_of_int element (IntHeap.peek result)
 
 let push__when_new_element__then_added =
-  "push When new element Then added" >:: fun _ ->
+  "push__when_new_element__then_added" >:: fun _ ->
     (* given *)
     let test_object = IntHeap.of_list numbers in
     (* when *)
@@ -142,7 +142,7 @@ let push__when_new_element__then_added =
     assert_equal ~printer:string_of_int minimum (IntHeap.peek result)
 
 let push__when_new_element_is_greater_than_minimum__then_new_minimum =
-  "push When new element is greater than minimum Then new minimum" >:: fun _ ->
+  "push__when_new_element_is_greater_than_minimum__then_new_minimum" >:: fun _ ->
     (* given *)
     let test_object = IntHeap.of_list numbers and element = minimum - 3 in
     (* when *)
@@ -160,7 +160,7 @@ let push_Test_list =
 (* pop_Test_list *)
 
 let pop__when_empty__then_empty_heap =
-  "pop When empty Then Empty_heap" >:: fun _ ->
+  "pop__when_empty__then_empty_heap" >:: fun _ ->
     (* given *)
     let test_object = IntHeap.empty in
     (* when *)
@@ -169,7 +169,7 @@ let pop__when_empty__then_empty_heap =
     assert_raises IntHeap.Empty_heap exec
 
 let pop__when_single_element__then_this_element_removed =
-  "pop When single element Then this element removed" >:: fun _ ->
+  "pop__when_single_element__then_this_element_removed" >:: fun _ ->
     (* given *)
     let test_object = IntHeap.of_seq @@ Seq.return 19 in
     (* when *)
@@ -179,7 +179,7 @@ let pop__when_single_element__then_this_element_removed =
     Assert.Bool.assert_true @@ IntHeap.is_empty result
 
 let pop__when_multiple_elements__then_minimal_element_removed =
-  "pop When multiple elements Then minimal element removed" >:: fun _ ->
+  "pop__when_multiple_elements__then_minimal_element_removed" >:: fun _ ->
     (* given *)
     let test_object = IntHeap.of_list numbers in
     (* when *)
@@ -189,7 +189,7 @@ let pop__when_multiple_elements__then_minimal_element_removed =
     Assert.assert_not_equal ~printer:string_of_int minimum (IntHeap.peek result)
 
 let pop__when_multiple_calls__then_sorted_ascending =
-  "pop When multiple calls Then sorted ascending" >:: fun _ ->
+  "pop__when_multiple_calls__then_sorted_ascending" >:: fun _ ->
     (* given *)
     let test_object = IntHeap.of_list numbers and expected = List.sort compare numbers in
     (* when *)
@@ -207,7 +207,7 @@ let pop_Test_list =
 (* merge_Test_list *)
 
 let merge__when_empty_and_not_empty__then_same_as_other =
-  "merge When empty and not empty Then same as other" >:: fun _ ->
+  "merge__when_empty_and_not_empty__then_same_as_other" >:: fun _ ->
     (* given *)
     let test_object = IntHeap.empty and other = IntHeap.of_list numbers in
     (* when *)
@@ -217,7 +217,7 @@ let merge__when_empty_and_not_empty__then_same_as_other =
     assert_equal ~printer:string_of_int (IntHeap.peek other) @@ IntHeap.peek result
 
 let merge__when_not_empty_and_empty__then_no_changes =
-  "merge When not empty and empty Then no changes" >:: fun _ ->
+  "merge__when_not_empty_and_empty__then_no_changes" >:: fun _ ->
     (* given *)
     let test_object = IntHeap.of_list numbers in
     (* when *)
@@ -227,7 +227,7 @@ let merge__when_not_empty_and_empty__then_no_changes =
     assert_equal ~printer:string_of_int minimum @@ IntHeap.peek result
 
 let merge__when_other_has_greater_minimum__then_new_minimum =
-  "merge When other has greater minimum Then new minimum" >:: fun _ ->
+  "merge__when_other_has_greater_minimum__then_new_minimum" >:: fun _ ->
     (* given *)
     let new_minimum = minimum - 4 in
     let test_object = IntHeap.of_list numbers
@@ -240,7 +240,7 @@ let merge__when_other_has_greater_minimum__then_new_minimum =
     assert_equal ~printer:string_of_int new_minimum @@ IntHeap.peek result
 
 let merge__when_other_has_less_minimum__then_minimum_remains =
-  "merge When other has less minimum Then minimum remains" >:: fun _ ->
+  "merge__when_other_has_less_minimum__then_minimum_remains" >:: fun _ ->
     (* given *)
     let test_object = IntHeap.of_list numbers
     and other = IntHeap.of_list [minimum + 5; minimum + 13; minimum + 20] in
@@ -252,7 +252,7 @@ let merge__when_other_has_less_minimum__then_minimum_remains =
     assert_equal ~printer:string_of_int minimum @@ IntHeap.peek result
 
 let merge__when_shared_inner_heap__then_changed_only_merging_heap =
-  "merge When shared inner heap Then changed only merging heap" >:: fun _ ->
+  "merge__when_shared_inner_heap__then_changed_only_merging_heap" >:: fun _ ->
     (* given *)
     let test_object = IntHeap.empty
     and first = IntHeap.of_list [10; 20]

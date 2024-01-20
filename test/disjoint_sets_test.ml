@@ -14,14 +14,14 @@ module IntSets = Make (struct
 (* size_Test_list *)
 
 let size__when_empty__then_zero =
-  "size When empty Then zero" >:: fun _ ->
+  "size__when_empty__then_zero" >:: fun _ ->
     (* when *)
     let result = IntSets.size @@ IntSets.create () in
     (* then *)
     assert_equal ~printer:string_of_int 0 result
 
 let size__when_not_empty__then_sets_count =
-  "size When not empty Then sets count" >:: fun _ ->
+  "size__when_not_empty__then_sets_count" >:: fun _ ->
     (* given *)
     let test_object = IntSets.of_list numbers in
     (* when *)
@@ -34,7 +34,7 @@ let size_Test_list = test_list [size__when_empty__then_zero; size__when_not_empt
 (* contains_Test_list *)
 
 let contains__when_present__then_true =
-  "contains When present Then true" >:: fun _ ->
+  "contains__when_present__then_true" >:: fun _ ->
     (* given *)
     let test_object = IntSets.of_list numbers in
     (* when *)
@@ -43,7 +43,7 @@ let contains__when_present__then_true =
     Assert.Bool.assert_true result
 
 let contains__when_absent__then_false =
-  "contains When absent Then false" >:: fun _ ->
+  "contains__when_absent__then_false" >:: fun _ ->
     (* given *)
     let test_object = IntSets.of_list numbers in
     (* when *)
@@ -57,7 +57,7 @@ let contains_Test_list =
 (* add_Test_list *)
 
 let add__when_new_elements__then_singleton_sets =
-  "add When new elements Then singleton sets" >:: fun _ ->
+  "add__when_new_elements__then_singleton_sets" >:: fun _ ->
     (* given *)
     let test_object = IntSets.of_list numbers and element = 18 in
     (* when *)
@@ -67,7 +67,7 @@ let add__when_new_elements__then_singleton_sets =
     assert_equal ~printer:string_of_int (List.length numbers + 1) @@ IntSets.size test_object
 
 let add__when_present_element__then_element_present =
-  "add When present element Then Element_present" >:: fun _ ->
+  "add__when_present_element__then_element_present" >:: fun _ ->
     (* given *)
     let test_object = IntSets.of_list numbers and element = 7 in
     (* when *)
@@ -82,7 +82,7 @@ let add_Test_list =
 (* add_list_Test_list *)
 
 let add_list__when_new_elements__then_singleton_sets =
-  "add_list When new elements Then singleton sets" >:: fun _ ->
+  "add_list__when_new_elements__then_singleton_sets" >:: fun _ ->
     (* given *)
     let test_object = IntSets.of_list numbers and elements = [20; 17; 35] in
     (* when *)
@@ -93,7 +93,7 @@ let add_list__when_new_elements__then_singleton_sets =
     @@ IntSets.size test_object
 
 let add_list__when_present_element__then_element_present =
-  "add_list When present element Then Element_present" >:: fun _ ->
+  "add_list__when_present_element__then_element_present" >:: fun _ ->
     (* given *)
     let test_object = IntSets.of_list numbers and elements = [20; 7; 35] in
     (* when *)
@@ -109,7 +109,7 @@ let add_list_Test_list =
 (* add_seq_Test_list *)
 
 let add_seq__when_new_elements__then_singleton_sets =
-  "add_seq When new elements Then singleton sets" >:: fun _ ->
+  "add_seq__when_new_elements__then_singleton_sets" >:: fun _ ->
     (* given *)
     let test_object = IntSets.of_list numbers
     and elements = Seq.cons 20 @@ Seq.cons 17 @@ Seq.return 35 in
@@ -121,7 +121,7 @@ let add_seq__when_new_elements__then_singleton_sets =
     @@ IntSets.size test_object
 
 let add_seq__when_present_element__then_element_present =
-  "add_seq When present element Then Element_present" >:: fun _ ->
+  "add_seq__when_present_element__then_element_present" >:: fun _ ->
     (* given *)
     let test_object = IntSets.of_list numbers
     and elements = Seq.cons 20 @@ Seq.cons 7 @@ Seq.return 35 in
@@ -138,7 +138,7 @@ let add_seq_Test_list =
 (* find_set_Test_list *)
 
 let find_set__when_present__then_represent =
-  "find_set When present Then represent" >:: fun _ ->
+  "find_set__when_present__then_represent" >:: fun _ ->
     (* given *)
     let test_object = IntSets.of_list numbers and element = 4 in
     (* when *)
@@ -147,7 +147,7 @@ let find_set__when_present__then_represent =
     assert_equal ~printer:string_of_int element result
 
 let find_set__when_absent__then_not_found =
-  "find_set When absent Then Not_found" >:: fun _ ->
+  "find_set__when_absent__then_not_found" >:: fun _ ->
     (* given *)
     let test_object = IntSets.of_list numbers in
     (* when *)
@@ -161,7 +161,7 @@ let find_set_Test_list =
 (* find_set_opt_Test_list *)
 
 let find_set_opt__when_present__then_some_with_represent =
-  "find_set_opt When present Then Some with represent" >:: fun _ ->
+  "find_set_opt__when_present__then_some_with_represent" >:: fun _ ->
     (* given *)
     let test_object = IntSets.of_list numbers and element = 4 in
     (* when *)
@@ -170,7 +170,7 @@ let find_set_opt__when_present__then_some_with_represent =
     Assert.Option.assert_some ~printer:string_of_int element result
 
 let find_set_opt__when_absent__then_none =
-  "find_set When absent Then None" >:: fun _ ->
+  "find_set_opt__when_absent__then_none" >:: fun _ ->
     (* given *)
     let test_object = IntSets.of_list numbers in
     (* when *)
@@ -185,7 +185,7 @@ let find_set_opt_Test_list =
 (* union_set_Test_list *)
 
 let union_set__when_different_sets__then_same_represent =
-  "union_set When different sets Then same represent" >:: fun _ ->
+  "union_set__when_different_sets__then_same_represent" >:: fun _ ->
     (* given *)
     let test_object = IntSets.of_list numbers and element1 = 4 and element2 = 6 in
     (* when *)
@@ -198,7 +198,7 @@ let union_set__when_different_sets__then_same_represent =
       (IntSets.find_set element2 test_object)
 
 let union_set__when_single_element__then_same_represent =
-  "union_set When single element Then same represent" >:: fun _ ->
+  "union_set__when_single_element__then_same_represent" >:: fun _ ->
     (* given *)
     let test_object = IntSets.of_list numbers and element = 4 in
     (* when *)
@@ -211,7 +211,7 @@ let union_set__when_single_element__then_same_represent =
       (IntSets.find_set element test_object)
 
 let union_set__when_new_elements_in_chain__then_same_represent =
-  "union_set When new elements in chain Then same represent" >:: fun _ ->
+  "union_set__when_new_elements_in_chain__then_same_represent" >:: fun _ ->
     (* given *)
     let test_object = IntSets.of_list numbers and elements = [20; 17; 35] in
     IntSets.add_list elements test_object ;
@@ -227,7 +227,7 @@ let union_set__when_new_elements_in_chain__then_same_represent =
       (IntSets.find_set (List.nth elements 2) test_object)
 
 let union_set__when_absent__then_not_found =
-  "union_set When absent Then Not_found" >:: fun _ ->
+  "union_set__when_absent__then_not_found" >:: fun _ ->
     (* given *)
     let test_object = IntSets.of_list numbers in
     (* when *)
@@ -245,7 +245,7 @@ let union_set_Test_list =
 (* is_same_set_Test_list *)
 
 let is_same_set__when_different_sets__then_false =
-  "is_same_set When different sets Then false" >:: fun _ ->
+  "is_same_set__when_different_sets__then_false" >:: fun _ ->
     (* given *)
     let test_object = IntSets.of_list numbers in
     (* when *)
@@ -254,7 +254,7 @@ let is_same_set__when_different_sets__then_false =
     Assert.Bool.assert_false result
 
 let is_same_set__when_same_element__then_true =
-  "is_same_set When different sets Then true" >:: fun _ ->
+  "is_same_set__when_same_element__then_true" >:: fun _ ->
     (* given *)
     let test_object = IntSets.of_list numbers and element = 4 in
     (* when *)
@@ -263,7 +263,7 @@ let is_same_set__when_same_element__then_true =
     Assert.Bool.assert_true result
 
 let is_same_set__when_same_set__then_true =
-  "is_same_set When different sets Then true" >:: fun _ ->
+  "is_same_set__when_same_set__then_true" >:: fun _ ->
     (* given *)
     let test_object = IntSets.of_list numbers and element1 = 3 and element2 = 8 in
     IntSets.union_set element1 element2 test_object ;
@@ -273,7 +273,7 @@ let is_same_set__when_same_set__then_true =
     Assert.Bool.assert_true result
 
 let is_same_set__when_absent__then_not_found =
-  "is_same_set When absent Then Not_found" >:: fun _ ->
+  "is_same_set__when_absent__then_not_found" >:: fun _ ->
     (* given *)
     let test_object = IntSets.of_list numbers in
     (* when *)

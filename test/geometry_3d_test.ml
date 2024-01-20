@@ -10,7 +10,7 @@ let print_point (Point3D (x, y, z)) =
 (* sort_by_x_Test_list *)
 
 let sort_by_x__then_sorted_stably_ascending =
-  "sort_by_x Then sorted stably ascending" >:: fun _ ->
+  "sort_by_x__then_sorted_stably_ascending" >:: fun _ ->
     (* given *)
     let sequence =
       [ pt3d_i 0 0 0;
@@ -40,7 +40,7 @@ let sort_by_x_Test_list = test_list [sort_by_x__then_sorted_stably_ascending]
 (* sort_by_y_Test_list *)
 
 let sort_by_y__then_sorted_stably_ascending =
-  "sort_by_y Then sorted stably ascending" >:: fun _ ->
+  "sort_by_y__then_sorted_stably_ascending" >:: fun _ ->
     (* given *)
     let sequence =
       [ pt3d_i 0 0 0;
@@ -69,7 +69,7 @@ let sort_by_y_Test_list = test_list [sort_by_y__then_sorted_stably_ascending]
 
 (* sort_by_z_Test_list *)
 let sort_by_z__then_sorted_stably_ascending =
-  "sort_by_z Then sorted stably ascending" >:: fun _ ->
+  "sort_by_z__then_sorted_stably_ascending" >:: fun _ ->
     (* given *)
     let sequence =
       [ pt3d_i 0 0 0;
@@ -98,14 +98,14 @@ let sort_by_z_Test_list = test_list [sort_by_z__then_sorted_stably_ascending]
 
 (* distance_Test_list *)
 let distance__when_different_points__then_distance =
-  "distance When different points Then distance" >:: fun _ ->
+  "distance__when_different_points__then_distance" >:: fun _ ->
     (* when *)
     let result = distance (pt3d_i 4 8 5) (pt3d_i (-2) (-1) 3) in
     (* then *)
     Assert.Float.assert_close ~epsilon 11.0 result
 
 let distance__when_same_point__then_zero =
-  "distance When same point Then zero" >:: fun _ ->
+  "distance__when_same_point__then_zero" >:: fun _ ->
     (* given *)
     let point = pt3d 13.5 6.5 (-4.2) in
     (* when *)
@@ -119,14 +119,14 @@ let distance_Test_list =
 (* translate_Test_list *)
 
 let translate__then_point_translated =
-  "translate Then point translated" >:: fun _ ->
+  "translate__then_point_translated" >:: fun _ ->
     (* when *)
     let result = translate (pt3d 13.7 6.5 (-4.2)) Algolib.Vector_3d.(vec3d (-10.4) 3.3 1.1) in
     (* then *)
     assert_equal ~cmp:equal ~printer:print_point (pt3d 3.3 9.8 (-3.1)) result
 
 let translate__when_zero_vector__then_same_point =
-  "translate When zero vector Then same point" >:: fun _ ->
+  "translate__when_zero_vector__then_same_point" >:: fun _ ->
     (* given *)
     let point = pt3d 13.5 6.5 (-4.2) in
     (* when *)
