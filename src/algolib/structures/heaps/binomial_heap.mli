@@ -1,5 +1,3 @@
-(** Structure of binomial heap *)
-
 module type COMPARABLE = sig
   type t
 

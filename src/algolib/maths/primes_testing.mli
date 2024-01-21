@@ -1,5 +1,3 @@
-(** Algorithms for testing prime numbers *)
-
 val test_primes_fermat : int -> bool
 (** [test_primes_fermat n] checks if [n] is prime using Fermat prime test. *)
 

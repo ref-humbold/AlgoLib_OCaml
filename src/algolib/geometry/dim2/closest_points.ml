@@ -1,5 +1,4 @@
-(* Algorithm for pair of closest points in 2D *)
-
+(* Algorithm for pair of closest points in 2D. *)
 let find_closest_points points =
   let partition points n =
     let rec partition' points' i nd =

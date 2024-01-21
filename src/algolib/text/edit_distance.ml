@@ -1,5 +1,4 @@
-(* Algorithms for edit distance *)
-
+(* Algorithms for edit distance. *)
 let count_levenshtein
     ?(insertion_cost = 1.0)
     ?(deletion_cost = 1.0)

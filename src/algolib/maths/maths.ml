@@ -1,5 +1,4 @@
-(* Algorithms for basic mathematical computations *)
-
+(* Algorithms for basic mathematical computations. *)
 let gcd number1 number2 =
   let rec gcd' n1 n2 = if n1 < n2 then gcd' n2 n1 else if n2 = 0 then n1 else gcd' n2 (n1 mod n2) in
   gcd' (abs number1) (abs number2)

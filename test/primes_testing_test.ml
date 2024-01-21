@@ -1,4 +1,4 @@
-(* Tests: Algorithms for testing prime numbers *)
+(* Tests: Algorithms for testing prime numbers. *)
 open OUnit2
 open Algolib.Primes_testing
 open TestUtils

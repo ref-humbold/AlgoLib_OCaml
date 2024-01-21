@@ -1,4 +1,4 @@
-(* Structure of vector in 2D *)
+(* Structure of vector in 2D. *)
 include Geometry_object
 
 type vector2d = Vector2D of float * float

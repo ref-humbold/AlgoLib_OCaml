@@ -1,11 +1,15 @@
-(* Tests: Structure of double-ended queue *)
+(* Tests: Structure of double-ended queue. *)
 open OUnit2
 open Algolib.Deque
 open TestUtils
 
 let numbers = [10; 6; 14; 97; 24; 37; 2; 30; 45; 18; 51; 71; 68; 26]
 
-let list_last xs = List.hd @@ List.rev xs
+let rec list_last xs =
+  match xs with
+  | [x] -> x
+  | _ :: xs' -> list_last xs'
+  | [] -> failwith "list_last"
 
 (* is_empty_Test_list *)
 

@@ -1,4 +1,4 @@
-(* Tests: Structure of vector in 3D *)
+(* Tests: Structure of vector in 3D. *)
 open OUnit2
 open Algolib.Vector_3d
 open TestUtils

@@ -1,5 +1,4 @@
-(* Algorithm for convex hull in 2D (monotone chain) *)
-
+(* Algorithm for convex hull in 2D (monotone chain). *)
 let find_convex_hull points =
   let cross_product p1 p2 p3 = Vector_2d.area (Vector_2d.between p2 p1) (Vector_2d.between p2 p3) in
   let rec half_hull pts acc =

@@ -1,5 +1,3 @@
-(** Structure of leftist heap *)
-
 module type COMPARABLE = sig
   type t
 

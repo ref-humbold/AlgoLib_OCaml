@@ -1,4 +1,4 @@
-(* Tests: Algorithms for basic geometrical computations in 3D *)
+(* Tests: Algorithms for basic geometrical computations in 3D. *)
 open OUnit2
 open Algolib.Point_3d
 open Algolib.Geometry_3d

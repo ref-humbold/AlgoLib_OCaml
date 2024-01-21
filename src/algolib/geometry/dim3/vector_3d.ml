@@ -1,4 +1,4 @@
-(* Structure of vector in 3D *)
+(* Structure of vector in 3D. *)
 include Geometry_object
 
 type vector3d = Vector3D of float * float * float

@@ -1,4 +1,4 @@
-(* Tests: Structure of leftist heap *)
+(* Tests: Structure of leftist heap. *)
 open OUnit2
 open Algolib.Leftist_heap
 open TestUtils
@@ -131,18 +131,18 @@ let push__when_empty__then_added =
     assert_equal ~printer:string_of_int 1 @@ IntHeap.length result ;
     assert_equal ~printer:string_of_int element (IntHeap.peek result)
 
-let push__when_new_element__then_added =
-  "push__when_new_element__then_added" >:: fun _ ->
+let push__when_new_element_is_greater_than_minimum__then_added =
+  "push__when_new_element_is_greater_than_minimum__then_added" >:: fun _ ->
     (* given *)
     let test_object = IntHeap.of_list numbers in
     (* when *)
-    let result = IntHeap.push 111 test_object in
+    let result = IntHeap.push (minimum + 3) test_object in
     (* then *)
     assert_equal ~printer:string_of_int (List.length numbers + 1) @@ IntHeap.length result ;
     assert_equal ~printer:string_of_int minimum (IntHeap.peek result)
 
-let push__when_new_element_is_greater_than_minimum__then_new_minimum =
-  "push__when_new_element_is_greater_than_minimum__then_new_minimum" >:: fun _ ->
+let push__when_new_element_is_less_than_minimum__then_new_minimum =
+  "push__when_new_element_is_less_than_minimum__then_new_minimum" >:: fun _ ->
     (* given *)
     let test_object = IntHeap.of_list numbers and element = minimum - 3 in
     (* when *)
@@ -154,8 +154,8 @@ let push__when_new_element_is_greater_than_minimum__then_new_minimum =
 let push_Test_list =
   test_list
     [ push__when_empty__then_added;
-      push__when_new_element__then_added;
-      push__when_new_element_is_greater_than_minimum__then_new_minimum ]
+      push__when_new_element_is_greater_than_minimum__then_added;
+      push__when_new_element_is_less_than_minimum__then_new_minimum ]
 
 (* pop_Test_list *)
 

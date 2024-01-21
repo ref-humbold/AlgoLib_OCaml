@@ -1,4 +1,4 @@
-(* Tests: Algorithm for longest common subsequence *)
+(* Tests: Algorithm for longest common subsequence. *)
 open OUnit2
 open Algolib.Longest_common_subsequence
 

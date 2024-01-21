@@ -1,4 +1,4 @@
-(* Structure of real-time Hood-Melville queue *)
+(* Structure of real-time Hood-Melville queue. *)
 type 'a rotation =
   | Reverse of {len : int; front : 'a list; rev_front : 'a list; back : 'a list; rev_back : 'a list}
   | Append of {len : int; front : 'a list; back : 'a list}

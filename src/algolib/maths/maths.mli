@@ -1,5 +1,3 @@
-(** Algorithms for basic mathematical computations *)
-
 val gcd : int -> int -> int
 (** [gcd n1 n2] computes the greatest common divisor of two integers [n1] and [n2]. *)
 

@@ -1,4 +1,4 @@
-(* Tests: Structure of indexed list *)
+(* Tests: Structure of indexed list. *)
 open OUnit2
 open Algolib.Indexed_list
 open TestUtils

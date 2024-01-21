@@ -1,4 +1,4 @@
-(* Tests: List sorting algorithms *)
+(* Tests: List sorting algorithms. *)
 open OUnit2
 open Algolib.List_sorting
 open TestUtils

@@ -1,5 +1,3 @@
-(** Structure of point in 3D *)
-
 include module type of Geometry_object
 
 (** The type of points in 3D. *)

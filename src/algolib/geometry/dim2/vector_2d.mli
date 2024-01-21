@@ -1,5 +1,3 @@
-(** Structure of vector in 2D *)
-
 include module type of Geometry_object
 
 (** The type of vectors in 2D. *)

@@ -1,4 +1,4 @@
-(* Tests: Basic mathematics algorithms *)
+(* Tests: Basic mathematics algorithms. *)
 open OUnit2
 open Algolib.Maths
 

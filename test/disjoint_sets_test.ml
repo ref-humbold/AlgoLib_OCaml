@@ -1,4 +1,4 @@
-(* Tests: Disjoint sets structure (union-find) *)
+(* Tests: Disjoint sets structure (union-find). *)
 open OUnit2
 open Algolib.Disjoint_sets
 open TestUtils

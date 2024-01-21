@@ -1,5 +1,3 @@
-(** Algorithms for basic geometrical computations in 2D *)
-
 val sort_by_x : Point_2d.point2d list -> Point_2d.point2d list
 (** [sort_by_x ps] sorts points [ps] with respect to their X coordinates. Sorting is guaranteed to
     be stable. *)

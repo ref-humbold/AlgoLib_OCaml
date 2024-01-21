@@ -1,5 +1,4 @@
-(* Algorithm for maximum_subarray *)
-
+(* Algorithm for maximum_subarray. *)
 let maximum_subarray sequence =
   let initial = (0.0, Seq.empty) in
   let seq_reverse sequence = Seq.fold_left (fun acc e -> Seq.cons e acc) Seq.empty sequence in

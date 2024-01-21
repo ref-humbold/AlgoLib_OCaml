@@ -1,4 +1,4 @@
-(* Tests: Algorithm for convex hull (monotone chain) in 2D *)
+(* Tests: Algorithm for convex hull (monotone chain) in 2D. *)
 open OUnit2
 open Algolib.Point_2d
 open Algolib.Convex_hull

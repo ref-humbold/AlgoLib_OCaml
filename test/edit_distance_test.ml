@@ -1,4 +1,4 @@
-(* Tests: Algorithms for edit distance *)
+(* Tests: Algorithms for edit distance. *)
 open OUnit2
 open Algolib.Edit_distance
 open TestUtils

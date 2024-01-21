@@ -1,4 +1,4 @@
-(* Algorithms for list sorting *)
+(* Algorithms for list sorting. *)
 let merge_sort cmp lst =
   let rec drop lst' n =
     if n <= 0

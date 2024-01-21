@@ -1,5 +1,3 @@
-(** Algorithm for maximum_subarray *)
-
 val maximum_subarray : float Seq.t -> float Seq.t
 (** [maximum_subarray xs] finds subarray with maximal sum in given sequence [xs] of floats. *)
 

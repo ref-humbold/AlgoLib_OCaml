@@ -1,5 +1,4 @@
-(* Algorithms for basic geometrical computations in 3D *)
-
+(* Algorithms for basic geometrical computations in 3D. *)
 let sort_by_x lst =
   List.stable_sort
     (fun (Point_3d.Point3D (x1, _, _)) (Point_3d.Point3D (x3, _, _)) -> compare x1 x3)

@@ -1,4 +1,4 @@
-(* Tests: Algorithm for pair of closest points in 2D *)
+(* Tests: Algorithm for pair of closest points in 2D. *)
 open OUnit2
 open Algolib.Point_2d
 open Algolib.Closest_points

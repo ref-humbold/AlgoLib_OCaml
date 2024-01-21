@@ -1,5 +1,3 @@
-(** Algorithms for edit distance *)
-
 val count_levenshtein :
   ?insertion_cost:float ->
   ?deletion_cost:float ->

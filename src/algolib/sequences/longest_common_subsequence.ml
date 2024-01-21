@@ -1,5 +1,4 @@
-(* Algorithm for longest common subsequence *)
-
+(* Algorithm for longest common subsequence. *)
 let count_lcs_length sequence1 sequence2 =
   let rec iter_short short element prev_lcs next_lcs_rev =
     match short with

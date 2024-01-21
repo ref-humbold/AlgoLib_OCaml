@@ -1,4 +1,4 @@
-(* Structure of double-ended queue *)
+(* Structure of double-ended queue. *)
 type 'a t = 'a list * 'a list
 
 exception Empty_deque

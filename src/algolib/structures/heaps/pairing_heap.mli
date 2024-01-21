@@ -1,5 +1,3 @@
-(** Structure of pairing heap *)
-
 module type COMPARABLE = sig
   type t
 

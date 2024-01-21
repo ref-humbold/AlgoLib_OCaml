@@ -1,4 +1,4 @@
-(* Structure of point in 2D *)
+(* Structure of point in 2D. *)
 include Geometry_object
 
 type point2d = Point2D of float * float

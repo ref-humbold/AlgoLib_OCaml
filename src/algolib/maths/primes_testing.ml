@@ -1,4 +1,4 @@
-(* Algorithms for testing prime numbers *)
+(* Algorithms for testing prime numbers. *)
 open Maths
 
 let rands_ maximum num =

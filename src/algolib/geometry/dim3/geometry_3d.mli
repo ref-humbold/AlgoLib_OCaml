@@ -1,5 +1,3 @@
-(** Algorithms for basic geometrical computations in 3D *)
-
 val sort_by_x : Point_3d.point3d list -> Point_3d.point3d list
 (** [sort_by_x ps] sorts points [ps] with respect to their X coordinates. Sorting is guaranteed to
     be stable. *)

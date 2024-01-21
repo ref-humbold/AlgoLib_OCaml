@@ -1,4 +1,4 @@
-(* Structure of red-black tree *)
+(* Structure of red-black tree. *)
 module type COMPARABLE = sig
   type t
 
@@ -20,9 +20,21 @@ module type RBTREE = sig
 
   val add : elem -> t -> t
 
+  val add_seq : elem Seq.t -> t -> t
+
+  val add_list : elem list -> t -> t
+
+  val of_seq : elem Seq.t -> t
+
+  val of_list : elem list -> t
+
   val to_seq : t -> elem Seq.t
 
+  val to_rev_seq : t -> elem Seq.t
+
   val to_list : t -> elem list
+
+  val to_rev_list : t -> elem list
 end
 
 module Make (Cmp : COMPARABLE) : RBTREE with type elem = Cmp.t = struct
@@ -122,13 +134,29 @@ module Make (Cmp : COMPARABLE) : RBTREE with type elem = Cmp.t = struct
     | None -> tree
     | Some Leaf -> failwith "unexpected"
 
+  let add_list xs tree = List.fold_left (fun acc x -> add x acc) tree xs
+
+  let add_seq xs tree = Seq.fold_left (fun acc x -> add x acc) tree xs
+
+  let of_seq xs = add_seq xs empty
+
+  let of_list xs = add_list xs empty
+
   let to_seq tree =
     let rec to_seq' n acc =
       match n with
-      | Node {left; e; right; _} -> to_seq' left @@ Seq.Cons (e, to_seq' right acc)
-      | Leaf -> fun () -> acc
+      | Node {left; e; right; _} -> to_seq' left @@ Seq.cons e @@ to_seq' right acc
+      | Leaf -> acc
     in
-    to_seq' tree.node Seq.Nil
+    to_seq' tree.node Seq.empty
+
+  let to_rev_seq tree =
+    let rec to_rev_seq' n acc =
+      match n with
+      | Node {left; e; right; _} -> to_rev_seq' right @@ Seq.cons e @@ to_rev_seq' left acc
+      | Leaf -> acc
+    in
+    to_rev_seq' tree.node Seq.empty
 
   let to_list tree =
     let rec to_list' n acc =
@@ -137,4 +165,12 @@ module Make (Cmp : COMPARABLE) : RBTREE with type elem = Cmp.t = struct
       | Leaf -> acc
     in
     to_list' tree.node []
+
+  let to_rev_list tree =
+    let rec to_rev_list' n acc =
+      match n with
+      | Node {left; e; right; _} -> to_rev_list' right (e :: to_rev_list' left acc)
+      | Leaf -> acc
+    in
+    to_rev_list' tree.node []
 end

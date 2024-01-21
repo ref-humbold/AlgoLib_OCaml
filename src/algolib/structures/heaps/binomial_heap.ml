@@ -1,4 +1,4 @@
-(* Structure of binomial heap *)
+(* Structure of binomial heap. *)
 module type COMPARABLE = sig
   type t
 

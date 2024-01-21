@@ -1,4 +1,4 @@
-(* Tests: Algorithm for maximum_subarray *)
+(* Tests: Algorithm for maximum_subarray. *)
 open OUnit2
 open Algolib.Maximum_subarray
 open TestUtils

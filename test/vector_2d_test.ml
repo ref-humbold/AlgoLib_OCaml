@@ -1,4 +1,4 @@
-(* Tests: Structure of vector in 2D *)
+(* Tests: Structure of vector in 2D. *)
 open OUnit2
 open Algolib.Vector_2d
 open TestUtils
