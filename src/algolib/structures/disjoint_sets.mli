@@ -14,6 +14,9 @@ module type DISJOINT_SETS = sig
   exception Element_present of elem
   (** Exception raised when adding already present element. *)
 
+  exception Duplicate_elements of elem list
+  (** Exception raised when creating the structure with duplicated elements. *)
+
   val create : unit -> t
   (** [create ()] produces empty sets structure. *)
 
@@ -23,29 +26,26 @@ module type DISJOINT_SETS = sig
   val contains : elem -> t -> bool
   (** [contains x s] checks if [x] belongs to any set in structure [s]. *)
 
-  val add : elem -> t -> unit
-  (** [add x s] adds new singleton set with element [x] to structure [s].
-
-      @raise Element_present if [x] is already present in the structure. *)
-
-  val add_seq : elem Seq.t -> t -> unit
-  (** [add_seq xs s] adds new singleton sets from Seq [xs] to structure [s].
+  val add_seq : ?represent:elem -> elem Seq.t -> t -> unit
+  (** [add_seq e xs s] adds elements from Seq [xs] as as a new set or to the existing set
+      represented by element [e] in structure [s].
 
       @raise Element_present if any value from [xs] is already present in the structure. *)
 
-  val add_list : elem list -> t -> unit
-  (** [add_list xs s] adds new singleton sets from list [xs] to structure [s].
+  val add_list : ?represent:elem -> elem list -> t -> unit
+  (** [add_list e xs s] adds elements from list [xs] as a new set or to the existing set represented
+      by element [e] in structure [s].
 
       @raise Element_present if any value from [xs] is already present in the structure. *)
 
   val find_set : elem -> t -> elem
-  (** [find_set x s] finds the representant of [x] in structure [s].
+  (** [find_set x s] finds the represent of [x] in structure [s].
 
       @raise Not_found if [x] is not present in the structure. *)
 
   val find_set_opt : elem -> t -> elem option
-  (** [find_set_opt x s] finds the representant of [x] in structure [s] if it exists, otherwise
-      returns [None]. *)
+  (** [find_set_opt x s] finds the represent of [x] in structure [s] if it exists, otherwise returns
+      [None]. *)
 
   val is_same_set : elem -> elem -> t -> bool
   (** [is_same_set x y s] checks if [x] and [y] belong to the same set in structure [s].
@@ -57,11 +57,11 @@ module type DISJOINT_SETS = sig
 
       @raise Not_found if neither [x] nor [y] is present in the structure. *)
 
-  val of_seq : elem Seq.t -> t
-  (** [of_seq xs] creates new structure of singleton sets from elements of Seq [xs]. *)
+  val of_seq : elem Seq.t Seq.t -> t
+  (** [of_seq xs] creates new structure of sets from elements of Seq [xs]. *)
 
-  val of_list : elem list -> t
-  (** [of_list xs] creates new structure of singleton sets from elements of list [xs]. *)
+  val of_list : elem list list -> t
+  (** [of_list xs] creates new structure of sets from elements of list [xs]. *)
 end
 
 module Make (Cmp : COMPARABLE) : DISJOINT_SETS with type elem = Cmp.t
