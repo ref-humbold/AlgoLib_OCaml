@@ -15,6 +15,7 @@
   longest_common_subsequence_test
   maximum_subarray_test
   pairing_heap_test
+  primes_searching_test
   primes_testing_test
   vector_2d_test
   vector_3d_test)

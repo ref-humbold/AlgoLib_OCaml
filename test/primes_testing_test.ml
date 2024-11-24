@@ -181,7 +181,7 @@ let test_primes_miller_Test_list =
 (* primes_testing_Test *)
 
 let primes_testing_Test =
-  "Tests: Algorithms for prime numbers"
+  "Tests: Algorithms for testing prime numbers"
   >::: [test_primes_fermat_Test_list; test_primes_miller_Test_list]
 
 let _ = run_test_tt_main primes_testing_Test
