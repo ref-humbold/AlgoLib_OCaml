@@ -6,7 +6,7 @@ let rands_ maximum num =
   let rec rands_' m' n' = if n' = 0 then [] else (1 + Random.int m') :: rands_' m' (n' - 1) in
   rands_' (maximum - 1) num
 
-let test_primes_fermat number =
+let test_prime_fermat number =
   let n = abs number in
   if n = 2 || n = 3
   then true
@@ -14,7 +14,7 @@ let test_primes_fermat number =
   then false
   else List.for_all (fun r -> r **/ n == 1 && power_mod r (n - 1) n == 1) @@ rands_ n 12
 
-let test_primes_miller number =
+let test_prime_miller number =
   let n = abs number in
   if n = 2 || n = 3
   then true

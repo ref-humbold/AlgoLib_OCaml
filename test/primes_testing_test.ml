@@ -3,180 +3,58 @@ open OUnit2
 open Algolib.Primes_testing
 open TestUtils
 
+(* 1001 = 7 * 11 * 13 ; 3481 = 59 ^ 2 ; 41041 = 7 * 11 * 13 * 41 ; 73627 = 17 * 61 * 71 *)
+let params_not_primes = [0; 1; 77; 1001; 3481; 41041; 73627]
+
+let params_primes = [2; 107; 1013; 2131; 6199]
+
 (* test_primes_fermat_Test_list *)
 
-let test_primes_fermat__when_zero__then_false =
-  "test_primes_fermat__when_zero__then_false" >:: fun _ ->
+let test_prime_fermat__when_not_prime__then_false param =
+  let label = Printf.sprintf "test_prime_fermat__when_not_prime__then_false [param = %d]" param in
+  label >:: fun _ ->
     (* when *)
-    let result = test_primes_fermat 0 in
+    let result = test_prime_fermat param in
     (* then *)
     Assert.Bool.assert_false result
 
-let test_primes_fermat__when_one__then_false =
-  "test_primes_fermat__when_one__then_false" >:: fun _ ->
+let test_prime_fermat__when_prime__then_false param =
+  let label = Printf.sprintf "test_prime_fermat__when_prime__then_false [param = %d]" param in
+  label >:: fun _ ->
     (* when *)
-    let result = test_primes_fermat 1 in
-    (* then *)
-    Assert.Bool.assert_false result
-
-let test_primes_fermat__when_two__then_true =
-  "test_primes_fermat__when_two__then_true" >:: fun _ ->
-    (* when *)
-    let result = test_primes_fermat 2 in
+    let result = test_prime_fermat param in
     (* then *)
     Assert.Bool.assert_true result
-
-let test_primes_fermat__when_prime_1__then_true =
-  "test_primes_fermat__when_prime_1__then_true" >:: fun _ ->
-    (* when *)
-    let result = test_primes_fermat 1013 in
-    (* then *)
-    Assert.Bool.assert_true result
-
-let test_primes_fermat__when_prime_2__then_true =
-  "test_primes_fermat__when_prime_2__then_true" >:: fun _ ->
-    (* when *)
-    let result = test_primes_fermat 2131 in
-    (* then *)
-    Assert.Bool.assert_true result
-
-let test_primes_fermat__when_prime_3__then_true =
-  "test_primes_fermat__when_prime_3__then_true" >:: fun _ ->
-    (* when *)
-    let result = test_primes_fermat 6199 in
-    (* then *)
-    Assert.Bool.assert_true result
-
-let test_primes_fermat__when_composite_1__then_false =
-  "test_primes_fermat__when_composite_1__then_false" >:: fun _ ->
-    (* when *)
-    (* 1001 = 7 * 11 * 13 *)
-    let result = test_primes_fermat 1001 in
-    (* then *)
-    Assert.Bool.assert_false result
-
-let test_primes_fermat__when_composite_2__then_false =
-  "test_primes_fermat__when_composite_2__then_false" >:: fun _ ->
-    (* when *)
-    (* 41041 = 7 * 11 * 13 * 41 *)
-    let result = test_primes_fermat 41041 in
-    (* then *)
-    Assert.Bool.assert_false result
-
-let test_primes_fermat__when_composite_3__then_false =
-  "test_primes_fermat__when_composite_3__then_false" >:: fun _ ->
-    (* when *)
-    (* 73627 = 17 * 61 * 71 *)
-    let result = test_primes_fermat 73627 in
-    (* then *)
-    Assert.Bool.assert_false result
-
-let test_primes_fermat__when_composite_square_of_prime__then_false =
-  "test_primes_fermat__when_composite_square_of_prime__then_false" >:: fun _ ->
-    (* when *)
-    (* 3481 = 59 ^ 2 *)
-    let result = test_primes_fermat 3481 in
-    (* then *)
-    Assert.Bool.assert_false result
 
 let test_primes_fermat_Test_list =
   test_list
-    [ test_primes_fermat__when_zero__then_false;
-      test_primes_fermat__when_one__then_false;
-      test_primes_fermat__when_two__then_true;
-      test_primes_fermat__when_prime_1__then_true;
-      test_primes_fermat__when_prime_2__then_true;
-      test_primes_fermat__when_prime_3__then_true;
-      test_primes_fermat__when_composite_1__then_false;
-      test_primes_fermat__when_composite_2__then_false;
-      test_primes_fermat__when_composite_3__then_false;
-      test_primes_fermat__when_composite_square_of_prime__then_false ]
+  @@ List.concat
+    [ List.map (fun p -> test_prime_fermat__when_not_prime__then_false p) params_not_primes;
+      List.map (fun p -> test_prime_fermat__when_prime__then_false p) params_primes ]
 
 (* test_primes_miller_Test_list *)
 
-let test_primes_miller__when_zero__then_false =
-  "test_primes_miller__when_zero__then_false" >:: fun _ ->
+let test_prime_miller__when_not_prime__then_false param =
+  let label = Printf.sprintf "test_prime_miller__when_not_prime__then_false [param = %d]" param in
+  label >:: fun _ ->
     (* when *)
-    let result = test_primes_miller 0 in
+    let result = test_prime_miller param in
     (* then *)
     Assert.Bool.assert_false result
 
-let test_primes_miller__when_one__then_false =
-  "test_primes_miller__when_one__then_false" >:: fun _ ->
+let test_prime_miller__when_prime__then_false param =
+  let label = Printf.sprintf "test_prime_miller__when_prime__then_false [param = %d]" param in
+  label >:: fun _ ->
     (* when *)
-    let result = test_primes_miller 1 in
-    (* then *)
-    Assert.Bool.assert_false result
-
-let test_primes_miller__when_two__then_true =
-  "test_primes_miller__when_two__then_true" >:: fun _ ->
-    (* when *)
-    let result = test_primes_miller 2 in
+    let result = test_prime_miller param in
     (* then *)
     Assert.Bool.assert_true result
-
-let test_primes_miller__when_prime_1__then_true =
-  "test_primes_miller__when_prime_1__then_true" >:: fun _ ->
-    (* when *)
-    let result = test_primes_miller 1013 in
-    (* then *)
-    Assert.Bool.assert_true result
-
-let test_primes_miller__when_prime_2__then_true =
-  "test_primes_miller__when_prime_2__then_true" >:: fun _ ->
-    (* when *)
-    let result = test_primes_miller 2131 in
-    (* then *)
-    Assert.Bool.assert_true result
-
-let test_primes_miller__when_prime_3__then_true =
-  "test_primes_miller__when_prime_3__then_true" >:: fun _ ->
-    (* when *)
-    let result = test_primes_miller 6199 in
-    (* then *)
-    Assert.Bool.assert_true result
-
-let test_primes_miller__when_composite_1__then_false =
-  "test_primes_miller__when_composite_1__then_false" >:: fun _ ->
-    (* when *)
-    let result = test_primes_miller 1001 in
-    (* then *)
-    Assert.Bool.assert_false result
-
-let test_primes_miller__when_composite_2__then_false =
-  "test_primes_miller__when_composite_2__then_false" >:: fun _ ->
-    (* when *)
-    let result = test_primes_miller 41041 in
-    (* then *)
-    Assert.Bool.assert_false result
-
-let test_primes_miller__when_composite_3__then_false =
-  "test_primes_miller__when_composite_3__then_false" >:: fun _ ->
-    (* when *)
-    let result = test_primes_miller 73627 in
-    (* then *)
-    Assert.Bool.assert_false result
-
-let test_primes_miller__when_composite_square_of_prime__then_false =
-  "test_primes_miller__when_composite_square_of_prime__then_false" >:: fun _ ->
-    (* when *)
-    (* 3481 = 59 ^ 2 *)
-    let result = test_primes_miller 3481 in
-    (* then *)
-    Assert.Bool.assert_false result
 
 let test_primes_miller_Test_list =
   test_list
-    [ test_primes_miller__when_zero__then_false;
-      test_primes_miller__when_one__then_false;
-      test_primes_miller__when_two__then_true;
-      test_primes_miller__when_prime_1__then_true;
-      test_primes_miller__when_prime_2__then_true;
-      test_primes_miller__when_prime_3__then_true;
-      test_primes_miller__when_composite_1__then_false;
-      test_primes_miller__when_composite_2__then_false;
-      test_primes_miller__when_composite_3__then_false;
-      test_primes_miller__when_composite_square_of_prime__then_false ]
+  @@ List.concat
+    [ List.map (fun p -> test_prime_miller__when_not_prime__then_false p) params_not_primes;
+      List.map (fun p -> test_prime_miller__when_prime__then_false p) params_primes ]
 
 (* primes_testing_Test *)
 

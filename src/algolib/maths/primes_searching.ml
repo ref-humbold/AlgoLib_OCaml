@@ -3,7 +3,7 @@
 let get_base_primes_ base_maximum =
   let mark_multiples array value =
     let rec mark_multiples' i =
-      if i < base_maximum
+      if i <= base_maximum
       then (
         array.((i - 3) / 2) <- false ;
         mark_multiples' (i + (2 * value)) )

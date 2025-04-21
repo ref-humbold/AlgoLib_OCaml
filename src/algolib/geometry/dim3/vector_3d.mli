@@ -49,4 +49,5 @@ val area : vector3d -> vector3d -> float
 (** [area v1 v2] counts the area of parallelogram determined by vectors [v1] and [v2]. *)
 
 val volume : vector3d -> vector3d -> vector3d -> float
-(** [volume v1 v2 v3] counts the volume of parallelepiped determined by vectors [v1], [v2] and [v3]. *)
+(** [volume v1 v2 v3] counts the volume of parallelepiped determined by vectors [v1], [v2] and [v3].
+*)

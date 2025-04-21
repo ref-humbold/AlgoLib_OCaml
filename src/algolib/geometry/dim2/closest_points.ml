@@ -84,8 +84,9 @@ let find_closest_points points =
       let closest_left = search_closest points_x left_y nd
       and closest_right = search_closest right_x right_y (n - nd) in
       let closest_points =
-        if Geometry_2d.distance (fst closest_left) (snd closest_left)
-           <= Geometry_2d.distance (fst closest_right) (snd closest_right)
+        if
+          Geometry_2d.distance (fst closest_left) (snd closest_left)
+          <= Geometry_2d.distance (fst closest_right) (snd closest_right)
         then closest_left
         else closest_right
       in
