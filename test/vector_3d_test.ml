@@ -1,7 +1,8 @@
 (* Tests: Structure of vector in 3D. *)
 open OUnit2
-open Algolib.Vector_3d
+open Algolib.Geometry.Dim3.Vector_3d
 open TestUtils
+module P = Algolib.Geometry.Dim3.Point_3d
 
 let print_vector (Vector3D (x, y, z)) =
   "Vector3D(" ^ string_of_float x ^ ", " ^ string_of_float y ^ ", " ^ string_of_float z ^ ")"
@@ -11,7 +12,7 @@ let print_vector (Vector3D (x, y, z)) =
 let between__then_vector_from_begin_to_end =
   "between__then_vector_from_begin_to_end" >:: fun _ ->
     (* when *)
-    let result = Algolib.Point_3d.(between (pt3d 2.4 7.8 (-10.3)) (pt3d (-1.5) 13.2 15.8)) in
+    let result = between (P.pt3d 2.4 7.8 (-10.3)) (P.pt3d (-1.5) 13.2 15.8) in
     (* then *)
     assert_equal ~cmp:equal ~printer:print_vector (vec3d (-3.9) 5.4 26.1) result
 

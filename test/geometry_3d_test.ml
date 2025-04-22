@@ -1,8 +1,9 @@
 (* Tests: Algorithms for basic geometrical computations in 3D. *)
 open OUnit2
-open Algolib.Point_3d
-open Algolib.Geometry_3d
+open Algolib.Geometry.Dim3.Point_3d
+open Algolib.Geometry.Dim3.Geometry_3d
 open TestUtils
+module V = Algolib.Geometry.Dim3.Vector_3d
 
 let print_point (Point3D (x, y, z)) =
   "Point3D(" ^ string_of_float x ^ ", " ^ string_of_float y ^ ", " ^ string_of_float z ^ ")"
@@ -121,7 +122,7 @@ let distance_Test_list =
 let translate__then_point_translated =
   "translate__then_point_translated" >:: fun _ ->
     (* when *)
-    let result = translate (pt3d 13.7 6.5 (-4.2)) Algolib.Vector_3d.(vec3d (-10.4) 3.3 1.1) in
+    let result = translate (pt3d 13.7 6.5 (-4.2)) (V.vec3d (-10.4) 3.3 1.1) in
     (* then *)
     assert_equal ~cmp:equal ~printer:print_point (pt3d 3.3 9.8 (-3.1)) result
 
@@ -130,7 +131,7 @@ let translate__when_zero_vector__then_same_point =
     (* given *)
     let point = pt3d 13.5 6.5 (-4.2) in
     (* when *)
-    let result = translate point Algolib.Vector_3d.(vec3d_i 0 0 0) in
+    let result = translate point (V.vec3d_i 0 0 0) in
     (* then *)
     assert_equal ~cmp:equal ~printer:print_point point result
 

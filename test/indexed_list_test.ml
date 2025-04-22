@@ -1,6 +1,6 @@
 (* Tests: Structure of indexed list. *)
 open OUnit2
-open Algolib.Indexed_list
+open Algolib.Structures.Indexed_list
 open TestUtils
 
 let numbers = [10; 6; 14; 97; 24; 37; 2; 30; 45; 18; 51; 71; 68; 26]

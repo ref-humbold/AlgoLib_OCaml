@@ -1,7 +1,7 @@
 (* Tests: Algorithms for searching for prime numbers. *)
 
 open OUnit2
-open Algolib.Primes_searching
+open Algolib.Maths.Primes_searching
 open TestUtils
 
 let[@ocamlformat "break-collection-expressions = wrap"] primes =

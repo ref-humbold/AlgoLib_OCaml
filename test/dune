@@ -1,5 +1,6 @@
 (tests
  (names
+  arithmetic_test
   binomial_heap_test
   closest_points_test
   convex_hull_test
@@ -9,7 +10,6 @@
   geometry_2d_test
   geometry_3d_test
   indexed_list_test
-  maths_test
   leftist_heap_test
   list_sorting_test
   longest_common_subsequence_test

@@ -1,6 +1,6 @@
 (* Tests: Algorithms for edit distance. *)
 open OUnit2
-open Algolib.Edit_distance
+open Algolib.Text.Edit_distance
 open TestUtils
 
 let epsilon = 1e-6

@@ -1,8 +1,9 @@
 (* Tests: Algorithms for basic geometrical computations in 2D. *)
 open OUnit2
-open Algolib.Point_2d
-open Algolib.Geometry_2d
+open Algolib.Geometry.Dim2.Point_2d
+open Algolib.Geometry.Dim2.Geometry_2d
 open TestUtils
+module V = Algolib.Geometry.Dim2.Vector_2d
 
 let print_point (Point2D (x, y)) = "Point2D(" ^ string_of_float x ^ ", " ^ string_of_float y ^ ")"
 
@@ -148,7 +149,7 @@ let distance_Test_list =
 let translate__then_point_translated =
   "translate__then_point_translated" >:: fun _ ->
     (* when *)
-    let result = translate (pt2d 13.7 6.5) Algolib.Vector_2d.(vec2d (-10.4) 3.3) in
+    let result = translate (pt2d 13.7 6.5) (V.vec2d (-10.4) 3.3) in
     (* then *)
     assert_equal ~cmp:equal ~printer:print_point (pt2d 3.3 9.8) result
 
@@ -157,7 +158,7 @@ let translate__when_zero_vector__then_same_point =
     (* given *)
     let point = pt2d 13.5 6.5 in
     (* when *)
-    let result = translate point Algolib.Vector_2d.(vec2d_i 0 0) in
+    let result = translate point (V.vec2d_i 0 0) in
     (* then *)
     assert_equal ~cmp:equal ~printer:print_point point result
 

@@ -1,7 +1,7 @@
 (* Tests: Algorithm for pair of closest points in 2D. *)
 open OUnit2
-open Algolib.Point_2d
-open Algolib.Closest_points
+open Algolib.Geometry.Dim2.Point_2d
+open Algolib.Geometry.Dim2.Closest_points
 open TestUtils
 
 let print_point (Point2D (x, y)) = "Point2D(" ^ string_of_float x ^ ", " ^ string_of_float y ^ ")"

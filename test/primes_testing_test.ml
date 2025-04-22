@@ -1,6 +1,6 @@
 (* Tests: Algorithms for testing prime numbers. *)
 open OUnit2
-open Algolib.Primes_testing
+open Algolib.Maths.Primes_testing
 open TestUtils
 
 (* 1001 = 7 * 11 * 13 ; 3481 = 59 ^ 2 ; 41041 = 7 * 11 * 13 * 41 ; 73627 = 17 * 61 * 71 *)

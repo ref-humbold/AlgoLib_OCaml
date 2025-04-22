@@ -1,6 +1,6 @@
 (* Tests: Algorithm for longest common subsequence. *)
 open OUnit2
-open Algolib.Longest_common_subsequence
+open Algolib.Sequences.Longest_common_subsequence
 
 let chars_of_string s = List.of_seq @@ Seq.map Char.code @@ String.to_seq s
 

@@ -1,6 +1,6 @@
 (* Tests: Structure of pairing heap. *)
 open OUnit2
-open Algolib.Pairing_heap
+open Algolib.Structures.Heaps.Pairing_heap
 open TestUtils
 
 let numbers = [10; 6; 14; 97; 24; 37; 2; 30; 45; 18; 51; 71; 68; 26]

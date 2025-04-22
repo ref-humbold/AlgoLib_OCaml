@@ -1,7 +1,8 @@
 (* Tests: Structure of vector in 2D. *)
 open OUnit2
-open Algolib.Vector_2d
+open Algolib.Geometry.Dim2.Vector_2d
 open TestUtils
+module P = Algolib.Geometry.Dim2.Point_2d
 
 let print_vector (Vector2D (x, y)) =
   "Vector2D(" ^ string_of_float x ^ ", " ^ string_of_float y ^ ")"
@@ -11,7 +12,7 @@ let print_vector (Vector2D (x, y)) =
 let between__then_vector_from_begin_to_end =
   "between__then_vector_from_begin_to_end" >:: fun _ ->
     (* when *)
-    let result = Algolib.Point_2d.(between (pt2d 2.4 7.8) (pt2d (-1.5) 13.2)) in
+    let result = between (P.pt2d 2.4 7.8) (P.pt2d (-1.5) 13.2) in
     (* then *)
     assert_equal ~cmp:equal ~printer:print_vector (vec2d (-3.9) 5.4) result
 

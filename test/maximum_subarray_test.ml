@@ -1,6 +1,6 @@
 (* Tests: Algorithm for maximum_subarray. *)
 open OUnit2
-open Algolib.Maximum_subarray
+open Algolib.Sequences.Maximum_subarray
 open TestUtils
 
 (* maximum_subarray_Test_list *)

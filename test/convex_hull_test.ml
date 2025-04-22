@@ -1,7 +1,7 @@
 (* Tests: Algorithm for convex hull (monotone chain) in 2D. *)
 open OUnit2
-open Algolib.Point_2d
-open Algolib.Convex_hull
+open Algolib.Geometry.Dim2.Point_2d
+open Algolib.Geometry.Dim2.Convex_hull
 open TestUtils
 
 let print_point (Point2D (x, y)) = "Point2D(" ^ string_of_float x ^ ", " ^ string_of_float y ^ ")"
