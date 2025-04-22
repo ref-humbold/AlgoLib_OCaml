@@ -1,6 +1,6 @@
-BUILD_SRC = _build/default/src/algolib
-BUILD_CMA = algolib.cma
-BUILD_CMXA = algolib.cmxa
+BUILD_SRC = _build/default/src
+BUILD_CMA = algolib/algolib.cma
+BUILD_CMXA = algolib/algolib.cmxa
 BUILD_DOC_HTML = _build/default/_doc/_html
 
 SRC = src
