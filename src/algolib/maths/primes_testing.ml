@@ -1,5 +1,5 @@
 (* Algorithms for testing prime numbers. *)
-open Arithmetic
+open Integers
 
 let rands_ maximum num =
   Random.self_init () ;

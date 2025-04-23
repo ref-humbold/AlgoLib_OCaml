@@ -1,6 +1,6 @@
-(* Tests: Algorithms for basic arithmetical computations. *)
+(* Tests: Algorithms for basic computations on integers. *)
 open OUnit2
-open Algolib.Maths.Arithmetic
+open Algolib.Maths.Integers
 
 (* gcd_Test_list *)
 
@@ -278,7 +278,7 @@ let power_Test_list =
 (* maths_Test *)
 
 let maths_Test =
-  "Tests: Algorithms for basic arithmetical computations"
+  "Tests: Algorithms for basic computations on integers"
   >::: [gcd_Test_list; lcm_Test_list; multiply_Test_list; power_Test_list]
 
 let _ = run_test_tt_main maths_Test
