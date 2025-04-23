@@ -30,6 +30,8 @@ let multiply factor1 factor2 =
   then -multiply' factor1 (-factor2) 0 step
   else multiply' factor1 factor2 0 step
 
+let ( *! ) = multiply
+
 let multiply_mod factor1 factor2 modulo =
   let rec multiply' factor1' factor2' result step =
     if factor2' > 0
@@ -68,6 +70,8 @@ let power base exponent =
   else if base = 0 && exponent = 0
   then failwith "Not a number"
   else power' base exponent 1
+
+let ( **! ) = power
 
 let power_mod base exponent modulo =
   let rec power' base' exponent' result =

@@ -103,41 +103,41 @@ let lcm_Test_list =
 let multiply__when_factor1_is_zero__then_returns_zero =
   "multiply__when_factor1_is_zero__then_returns_zero" >:: fun _ ->
     (* when *)
-    let result = multiply 0 14 in
+    let result = 0 *! 14 in
     (* then *)
     assert_equal ~printer:string_of_int 0 result
 
 let multiply__when_factor2_is_zero__then_returns_zero =
   "multiply__when_factor2_is_zero__then_returns_zero" >:: fun _ ->
     (* when *)
-    let result = multiply 14 0 in
+    let result = 14 *! 0 in
     (* then *)
     assert_equal ~printer:string_of_int 0 result
 
 let multiply__when_factors_are_zero__then_returns_zero =
   "multiply__when_factors_are_zero__then_returns_zero" >:: fun _ ->
     (* when *)
-    let result = multiply 0 0 in
+    let result = 0 *! 0 in
     (* then *)
     assert_equal ~printer:string_of_int 0 result
 
 let multiply__when_factor1_is_negative_and_factor2_is_positive =
   "multiply__when_factor1_is_negative_and_factor2_is_positive" >:: fun _ ->
     (* when *)
-    let result = multiply (-3) 10 in
+    let result = -3 *! 10 in
     (* then *)
     assert_equal ~printer:string_of_int (-30) result
 
 let multiply__when_factor1_is_positive_and_factor2_is_negative =
   "multiply__when_factor1_is_positive_and_factor2_is_negative" >:: fun _ ->
     (* when *)
-    let result = multiply 3 (-10) in
+    let result = 3 *! -10 in
     (* then *)
     assert_equal ~printer:string_of_int (-30) result
 
 let multiply__when_factors_are_negative =
   "multiply__when_factors_are_negative" >:: fun _ ->
-    let result = multiply (-3) (-10) in
+    let result = -3 *! -10 in
     (* then *)
     assert_equal ~printer:string_of_int 30 result
 
@@ -195,49 +195,49 @@ let multiply_Test_list =
 let power__when_base_is_zero__then_returns_zero =
   "power__when_base_is_zero__then_returns_zero" >:: fun _ ->
     (* when *)
-    let result = power 0 14 in
+    let result = 0 **! 14 in
     (* then *)
     assert_equal ~printer:string_of_int 0 result
 
 let power__when_exponent_is_zero__then_returns_one =
   "power__when_exponent_is_zero__then_returns_one" >:: fun _ ->
     (* when *)
-    let result = power 14 0 in
+    let result = 14 **! 0 in
     (* then *)
     assert_equal ~printer:string_of_int 1 result
 
 let power__when_base_and_exponent_are_zero__then_failure =
   "power__when_base_and_exponent_are_zero__then_failure" >:: fun _ ->
     (* when *)
-    let exec () = power 0 0 in
+    let exec () = 0 **! 0 in
     (* then *)
     assert_raises (Failure "Not a number") exec
 
 let power__when_base_and_exponent_are_positive =
   "power__when_base_and_exponent_are_positive" >:: fun _ ->
     (* when *)
-    let result = power 3 10 in
+    let result = 3 **! 10 in
     (* then *)
     assert_equal ~printer:string_of_int 59049 result
 
 let power__when_base_is_negative_and_exponent_is_even =
   "power__when_base_is_negative_and_exponent_is_even" >:: fun _ ->
     (* when *)
-    let result = power (-3) 10 in
+    let result = -3 **! 10 in
     (* then *)
     assert_equal ~printer:string_of_int 59049 result
 
 let power__when_base_is_negative_and_exponent_is_odd =
   "power__when_base_is_negative_and_exponent_is_odd" >:: fun _ ->
     (* when *)
-    let result = power (-3) 9 in
+    let result = -3 **! 9 in
     (* then *)
     assert_equal ~printer:string_of_int (-19683) result
 
 let power__when_exponent_is_negative__then_failure =
   "power__when_exponent_is_negative__then_failure" >:: fun _ ->
     (* when *)
-    let exec () = power 3 (-10) in
+    let exec () = 3 **! -10 in
     (* then *)
     assert_raises (Failure "Negative exponent") exec
 
