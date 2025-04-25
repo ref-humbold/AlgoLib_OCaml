@@ -1,0 +1,8 @@
+(library
+ (name oAssert)
+ (modes native byte))
+
+(env
+ (dev
+  (flags
+   (:standard -warn-error -A -w +A-70))))
