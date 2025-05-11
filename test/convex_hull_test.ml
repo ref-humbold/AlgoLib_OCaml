@@ -1,4 +1,4 @@
-(* Tests: Algorithm for convex hull (monotone chain) in 2D. *)
+(* Tests: Algorithm for convex hull (Graham's scan) in 2D. *)
 open OUnit2
 open Algolib.Geometry.Dim2.Point_2d
 open Algolib.Geometry.Dim2.Convex_hull
@@ -56,14 +56,14 @@ let find_convex_hull__then_points_in_hull =
     (* then *)
     assert_equal
       ~printer:(Printers.list print_point)
-      [ pt2d_i (-8) (-7);
-        pt2d_i (-1) (-8);
+      [ pt2d_i (-1) (-8);
         pt2d_i 3 (-6);
         pt2d_i 6 (-4);
         pt2d_i 10 2;
         pt2d_i 5 9;
         pt2d_i (-5) 10;
-        pt2d_i (-7) 7 ]
+        pt2d_i (-7) 7;
+        pt2d_i (-8) (-7) ]
       result
 
 let find_convex_hull__when_multiple_points_are_collinear__then_inner_points_omitted =
@@ -97,6 +97,6 @@ let find_convex_hull_Test_list =
 (* find_convex_hull_Test *)
 
 let find_convex_hull_Test =
-  "Tests: Algorithm for convex hull in 2D (monotone chain)" >::: [find_convex_hull_Test_list]
+  "Tests: Algorithm for convex hull in 2D (Graham's scan)" >::: [find_convex_hull_Test_list]
 
 let _ = run_test_tt_main find_convex_hull_Test
