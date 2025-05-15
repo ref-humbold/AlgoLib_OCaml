@@ -19,7 +19,7 @@
   primes_testing_test
   vector_2d_test
   vector_3d_test)
- (libraries oUnit testUtils algolib))
+ (libraries oUnit oAssert testUtils algolib))
 
 (env
  (dev

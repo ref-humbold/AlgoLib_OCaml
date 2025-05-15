@@ -1,7 +1,7 @@
 (* Tests: Structure of double-ended queue. *)
 open OUnit2
+open OAssert
 open Algolib.Structures.Deque
-open TestUtils
 
 let numbers = [10; 6; 14; 97; 24; 37; 2; 30; 45; 18; 51; 71; 68; 26]
 
@@ -20,7 +20,7 @@ let is_empty__when_empty__then_true =
     (* when *)
     let result = is_empty test_object in
     (* then *)
-    Assert.Bool.assert_true result
+    assert_that result Is.true_
 
 let is_empty__when_not_empty__then_false =
   "is_empty__when_not_empty__then_false" >:: fun _ ->
@@ -29,7 +29,7 @@ let is_empty__when_not_empty__then_false =
     (* when *)
     let result = is_empty test_object in
     (* then *)
-    Assert.Bool.assert_false result
+    assert_that result Is.false_
 
 let is_empty_Test_list =
   test_list [is_empty__when_empty__then_true; is_empty__when_not_empty__then_false]
@@ -43,7 +43,7 @@ let length__when_empty__then_zero =
     (* when *)
     let result = length test_object in
     (* then *)
-    assert_equal ~printer:string_of_int 0 result
+    assert_that result Is.Int.zero
 
 let length__when_not_empty__then_number_of_elements =
   "length__when_not_empty__then_number_of_elements" >:: fun _ ->
@@ -52,7 +52,7 @@ let length__when_not_empty__then_number_of_elements =
     (* when *)
     let result = length test_object in
     (* then *)
-    assert_equal ~printer:string_of_int (List.length numbers) result
+    assert_that result @@ Is.Int.equal_to (List.length numbers)
 
 let length_Test_list =
   test_list [length__when_empty__then_zero; length__when_not_empty__then_number_of_elements]
@@ -76,7 +76,7 @@ let front__when_single_element__then_this_element =
     (* when *)
     let result = front test_object in
     (* then *)
-    assert_equal ~printer:string_of_int element result
+    assert_that result @@ Is.Int.equal_to element
 
 let front__when_multiple_elements__then_first_element =
   "front__when_multiple_elements__then_first_element" >:: fun _ ->
@@ -85,7 +85,7 @@ let front__when_multiple_elements__then_first_element =
     (* when *)
     let result = front test_object in
     (* then *)
-    assert_equal ~printer:string_of_int (List.hd numbers) result
+    assert_that result @@ Is.Int.equal_to (List.hd numbers)
 
 let front_Test_list =
   test_list
@@ -112,7 +112,7 @@ let back__when_single_element__then_this_element =
     (* when *)
     let result = back test_object in
     (* then *)
-    assert_equal ~printer:string_of_int element result
+    assert_that result @@ Is.Int.equal_to element
 
 let back__when_multiple_elements__then_last_element =
   "back__when_multiple_elements__then_last_element" >:: fun _ ->
@@ -121,7 +121,7 @@ let back__when_multiple_elements__then_last_element =
     (* when *)
     let result = back test_object in
     (* then *)
-    assert_equal ~printer:string_of_int (list_last numbers) result
+    assert_that result @@ Is.Int.equal_to (list_last numbers)
 
 let back_Test_list =
   test_list
@@ -138,9 +138,9 @@ let push_front__when_empty__then_added =
     (* when *)
     let result = push_front element test_object in
     (* then *)
-    assert_equal ~printer:string_of_int 1 @@ length result ;
-    assert_equal ~printer:string_of_int element @@ front result ;
-    assert_equal ~printer:string_of_int element @@ back result
+    assert_that (length result) @@ Is.Int.equal_to 1 ;
+    assert_that (front result) @@ Is.Int.equal_to element ;
+    assert_that (back result) @@ Is.Int.equal_to element
 
 let push_front__when_new_element__then_added_first =
   "push_front__when_new_element__then_added_first" >:: fun _ ->
@@ -149,9 +149,9 @@ let push_front__when_new_element__then_added_first =
     (* when *)
     let result = push_front element test_object in
     (* then *)
-    assert_equal ~printer:string_of_int (List.length numbers + 1) @@ length result ;
-    assert_equal ~printer:string_of_int element @@ front result ;
-    assert_equal ~printer:string_of_int (list_last numbers) @@ back result
+    assert_that (length result) @@ Is.Int.equal_to (List.length numbers + 1) ;
+    assert_that (front result) @@ Is.Int.equal_to element ;
+    assert_that (back result) @@ Is.Int.equal_to (list_last numbers)
 
 let push_front_Test_list =
   test_list [push_front__when_empty__then_added; push_front__when_new_element__then_added_first]
@@ -165,9 +165,9 @@ let push_back__when_empty__then_added =
     (* when *)
     let result = push_back element test_object in
     (* then *)
-    assert_equal ~printer:string_of_int 1 @@ length result ;
-    assert_equal ~printer:string_of_int element @@ front result ;
-    assert_equal ~printer:string_of_int element @@ back result
+    assert_that (length result) @@ Is.Int.equal_to 1 ;
+    assert_that (front result) @@ Is.Int.equal_to element ;
+    assert_that (back result) @@ Is.Int.equal_to element
 
 let push_back__when_new_element__then_added_last =
   "push_back__when_new_element__then_added_last" >:: fun _ ->
@@ -176,9 +176,9 @@ let push_back__when_new_element__then_added_last =
     (* when *)
     let result = push_back element test_object in
     (* then *)
-    assert_equal ~printer:string_of_int (List.length numbers + 1) @@ length result ;
-    assert_equal ~printer:string_of_int (List.hd numbers) @@ front result ;
-    assert_equal ~printer:string_of_int element @@ back result
+    assert_that (length result) @@ Is.Int.equal_to (List.length numbers + 1) ;
+    assert_that (front result) @@ Is.Int.equal_to (List.hd numbers) ;
+    assert_that (back result) @@ Is.Int.equal_to element
 
 let push_back_Test_list =
   test_list [push_back__when_empty__then_added; push_back__when_new_element__then_added_last]
@@ -201,7 +201,7 @@ let pop_front__when_single_element__then_this_element_removed =
     (* when *)
     let result = pop_front test_object in
     (* then *)
-    Assert.Bool.assert_true @@ is_empty result
+    assert_that (is_empty result) Is.true_
 
 let pop_front__when_multiple_elements__then_first_element_removed =
   "pop_front__when_multiple_elements__then_first_element_removed" >:: fun _ ->
@@ -210,8 +210,8 @@ let pop_front__when_multiple_elements__then_first_element_removed =
     (* when *)
     let result = pop_front test_object in
     (* then *)
-    assert_equal ~printer:string_of_int (List.length numbers - 1) @@ length result ;
-    Assert.assert_not_equal ~printer:string_of_int (back result) (List.hd numbers)
+    assert_that (length result) @@ Is.Int.equal_to (List.length numbers - 1) ;
+    TestUtils.Assert.assert_not_equal ~printer:string_of_int (back result) (List.hd numbers)
 
 let pop_front_Test_list =
   test_list
@@ -237,7 +237,7 @@ let pop_back__when_single_element__then_this_element_removed =
     (* when *)
     let result = pop_back test_object in
     (* then *)
-    Assert.Bool.assert_true @@ is_empty result
+    assert_that (is_empty result) @@ Is.true_
 
 let pop_back__when_multiple_elements__then_last_element_removed =
   "pop_back__when_multiple_elements__then_last_element_removed" >:: fun _ ->
@@ -246,8 +246,8 @@ let pop_back__when_multiple_elements__then_last_element_removed =
     (* when *)
     let result = pop_back test_object in
     (* then *)
-    assert_equal ~printer:string_of_int (List.length numbers - 1) @@ length result ;
-    Assert.assert_not_equal ~printer:string_of_int (back result) (list_last numbers)
+    assert_that (length result) @@ Is.Int.equal_to (List.length numbers - 1) ;
+    TestUtils.Assert.assert_not_equal ~printer:string_of_int (back result) (list_last numbers)
 
 let pop_back_Test_list =
   test_list

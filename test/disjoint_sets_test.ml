@@ -1,7 +1,7 @@
 (* Tests: Disjoint sets structure (union-find). *)
 open OUnit2
+open OAssert
 open Algolib.Structures.Disjoint_sets
-open TestUtils
 
 let numbers = [10; 6; 14; 97; 24; 37; 2; 30; 45; 18; 51; 71; 68; 26]
 
@@ -17,6 +17,12 @@ module IntSets = Make (struct
 
 let of_numbers () = IntSets.of_list @@ List.map (fun n -> [n]) numbers
 
+module IsOption = Is.Option.Of (struct
+    type t = int
+
+    let to_string = string_of_int
+  end)
+
 (* size_Test_list *)
 
 let size__when_empty__then_zero =
@@ -24,7 +30,7 @@ let size__when_empty__then_zero =
     (* when *)
     let result = IntSets.size @@ IntSets.create () in
     (* then *)
-    assert_equal ~printer:string_of_int 0 result
+    assert_that result @@ Is.Int.zero
 
 let size__when_not_empty__then_sets_count =
   "size__when_not_empty__then_sets_count" >:: fun _ ->
@@ -33,7 +39,7 @@ let size__when_not_empty__then_sets_count =
     (* when *)
     let result = IntSets.size test_object in
     (* then *)
-    assert_equal ~printer:string_of_int (List.length numbers) result
+    assert_that result @@ Is.Int.equal_to (List.length numbers)
 
 let size_Test_list = test_list [size__when_empty__then_zero; size__when_not_empty__then_sets_count]
 
@@ -46,7 +52,7 @@ let contains__when_empty__then_false =
     (* when *)
     let result = IntSets.contains (List.hd numbers) test_object in
     (* then *)
-    Assert.Bool.assert_false result
+    assert_that result Is.false_
 
 let contains__when_present__then_true =
   "contains__when_present__then_true" >:: fun _ ->
@@ -55,7 +61,7 @@ let contains__when_present__then_true =
     (* when *)
     let result = IntSets.contains (List.hd present) test_object in
     (* then *)
-    Assert.Bool.assert_true result
+    assert_that result Is.true_
 
 let contains__when_absent__then_false =
   "contains__when_absent__then_false" >:: fun _ ->
@@ -64,7 +70,7 @@ let contains__when_absent__then_false =
     (* when *)
     let result = IntSets.contains (List.hd absent) test_object in
     (* then *)
-    Assert.Bool.assert_false result
+    assert_that result Is.false_
 
 let contains_Test_list =
   test_list
@@ -83,10 +89,10 @@ let add_seq__when_empty__then_new_set =
     (* then *)
     List.iter
       (fun e ->
-         Assert.Bool.assert_true @@ IntSets.contains e test_object ;
-         assert_equal ~printer:string_of_int (List.hd numbers) @@ IntSets.find_set e test_object )
+         assert_that (IntSets.contains e test_object) Is.true_ ;
+         assert_that (IntSets.find_set e test_object) @@ Is.Int.equal_to (List.hd numbers) )
       numbers ;
-    assert_equal ~printer:string_of_int 1 @@ IntSets.size test_object
+    assert_that (IntSets.size test_object) @@ Is.Int.equal_to 1
 
 let add_seq__when_empty_new_elements__then_no_changes =
   "add_seq__when_empty_new_elements__then_no_changes" >:: fun _ ->
@@ -95,7 +101,7 @@ let add_seq__when_empty_new_elements__then_no_changes =
     (* when *)
     IntSets.add_seq Seq.empty test_object ;
     (* then *)
-    assert_equal ~printer:string_of_int (List.length numbers) @@ IntSets.size test_object
+    assert_that (IntSets.size test_object) @@ Is.Int.equal_to (List.length numbers)
 
 let add_seq__when_new_elements__then_new_set =
   "add_seq__when_new_elements__then_new_set" >:: fun _ ->
@@ -107,10 +113,10 @@ let add_seq__when_new_elements__then_new_set =
     let represent = List.fold_left min max_int absent in
     List.iter
       (fun e ->
-         Assert.Bool.assert_true @@ IntSets.contains e test_object ;
-         assert_equal ~printer:string_of_int represent @@ IntSets.find_set e test_object )
+         assert_that (IntSets.contains e test_object) Is.true_ ;
+         assert_that (IntSets.find_set e test_object) @@ Is.Int.equal_to represent )
       absent ;
-    assert_equal ~printer:string_of_int (List.length numbers + 1) @@ IntSets.size test_object
+    assert_that (IntSets.size test_object) @@ Is.Int.equal_to (List.length numbers + 1)
 
 let add_seq__when_present_elements__then_element_present =
   "add_seq__when_present_elements__then_element_present" >:: fun _ ->
@@ -150,10 +156,10 @@ let add_list__when_empty__then_new_set =
     (* then *)
     List.iter
       (fun e ->
-         Assert.Bool.assert_true @@ IntSets.contains e test_object ;
-         assert_equal ~printer:string_of_int (List.hd numbers) @@ IntSets.find_set e test_object )
+         assert_that (IntSets.contains e test_object) Is.true_ ;
+         assert_that (IntSets.find_set e test_object) @@ Is.Int.equal_to (List.hd numbers) )
       numbers ;
-    assert_equal ~printer:string_of_int 1 @@ IntSets.size test_object
+    assert_that (IntSets.size test_object) @@ Is.Int.equal_to 1
 
 let add_list__when_empty_new_elements__then_no_changes =
   "add_list__when_empty_new_elements__then_no_changes" >:: fun _ ->
@@ -162,7 +168,7 @@ let add_list__when_empty_new_elements__then_no_changes =
     (* when *)
     IntSets.add_list [] test_object ;
     (* then *)
-    assert_equal ~printer:string_of_int (List.length numbers) @@ IntSets.size test_object
+    assert_that (IntSets.size test_object) @@ Is.Int.equal_to (List.length numbers)
 
 let add_list__when_new_elements__then_new_set =
   "add_list__when_new_elements__then_new_set" >:: fun _ ->
@@ -174,10 +180,10 @@ let add_list__when_new_elements__then_new_set =
     let represent = List.fold_left min max_int absent in
     List.iter
       (fun e ->
-         Assert.Bool.assert_true @@ IntSets.contains e test_object ;
-         assert_equal ~printer:string_of_int represent @@ IntSets.find_set e test_object )
+         assert_that (IntSets.contains e test_object) Is.true_ ;
+         assert_that (IntSets.find_set e test_object) @@ Is.Int.equal_to represent )
       absent ;
-    assert_equal ~printer:string_of_int (List.length numbers + 1) @@ IntSets.size test_object
+    assert_that (IntSets.size test_object) @@ Is.Int.equal_to (List.length numbers + 1)
 
 let add_list__when_present_elements__then_element_present =
   "add_list__when_present_elements__then_element_present" >:: fun _ ->
@@ -223,7 +229,7 @@ let find_set__when_present__then_represent =
     (* when *)
     let result = IntSets.find_set element test_object in
     (* then *)
-    assert_equal ~printer:string_of_int element result
+    assert_that result @@ Is.Int.equal_to element
 
 let find_set__when_absent__then_not_found =
   "find_set__when_absent__then_not_found" >:: fun _ ->
@@ -242,7 +248,7 @@ let find_set__when_same_set__then_same_represent =
     let result1 = IntSets.find_set (List.nth numbers 0) test_object
     and result2 = IntSets.find_set (List.nth numbers 1) test_object in
     (* then *)
-    assert_equal ~printer:string_of_int result1 result2
+    assert_that result2 @@ Is.Int.equal_to result1
 
 let find_set_Test_list =
   test_list
@@ -260,7 +266,7 @@ let find_set_opt__when_present__then_some_with_represent =
     (* when *)
     let result = IntSets.find_set_opt element test_object in
     (* then *)
-    Assert.Option.assert_some ~printer:string_of_int element result
+    assert_that result @@ IsOption.some element
 
 let find_set_opt__when_absent__then_none =
   "find_set_opt__when_absent__then_none" >:: fun _ ->
@@ -269,7 +275,7 @@ let find_set_opt__when_absent__then_none =
     (* when *)
     let result = IntSets.find_set_opt (List.hd absent) test_object in
     (* then *)
-    Assert.Option.assert_none ~printer:string_of_int result
+    assert_that result IsOption.none
 
 let find_set_opt_Test_list =
   test_list
@@ -286,12 +292,12 @@ let union_set__when_different_sets__then_same_represent =
     (* when *)
     IntSets.union_set element1 element2 test_object ;
     (* then *)
-    Assert.Bool.assert_true @@ IntSets.is_same_set element1 element2 test_object ;
+    assert_that (IntSets.is_same_set element1 element2 test_object) Is.true_ ;
     assert_equal
       ~printer:string_of_int
       (IntSets.find_set element1 test_object)
       (IntSets.find_set element2 test_object) ;
-    assert_equal ~printer:string_of_int (List.length numbers - 1) @@ IntSets.size test_object
+    assert_that (IntSets.size test_object) @@ Is.Int.equal_to (List.length numbers - 1)
 
 let union_set__when_single_element__then_no_changes =
   "union_set__when_single_element__then_no_changes" >:: fun _ ->
@@ -300,7 +306,7 @@ let union_set__when_single_element__then_no_changes =
     (* when *)
     IntSets.union_set element element test_object ;
     (* then *)
-    assert_equal ~printer:string_of_int (List.length numbers) @@ IntSets.size test_object
+    assert_that (IntSets.size test_object) @@ Is.Int.equal_to (List.length numbers)
 
 let union_set__when_same_set__then_no_changes =
   "union_set__when_same_set__then_no_changes" >:: fun _ ->
@@ -311,8 +317,8 @@ let union_set__when_same_set__then_no_changes =
     (* when *)
     IntSets.union_set element1 element2 test_object ;
     (* then *)
-    Assert.Bool.assert_true @@ IntSets.is_same_set element1 element2 test_object ;
-    assert_equal ~printer:string_of_int 2 @@ IntSets.size test_object
+    assert_that (IntSets.is_same_set element1 element2 test_object) Is.true_ ;
+    assert_that (IntSets.size test_object) @@ Is.Int.equal_to 2
 
 let union_set__when_different_sets_in_chain__then_same_represent =
   "union_set__when_new_elements_in_chain__then_same_represent" >:: fun _ ->
@@ -329,13 +335,11 @@ let union_set__when_different_sets_in_chain__then_same_represent =
     union_all present ;
     (* then *)
     let first = List.hd present and last = List.hd @@ List.rev present in
-    Assert.Bool.assert_true @@ IntSets.is_same_set first last test_object ;
-    assert_equal
-      ~printer:string_of_int
-      (IntSets.find_set first test_object)
-      (IntSets.find_set last test_object) ;
-    assert_equal ~printer:string_of_int (List.length numbers - List.length present + 1)
-    @@ IntSets.size test_object
+    assert_that (IntSets.is_same_set first last test_object) Is.true_ ;
+    assert_that (IntSets.find_set last test_object)
+    @@ Is.Int.equal_to (IntSets.find_set first test_object) ;
+    assert_that (IntSets.size test_object)
+    @@ Is.Int.equal_to (List.length numbers - List.length present + 1)
 
 let union_set_Test_list =
   test_list
@@ -353,7 +357,7 @@ let is_same_set__when_different_sets__then_false =
     (* when *)
     let result = IntSets.is_same_set (List.nth present 0) (List.nth present 1) test_object in
     (* then *)
-    Assert.Bool.assert_false result
+    assert_that result Is.false_
 
 let is_same_set__when_same_element__then_true =
   "is_same_set__when_same_element__then_true" >:: fun _ ->
@@ -362,7 +366,7 @@ let is_same_set__when_same_element__then_true =
     (* when *)
     let result = IntSets.is_same_set element element test_object in
     (* then *)
-    Assert.Bool.assert_true result
+    assert_that result Is.true_
 
 let is_same_set__when_same_set__then_true =
   "is_same_set__when_same_set__then_true" >:: fun _ ->
@@ -374,7 +378,7 @@ let is_same_set__when_same_set__then_true =
     (* when *)
     let result = IntSets.is_same_set element2 element1 test_object in
     (* then *)
-    Assert.Bool.assert_true result
+    assert_that result Is.true_
 
 let is_same_set_Test_list =
   test_list
@@ -406,7 +410,7 @@ let of_seq__when_duplicates_in_same_set__then_created =
     (* when *)
     let test_object = IntSets.of_seq sets in
     (* then *)
-    assert_equal ~printer:string_of_int (Seq.length sets) @@ IntSets.size test_object
+    assert_that (IntSets.size test_object) @@ Is.Int.equal_to (Seq.length sets)
 
 let of_seq_Test_list =
   test_list
@@ -429,7 +433,7 @@ let of_list__when_duplicates_in_same_set__then_created =
     (* when *)
     let test_object = IntSets.of_list sets in
     (* then *)
-    assert_equal ~printer:string_of_int (List.length sets) @@ IntSets.size test_object
+    assert_that (IntSets.size test_object) @@ Is.Int.equal_to (List.length sets)
 
 let of_list_Test_list =
   test_list
