@@ -66,7 +66,7 @@ let front__when_empty__then_empty_deque =
     (* when *)
     let exec () = front test_object in
     (* then *)
-    assert_raises Empty_deque exec
+    assert_that exec @@ Is.raising Empty_deque
 
 let front__when_single_element__then_this_element =
   "front__when_single_element__then_this_element" >:: fun _ ->
@@ -102,7 +102,7 @@ let back__when_empty__then_empty_deque =
     (* when *)
     let exec () = back test_object in
     (* then *)
-    assert_raises Empty_deque exec
+    assert_that exec @@ Is.raising Empty_deque
 
 let back__when_single_element__then_this_element =
   "back__when_single_element__then_this_element" >:: fun _ ->
@@ -192,7 +192,7 @@ let pop_front__when_empty__then_empty_deque =
     (* when *)
     let exec () = pop_front test_object in
     (* then *)
-    assert_raises Empty_deque exec
+    assert_that exec @@ Is.raising Empty_deque
 
 let pop_front__when_single_element__then_this_element_removed =
   "pop_front__when_single_element__then_this_element_removed" >:: fun _ ->
@@ -228,7 +228,7 @@ let pop_back__when_empty__then_empty_deque =
     (* when *)
     let exec () = pop_back test_object in
     (* then *)
-    assert_raises Empty_deque exec
+    assert_that exec @@ Is.raising Empty_deque
 
 let pop_back__when_single_element__then_this_element_removed =
   "pop_back__when_single_element__then_this_element_removed" >:: fun _ ->

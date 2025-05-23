@@ -175,7 +175,7 @@ let multiply_mod__when_modulo_is_negative__then_failure =
     (* when *)
     let exec () = multiply_mod 547 312 (-10000) in
     (* then *)
-    assert_raises (Failure "Non-positive modulo") exec
+    assert_that exec @@ Is.raising (Failure "Non-positive modulo")
 
 let multiply_Test_list =
   test_list
@@ -212,7 +212,7 @@ let power__when_base_and_exponent_are_zero__then_failure =
     (* when *)
     let exec () = 0 **! 0 in
     (* then *)
-    assert_raises (Failure "Not a number") exec
+    assert_that exec @@ Is.raising (Failure "Not a number")
 
 let power__when_base_and_exponent_are_positive =
   "power__when_base_and_exponent_are_positive" >:: fun _ ->
@@ -240,7 +240,7 @@ let power__when_exponent_is_negative__then_failure =
     (* when *)
     let exec () = 3 **! -10 in
     (* then *)
-    assert_raises (Failure "Negative exponent") exec
+    assert_that exec @@ Is.raising (Failure "Negative exponent")
 
 let power_mod__when_modulo_and_base_are_positive =
   "power_mod__when_modulo_and_base_are_positive" >:: fun _ ->
@@ -261,7 +261,7 @@ let power_mod__when_modulo_is_negative__then_failure =
     (* when *)
     let exec () = power_mod 5 11 (-10000) in
     (* then *)
-    assert_raises (Failure "Non-positive modulo") exec
+    assert_that exec @@ Is.raising (Failure "Non-positive modulo")
 
 let power_Test_list =
   test_list

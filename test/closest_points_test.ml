@@ -20,7 +20,7 @@ let find_closest_points__when_no_points__then_not_found =
     (* when *)
     let exec () = find_closest_points [] in
     (* then *)
-    assert_raises Not_found exec
+    assert_that exec @@ Is.raising Not_found
 
 let find_closest_points__when_one_point__then_this_point =
   "find_closest_points__when_one_point__then_this_point" >:: fun _ ->

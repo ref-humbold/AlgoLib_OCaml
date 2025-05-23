@@ -50,7 +50,7 @@ let count_levenshtein__when_negative_cost__then_invalid_argument =
     (* when *)
     let exec () = count_levenshtein ~substitution_cost:(-1.0) "a" "b" in
     (* then *)
-    assert_raises (Invalid_argument "Cost cannot be negative") exec
+    assert_that exec @@ Is.raising (Invalid_argument "Cost cannot be negative")
 
 let count_levenshtein_Test_list =
   test_list
@@ -105,7 +105,7 @@ let count_lcs__when_negative_cost__then_invalid_argument =
     (* when *)
     let exec () = count_lcs ~deletion_cost:(-1.0) "a" "b" in
     (* then *)
-    assert_raises (Invalid_argument "Cost cannot be negative") exec
+    assert_that exec @@ Is.raising (Invalid_argument "Cost cannot be negative")
 
 let count_lcs_Test_list =
   test_list
@@ -148,14 +148,14 @@ let count_hamming__when_different_length__then_invalid_argument =
     (* when *)
     let exec () = count_hamming "qwerty" "asdf" in
     (* then *)
-    assert_raises (Invalid_argument "Texts must have equal length") exec
+    assert_that exec @@ Is.raising (Invalid_argument "Texts must have equal length")
 
 let count_hamming__when_negative_cost__then_invalid_argument =
   "count_hamming__when_negative_cost__then_invalid_argument" >:: fun _ ->
     (* when *)
     let exec () = count_hamming ~substitution_cost:(-1.0) "a" "b" in
     (* then *)
-    assert_raises (Invalid_argument "Cost cannot be negative") exec
+    assert_that exec @@ Is.raising (Invalid_argument "Cost cannot be negative")
 
 let count_hamming_Test_list =
   test_list

@@ -66,7 +66,7 @@ let head__when_empty__then_empty_list =
     (* when *)
     let exec () = head test_object in
     (* then *)
-    assert_raises Empty_list exec
+    assert_that exec @@ Is.raising Empty_list
 
 let head__when_not_empty__then_first_element =
   "head__when_not_empty__then_first_element" >:: fun _ ->
@@ -89,7 +89,7 @@ let tail__when_empty__then_empty_list =
     (* when *)
     let exec () = tail test_object in
     (* then *)
-    assert_raises Empty_list exec
+    assert_that exec @@ Is.raising Empty_list
 
 let tail__when_single_element__then_head_removed =
   "tail__when_single_element__then_head_removed" >:: fun _ ->
@@ -166,7 +166,7 @@ let get__when_empty__then_invalid_index =
     (* when *)
     let exec () = test_object &! index in
     (* then *)
-    assert_raises (Invalid_index index) exec
+    assert_that exec @@ Is.raising (Invalid_index index)
 
 let get__when_index_zero__then_head =
   "get__when_index_zero__then_head" >:: fun _ ->
@@ -196,7 +196,7 @@ let get__when_index_exceeds_length__then_invalid_index =
     (* when *)
     let exec () = test_object &! index in
     (* then *)
-    assert_raises (Invalid_index index) exec
+    assert_that exec @@ Is.raising (Invalid_index index)
 
 let get__when_index_negative__then_invalid_index =
   "get__when_index_negative__then_invalid_index" >:: fun _ ->
@@ -205,7 +205,7 @@ let get__when_index_negative__then_invalid_index =
     (* when *)
     let exec () = test_object &! index in
     (* then *)
-    assert_raises (Invalid_index index) exec
+    assert_that exec @@ Is.raising (Invalid_index index)
 
 let get_Test_list =
   test_list
@@ -224,7 +224,7 @@ let set__when_empty__then_invalid_index =
     (* when *)
     let exec () = set index 111 test_object in
     (* then *)
-    assert_raises (Invalid_index index) exec
+    assert_that exec @@ Is.raising (Invalid_index index)
 
 let set__when_index_zero__then_head_changed =
   "set__when_index_zero__then_head_changed" >:: fun _ ->
@@ -254,7 +254,7 @@ let set__when_index_exceeds_length__then_invalid_index =
     (* when *)
     let exec () = set index 111 test_object in
     (* then *)
-    assert_raises (Invalid_index index) exec
+    assert_that exec @@ Is.raising (Invalid_index index)
 
 let set__when_index_negative__then_invalid_index =
   "set__when_index_negative__then_invalid_index" >:: fun _ ->
@@ -263,7 +263,7 @@ let set__when_index_negative__then_invalid_index =
     (* when *)
     let exec () = set index 111 test_object in
     (* then *)
-    assert_raises (Invalid_index index) exec
+    assert_that exec @@ Is.raising (Invalid_index index)
 
 let set_Test_list =
   test_list

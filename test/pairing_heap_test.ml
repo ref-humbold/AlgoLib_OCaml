@@ -74,7 +74,7 @@ let peek__when_empty__then_empty_heap =
     (* when *)
     let exec () = IntHeap.peek test_object in
     (* then *)
-    assert_raises IntHeap.Empty_heap exec
+    assert_that exec @@ Is.raising IntHeap.Empty_heap
 
 let peek__when_single_element__then_this_element =
   "peek__when_single_element__then_this_element" >:: fun _ ->
@@ -169,7 +169,7 @@ let pop__when_empty__then_empty_heap =
     (* when *)
     let exec () = IntHeap.pop test_object in
     (* then *)
-    assert_raises IntHeap.Empty_heap exec
+    assert_that exec @@ Is.raising IntHeap.Empty_heap
 
 let pop__when_single_element__then_this_element_removed =
   "pop__when_single_element__then_this_element_removed" >:: fun _ ->

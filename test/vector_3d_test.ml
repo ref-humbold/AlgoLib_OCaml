@@ -173,7 +173,7 @@ let op_slash_colon__when_division_by_zero__then_division_by_zero =
     (* when *)
     let exec () = vec3d_i 1 1 1 /: 0.0 in
     (* then *)
-    assert_raises Division_by_zero exec
+    assert_that exec @@ Is.raising Division_by_zero
 
 let operators_Test_list =
   test_list

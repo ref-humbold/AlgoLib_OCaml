@@ -121,7 +121,7 @@ let add_seq__when_present_elements__then_element_present =
     (* when *)
     let exec () = IntSets.add_seq (List.to_seq present) test_object in
     (* then *)
-    assert_raises (IntSets.Element_present (List.hd present)) exec
+    assert_that exec @@ Is.raising (IntSets.Element_present (List.hd present))
 
 let add_seq__when_new_and_present_elements__then_element_present =
   "add_seq__when_present_element__then_element_present" >:: fun _ ->
@@ -131,7 +131,7 @@ let add_seq__when_new_and_present_elements__then_element_present =
     (* when *)
     let exec () = IntSets.add_seq elements test_object in
     (* then *)
-    assert_raises (IntSets.Element_present (List.hd present)) exec
+    assert_that exec @@ Is.raising (IntSets.Element_present (List.hd present))
 
 let add_seq_Test_list =
   test_list
@@ -188,7 +188,7 @@ let add_list__when_present_elements__then_element_present =
     (* when *)
     let exec () = IntSets.add_list present test_object in
     (* then *)
-    assert_raises (IntSets.Element_present (List.hd present)) exec
+    assert_that exec @@ Is.raising (IntSets.Element_present (List.hd present))
 
 let add_list__when_new_and_present_elements__then_element_present =
   "add_list__when_present_element__then_element_present" >:: fun _ ->
@@ -197,7 +197,7 @@ let add_list__when_new_and_present_elements__then_element_present =
     (* when *)
     let exec () = IntSets.add_list elements test_object in
     (* then *)
-    assert_raises (IntSets.Element_present (List.hd present)) exec
+    assert_that exec @@ Is.raising (IntSets.Element_present (List.hd present))
 
 let add_list_Test_list =
   test_list
@@ -216,7 +216,7 @@ let find_set__when_empty__then_not_found =
     (* when *)
     let exec () = IntSets.find_set (List.hd numbers) test_object in
     (* then *)
-    assert_raises Not_found exec
+    assert_that exec @@ Is.raising Not_found
 
 let find_set__when_present__then_represent =
   "find_set__when_present__then_represent" >:: fun _ ->
@@ -234,7 +234,7 @@ let find_set__when_absent__then_not_found =
     (* when *)
     let exec () = IntSets.find_set (List.hd absent) test_object in
     (* then *)
-    assert_raises Not_found exec
+    assert_that exec @@ Is.raising Not_found
 
 let find_set__when_same_set__then_same_represent =
   "find_set__when_same_set__then_same_represent" >:: fun _ ->
@@ -392,7 +392,7 @@ let of_seq__when_duplicates_in_different_sets__then_duplicate_elements =
     (* when *)
     let exec () = IntSets.of_seq sets in
     (* then *)
-    assert_raises (IntSets.Duplicate_elements [1]) exec
+    assert_that exec @@ Is.raising (IntSets.Duplicate_elements [1])
 
 let of_seq__when_duplicates_in_same_set__then_created =
   "of_seq__when_duplicates_in_same_set__then_created" >:: fun _ ->
@@ -418,7 +418,7 @@ let of_list__when_duplicates_in_different_sets__then_duplicate_elements =
     (* when *)
     let exec () = IntSets.of_list [[1; 2; 3]; [1; 11; 21; 31]] in
     (* then *)
-    assert_raises (IntSets.Duplicate_elements [1]) exec
+    assert_that exec @@ Is.raising (IntSets.Duplicate_elements [1])
 
 let of_list__when_duplicates_in_same_set__then_created =
   "of_list__when_duplicates_in_same_set__then_created" >:: fun _ ->
