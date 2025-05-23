@@ -17,11 +17,7 @@ module IntSets = Make (struct
 
 let of_numbers () = IntSets.of_list @@ List.map (fun n -> [n]) numbers
 
-module IsOption = Is.Option.Of (struct
-    type t = int
-
-    let to_string = string_of_int
-  end)
+module IsOption = Is.Option.Of (Type.Int)
 
 (* size_Test_list *)
 
@@ -293,10 +289,8 @@ let union_set__when_different_sets__then_same_represent =
     IntSets.union_set element1 element2 test_object ;
     (* then *)
     assert_that (IntSets.is_same_set element1 element2 test_object) Is.true_ ;
-    assert_equal
-      ~printer:string_of_int
-      (IntSets.find_set element1 test_object)
-      (IntSets.find_set element2 test_object) ;
+    assert_that (IntSets.find_set element2 test_object)
+    @@ Is.Int.equal_to (IntSets.find_set element1 test_object) ;
     assert_that (IntSets.size test_object) @@ Is.Int.equal_to (List.length numbers - 1)
 
 let union_set__when_single_element__then_no_changes =

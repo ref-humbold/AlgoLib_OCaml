@@ -1,11 +1,17 @@
 (* Tests: Algorithms for basic geometrical computations in 2D. *)
 open OUnit2
+open OAssert
 open Algolib.Geometry.Dim2.Point_2d
 open Algolib.Geometry.Dim2.Geometry_2d
-open TestUtils
 module V = Algolib.Geometry.Dim2.Vector_2d
 
-let print_point (Point2D (x, y)) = "Point2D(" ^ string_of_float x ^ ", " ^ string_of_float y ^ ")"
+module PointType = struct
+  type t = point2d
+
+  let to_string (Point2D (x, y)) = Printf.sprintf "Point2D(%f, %f)" x y
+end
+
+module IsList = Is.List.Of (PointType)
 
 (* sort_by_x_Test_list *)
 
@@ -26,8 +32,8 @@ let sort_by_x__then_sorted_stably_ascending =
     (* when *)
     let result = sort_by_x sequence in
     (* then *)
-    assert_equal
-      ~printer:(Printers.list print_point)
+    assert_that result
+    @@ IsList.equal_to
       [ pt2d_i (-3) 2;
         pt2d_i (-3) (-2);
         pt2d_i (-2) (-3);
@@ -37,7 +43,6 @@ let sort_by_x__then_sorted_stably_ascending =
         pt2d_i 2 (-3);
         pt2d_i 3 (-2);
         pt2d_i 3 2 ]
-      result
 
 let sort_by_x_Test_list = test_list [sort_by_x__then_sorted_stably_ascending]
 
@@ -60,8 +65,8 @@ let sort_by_y__then_sorted_stably_ascending =
     (* when *)
     let result = sort_by_y sequence in
     (* then *)
-    assert_equal
-      ~printer:(Printers.list print_point)
+    assert_that result
+    @@ IsList.equal_to
       [ pt2d_i (-2) (-3);
         pt2d_i 2 (-3);
         pt2d_i 3 (-2);
@@ -71,7 +76,6 @@ let sort_by_y__then_sorted_stably_ascending =
         pt2d_i 3 2;
         pt2d_i 2 3;
         pt2d_i (-2) 3 ]
-      result
 
 let sort_by_y_Test_list = test_list [sort_by_y__then_sorted_stably_ascending]
 
@@ -94,8 +98,8 @@ let sort_by_angle__then_sorted_ascending =
     (* when *)
     let result = sort_by_angle sequence in
     (* then *)
-    assert_equal
-      ~printer:(Printers.list print_point)
+    assert_that result
+    @@ IsList.equal_to
       [ pt2d_i 0 0;
         pt2d_i 3 2;
         pt2d_i 2 3;
@@ -105,7 +109,6 @@ let sort_by_angle__then_sorted_ascending =
         pt2d_i (-2) (-3);
         pt2d_i 2 (-3);
         pt2d_i 3 (-2) ]
-      result
 
 let sort_by_angle__when_equal_angles__then_compare_radius =
   "sort_by_angle__when_equal_angles__then_compare_radius" >:: fun _ ->
@@ -114,10 +117,8 @@ let sort_by_angle__when_equal_angles__then_compare_radius =
     (* when *)
     let result = sort_by_angle sequence in
     (* then *)
-    assert_equal
-      ~printer:(Printers.list print_point)
-      [pt2d_i 0 0; pt2d_i 1 1; pt2d_i 4 4; pt2d_i (-2) (-2); pt2d_i (-3) (-3)]
-      result
+    assert_that result
+    @@ IsList.equal_to [pt2d_i 0 0; pt2d_i 1 1; pt2d_i 4 4; pt2d_i (-2) (-2); pt2d_i (-3) (-3)]
 
 let sort_by_angle_Test_list =
   test_list
@@ -130,7 +131,7 @@ let distance__when_different_points__then_distance =
     (* when *)
     let result = distance (pt2d_i 4 5) (pt2d_i (-2) (-3)) in
     (* then *)
-    Assert.Float.assert_close ~epsilon 10.0 result
+    assert_that result @@ Is.Float.close_to 10.0 ~diff:epsilon
 
 let distance__when_same_point__then_zero =
   "distance__when_same_point__then_zero" >:: fun _ ->
@@ -139,7 +140,7 @@ let distance__when_same_point__then_zero =
     (* when *)
     let result = distance point point in
     (* then *)
-    Assert.Float.assert_close ~epsilon 0.0 result
+    assert_that result Is.Float.zero
 
 let distance_Test_list =
   test_list [distance__when_different_points__then_distance; distance__when_same_point__then_zero]
@@ -151,7 +152,7 @@ let translate__then_point_translated =
     (* when *)
     let result = translate (pt2d 13.7 6.5) (V.vec2d (-10.4) 3.3) in
     (* then *)
-    assert_equal ~cmp:equal ~printer:print_point (pt2d 3.3 9.8) result
+    assert_equal ~cmp:equal ~printer:PointType.to_string (pt2d 3.3 9.8) result
 
 let translate__when_zero_vector__then_same_point =
   "translate__when_zero_vector__then_same_point" >:: fun _ ->
@@ -160,7 +161,7 @@ let translate__when_zero_vector__then_same_point =
     (* when *)
     let result = translate point (V.vec2d_i 0 0) in
     (* then *)
-    assert_equal ~cmp:equal ~printer:print_point point result
+    assert_equal ~cmp:equal ~printer:PointType.to_string point result
 
 let translate_Test_list =
   test_list [translate__then_point_translated; translate__when_zero_vector__then_same_point]

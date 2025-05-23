@@ -9,11 +9,7 @@ let indices = [4; 13; 1; 10]
 
 let absent = [111; 140; 187; 253]
 
-module IsList = Is.List.Of (struct
-    type t = int
-
-    let to_string = string_of_int
-  end)
+module IsList = Is.List.Of (Type.Int)
 
 (* is_empty_Test_list *)
 
@@ -112,7 +108,7 @@ let tail__when_multiple_elements__then_head_removed =
     let result = tail test_object in
     (* then *)
     assert_that (length result) @@ Is.Int.equal_to (List.length numbers - 1) ;
-    TestUtils.Assert.assert_not_equal ~printer:string_of_int (List.hd numbers) @@ head result
+    assert_that (head result) @@ Satisfies.not @@ Is.Int.equal_to (List.hd numbers)
 
 let tail_Test_list =
   test_list

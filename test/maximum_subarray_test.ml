@@ -2,18 +2,8 @@
 open OUnit2
 open OAssert
 open Algolib.Sequences.Maximum_subarray
-
-module IsFloatList = Is.List.Of (struct
-    type t = float
-
-    let to_string = string_of_float
-  end)
-
-module IsIntList = Is.List.Of (struct
-    type t = int
-
-    let to_string = string_of_int
-  end)
+module IsFloatList = Is.List.Of (Type.Float)
+module IsIntList = Is.List.Of (Type.Int)
 
 (* maximum_subarray_Test_list *)
 

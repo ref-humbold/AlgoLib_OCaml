@@ -211,7 +211,7 @@ let pop_front__when_multiple_elements__then_first_element_removed =
     let result = pop_front test_object in
     (* then *)
     assert_that (length result) @@ Is.Int.equal_to (List.length numbers - 1) ;
-    TestUtils.Assert.assert_not_equal ~printer:string_of_int (back result) (List.hd numbers)
+    assert_that (back result) @@ Satisfies.not @@ Is.Int.equal_to (List.hd numbers)
 
 let pop_front_Test_list =
   test_list
@@ -247,7 +247,7 @@ let pop_back__when_multiple_elements__then_last_element_removed =
     let result = pop_back test_object in
     (* then *)
     assert_that (length result) @@ Is.Int.equal_to (List.length numbers - 1) ;
-    TestUtils.Assert.assert_not_equal ~printer:string_of_int (back result) (list_last numbers)
+    assert_that (back result) @@ Satisfies.not @@ Is.Int.equal_to (list_last numbers)
 
 let pop_back_Test_list =
   test_list
