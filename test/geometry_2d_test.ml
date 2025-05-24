@@ -9,9 +9,12 @@ module PointType = struct
   type t = point2d
 
   let to_string (Point2D (x, y)) = Printf.sprintf "Point2D(%f, %f)" x y
+
+  let equal = equal
 end
 
 module IsList = Is.List.Of (PointType)
+module IsPoint = Is.Type (PointType)
 
 (* sort_by_x_Test_list *)
 
@@ -152,7 +155,7 @@ let translate__then_point_translated =
     (* when *)
     let result = translate (pt2d 13.7 6.5) (V.vec2d (-10.4) 3.3) in
     (* then *)
-    assert_equal ~cmp:equal ~printer:PointType.to_string (pt2d 3.3 9.8) result
+    assert_that result @@ IsPoint.equal_to @@ pt2d 3.3 9.8
 
 let translate__when_zero_vector__then_same_point =
   "translate__when_zero_vector__then_same_point" >:: fun _ ->
@@ -161,7 +164,7 @@ let translate__when_zero_vector__then_same_point =
     (* when *)
     let result = translate point (V.vec2d_i 0 0) in
     (* then *)
-    assert_equal ~cmp:equal ~printer:PointType.to_string point result
+    assert_that result @@ IsPoint.equal_to point
 
 let translate_Test_list =
   test_list [translate__then_point_translated; translate__when_zero_vector__then_same_point]

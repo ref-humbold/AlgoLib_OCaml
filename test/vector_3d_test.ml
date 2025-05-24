@@ -8,9 +8,20 @@ module VectorType = struct
   type t = vector3d
 
   let to_string (Vector3D (x, y, z)) = Printf.sprintf "Vector3D(%f, %f, %f)" x y z
+
+  let equal = equal
 end
 
+module IsFloatTriple = Is.Type (struct
+    type t = float * float * float
+
+    let to_string (e1, e2, e3) = Printf.sprintf "(%f, %f, %f)" e1 e2 e3
+
+    let equal = ( = )
+  end)
+
 module IsFloatList = Is.List.Of (Type.Float)
+module IsVector = Is.Type (VectorType)
 
 (* methods_Test_list *)
 
@@ -19,17 +30,14 @@ let between__then_vector_from_begin_to_end =
     (* when *)
     let result = between (P.pt3d 2.4 7.8 (-10.3)) (P.pt3d (-1.5) 13.2 15.8) in
     (* then *)
-    assert_equal ~cmp:equal ~printer:VectorType.to_string (vec3d (-3.9) 5.4 26.1) result
+    assert_that result @@ IsVector.equal_to @@ vec3d (-3.9) 5.4 26.1
 
 let coordinates__then_triple_of_coordinates =
   "coordinates__then_triple_of_coordinates" >:: fun _ ->
     (* when *)
     let result = coordinates @@ vec3d 5.0 (-19.0) 14.2 in
     (* then *)
-    assert_equal
-      ~printer:(fun (e1, e2, e3) -> Printf.sprintf "(%f, %f, %f)" e1 e2 e3)
-      (5.0, -19.0, 14.2)
-      result
+    assert_that result @@ IsFloatTriple.equal_to (5.0, -19.0, 14.2)
 
 let coordinates_list__then_list_of_coordinates =
   "coordinates_list__then_list_of_coordinates" >:: fun _ ->
@@ -64,14 +72,14 @@ let cross__then_cross_product =
     (* when *)
     let result = cross (vec3d 1.5 (-4.0) (-3.5)) (vec3d 9.0 (-2.5) 8.5) in
     (* then *)
-    assert_equal ~cmp:equal ~printer:VectorType.to_string (vec3d (-42.75) (-44.25) 32.25) result
+    assert_that result @@ IsVector.equal_to @@ vec3d (-42.75) (-44.25) 32.25
 
 let cross__when_parallel__then_zero =
   "cross__when_parallel__then_zero" >:: fun _ ->
     (* when *)
     let result = cross (vec3d_i 3 3 3) (vec3d_i (-8) (-8) (-8)) in
     (* then *)
-    assert_equal ~cmp:equal ~printer:VectorType.to_string (vec3d_i 0 0 0) result
+    assert_that result @@ IsVector.equal_to @@ vec3d_i 0 0 0
 
 let area__then_length_of_cross_product =
   "area__then_length_of_cross_product" >:: fun _ ->
@@ -131,42 +139,42 @@ let op_tilde_colon__then_negate_each_coordinate =
     (* when *)
     let result = ~:(vec3d 5.4 9.0 (-12.3)) in
     (* then *)
-    assert_equal ~cmp:equal ~printer:VectorType.to_string (vec3d (-5.4) (-9.0) 12.3) result
+    assert_that result @@ IsVector.equal_to @@ vec3d (-5.4) (-9.0) 12.3
 
 let op_plus_colon__then_add_each_coordinate =
   "op_plus_colon__then_add_each_coordinate" >:: fun _ ->
     (* when *)
     let result = vec3d 5.4 9.0 (-12.3) +: vec3d 7.9 (-8.1) 1.4 in
     (* then *)
-    assert_equal ~cmp:equal ~printer:VectorType.to_string (vec3d 13.3 0.9 (-10.9)) result
+    assert_that result @@ IsVector.equal_to @@ vec3d 13.3 0.9 (-10.9)
 
 let op_minus_colon__then_subtract_each_coordinate =
   "op_minus_colon__then_subtract_each_coordinate" >:: fun _ ->
     (* when *)
     let result = vec3d 5.4 9.0 (-12.3) -: vec3d 7.9 (-8.1) 1.4 in
     (* then *)
-    assert_equal ~cmp:equal ~printer:VectorType.to_string (vec3d (-2.5) 17.1 (-13.7)) result
+    assert_that result @@ IsVector.equal_to @@ vec3d (-2.5) 17.1 (-13.7)
 
 let op_asterisk_colon__then_multiply_each_coordinate =
   "op_asterisk_colon__then_multiply_each_coordinate" >:: fun _ ->
     (* when *)
     let result = vec3d 5.4 9.0 (-12.3) *: 3.0 in
     (* then *)
-    assert_equal ~cmp:equal ~printer:VectorType.to_string (vec3d 16.2 27.0 (-36.9)) result
+    assert_that result @@ IsVector.equal_to @@ vec3d 16.2 27.0 (-36.9)
 
 let op_asterisk_colon__when_multiplication_by_zero__then_zero_vector =
   "op_asterisk_colon__when_multiplication_by_zero__then_zero_vector" >:: fun _ ->
     (* when *)
     let result = vec3d 5.4 9.0 (-12.3) *: 0.0 in
     (* then *)
-    assert_equal ~cmp:equal ~printer:VectorType.to_string (vec3d_i 0 0 0) result
+    assert_that result @@ IsVector.equal_to @@ vec3d_i 0 0 0
 
 let op_slash_colon__then_divide_each_coordinate =
   "op_slash_colon__then_divide_each_coordinate" >:: fun _ ->
     (* when *)
     let result = vec3d 5.4 9.0 (-12.3) /: 3.0 in
     (* then *)
-    assert_equal ~cmp:equal ~printer:VectorType.to_string (vec3d 1.8 3.0 (-4.1)) result
+    assert_that result @@ IsVector.equal_to @@ vec3d 1.8 3.0 (-4.1)
 
 let op_slash_colon__when_division_by_zero__then_division_by_zero =
   "op_slash_colon__when_division_by_zero__then_division_by_zero" >:: fun _ ->

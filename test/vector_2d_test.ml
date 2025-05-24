@@ -8,9 +8,20 @@ module VectorType = struct
   type t = vector2d
 
   let to_string (Vector2D (x, y)) = Printf.sprintf "Vector2D(%f, %f)" x y
+
+  let equal = equal
 end
 
+module IsFloatPair = Is.Type (struct
+    type t = float * float
+
+    let to_string (e1, e2) = Printf.sprintf "(%f, %f)" e1 e2
+
+    let equal = ( = )
+  end)
+
 module IsFloatList = Is.List.Of (Type.Float)
+module IsVector = Is.Type (VectorType)
 
 (* methods_Test_list *)
 
@@ -19,14 +30,14 @@ let between__then_vector_from_begin_to_end =
     (* when *)
     let result = between (P.pt2d 2.4 7.8) (P.pt2d (-1.5) 13.2) in
     (* then *)
-    assert_equal ~cmp:equal ~printer:VectorType.to_string (vec2d (-3.9) 5.4) result
+    assert_that result @@ IsVector.equal_to @@ vec2d (-3.9) 5.4
 
 let coordinates__then_pair_of_coordinates =
   "coordinates__then_pair_of_coordinates" >:: fun _ ->
     (* when *)
     let result = coordinates @@ vec2d_i 5 (-19) in
     (* then *)
-    assert_equal ~printer:(fun (e1, e2) -> Printf.sprintf "(%f, %f)" e1 e2) (5.0, -19.0) result
+    assert_that result @@ IsFloatPair.equal_to (5.0, -19.0)
 
 let coordinates_list__then_list_of_coordinates =
   "coordinates_list__then_list_of_coordinates" >:: fun _ ->
@@ -88,42 +99,42 @@ let op_tilde_colon__then_negate_each_coordinate =
     (* when *)
     let result = ~:(vec2d 5.4 9.0) in
     (* then *)
-    assert_equal ~cmp:equal ~printer:VectorType.to_string (vec2d (-5.4) (-9.0)) result
+    assert_that result @@ IsVector.equal_to @@ vec2d (-5.4) (-9.0)
 
 let op_plus_colon__then_add_each_coordinate =
   "op_plus_colon__then_add_each_coordinate" >:: fun _ ->
     (* when *)
     let result = vec2d 5.4 9.0 +: vec2d 7.9 (-8.1) in
     (* then *)
-    assert_equal ~cmp:equal ~printer:VectorType.to_string (vec2d 13.3 0.9) result
+    assert_that result @@ IsVector.equal_to @@ vec2d 13.3 0.9
 
 let op_minus_colon__then_subtract_each_coordinate =
   "op_minus_colon__then_subtract_each_coordinate" >:: fun _ ->
     (* when *)
     let result = vec2d 5.4 9.0 -: vec2d 7.9 (-8.1) in
     (* then *)
-    assert_equal ~cmp:equal ~printer:VectorType.to_string (vec2d (-2.5) 17.1) result
+    assert_that result @@ IsVector.equal_to @@ vec2d (-2.5) 17.1
 
 let op_asterisk_colon__then_multiply_each_coordinate =
   "op_asterisk_colon__then_multiply_each_coordinate" >:: fun _ ->
     (* when *)
     let result = vec2d 5.4 9.0 *: 3.0 in
     (* then *)
-    assert_equal ~cmp:equal ~printer:VectorType.to_string (vec2d 16.2 27.0) result
+    assert_that result @@ IsVector.equal_to @@ vec2d 16.2 27.0
 
 let op_asterisk_colon__when_multiplication_by_zero__then_zero_vector =
   "op_asterisk_colon__when_multiplication_by_zero__then_zero_vector" >:: fun _ ->
     (* when *)
     let result = vec2d 5.4 9.0 *: 0.0 in
     (* then *)
-    assert_equal ~cmp:equal ~printer:VectorType.to_string (vec2d_i 0 0) result
+    assert_that result @@ IsVector.equal_to @@ vec2d_i 0 0
 
 let op_slash_colon__then_divide_each_coordinate =
   "op_slash_colon__then_divide_each_coordinate" >:: fun _ ->
     (* when *)
     let result = vec2d 5.4 9.0 /: 3.0 in
     (* then *)
-    assert_equal ~cmp:equal ~printer:VectorType.to_string (vec2d 1.8 3.0) result
+    assert_that result @@ IsVector.equal_to @@ vec2d 1.8 3.0
 
 let op_slash_colon__when_division_by_zero__then_division_by_zero =
   "op_slash_colon__when_division_by_zero__then_division_by_zero" >:: fun _ ->
