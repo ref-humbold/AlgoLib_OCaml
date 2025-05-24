@@ -1,10 +1,18 @@
 (* Tests: Algorithm for pair of closest points in 2D. *)
 open OUnit2
+open OAssert
 open Algolib.Geometry.Dim2.Point_2d
 open Algolib.Geometry.Dim2.Closest_points
-open TestUtils
 
-let print_point (Point2D (x, y)) = "Point2D(" ^ string_of_float x ^ ", " ^ string_of_float y ^ ")"
+module IsPointPair = Is.Type (struct
+    type t = point2d * point2d
+
+    let to_string (pt1, pt2) =
+      let point_to_string (Point2D (x, y)) = Printf.sprintf "Point2D(%f, %f)" x y in
+      Printf.sprintf "(%s, %s)" (point_to_string pt1) (point_to_string pt2)
+
+    let equal = ( = )
+  end)
 
 (* find_closest_points_Test_list *)
 
@@ -13,28 +21,28 @@ let find_closest_points__when_no_points__then_not_found =
     (* when *)
     let exec () = find_closest_points [] in
     (* then *)
-    assert_raises Not_found exec
+    assert_that exec @@ Is.raising Not_found
 
 let find_closest_points__when_one_point__then_this_point =
   "find_closest_points__when_one_point__then_this_point" >:: fun _ ->
     (* when *)
     let result = find_closest_points [pt2d_i 2 2] in
     (* then *)
-    assert_equal ~printer:(Printers.tuple2 print_point print_point) (pt2d_i 2 2, pt2d_i 2 2) result
+    assert_that result @@ IsPointPair.equal_to @@ (pt2d_i 2 2, pt2d_i 2 2)
 
 let find_closest_points__when_two_points__then_these_points =
   "find_closest_points__when_two_points__then_these_points" >:: fun _ ->
     (* when *)
     let result = find_closest_points [pt2d_i 2 2; pt2d_i 4 4] in
     (* then *)
-    assert_equal ~printer:(Printers.tuple2 print_point print_point) (pt2d_i 2 2, pt2d_i 4 4) result
+    assert_that result @@ IsPointPair.equal_to @@ (pt2d_i 2 2, pt2d_i 4 4)
 
 let find_closest_points__when_three_points__then_pair_of_closest_points =
   "find_closest_points__when_three_points__then_pair_of_closest_points" >:: fun _ ->
     (* when *)
     let result = find_closest_points [pt2d_i 3 2; pt2d_i 1 1; pt2d_i 7 0] in
     (* then *)
-    assert_equal ~printer:(Printers.tuple2 print_point print_point) (pt2d_i 1 1, pt2d_i 3 2) result
+    assert_that result @@ IsPointPair.equal_to @@ (pt2d_i 1 1, pt2d_i 3 2)
 
 let find_closest_points__when_multiple_points__then_pair_of_closest_points =
   "find_closest_points__when_multiple_points__then_pair_of_closest_points" >:: fun _ ->
@@ -51,7 +59,7 @@ let find_closest_points__when_multiple_points__then_pair_of_closest_points =
           pt2d_i 4 5 ]
     in
     (* then *)
-    assert_equal ~printer:(Printers.tuple2 print_point print_point) (pt2d_i 1 0, pt2d_i 1 1) result
+    assert_that result @@ IsPointPair.equal_to @@ (pt2d_i 1 0, pt2d_i 1 1)
 
 let find_closest_points_When_all_linear_on_x_Then_pair_of_closest_points =
   "find_closest_points_When_all_linear_on_x_Then_pair_of_closest_points" >:: fun _ ->
@@ -68,10 +76,7 @@ let find_closest_points_When_all_linear_on_x_Then_pair_of_closest_points =
           pt2d_i 14 19 ]
     in
     (* then *)
-    assert_equal
-      ~printer:(Printers.tuple2 print_point print_point)
-      (pt2d_i 14 (-3), pt2d_i 14 1)
-      result
+    assert_that result @@ IsPointPair.equal_to @@ (pt2d_i 14 (-3), pt2d_i 14 1)
 
 let find_closest_points_When_all_linear_on_y_Then_pair_of_closest_points =
   "find_closest_points_When_all_linear_on_y_Then_pair_of_closest_points" >:: fun _ ->
@@ -88,10 +93,7 @@ let find_closest_points_When_all_linear_on_y_Then_pair_of_closest_points =
           pt2d_i 22 (-6) ]
     in
     (* then *)
-    assert_equal
-      ~printer:(Printers.tuple2 print_point print_point)
-      (pt2d_i (-8) (-6), pt2d_i (-3) (-6))
-      result
+    assert_that result @@ IsPointPair.equal_to @@ (pt2d_i (-8) (-6), pt2d_i (-3) (-6))
 
 let find_closest_points_Test_list =
   test_list

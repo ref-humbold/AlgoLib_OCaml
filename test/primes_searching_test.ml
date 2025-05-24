@@ -1,8 +1,8 @@
 (* Tests: Algorithms for searching for prime numbers. *)
 
 open OUnit2
+open OAssert
 open Algolib.Maths.Primes_searching
-open TestUtils
 
 let[@ocamlformat "break-collection-expressions = wrap"] primes =
   [ 2; 3; 5; 7; 11; 13; 17; 19; 23; 29; 31; 37; 41; 43; 47; 53; 59; 61; 67; 71; 73; 79; 83; 89; 97;
@@ -21,6 +21,8 @@ let params_min_max =
   let product lst1 lst2 = List.concat_map (fun e1 -> List.map (fun e2 -> (e1, e2)) lst2) lst1 in
   product [2; 3; 8; 25; 54; 71; 101; 243] [54; 150; 243; 481; 625; 827; 1000]
 
+module IsList = Is.List.Of (Type.Int)
+
 (* find_primes_Test_list *)
 
 let find_primes__when_maximal_number__then_max_exclusive param =
@@ -31,10 +33,8 @@ let find_primes__when_maximal_number__then_max_exclusive param =
     (* when *)
     let result = find_primes 0 param in
     (* then *)
-    assert_equal
-      ~printer:(Printers.list string_of_int)
-      (List.filter (fun p -> p < param) primes)
-      result
+    let expected = List.filter (fun p -> p < param) primes in
+    assert_that result @@ IsList.equal_to expected
 
 let find_primes__when_range__then_min_inclusive_and_max_exclusive (minimum, maximum) =
   let label =
@@ -47,10 +47,8 @@ let find_primes__when_range__then_min_inclusive_and_max_exclusive (minimum, maxi
     (* when *)
     let result = find_primes minimum maximum in
     (* then *)
-    assert_equal
-      ~printer:(Printers.list string_of_int)
-      (List.filter (fun p -> p >= minimum && p < maximum) primes)
-      result
+    let expected = List.filter (fun p -> p >= minimum && p < maximum) primes in
+    assert_that result @@ IsList.equal_to expected
 
 let find_primes_Test_list =
   test_list

@@ -1,13 +1,15 @@
 (* Tests: Structure of indexed list. *)
 open OUnit2
+open OAssert
 open Algolib.Structures.Indexed_list
-open TestUtils
 
 let numbers = [10; 6; 14; 97; 24; 37; 2; 30; 45; 18; 51; 71; 68; 26]
 
 let indices = [4; 13; 1; 10]
 
 let absent = [111; 140; 187; 253]
+
+module IsList = Is.List.Of (Type.Int)
 
 (* is_empty_Test_list *)
 
@@ -18,7 +20,7 @@ let is_empty__when_empty__then_true =
     (* when *)
     let result = is_empty test_object in
     (* then *)
-    Assert.Bool.assert_true result
+    assert_that result Is.true_
 
 let is_empty__when_not_empty__then_false =
   "is_empty__when_not_empty__then_false" >:: fun _ ->
@@ -27,7 +29,7 @@ let is_empty__when_not_empty__then_false =
     (* when *)
     let result = is_empty test_object in
     (* then *)
-    Assert.Bool.assert_false result
+    assert_that result Is.false_
 
 let is_empty_Test_list =
   test_list [is_empty__when_empty__then_true; is_empty__when_not_empty__then_false]
@@ -41,7 +43,7 @@ let length__when_empty__then_zero =
     (* when *)
     let result = length test_object in
     (* then *)
-    assert_equal ~printer:string_of_int 0 result
+    assert_that result Is.Int.zero
 
 let length__when_not_empty__then_number_of_elements =
   "length__when_not_empty__then_number_of_elements" >:: fun _ ->
@@ -50,7 +52,7 @@ let length__when_not_empty__then_number_of_elements =
     (* when *)
     let result = length test_object in
     (* then *)
-    assert_equal ~printer:string_of_int (List.length numbers) result
+    assert_that result @@ Is.Int.equal_to (List.length numbers)
 
 let length_Test_list =
   test_list [length__when_empty__then_zero; length__when_not_empty__then_number_of_elements]
@@ -64,7 +66,7 @@ let head__when_empty__then_empty_list =
     (* when *)
     let exec () = head test_object in
     (* then *)
-    assert_raises Empty_list exec
+    assert_that exec @@ Is.raising Empty_list
 
 let head__when_not_empty__then_first_element =
   "head__when_not_empty__then_first_element" >:: fun _ ->
@@ -73,7 +75,7 @@ let head__when_not_empty__then_first_element =
     (* when *)
     let result = head test_object in
     (* then *)
-    assert_equal ~printer:string_of_int (List.hd numbers) result
+    assert_that result @@ Is.Int.equal_to (List.hd numbers)
 
 let head_Test_list =
   test_list [head__when_empty__then_empty_list; head__when_not_empty__then_first_element]
@@ -87,7 +89,7 @@ let tail__when_empty__then_empty_list =
     (* when *)
     let exec () = tail test_object in
     (* then *)
-    assert_raises Empty_list exec
+    assert_that exec @@ Is.raising Empty_list
 
 let tail__when_single_element__then_head_removed =
   "tail__when_single_element__then_head_removed" >:: fun _ ->
@@ -96,7 +98,7 @@ let tail__when_single_element__then_head_removed =
     (* when *)
     let result = tail test_object in
     (* then *)
-    Assert.Bool.assert_true @@ is_empty result
+    assert_that (is_empty result) Is.true_
 
 let tail__when_multiple_elements__then_head_removed =
   "tail__when_multiple_elements__then_head_removed" >:: fun _ ->
@@ -105,8 +107,8 @@ let tail__when_multiple_elements__then_head_removed =
     (* when *)
     let result = tail test_object in
     (* then *)
-    assert_equal ~printer:string_of_int (List.length numbers - 1) @@ length result ;
-    Assert.assert_not_equal ~printer:string_of_int (List.hd numbers) @@ head result
+    assert_that (length result) @@ Is.Int.equal_to (List.length numbers - 1) ;
+    assert_that (head result) @@ Satisfies.not @@ Is.Int.equal_to (List.hd numbers)
 
 let tail_Test_list =
   test_list
@@ -123,9 +125,9 @@ let cons__when_empty__then_added =
     (* when *)
     let result = element @:: test_object in
     (* then *)
-    assert_equal ~printer:string_of_int 1 @@ length result ;
-    assert_equal ~printer:string_of_int element @@ head result ;
-    Assert.Bool.assert_true @@ is_empty @@ tail result
+    assert_that (length result) @@ Is.Int.equal_to 1 ;
+    assert_that (head result) @@ Is.Int.equal_to element ;
+    assert_that (is_empty (tail result)) Is.true_
 
 let cons__when_new_element__then_added =
   "cons__when_new_element__then_added" >:: fun _ ->
@@ -134,9 +136,9 @@ let cons__when_new_element__then_added =
     (* when *)
     let result = element @:: test_object in
     (* then *)
-    assert_equal ~printer:string_of_int (List.length numbers + 1) @@ length result ;
-    assert_equal ~printer:string_of_int element @@ head result ;
-    assert_equal ~printer:string_of_int (List.hd numbers) @@ head (tail result)
+    assert_that (length result) @@ Is.Int.equal_to (List.length numbers + 1) ;
+    assert_that (head result) @@ Is.Int.equal_to element ;
+    assert_that (head (tail result)) @@ Is.Int.equal_to (List.hd numbers)
 
 let cons__when_multiple_elements__then_added =
   "cons__when_multiple_elements__then_added" >:: fun _ ->
@@ -145,9 +147,9 @@ let cons__when_multiple_elements__then_added =
     (* when *)
     let result = List.fold_right ( @:: ) absent test_object in
     (* then *)
-    assert_equal ~printer:string_of_int (List.length numbers + List.length absent) @@ length result ;
-    List.iteri (fun i e -> assert_equal ~printer:string_of_int e @@ get i result) absent ;
-    assert_equal ~printer:string_of_int (List.hd numbers) @@ get (List.length absent) result
+    assert_that (length result) @@ Is.Int.equal_to (List.length numbers + List.length absent) ;
+    List.iteri (fun i e -> assert_that (get i result) @@ Is.Int.equal_to e) absent ;
+    assert_that (get (List.length absent) result) @@ Is.Int.equal_to (List.hd numbers)
 
 let cons_Test_list =
   test_list
@@ -164,7 +166,7 @@ let get__when_empty__then_invalid_index =
     (* when *)
     let exec () = test_object &! index in
     (* then *)
-    assert_raises (Invalid_index index) exec
+    assert_that exec @@ Is.raising (Invalid_index index)
 
 let get__when_index_zero__then_head =
   "get__when_index_zero__then_head" >:: fun _ ->
@@ -173,7 +175,7 @@ let get__when_index_zero__then_head =
     (* when *)
     let result = test_object &! 0 in
     (* then *)
-    assert_equal ~printer:string_of_int (List.hd numbers) result
+    assert_that result @@ Is.Int.equal_to (List.hd numbers)
 
 let get__when_index_inside__then_element =
   "get__when_index_inside__then_element" >:: fun _ ->
@@ -184,7 +186,7 @@ let get__when_index_inside__then_element =
          (* when *)
          let result = test_object &! index in
          (* then *)
-         assert_equal ~printer:string_of_int (List.nth numbers index) result )
+         assert_that result @@ Is.Int.equal_to (List.nth numbers index) )
       indices
 
 let get__when_index_exceeds_length__then_invalid_index =
@@ -194,7 +196,7 @@ let get__when_index_exceeds_length__then_invalid_index =
     (* when *)
     let exec () = test_object &! index in
     (* then *)
-    assert_raises (Invalid_index index) exec
+    assert_that exec @@ Is.raising (Invalid_index index)
 
 let get__when_index_negative__then_invalid_index =
   "get__when_index_negative__then_invalid_index" >:: fun _ ->
@@ -203,7 +205,7 @@ let get__when_index_negative__then_invalid_index =
     (* when *)
     let exec () = test_object &! index in
     (* then *)
-    assert_raises (Invalid_index index) exec
+    assert_that exec @@ Is.raising (Invalid_index index)
 
 let get_Test_list =
   test_list
@@ -222,7 +224,7 @@ let set__when_empty__then_invalid_index =
     (* when *)
     let exec () = set index 111 test_object in
     (* then *)
-    assert_raises (Invalid_index index) exec
+    assert_that exec @@ Is.raising (Invalid_index index)
 
 let set__when_index_zero__then_head_changed =
   "set__when_index_zero__then_head_changed" >:: fun _ ->
@@ -231,7 +233,7 @@ let set__when_index_zero__then_head_changed =
     (* when *)
     let result = set 0 element test_object in
     (* then *)
-    assert_equal ~printer:string_of_int element @@ head result
+    assert_that (head result) @@ Is.Int.equal_to element
 
 let set__when_index_inside__then_element_changed =
   "set__when_index_inside__then_element_changed" >:: fun _ ->
@@ -242,7 +244,7 @@ let set__when_index_inside__then_element_changed =
          (* when *)
          let result = set index elem test_object in
          (* then *)
-         assert_equal ~printer:string_of_int elem @@ get index result )
+         assert_that (get index result) @@ Is.Int.equal_to elem )
       (List.combine indices absent)
 
 let set__when_index_exceeds_length__then_invalid_index =
@@ -252,7 +254,7 @@ let set__when_index_exceeds_length__then_invalid_index =
     (* when *)
     let exec () = set index 111 test_object in
     (* then *)
-    assert_raises (Invalid_index index) exec
+    assert_that exec @@ Is.raising (Invalid_index index)
 
 let set__when_index_negative__then_invalid_index =
   "set__when_index_negative__then_invalid_index" >:: fun _ ->
@@ -261,7 +263,7 @@ let set__when_index_negative__then_invalid_index =
     (* when *)
     let exec () = set index 111 test_object in
     (* then *)
-    assert_raises (Invalid_index index) exec
+    assert_that exec @@ Is.raising (Invalid_index index)
 
 let set_Test_list =
   test_list
@@ -280,7 +282,7 @@ let to_seq__when_empty__then_empty_seq =
     (* when *)
     let result = to_seq test_object in
     (* then *)
-    assert_equal ~printer:(Printers.list string_of_int) [] @@ List.of_seq result
+    assert_that (List.of_seq result) IsList.empty
 
 let to_seq__when_not_empty__then_all_elements =
   "to_seq__when_not_empty__then_all_elements" >:: fun _ ->
@@ -289,7 +291,7 @@ let to_seq__when_not_empty__then_all_elements =
     (* when *)
     let result = to_seq test_object in
     (* then *)
-    assert_equal ~printer:(Printers.list string_of_int) numbers @@ List.of_seq result
+    assert_that (List.of_seq result) @@ IsList.equal_to numbers
 
 let to_seq_Test_list =
   test_list [to_seq__when_empty__then_empty_seq; to_seq__when_not_empty__then_all_elements]
@@ -303,7 +305,7 @@ let to_list__when_empty__then_empty_list =
     (* when *)
     let result = to_list test_object in
     (* then *)
-    assert_equal ~printer:(Printers.list string_of_int) [] result
+    assert_that result IsList.empty
 
 let to_list__when_not_empty__then_all_elements =
   "to_list__when_not_empty__then_all_elements" >:: fun _ ->
@@ -312,7 +314,7 @@ let to_list__when_not_empty__then_all_elements =
     (* when *)
     let result = to_list test_object in
     (* then *)
-    assert_equal ~printer:(Printers.list string_of_int) numbers result
+    assert_that result @@ IsList.equal_to numbers
 
 let to_list_Test_list =
   test_list [to_list__when_empty__then_empty_list; to_list__when_not_empty__then_all_elements]

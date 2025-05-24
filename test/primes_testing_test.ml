@@ -1,7 +1,7 @@
 (* Tests: Algorithms for testing prime numbers. *)
 open OUnit2
+open OAssert
 open Algolib.Maths.Primes_testing
-open TestUtils
 
 (* 1001 = 7 * 11 * 13 ; 3481 = 59 ^ 2 ; 41041 = 7 * 11 * 13 * 41 ; 73627 = 17 * 61 * 71 *)
 let params_not_primes = [0; 1; 77; 1001; 3481; 41041; 73627]
@@ -16,7 +16,7 @@ let test_prime_fermat__when_not_prime__then_false param =
     (* when *)
     let result = test_prime_fermat param in
     (* then *)
-    Assert.Bool.assert_false result
+    assert_that result Is.false_
 
 let test_prime_fermat__when_prime__then_false param =
   let label = Printf.sprintf "test_prime_fermat__when_prime__then_false [param = %d]" param in
@@ -24,7 +24,7 @@ let test_prime_fermat__when_prime__then_false param =
     (* when *)
     let result = test_prime_fermat param in
     (* then *)
-    Assert.Bool.assert_true result
+    assert_that result Is.true_
 
 let test_primes_fermat_Test_list =
   test_list
@@ -40,7 +40,7 @@ let test_prime_miller__when_not_prime__then_false param =
     (* when *)
     let result = test_prime_miller param in
     (* then *)
-    Assert.Bool.assert_false result
+    assert_that result Is.false_
 
 let test_prime_miller__when_prime__then_false param =
   let label = Printf.sprintf "test_prime_miller__when_prime__then_false [param = %d]" param in
@@ -48,7 +48,7 @@ let test_prime_miller__when_prime__then_false param =
     (* when *)
     let result = test_prime_miller param in
     (* then *)
-    Assert.Bool.assert_true result
+    assert_that result Is.true_
 
 let test_primes_miller_Test_list =
   test_list
