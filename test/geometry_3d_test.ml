@@ -19,7 +19,7 @@ module IsPoint = Is.Type (PointType)
 (* sort_by_x_Test_list *)
 
 let sort_by_x__then_sorted_stably_ascending =
-  "sort_by_x__then_sorted_stably_ascending" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let sequence =
       [ pt3d_i 0 0 0;
@@ -48,7 +48,7 @@ let sort_by_x_Test_list = test_list [sort_by_x__then_sorted_stably_ascending]
 (* sort_by_y_Test_list *)
 
 let sort_by_y__then_sorted_stably_ascending =
-  "sort_by_y__then_sorted_stably_ascending" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let sequence =
       [ pt3d_i 0 0 0;
@@ -76,7 +76,7 @@ let sort_by_y_Test_list = test_list [sort_by_y__then_sorted_stably_ascending]
 
 (* sort_by_z_Test_list *)
 let sort_by_z__then_sorted_stably_ascending =
-  "sort_by_z__then_sorted_stably_ascending" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let sequence =
       [ pt3d_i 0 0 0;
@@ -104,14 +104,14 @@ let sort_by_z_Test_list = test_list [sort_by_z__then_sorted_stably_ascending]
 
 (* distance_Test_list *)
 let distance__when_different_points__then_distance =
-  "distance__when_different_points__then_distance" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* when *)
     let result = distance (pt3d_i 4 8 5) (pt3d_i (-2) (-1) 3) in
     (* then *)
     assert_that result @@ Is.Float.close_to 11.0 ~diff:epsilon
 
 let distance__when_same_point__then_zero =
-  "distance__when_same_point__then_zero" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let point = pt3d 13.5 6.5 (-4.2) in
     (* when *)
@@ -125,14 +125,14 @@ let distance_Test_list =
 (* translate_Test_list *)
 
 let translate__then_point_translated =
-  "translate__then_point_translated" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* when *)
     let result = translate (pt3d 13.7 6.5 (-4.2)) (V.vec3d (-10.4) 3.3 1.1) in
     (* then *)
     assert_that result @@ IsPoint.equal_to @@ pt3d 3.3 9.8 (-3.1)
 
 let translate__when_zero_vector__then_same_point =
-  "translate__when_zero_vector__then_same_point" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let point = pt3d 13.5 6.5 (-4.2) in
     (* when *)

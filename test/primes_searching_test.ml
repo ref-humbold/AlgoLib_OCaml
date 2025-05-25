@@ -26,9 +26,7 @@ module IsList = Is.List.Of (Type.Int)
 (* find_primes_Test_list *)
 
 let find_primes__when_maximal_number__then_max_exclusive param =
-  let label =
-    Printf.sprintf "find_primes__when_maximal_number__then_max_exclusive [param = %d]" param
-  in
+  let label = Printf.sprintf "%s [param = %d]" __FUNCTION__ param in
   label >:: fun _ ->
     (* when *)
     let result = find_primes 0 param in
@@ -37,12 +35,7 @@ let find_primes__when_maximal_number__then_max_exclusive param =
     assert_that result @@ IsList.equal_to expected
 
 let find_primes__when_range__then_min_inclusive_and_max_exclusive (minimum, maximum) =
-  let label =
-    Printf.sprintf
-      "find_primes__when_range__then_min_inclusive_and_max_exclusive [param = (%d, %d)]"
-      minimum
-      maximum
-  in
+  let label = Printf.sprintf "%s [param = (%d, %d)]" __FUNCTION__ minimum maximum in
   label >:: fun _ ->
     (* when *)
     let result = find_primes minimum maximum in

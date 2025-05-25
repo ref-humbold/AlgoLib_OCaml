@@ -22,7 +22,7 @@ module IsList = Is.List.Of (Type.Int)
 (* is_empty_Test_list *)
 
 let is_empty__when_empty__then_true =
-  "is_empty__when_empty__then_true" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = IntHeap.empty in
     (* when *)
@@ -31,7 +31,7 @@ let is_empty__when_empty__then_true =
     assert_that result Is.true_
 
 let is_empty__when_not_empty__then_false =
-  "is_empty__when_not_empty__then_false" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = IntHeap.of_list numbers in
     (* when *)
@@ -45,7 +45,7 @@ let is_empty_Test_list =
 (* length_Test_list *)
 
 let length__when_empty__then_zero =
-  "length__when_empty__then_zero" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = IntHeap.empty in
     (* when *)
@@ -54,7 +54,7 @@ let length__when_empty__then_zero =
     assert_that result Is.Int.zero
 
 let length__when_not_empty__then_number_of_elements =
-  "length__when_not_empty__then_number_of_elements" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = IntHeap.of_list numbers in
     (* when *)
@@ -68,7 +68,7 @@ let length_Test_list =
 (* peek_Test_list *)
 
 let peek__when_empty__then_empty_heap =
-  "peek__when_empty__then_empty_heap" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = IntHeap.empty in
     (* when *)
@@ -77,7 +77,7 @@ let peek__when_empty__then_empty_heap =
     assert_that exec @@ Is.raising IntHeap.Empty_heap
 
 let peek__when_single_element__then_this_element =
-  "peek__when_single_element__then_this_element" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let element = List.hd numbers in
     let test_object = IntHeap.of_seq @@ Seq.return element in
@@ -87,7 +87,7 @@ let peek__when_single_element__then_this_element =
     assert_that result @@ Is.Int.equal_to element
 
 let peek__when_multiple_elements__then_minimal_element =
-  "peek__when_multiple_elements__then_minimal_element" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = IntHeap.of_list numbers in
     (* when *)
@@ -96,7 +96,7 @@ let peek__when_multiple_elements__then_minimal_element =
     assert_that result @@ Is.Int.equal_to minimum
 
 let peek_opt__when_empty__then_none =
-  "peek_opt__when_empty__then_none" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = IntHeap.empty in
     (* when *)
@@ -105,7 +105,7 @@ let peek_opt__when_empty__then_none =
     assert_that result IsOption.none
 
 let peek_opt__when_multiple_elements__then_minimal_element =
-  "peek_opt__when_multiple_elements__then_minimal_element" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = IntHeap.of_list numbers in
     (* when *)
@@ -124,7 +124,7 @@ let peek_Test_list =
 (* push_Test_list *)
 
 let push__when_empty__then_added =
-  "push__when_empty__then_added" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let element = List.hd numbers in
     let test_object = IntHeap.empty in
@@ -135,7 +135,7 @@ let push__when_empty__then_added =
     assert_that (IntHeap.peek result) @@ Is.Int.equal_to element
 
 let push__when_new_element_is_greater_than_minimum__then_added =
-  "push__when_new_element_is_greater_than_minimum__then_added" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = IntHeap.of_list numbers in
     (* when *)
@@ -145,7 +145,7 @@ let push__when_new_element_is_greater_than_minimum__then_added =
     assert_that (IntHeap.peek result) @@ Is.Int.equal_to minimum
 
 let push__when_new_element_is_less_than_minimum__then_new_minimum =
-  "push__when_new_element_is_less_than_minimum__then_new_minimum" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = IntHeap.of_list numbers and element = minimum - 3 in
     (* when *)
@@ -163,7 +163,7 @@ let push_Test_list =
 (* pop_Test_list *)
 
 let pop__when_empty__then_empty_heap =
-  "pop__when_empty__then_empty_heap" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = IntHeap.empty in
     (* when *)
@@ -172,7 +172,7 @@ let pop__when_empty__then_empty_heap =
     assert_that exec @@ Is.raising IntHeap.Empty_heap
 
 let pop__when_single_element__then_this_element_removed =
-  "pop__when_single_element__then_this_element_removed" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = IntHeap.of_seq @@ Seq.return (List.hd numbers) in
     (* when *)
@@ -182,7 +182,7 @@ let pop__when_single_element__then_this_element_removed =
     assert_that (IntHeap.is_empty result) Is.true_
 
 let pop__when_multiple_elements__then_minimal_element_removed =
-  "pop__when_multiple_elements__then_minimal_element_removed" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = IntHeap.of_list numbers in
     (* when *)
@@ -192,7 +192,7 @@ let pop__when_multiple_elements__then_minimal_element_removed =
     assert_that (IntHeap.peek result) @@ Satisfies.not @@ Is.Int.equal_to minimum
 
 let pop__when_multiple_calls__then_sorted_ascending =
-  "pop__when_multiple_calls__then_sorted_ascending" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = IntHeap.of_list numbers in
     (* when *)
@@ -211,7 +211,7 @@ let pop_Test_list =
 (* merge_Test_list *)
 
 let merge__when_empty_and_not_empty__then_same_as_other =
-  "merge__when_empty_and_not_empty__then_same_as_other" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = IntHeap.empty and other = IntHeap.of_list numbers in
     (* when *)
@@ -221,7 +221,7 @@ let merge__when_empty_and_not_empty__then_same_as_other =
     assert_that (IntHeap.peek result) @@ Is.Int.equal_to (IntHeap.peek other)
 
 let merge__when_not_empty_and_empty__then_no_changes =
-  "merge__when_not_empty_and_empty__then_no_changes" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = IntHeap.of_list numbers in
     (* when *)
@@ -231,7 +231,7 @@ let merge__when_not_empty_and_empty__then_no_changes =
     assert_that (IntHeap.peek result) @@ Is.Int.equal_to minimum
 
 let merge__when_other_has_greater_minimum__then_new_minimum =
-  "merge__when_other_has_greater_minimum__then_new_minimum" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let new_minimum = minimum - 4 in
     let test_object = IntHeap.of_list numbers
@@ -243,7 +243,7 @@ let merge__when_other_has_greater_minimum__then_new_minimum =
     assert_that (IntHeap.peek result) @@ Is.Int.equal_to new_minimum
 
 let merge__when_other_has_less_minimum__then_minimum_remains =
-  "merge__when_other_has_less_minimum__then_minimum_remains" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = IntHeap.of_list numbers
     and other = IntHeap.of_list [minimum + 5; minimum + 13; minimum + 20] in
@@ -254,7 +254,7 @@ let merge__when_other_has_less_minimum__then_minimum_remains =
     assert_that (IntHeap.peek result) @@ Is.Int.equal_to minimum
 
 let merge__when_shared_inner_heap__then_changed_only_merging_heap =
-  "merge__when_shared_inner_heap__then_changed_only_merging_heap" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = IntHeap.empty
     and first = IntHeap.of_list [10; 20]

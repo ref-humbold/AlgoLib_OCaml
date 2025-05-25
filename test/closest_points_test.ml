@@ -17,35 +17,35 @@ module IsPointPair = Is.Type (struct
 (* find_closest_points_Test_list *)
 
 let find_closest_points__when_no_points__then_not_found =
-  "find_closest_points__when_no_points__then_not_found" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* when *)
     let exec () = find_closest_points [] in
     (* then *)
     assert_that exec @@ Is.raising Not_found
 
 let find_closest_points__when_one_point__then_this_point =
-  "find_closest_points__when_one_point__then_this_point" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* when *)
     let result = find_closest_points [pt2d_i 2 2] in
     (* then *)
     assert_that result @@ IsPointPair.equal_to @@ (pt2d_i 2 2, pt2d_i 2 2)
 
 let find_closest_points__when_two_points__then_these_points =
-  "find_closest_points__when_two_points__then_these_points" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* when *)
     let result = find_closest_points [pt2d_i 2 2; pt2d_i 4 4] in
     (* then *)
     assert_that result @@ IsPointPair.equal_to @@ (pt2d_i 2 2, pt2d_i 4 4)
 
 let find_closest_points__when_three_points__then_pair_of_closest_points =
-  "find_closest_points__when_three_points__then_pair_of_closest_points" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* when *)
     let result = find_closest_points [pt2d_i 3 2; pt2d_i 1 1; pt2d_i 7 0] in
     (* then *)
     assert_that result @@ IsPointPair.equal_to @@ (pt2d_i 1 1, pt2d_i 3 2)
 
 let find_closest_points__when_multiple_points__then_pair_of_closest_points =
-  "find_closest_points__when_multiple_points__then_pair_of_closest_points" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* when *)
     let result =
       find_closest_points
@@ -62,7 +62,7 @@ let find_closest_points__when_multiple_points__then_pair_of_closest_points =
     assert_that result @@ IsPointPair.equal_to @@ (pt2d_i 1 0, pt2d_i 1 1)
 
 let find_closest_points_When_all_linear_on_x_Then_pair_of_closest_points =
-  "find_closest_points_When_all_linear_on_x_Then_pair_of_closest_points" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* when *)
     let result =
       find_closest_points
@@ -79,7 +79,7 @@ let find_closest_points_When_all_linear_on_x_Then_pair_of_closest_points =
     assert_that result @@ IsPointPair.equal_to @@ (pt2d_i 14 (-3), pt2d_i 14 1)
 
 let find_closest_points_When_all_linear_on_y_Then_pair_of_closest_points =
-  "find_closest_points_When_all_linear_on_y_Then_pair_of_closest_points" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* when *)
     let result =
       find_closest_points

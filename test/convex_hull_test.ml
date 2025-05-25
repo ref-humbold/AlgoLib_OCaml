@@ -13,21 +13,21 @@ module IsList = Is.List.Of (struct
 (* find_convex_hull_Test_list *)
 
 let find_convex_hull__when_one_point__then_empty =
-  "find_convex_hull__when_one_point__then_empty" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* when *)
     let result = find_convex_hull [pt2d_i 3 2] in
     (* then *)
     assert_that result IsList.empty
 
 let find_convex_hull__when_two_points__then_empty =
-  "find_convex_hull__when_two_points__then_empty" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* when *)
     let result = find_convex_hull [pt2d_i 2 3; pt2d_i 3 2] in
     (* then *)
     assert_that result IsList.empty
 
 let find_convex_hull__when_three_points__then_these_points_are_hull =
-  "find_convex_hull__when_three_points__then_these_points_are_hull" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let points = [pt2d_i 1 (-1); pt2d_i 5 1; pt2d_i 3 4] in
     (* when *)
@@ -36,7 +36,7 @@ let find_convex_hull__when_three_points__then_these_points_are_hull =
     assert_that result @@ IsList.equal_to points
 
 let find_convex_hull__then_points_in_hull =
-  "find_convex_hull__then_points_in_hull" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* when *)
     let result =
       find_convex_hull
@@ -70,7 +70,7 @@ let find_convex_hull__then_points_in_hull =
         pt2d_i (-8) (-7) ]
 
 let find_convex_hull__when_multiple_points_are_collinear__then_inner_points_omitted =
-  "find_convex_hull__when_multiple_points_are_collinear__then_inner_points_omitted" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* when *)
     let result =
       find_convex_hull

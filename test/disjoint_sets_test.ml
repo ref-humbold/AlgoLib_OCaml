@@ -22,14 +22,14 @@ module IsOption = Is.Option.Of (Type.Int)
 (* size_Test_list *)
 
 let size__when_empty__then_zero =
-  "size__when_empty__then_zero" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* when *)
     let result = IntSets.size @@ IntSets.create () in
     (* then *)
     assert_that result @@ Is.Int.zero
 
 let size__when_not_empty__then_sets_count =
-  "size__when_not_empty__then_sets_count" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_numbers () in
     (* when *)
@@ -42,7 +42,7 @@ let size_Test_list = test_list [size__when_empty__then_zero; size__when_not_empt
 (* contains_Test_list *)
 
 let contains__when_empty__then_false =
-  "contains__when_empty__then_false" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = IntSets.create () in
     (* when *)
@@ -51,7 +51,7 @@ let contains__when_empty__then_false =
     assert_that result Is.false_
 
 let contains__when_present__then_true =
-  "contains__when_present__then_true" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_numbers () in
     (* when *)
@@ -60,7 +60,7 @@ let contains__when_present__then_true =
     assert_that result Is.true_
 
 let contains__when_absent__then_false =
-  "contains__when_absent__then_false" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_numbers () in
     (* when *)
@@ -77,7 +77,7 @@ let contains_Test_list =
 (* add_seq_Test_list *)
 
 let add_seq__when_empty__then_new_set =
-  "add_seq__when_empty__then_new_set" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = IntSets.create () in
     (* when *)
@@ -91,7 +91,7 @@ let add_seq__when_empty__then_new_set =
     assert_that (IntSets.size test_object) @@ Is.Int.equal_to 1
 
 let add_seq__when_empty_new_elements__then_no_changes =
-  "add_seq__when_empty_new_elements__then_no_changes" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_numbers () in
     (* when *)
@@ -100,7 +100,7 @@ let add_seq__when_empty_new_elements__then_no_changes =
     assert_that (IntSets.size test_object) @@ Is.Int.equal_to (List.length numbers)
 
 let add_seq__when_new_elements__then_new_set =
-  "add_seq__when_new_elements__then_new_set" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_numbers () in
     (* when *)
@@ -115,7 +115,7 @@ let add_seq__when_new_elements__then_new_set =
     assert_that (IntSets.size test_object) @@ Is.Int.equal_to (List.length numbers + 1)
 
 let add_seq__when_present_elements__then_element_present =
-  "add_seq__when_present_elements__then_element_present" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_numbers () in
     (* when *)
@@ -124,7 +124,7 @@ let add_seq__when_present_elements__then_element_present =
     assert_that exec @@ Is.raising (IntSets.Element_present (List.hd present))
 
 let add_seq__when_new_and_present_elements__then_element_present =
-  "add_seq__when_present_element__then_element_present" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_numbers ()
     and elements = Seq.append (List.to_seq absent) (List.to_seq present) in
@@ -144,7 +144,7 @@ let add_seq_Test_list =
 (* add_list_Test_list *)
 
 let add_list__when_empty__then_new_set =
-  "add_list__when_empty__then_new_set" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = IntSets.create () in
     (* when *)
@@ -158,7 +158,7 @@ let add_list__when_empty__then_new_set =
     assert_that (IntSets.size test_object) @@ Is.Int.equal_to 1
 
 let add_list__when_empty_new_elements__then_no_changes =
-  "add_list__when_empty_new_elements__then_no_changes" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_numbers () in
     (* when *)
@@ -167,7 +167,7 @@ let add_list__when_empty_new_elements__then_no_changes =
     assert_that (IntSets.size test_object) @@ Is.Int.equal_to (List.length numbers)
 
 let add_list__when_new_elements__then_new_set =
-  "add_list__when_new_elements__then_new_set" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_numbers () in
     (* when *)
@@ -182,7 +182,7 @@ let add_list__when_new_elements__then_new_set =
     assert_that (IntSets.size test_object) @@ Is.Int.equal_to (List.length numbers + 1)
 
 let add_list__when_present_elements__then_element_present =
-  "add_list__when_present_elements__then_element_present" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_numbers () in
     (* when *)
@@ -191,7 +191,7 @@ let add_list__when_present_elements__then_element_present =
     assert_that exec @@ Is.raising (IntSets.Element_present (List.hd present))
 
 let add_list__when_new_and_present_elements__then_element_present =
-  "add_list__when_present_element__then_element_present" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_numbers () and elements = absent @ present in
     (* when *)
@@ -210,7 +210,7 @@ let add_list_Test_list =
 (* find_set_Test_list *)
 
 let find_set__when_empty__then_not_found =
-  "find_set__when_empty__then_not_found" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = IntSets.create () in
     (* when *)
@@ -219,7 +219,7 @@ let find_set__when_empty__then_not_found =
     assert_that exec @@ Is.raising Not_found
 
 let find_set__when_present__then_represent =
-  "find_set__when_present__then_represent" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_numbers () and element = List.hd present in
     (* when *)
@@ -228,7 +228,7 @@ let find_set__when_present__then_represent =
     assert_that result @@ Is.Int.equal_to element
 
 let find_set__when_absent__then_not_found =
-  "find_set__when_absent__then_not_found" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_numbers () in
     (* when *)
@@ -237,7 +237,7 @@ let find_set__when_absent__then_not_found =
     assert_that exec @@ Is.raising Not_found
 
 let find_set__when_same_set__then_same_represent =
-  "find_set__when_same_set__then_same_represent" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = IntSets.of_list [numbers] in
     (* when *)
@@ -256,7 +256,7 @@ let find_set_Test_list =
 (* find_set_opt_Test_list *)
 
 let find_set_opt__when_present__then_some_with_represent =
-  "find_set_opt__when_present__then_some_with_represent" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_numbers () and element = List.hd present in
     (* when *)
@@ -265,7 +265,7 @@ let find_set_opt__when_present__then_some_with_represent =
     assert_that result @@ IsOption.some element
 
 let find_set_opt__when_absent__then_none =
-  "find_set_opt__when_absent__then_none" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_numbers () in
     (* when *)
@@ -280,7 +280,7 @@ let find_set_opt_Test_list =
 (* union_set_Test_list *)
 
 let union_set__when_different_sets__then_same_represent =
-  "union_set__when_different_sets__then_same_represent" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_numbers ()
     and element1 = List.nth present 0
@@ -294,7 +294,7 @@ let union_set__when_different_sets__then_same_represent =
     assert_that (IntSets.size test_object) @@ Is.Int.equal_to (List.length numbers - 1)
 
 let union_set__when_single_element__then_no_changes =
-  "union_set__when_single_element__then_no_changes" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_numbers () and element = List.hd present in
     (* when *)
@@ -303,7 +303,7 @@ let union_set__when_single_element__then_no_changes =
     assert_that (IntSets.size test_object) @@ Is.Int.equal_to (List.length numbers)
 
 let union_set__when_same_set__then_no_changes =
-  "union_set__when_same_set__then_no_changes" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = IntSets.of_list [absent; numbers]
     and element1 = List.nth numbers 1
@@ -315,7 +315,7 @@ let union_set__when_same_set__then_no_changes =
     assert_that (IntSets.size test_object) @@ Is.Int.equal_to 2
 
 let union_set__when_different_sets_in_chain__then_same_represent =
-  "union_set__when_new_elements_in_chain__then_same_represent" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_numbers () in
     (* when *)
@@ -345,7 +345,7 @@ let union_set_Test_list =
 (* is_same_set_Test_list *)
 
 let is_same_set__when_different_sets__then_false =
-  "is_same_set__when_different_sets__then_false" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_numbers () in
     (* when *)
@@ -354,7 +354,7 @@ let is_same_set__when_different_sets__then_false =
     assert_that result Is.false_
 
 let is_same_set__when_same_element__then_true =
-  "is_same_set__when_same_element__then_true" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_numbers () and element = List.hd present in
     (* when *)
@@ -363,7 +363,7 @@ let is_same_set__when_same_element__then_true =
     assert_that result Is.true_
 
 let is_same_set__when_same_set__then_true =
-  "is_same_set__when_same_set__then_true" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_numbers ()
     and element1 = List.nth present 0
@@ -383,7 +383,7 @@ let is_same_set_Test_list =
 (* of_seq_Test_list *)
 
 let of_seq__when_duplicates_in_different_sets__then_duplicate_elements =
-  "of_seq__when_duplicates_in_different_sets__then_duplicate_elements" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let sets =
       Seq.cons (Seq.cons 1 @@ Seq.cons 2 @@ Seq.return 3)
@@ -395,7 +395,7 @@ let of_seq__when_duplicates_in_different_sets__then_duplicate_elements =
     assert_that exec @@ Is.raising (IntSets.Duplicate_elements [1])
 
 let of_seq__when_duplicates_in_same_set__then_created =
-  "of_seq__when_duplicates_in_same_set__then_created" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let sets =
       Seq.cons (Seq.cons 1 @@ Seq.cons 2 @@ Seq.return 3)
@@ -414,14 +414,14 @@ let of_seq_Test_list =
 (* of_list_Test_list *)
 
 let of_list__when_duplicates_in_different_sets__then_duplicate_elements =
-  "of_list__when_duplicates_in_different_sets__then_duplicate_elements" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* when *)
     let exec () = IntSets.of_list [[1; 2; 3]; [1; 11; 21; 31]] in
     (* then *)
     assert_that exec @@ Is.raising (IntSets.Duplicate_elements [1])
 
 let of_list__when_duplicates_in_same_set__then_created =
-  "of_list__when_duplicates_in_same_set__then_created" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let sets = [[1; 2; 3]; [10; 100; 10]] in
     (* when *)

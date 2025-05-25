@@ -14,7 +14,7 @@ module IsList = Is.List.Of (Type.Int)
 (* is_empty_Test_list *)
 
 let is_empty__when_empty__then_true =
-  "is_empty__when_empty__then_true" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = empty in
     (* when *)
@@ -23,7 +23,7 @@ let is_empty__when_empty__then_true =
     assert_that result Is.true_
 
 let is_empty__when_not_empty__then_false =
-  "is_empty__when_not_empty__then_false" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_list numbers in
     (* when *)
@@ -37,7 +37,7 @@ let is_empty_Test_list =
 (* length_Test_list *)
 
 let length__when_empty__then_zero =
-  "length__when_empty__then_zero" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = empty in
     (* when *)
@@ -46,7 +46,7 @@ let length__when_empty__then_zero =
     assert_that result Is.Int.zero
 
 let length__when_not_empty__then_number_of_elements =
-  "length__when_not_empty__then_number_of_elements" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_list numbers in
     (* when *)
@@ -60,7 +60,7 @@ let length_Test_list =
 (* head_Test_list *)
 
 let head__when_empty__then_empty_list =
-  "head__when_empty__then_empty_list" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = empty in
     (* when *)
@@ -69,7 +69,7 @@ let head__when_empty__then_empty_list =
     assert_that exec @@ Is.raising Empty_list
 
 let head__when_not_empty__then_first_element =
-  "head__when_not_empty__then_first_element" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_list numbers in
     (* when *)
@@ -83,7 +83,7 @@ let head_Test_list =
 (* tail_Test_list *)
 
 let tail__when_empty__then_empty_list =
-  "tail__when_empty__then_empty_list" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = empty in
     (* when *)
@@ -92,7 +92,7 @@ let tail__when_empty__then_empty_list =
     assert_that exec @@ Is.raising Empty_list
 
 let tail__when_single_element__then_head_removed =
-  "tail__when_single_element__then_head_removed" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_seq @@ Seq.return 19 in
     (* when *)
@@ -101,7 +101,7 @@ let tail__when_single_element__then_head_removed =
     assert_that (is_empty result) Is.true_
 
 let tail__when_multiple_elements__then_head_removed =
-  "tail__when_multiple_elements__then_head_removed" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_list numbers in
     (* when *)
@@ -119,7 +119,7 @@ let tail_Test_list =
 (* cons_Test_list *)
 
 let cons__when_empty__then_added =
-  "cons__when_empty__then_added" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let element = List.hd absent and test_object = empty in
     (* when *)
@@ -130,7 +130,7 @@ let cons__when_empty__then_added =
     assert_that (is_empty (tail result)) Is.true_
 
 let cons__when_new_element__then_added =
-  "cons__when_new_element__then_added" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let element = List.hd absent and test_object = of_list numbers in
     (* when *)
@@ -141,7 +141,7 @@ let cons__when_new_element__then_added =
     assert_that (head (tail result)) @@ Is.Int.equal_to (List.hd numbers)
 
 let cons__when_multiple_elements__then_added =
-  "cons__when_multiple_elements__then_added" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_list numbers in
     (* when *)
@@ -160,7 +160,7 @@ let cons_Test_list =
 (* get_Test_list *)
 
 let get__when_empty__then_invalid_index =
-  "get__when_empty__then_invalid_index" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let index = 0 and test_object = empty in
     (* when *)
@@ -169,7 +169,7 @@ let get__when_empty__then_invalid_index =
     assert_that exec @@ Is.raising (Invalid_index index)
 
 let get__when_index_zero__then_head =
-  "get__when_index_zero__then_head" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_list numbers in
     (* when *)
@@ -178,7 +178,7 @@ let get__when_index_zero__then_head =
     assert_that result @@ Is.Int.equal_to (List.hd numbers)
 
 let get__when_index_inside__then_element =
-  "get__when_index_inside__then_element" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_list numbers in
     List.iter
@@ -190,7 +190,7 @@ let get__when_index_inside__then_element =
       indices
 
 let get__when_index_exceeds_length__then_invalid_index =
-  "get__when_index_exceeds_length__then_invalid_index" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let index = List.length numbers + 3 and test_object = of_list numbers in
     (* when *)
@@ -199,7 +199,7 @@ let get__when_index_exceeds_length__then_invalid_index =
     assert_that exec @@ Is.raising (Invalid_index index)
 
 let get__when_index_negative__then_invalid_index =
-  "get__when_index_negative__then_invalid_index" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let index = -3 and test_object = of_list numbers in
     (* when *)
@@ -218,7 +218,7 @@ let get_Test_list =
 (* set_Test_list *)
 
 let set__when_empty__then_invalid_index =
-  "set__when_empty__then_invalid_index" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let index = 0 and test_object = empty in
     (* when *)
@@ -227,7 +227,7 @@ let set__when_empty__then_invalid_index =
     assert_that exec @@ Is.raising (Invalid_index index)
 
 let set__when_index_zero__then_head_changed =
-  "set__when_index_zero__then_head_changed" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let element = List.hd absent and test_object = of_list numbers in
     (* when *)
@@ -236,7 +236,7 @@ let set__when_index_zero__then_head_changed =
     assert_that (head result) @@ Is.Int.equal_to element
 
 let set__when_index_inside__then_element_changed =
-  "set__when_index_inside__then_element_changed" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_list numbers in
     List.iter
@@ -248,7 +248,7 @@ let set__when_index_inside__then_element_changed =
       (List.combine indices absent)
 
 let set__when_index_exceeds_length__then_invalid_index =
-  "set__when_index_exceeds_length__then_invalid_index" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let index = List.length numbers + 3 and test_object = of_list numbers in
     (* when *)
@@ -257,7 +257,7 @@ let set__when_index_exceeds_length__then_invalid_index =
     assert_that exec @@ Is.raising (Invalid_index index)
 
 let set__when_index_negative__then_invalid_index =
-  "set__when_index_negative__then_invalid_index" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let index = -3 and test_object = of_list numbers in
     (* when *)
@@ -276,7 +276,7 @@ let set_Test_list =
 (* to_seq_Test_list *)
 
 let to_seq__when_empty__then_empty_seq =
-  "to_seq__when_empty__then_empty_seq" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = empty in
     (* when *)
@@ -285,7 +285,7 @@ let to_seq__when_empty__then_empty_seq =
     assert_that (List.of_seq result) IsList.empty
 
 let to_seq__when_not_empty__then_all_elements =
-  "to_seq__when_not_empty__then_all_elements" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_list numbers in
     (* when *)
@@ -299,7 +299,7 @@ let to_seq_Test_list =
 (* to_list_Test_list *)
 
 let to_list__when_empty__then_empty_list =
-  "to_list__when_empty__then_empty_list" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = empty in
     (* when *)
@@ -308,7 +308,7 @@ let to_list__when_empty__then_empty_list =
     assert_that result IsList.empty
 
 let to_list__when_not_empty__then_all_elements =
-  "to_list__when_not_empty__then_all_elements" >:: fun _ ->
+  __FUNCTION__ >:: fun _ ->
     (* given *)
     let test_object = of_list numbers in
     (* when *)
