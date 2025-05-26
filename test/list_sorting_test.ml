@@ -5,7 +5,7 @@ open Algolib.Sequences.List_sorting
 
 let numbers = [3; 17; -6; 0; 9; -12; 7; 4; 2]
 
-module IsList = Is.List.Of (Type.Int)
+module IsList = Is.List.Of (Values.Int)
 
 (* merge_sort_Test_list *)
 

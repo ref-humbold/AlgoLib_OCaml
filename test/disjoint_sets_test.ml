@@ -17,7 +17,7 @@ module IntSets = Make (struct
 
 let of_numbers () = IntSets.of_list @@ List.map (fun n -> [n]) numbers
 
-module IsOption = Is.Option.Of (Type.Int)
+module IsOption = Is.Option.Of (Values.Int)
 
 (* size_Test_list *)
 

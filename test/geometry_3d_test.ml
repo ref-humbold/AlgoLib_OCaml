@@ -14,7 +14,7 @@ module PointType = struct
 end
 
 module IsList = Is.List.Of (PointType)
-module IsPoint = Is.Type (PointType)
+module IsPoint = Is.ValueOf (PointType)
 
 (* sort_by_x_Test_list *)
 

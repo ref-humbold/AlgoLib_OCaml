@@ -4,7 +4,7 @@ open OAssert
 open Algolib.Geometry.Dim2.Point_2d
 open Algolib.Geometry.Dim2.Closest_points
 
-module IsPointPair = Is.Type (struct
+module IsPointPair = Is.ValueOf (struct
     type t = point2d * point2d
 
     let to_string (pt1, pt2) =

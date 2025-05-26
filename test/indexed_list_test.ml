@@ -9,7 +9,7 @@ let indices = [4; 13; 1; 10]
 
 let absent = [111; 140; 187; 253]
 
-module IsList = Is.List.Of (Type.Int)
+module IsList = Is.List.Of (Values.Int)
 
 (* is_empty_Test_list *)
 

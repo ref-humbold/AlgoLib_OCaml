@@ -16,8 +16,8 @@ module IntHeap = Make (struct
 let rec to_list heap =
   if IntHeap.is_empty heap then [] else IntHeap.peek heap :: to_list (IntHeap.pop heap)
 
-module IsOption = Is.Option.Of (Type.Int)
-module IsList = Is.List.Of (Type.Int)
+module IsOption = Is.Option.Of (Values.Int)
+module IsList = Is.List.Of (Values.Int)
 
 (* is_empty_Test_list *)
 

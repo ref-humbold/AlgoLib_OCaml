@@ -12,7 +12,7 @@ module VectorType = struct
   let equal = equal
 end
 
-module IsFloatPair = Is.Type (struct
+module IsFloatPair = Is.ValueOf (struct
     type t = float * float
 
     let to_string (e1, e2) = Printf.sprintf "(%f, %f)" e1 e2
@@ -20,8 +20,8 @@ module IsFloatPair = Is.Type (struct
     let equal = ( = )
   end)
 
-module IsFloatList = Is.List.Of (Type.Float)
-module IsVector = Is.Type (VectorType)
+module IsFloatList = Is.List.Of (Values.Float)
+module IsVector = Is.ValueOf (VectorType)
 
 (* methods_Test_list *)
 

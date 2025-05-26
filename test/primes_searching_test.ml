@@ -21,7 +21,7 @@ let params_min_max =
   let product lst1 lst2 = List.concat_map (fun e1 -> List.map (fun e2 -> (e1, e2)) lst2) lst1 in
   product [2; 3; 8; 25; 54; 71; 101; 243] [54; 150; 243; 481; 625; 827; 1000]
 
-module IsList = Is.List.Of (Type.Int)
+module IsList = Is.List.Of (Values.Int)
 
 (* find_primes_Test_list *)
 

@@ -28,14 +28,14 @@ let count_lcs_length__when_same_text__then_text_length =
     (* when *)
     let result = count_lcs_length_str text text in
     (* then *)
-    assert_that result @@ Is.Int.equal_to (String.length text)
+    assert_that result @@ Is.Int.equal_to @@ String.length text
 
 let count_lcs_length__when_subtext__then_subtext_length =
   __FUNCTION__ >:: fun _ ->
     (* when *)
     let result = count_lcs_length_str "qwertyuiop" "zxqwertyasdfuiopcvb" in
     (* then *)
-    assert_that result @@ Is.Int.equal_to (String.length "qwertyuiop")
+    assert_that result @@ Is.Int.equal_to @@ String.length "qwertyuiop"
 
 let count_lcs_length__when_different__then_zero =
   __FUNCTION__ >:: fun _ ->
@@ -49,7 +49,7 @@ let count_lcs_length__when_common_subtext__then_common_subtext_length =
     (* when *)
     let result = count_lcs_length_str "qwertyuiop" "zxrtyasdfuiopcvb" in
     (* then *)
-    assert_that result @@ Is.Int.equal_to (String.length "rtyuiop")
+    assert_that result @@ Is.Int.equal_to @@ String.length "rtyuiop"
 
 let count_lcs_length__when_same_sequence__then_sequence_length =
   __FUNCTION__ >:: fun _ ->
@@ -58,7 +58,7 @@ let count_lcs_length__when_same_sequence__then_sequence_length =
     (* when*)
     let result = count_lcs_length sequence sequence in
     (* then*)
-    assert_that result @@ Is.Int.equal_to (List.length sequence)
+    assert_that result @@ Is.Int.equal_to @@ List.length sequence
 
 let count_lcs_length__when_common_subsequence__then_common_subsequence_length =
   __FUNCTION__ >:: fun _ ->
@@ -67,7 +67,7 @@ let count_lcs_length__when_common_subsequence__then_common_subsequence_length =
       count_lcs_length (chars_of_string "qwertyuiop") (chars_of_string "zxrtyasdfuiopcvb")
     in
     (* then*)
-    assert_that result @@ Is.Int.equal_to (String.length "rtyuiop")
+    assert_that result @@ Is.Int.equal_to @@ String.length "rtyuiop"
 
 let count_lcs_length_Test_list =
   test_list
