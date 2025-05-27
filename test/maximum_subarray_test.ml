@@ -62,6 +62,6 @@ let maximum_subarray_Test_list =
 
 (* maximum_subarray_Test *)
 
-let maximum_subarray_Test = "Tests: Algorithm for maximum_subarray" >::: [maximum_subarray_Test_list]
+let maximum_subarray_Test = __MODULE__ >::: [maximum_subarray_Test_list]
 
 let _ = run_test_tt_main maximum_subarray_Test

@@ -278,8 +278,6 @@ let power_Test_list =
 
 (* maths_Test *)
 
-let maths_Test =
-  "Tests: Algorithms for basic computations on integers"
-  >::: [gcd_Test_list; lcm_Test_list; multiply_Test_list; power_Test_list]
+let maths_Test = __MODULE__ >::: [gcd_Test_list; lcm_Test_list; multiply_Test_list; power_Test_list]
 
 let _ = run_test_tt_main maths_Test

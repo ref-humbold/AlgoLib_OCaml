@@ -53,7 +53,6 @@ let find_primes_Test_list =
 
 (* primes_testing_Test *)
 
-let primes_searching_Test =
-  "Tests: Algorithms for searching for prime numbers" >::: [find_primes_Test_list]
+let primes_searching_Test = __MODULE__ >::: [find_primes_Test_list]
 
 let _ = run_test_tt_main primes_searching_Test

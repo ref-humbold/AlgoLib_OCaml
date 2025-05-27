@@ -107,7 +107,6 @@ let find_closest_points_Test_list =
 
 (* find_closest_points_Test *)
 
-let find_closest_points_Test =
-  "Tests: Algorithm for pair of closest points in 2D" >::: [find_closest_points_Test_list]
+let find_closest_points_Test = __MODULE__ >::: [find_closest_points_Test_list]
 
 let _ = run_test_tt_main find_closest_points_Test

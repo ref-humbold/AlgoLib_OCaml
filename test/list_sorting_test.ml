@@ -48,6 +48,6 @@ let merge_sort_Test_list =
 
 (* list_sorting_Test *)
 
-let list_sorting_Test = "Tests: List sorting algorithms" >::: [merge_sort_Test_list]
+let list_sorting_Test = __MODULE__ >::: [merge_sort_Test_list]
 
 let _ = run_test_tt_main list_sorting_Test

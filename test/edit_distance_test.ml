@@ -168,7 +168,6 @@ let count_hamming_Test_list =
 (* edit_distance_Test *)
 
 let edit_distance_Test =
-  "Tests: Algorithms for edit distance"
-  >::: [count_levenshtein_Test_list; count_lcs_Test_list; count_hamming_Test_list]
+  __MODULE__ >::: [count_levenshtein_Test_list; count_lcs_Test_list; count_hamming_Test_list]
 
 let _ = run_test_tt_main edit_distance_Test

@@ -146,7 +146,7 @@ let translate_Test_list =
 (* geometry_3d_Test *)
 
 let geometry_3d_Test =
-  "Tests: Algorithms for basic geometrical computations in 3D"
+  __MODULE__
   >::: [ sort_by_x_Test_list;
          sort_by_y_Test_list;
          sort_by_z_Test_list;

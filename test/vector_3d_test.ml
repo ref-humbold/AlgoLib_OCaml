@@ -195,6 +195,6 @@ let operators_Test_list =
 
 (* vector_3d_Test *)
 
-let vector_3d_Test = "Tests: Structure of vector in 3D" >::: [methods_Test_list; operators_Test_list]
+let vector_3d_Test = __MODULE__ >::: [methods_Test_list; operators_Test_list]
 
 let _ = run_test_tt_main vector_3d_Test

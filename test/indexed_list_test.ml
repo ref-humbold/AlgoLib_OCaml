@@ -322,7 +322,7 @@ let to_list_Test_list =
 (* indexed_list_heap_Test *)
 
 let indexed_list_Test =
-  "Tests: Structure of indexed_list"
+  __MODULE__
   >::: [ is_empty_Test_list;
          length_Test_list;
          head_Test_list;

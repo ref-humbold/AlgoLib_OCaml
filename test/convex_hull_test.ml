@@ -96,7 +96,6 @@ let find_convex_hull_Test_list =
 
 (* find_convex_hull_Test *)
 
-let find_convex_hull_Test =
-  "Tests: Algorithm for convex hull in 2D (Graham's scan)" >::: [find_convex_hull_Test_list]
+let find_convex_hull_Test = __MODULE__ >::: [find_convex_hull_Test_list]
 
 let _ = run_test_tt_main find_convex_hull_Test

@@ -282,7 +282,7 @@ let merge_Test_list =
 (* leftist_heap_Test *)
 
 let leftist_heap_Test =
-  "Tests: Structure of leftist heap"
+  __MODULE__
   >::: [ is_empty_Test_list;
          length_Test_list;
          peek_Test_list;

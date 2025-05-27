@@ -437,7 +437,7 @@ let of_list_Test_list =
 (* disjoint_sets_Test *)
 
 let disjoint_sets_Test =
-  "Tests: Disjoint sets structure (union-find)"
+  __MODULE__
   >::: [ size_Test_list;
          contains_Test_list;
          add_seq_Test_list;

@@ -172,7 +172,7 @@ let translate_Test_list =
 (* geometry_2d_Test *)
 
 let geometry_2d_Test =
-  "Tests: Algorithms for basic geometrical computations in 2D"
+  __MODULE__
   >::: [ sort_by_x_Test_list;
          sort_by_y_Test_list;
          sort_by_angle_Test_list;

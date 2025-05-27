@@ -282,7 +282,7 @@ let merge_Test_list =
 (* pairing_heap_Test *)
 
 let pairing_heap_Test =
-  "Tests: Structure of pairing heap"
+  __MODULE__
   >::: [ is_empty_Test_list;
          length_Test_list;
          peek_Test_list;
