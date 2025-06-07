@@ -13,7 +13,7 @@ module PointType = struct
   let equal = equal
 end
 
-module IsList = Is.List.Of (PointType)
+module IsList = Is.List.OfEquatable (PointType)
 module IsPoint = Is.ValueOf (PointType)
 
 (* sort_by_x_Test_list *)
