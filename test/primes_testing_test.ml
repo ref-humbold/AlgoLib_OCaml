@@ -10,51 +10,57 @@ let params_primes = [2; 107; 1013; 2131; 6199]
 
 (* test_primes_fermat_Test_list *)
 
-let test_prime_fermat__when_not_prime__then_false param =
-  let label = Printf.sprintf "%s [param = %d]" __FUNCTION__ param in
-  label >:: fun _ ->
-    (* when *)
-    let result = test_prime_fermat param in
-    (* then *)
-    assert_that result Is.false_
+let test_prime_fermat__when_not_prime__then_false =
+  let with_param param =
+    let label = Printf.sprintf "%s %d" __FUNCTION__ param in
+    label >:: fun _ ->
+      (* when *)
+      let result = test_prime_fermat param in
+      (* then *)
+      assert_that result Is.false_
+  in
+  test_list @@ List.map with_param params_not_primes
 
-let test_prime_fermat__when_prime__then_false param =
-  let label = Printf.sprintf "%s [param = %d]" __FUNCTION__ param in
-  label >:: fun _ ->
-    (* when *)
-    let result = test_prime_fermat param in
-    (* then *)
-    assert_that result Is.true_
+let test_prime_fermat__when_prime__then_true =
+  let with_param param =
+    let label = Printf.sprintf "%s %d" __FUNCTION__ param in
+    label >:: fun _ ->
+      (* when *)
+      let result = test_prime_fermat param in
+      (* then *)
+      assert_that result Is.true_
+  in
+  test_list @@ List.map with_param params_primes
 
 let test_primes_fermat_Test_list =
-  test_list
-  @@ List.concat
-    [ List.map (fun p -> test_prime_fermat__when_not_prime__then_false p) params_not_primes;
-      List.map (fun p -> test_prime_fermat__when_prime__then_false p) params_primes ]
+  test_list [test_prime_fermat__when_not_prime__then_false; test_prime_fermat__when_prime__then_true]
 
 (* test_primes_miller_Test_list *)
 
-let test_prime_miller__when_not_prime__then_false param =
-  let label = Printf.sprintf "%s [param = %d]" __FUNCTION__ param in
-  label >:: fun _ ->
-    (* when *)
-    let result = test_prime_miller param in
-    (* then *)
-    assert_that result Is.false_
+let test_prime_miller__when_not_prime__then_false =
+  let with_param param =
+    let label = Printf.sprintf "%s %d" __FUNCTION__ param in
+    label >:: fun _ ->
+      (* when *)
+      let result = test_prime_miller param in
+      (* then *)
+      assert_that result Is.false_
+  in
+  test_list @@ List.map with_param params_not_primes
 
-let test_prime_miller__when_prime__then_false param =
-  let label = Printf.sprintf "%s [param = %d]" __FUNCTION__ param in
-  label >:: fun _ ->
-    (* when *)
-    let result = test_prime_miller param in
-    (* then *)
-    assert_that result Is.true_
+let test_prime_miller__when_prime__then_true =
+  let with_param param =
+    let label = Printf.sprintf "%s %d" __FUNCTION__ param in
+    label >:: fun _ ->
+      (* when *)
+      let result = test_prime_miller param in
+      (* then *)
+      assert_that result Is.true_
+  in
+  test_list @@ List.map with_param params_primes
 
 let test_primes_miller_Test_list =
-  test_list
-  @@ List.concat
-    [ List.map (fun p -> test_prime_miller__when_not_prime__then_false p) params_not_primes;
-      List.map (fun p -> test_prime_miller__when_prime__then_false p) params_primes ]
+  test_list [test_prime_miller__when_not_prime__then_false; test_prime_miller__when_prime__then_true]
 
 (* primes_testing_Test *)
 

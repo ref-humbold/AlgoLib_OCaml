@@ -25,31 +25,34 @@ module IsList = Is.List.Of (Values.Int)
 
 (* find_primes_Test_list *)
 
-let find_primes__when_maximal_number__then_max_exclusive param =
-  let label = Printf.sprintf "%s [param = %d]" __FUNCTION__ param in
-  label >:: fun _ ->
-    (* when *)
-    let result = find_primes 0 param in
-    (* then *)
-    let expected = List.filter (fun p -> p < param) primes in
-    assert_that result @@ IsList.equal_to expected
+let find_primes__when_maximal_number__then_max_exclusive =
+  let with_param param =
+    let label = Printf.sprintf "%s %d" __FUNCTION__ param in
+    label >:: fun _ ->
+      (* when *)
+      let result = find_primes 0 param in
+      (* then *)
+      let expected = List.filter (fun p -> p < param) primes in
+      assert_that result @@ IsList.equal_to expected
+  in
+  test_list @@ List.map with_param params_max
 
-let find_primes__when_range__then_min_inclusive_and_max_exclusive (minimum, maximum) =
-  let label = Printf.sprintf "%s [param = (%d, %d)]" __FUNCTION__ minimum maximum in
-  label >:: fun _ ->
-    (* when *)
-    let result = find_primes minimum maximum in
-    (* then *)
-    let expected = List.filter (fun p -> p >= minimum && p < maximum) primes in
-    assert_that result @@ IsList.equal_to expected
+let find_primes__when_range__then_min_inclusive_and_max_exclusive =
+  let with_params (minimum, maximum) =
+    let label = Printf.sprintf "%s %d %d" __FUNCTION__ minimum maximum in
+    label >:: fun _ ->
+      (* when *)
+      let result = find_primes minimum maximum in
+      (* then *)
+      let expected = List.filter (fun p -> p >= minimum && p < maximum) primes in
+      assert_that result @@ IsList.equal_to expected
+  in
+  test_list @@ List.map with_params params_min_max
 
 let find_primes_Test_list =
   test_list
-  @@ List.concat
-    [ List.map (fun p -> find_primes__when_maximal_number__then_max_exclusive p) params_max;
-      List.map
-        (fun p -> find_primes__when_range__then_min_inclusive_and_max_exclusive p)
-        params_min_max ]
+    [ find_primes__when_maximal_number__then_max_exclusive;
+      find_primes__when_range__then_min_inclusive_and_max_exclusive ]
 
 (* primes_testing_Test *)
 
