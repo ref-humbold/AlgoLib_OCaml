@@ -3,18 +3,9 @@ open OUnit2
 open OAssert
 open Algolib.Geometry.Dim3.Vector_3d
 module P = Algolib.Geometry.Dim3.Point_3d
-
-module VectorType = struct
-  type t = vector3d
-
-  let to_string (Vector3D (x, y, z)) = Printf.sprintf "Vector3D(%f, %f, %f)" x y z
-
-  let equal = equal
-end
-
 module IsFloatTriple = Is.Tuple3.Of (Values.Float) (Values.Float) (Values.Float)
 module IsFloatList = Is.List.Of (Values.Float)
-module IsVector = Is.EqOf (VectorType)
+module IsVector = Is.TypeOf (Algolib.Geometry.Dim3.Vector_3d)
 
 (* methods_Test_list *)
 
@@ -44,14 +35,14 @@ let length__then_length_of_vector =
     (* when *)
     let result = length @@ vec3d_i 18 (-6) 13 in
     (* then *)
-    assert_that result @@ Is.Float.close_to 23.0 ~diff:epsilon
+    assert_that result @@ Is.Float.close_to 23.0 ~diff:(Difference epsilon)
 
 let dot__then_scalar_product =
   __FUNCTION__ >:: fun _ ->
     (* when *)
     let result = dot (vec3d 1.5 (-4.0) (-3.5)) (vec3d 9.0 (-2.5) 8.5) in
     (* then *)
-    assert_that result @@ Is.Float.close_to (-6.25) ~diff:epsilon
+    assert_that result @@ Is.Float.close_to (-6.25) ~diff:(Difference epsilon)
 
 let dot__when_orthogonal__then_zero =
   __FUNCTION__ >:: fun _ ->
@@ -79,7 +70,7 @@ let area__then_length_of_cross_product =
     (* when *)
     let result = area (vec3d 1.5 (-4.0) (-3.5)) (vec3d 9.0 (-2.5) 8.5) in
     (* then *)
-    assert_that result @@ Is.Float.close_to 69.46716850426538 ~diff:epsilon
+    assert_that result @@ Is.Float.close_to 69.46716850426538 ~diff:(Difference epsilon)
 
 let area__when_parallel__then_zero =
   __FUNCTION__ >:: fun _ ->
@@ -93,7 +84,7 @@ let volume__then_scalar_triple_product =
     (* when *)
     let result = volume (vec3d 1.5 (-4.0) (-3.5)) (vec3d 9.0 (-2.5) 8.5) (vec3d_i 1 (-1) 1) in
     (* then *)
-    assert_that result @@ Is.Float.close_to 33.75 ~diff:epsilon
+    assert_that result @@ Is.Float.close_to 33.75 ~diff:(Difference epsilon)
 
 let volume__when_parallel__then_zero =
   __FUNCTION__ >:: fun _ ->

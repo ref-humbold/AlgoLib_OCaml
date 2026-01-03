@@ -1,53 +1,56 @@
 include module type of Geometry_object
 
 (** The type of vectors in 3D. *)
-type vector3d = Vector3D of float * float * float
+type t = Vector3D of float * float * float
 
-val vec3d : float -> float -> float -> vector3d
+val vec3d : float -> float -> float -> t
 (** [vec3d x y z] creates a vector [[x, y, z]]. *)
 
-val vec3d_i : int -> int -> int -> vector3d
+val vec3d_i : int -> int -> int -> t
 (** [vec3d_i x y z] creates a vector [[x, y, z]]. *)
 
-val between : Point_3d.point3d -> Point_3d.point3d -> vector3d
+val between : Point_3d.t -> Point_3d.t -> t
 (** [between p1 p2] creates a vector from point [p1] to point [p2]. *)
 
-val coordinates : vector3d -> float * float * float
+val coordinates : t -> float * float * float
 (** [coordinates v] returns tuple of vector coordinates. *)
 
-val coordinates_list : vector3d -> float list
+val coordinates_list : t -> float list
 (** [coordinates_list v] returns list of vector coordinates. *)
 
-val equal : vector3d -> vector3d -> bool
+val equal : t -> t -> bool
 (** [vector v1 v2] checks whether vectors [v1] and [v2] are equal. *)
 
-val length : vector3d -> float
+val length : t -> float
 (** [length v] computes length of vector [v]. *)
 
-val ( ~: ) : vector3d -> vector3d
+val ( ~: ) : t -> t
 (** [~: v] negates vector [v]. *)
 
-val ( +: ) : vector3d -> vector3d -> vector3d
+val ( +: ) : t -> t -> t
 (** [v1 +: v2] adds vectors [v1] and [v2]. Left associative. *)
 
-val ( -: ) : vector3d -> vector3d -> vector3d
+val ( -: ) : t -> t -> t
 (** [v1 -: v2] subtracts vectors [v1] and [v2]. Left associative. *)
 
-val ( *: ) : vector3d -> float -> vector3d
+val ( *: ) : t -> float -> t
 (** [v *: c] multiplies vector [v] by a scalar [c]. Left associative. *)
 
-val ( /: ) : vector3d -> float -> vector3d
+val ( /: ) : t -> float -> t
 (** [v /: c] divides vector [v] by a scalar [c]. Left associative. *)
 
-val dot : vector3d -> vector3d -> float
+val dot : t -> t -> float
 (** [dot v1 v2] counts the dot product of vectors [v1] and [v2]. *)
 
-val cross : vector3d -> vector3d -> vector3d
+val cross : t -> t -> t
 (** [cross v1 v2] counts the cross product of vectors [v1] and [v2]. *)
 
-val area : vector3d -> vector3d -> float
+val area : t -> t -> float
 (** [area v1 v2] counts the area of parallelogram determined by vectors [v1] and [v2]. *)
 
-val volume : vector3d -> vector3d -> vector3d -> float
+val volume : t -> t -> t -> float
 (** [volume v1 v2 v3] counts the volume of parallelepiped determined by vectors [v1], [v2] and [v3].
 *)
+
+val to_string : t -> string
+(** [to_string v] returns string representation of vector [v]. **)

@@ -1,7 +1,7 @@
 (* Structure of vector in 2D. *)
 include Geometry_object
 
-type vector2d = Vector2D of float * float
+type t = Vector2D of float * float
 
 let vec2d x y = Vector2D (x, y)
 
@@ -32,3 +32,5 @@ let ( /: ) (Vector2D (x, y)) c =
 let dot (Vector2D (x1, y1)) (Vector2D (x2, y2)) = (x1 *. x2) +. (y1 *. y2)
 
 let area (Vector2D (x1, y1)) (Vector2D (x2, y2)) = (x1 *. y2) -. (x2 *. y1)
+
+let to_string (Vector2D (x, y)) = Printf.sprintf "Vector2D(%F, %F)" x y

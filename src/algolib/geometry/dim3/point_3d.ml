@@ -1,7 +1,7 @@
 (* Structure of point in 3D. *)
 include Geometry_object
 
-type point3d = Point3D of float * float * float
+type t = Point3D of float * float * float
 
 let pt3d x y z = Point3D (x, y, z)
 
@@ -14,3 +14,5 @@ let coordinates_list (Point3D (x, y, z)) = [x; y; z]
 let equal p1 p2 = coordinates_equal (coordinates_list p1) (coordinates_list p2)
 
 let radius (Point3D (x, y, z)) = sqrt ((x *. x) +. (y *. y) +. (z *. z))
+
+let to_string (Point3D (x, y, z)) = Printf.sprintf "Point3D(%F, %F, %F)" x y z

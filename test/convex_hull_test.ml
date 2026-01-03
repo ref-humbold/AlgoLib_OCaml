@@ -3,12 +3,7 @@ open OUnit2
 open OAssert
 open Algolib.Geometry.Dim2.Point_2d
 open Algolib.Geometry.Dim2.Convex_hull
-
-module IsList = Is.List.Of (struct
-    type t = point2d
-
-    let to_string (Point2D (x, y)) = Printf.sprintf "Point2D(%f, %f)" x y
-  end)
+module IsList = Is.List.Of (Algolib.Geometry.Dim2.Point_2d)
 
 (* find_convex_hull_Test_list *)
 

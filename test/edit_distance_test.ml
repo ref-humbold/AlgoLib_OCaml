@@ -14,7 +14,7 @@ let count_levenshtein__when_different_text__then_distance =
     (* when *)
     let result = count_levenshtein source destination in
     (* then *)
-    assert_that result @@ Is.Float.close_to 4.0 ~diff:epsilon
+    assert_that result @@ Is.Float.close_to 4.0 ~diff:(Difference epsilon)
 
 let count_levenshtein__when_same_text__then_zero =
   __FUNCTION__ >:: fun _ ->
@@ -33,7 +33,7 @@ let count_levenshtein__when_empty_source__then_sum_of_insertions =
     let result = count_levenshtein ~insertion_cost "" text in
     (* then *)
     let expected = float_of_int (String.length text) *. insertion_cost in
-    assert_that result @@ Is.Float.close_to expected ~diff:epsilon
+    assert_that result @@ Is.Float.close_to expected ~diff:(Difference epsilon)
 
 let count_levenshtein__when_empty_destination__then_sum_of_deletions =
   __FUNCTION__ >:: fun _ ->
@@ -43,7 +43,7 @@ let count_levenshtein__when_empty_destination__then_sum_of_deletions =
     let result = count_levenshtein ~deletion_cost text "" in
     (* then *)
     let expected = float_of_int (String.length text) *. deletion_cost in
-    assert_that result @@ Is.Float.close_to expected ~diff:epsilon
+    assert_that result @@ Is.Float.close_to expected ~diff:(Difference epsilon)
 
 let count_levenshtein__when_negative_cost__then_invalid_argument =
   __FUNCTION__ >:: fun _ ->
@@ -69,7 +69,7 @@ let count_lcs__when_different_text__then_distance =
     (* when *)
     let result = count_lcs source destination in
     (* then *)
-    assert_that result @@ Is.Float.close_to 5.0 ~diff:epsilon
+    assert_that result @@ Is.Float.close_to 5.0 ~diff:(Difference epsilon)
 
 let count_lcs__when_same_text__then_zero =
   __FUNCTION__ >:: fun _ ->
@@ -88,7 +88,7 @@ let count_lcs__when_empty_source__then_sum_of_insertions =
     let result = count_lcs ~insertion_cost "" text in
     (* then *)
     let expected = float_of_int (String.length text) *. insertion_cost in
-    assert_that result @@ Is.Float.close_to expected ~diff:epsilon
+    assert_that result @@ Is.Float.close_to expected ~diff:(Difference epsilon)
 
 let count_lcs__when_empty_destination__then_sum_of_deletions =
   __FUNCTION__ >:: fun _ ->
@@ -98,7 +98,7 @@ let count_lcs__when_empty_destination__then_sum_of_deletions =
     let result = count_lcs ~deletion_cost text "" in
     (* then *)
     let expected = float_of_int (String.length text) *. deletion_cost in
-    assert_that result @@ Is.Float.close_to expected ~diff:epsilon
+    assert_that result @@ Is.Float.close_to expected ~diff:(Difference epsilon)
 
 let count_lcs__when_negative_cost__then_invalid_argument =
   __FUNCTION__ >:: fun _ ->
@@ -125,7 +125,7 @@ let count_hamming__when_different_text__then_distance =
     let result = count_hamming source destination ~substitution_cost in
     (* then *)
     let expected = 3.0 *. substitution_cost in
-    assert_that result @@ Is.Float.close_to expected ~diff:epsilon
+    assert_that result @@ Is.Float.close_to expected ~diff:(Difference epsilon)
 
 let count_hamming__when_empty__then_zero =
   __FUNCTION__ >:: fun _ ->

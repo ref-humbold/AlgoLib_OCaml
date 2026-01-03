@@ -4,17 +4,8 @@ open OAssert
 open Algolib.Geometry.Dim3.Point_3d
 open Algolib.Geometry.Dim3.Geometry_3d
 module V = Algolib.Geometry.Dim3.Vector_3d
-
-module PointType = struct
-  type t = point3d
-
-  let to_string (Point3D (x, y, z)) = Printf.sprintf "Point3D(%f, %f, %f)" x y z
-
-  let equal = equal
-end
-
-module IsList = Is.List.OfEq (PointType)
-module IsPoint = Is.EqOf (PointType)
+module IsList = Is.List.Of (Algolib.Geometry.Dim3.Point_3d)
+module IsPoint = Is.TypeOf (Algolib.Geometry.Dim3.Point_3d)
 
 (* sort_by_x_Test_list *)
 
@@ -108,7 +99,7 @@ let distance__when_different_points__then_distance =
     (* when *)
     let result = distance (pt3d_i 4 8 5) (pt3d_i (-2) (-1) 3) in
     (* then *)
-    assert_that result @@ Is.Float.close_to 11.0 ~diff:epsilon
+    assert_that result @@ Is.Float.close_to 11.0 ~diff:(Difference epsilon)
 
 let distance__when_same_point__then_zero =
   __FUNCTION__ >:: fun _ ->

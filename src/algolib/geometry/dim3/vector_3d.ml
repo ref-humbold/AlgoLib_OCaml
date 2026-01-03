@@ -1,7 +1,7 @@
 (* Structure of vector in 3D. *)
 include Geometry_object
 
-type vector3d = Vector3D of float * float * float
+type t = Vector3D of float * float * float
 
 let vec3d x y z = Vector3D (x, y, z)
 
@@ -37,3 +37,5 @@ let cross (Vector3D (x1, y1, z1)) (Vector3D (x2, y2, z2)) =
 let area v1 v2 = length @@ cross v1 v2
 
 let volume v1 v2 v3 = dot v1 @@ cross v2 v3
+
+let to_string (Vector3D (x, y, z)) = Printf.sprintf "Vector3D(%F, %F, %F)" x y z

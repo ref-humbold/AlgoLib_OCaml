@@ -4,17 +4,8 @@ open OAssert
 open Algolib.Geometry.Dim2.Point_2d
 open Algolib.Geometry.Dim2.Geometry_2d
 module V = Algolib.Geometry.Dim2.Vector_2d
-
-module PointType = struct
-  type t = point2d
-
-  let to_string (Point2D (x, y)) = Printf.sprintf "Point2D(%f, %f)" x y
-
-  let equal = equal
-end
-
-module IsList = Is.List.OfEq (PointType)
-module IsPoint = Is.EqOf (PointType)
+module IsList = Is.List.Of (Algolib.Geometry.Dim2.Point_2d)
+module IsPoint = Is.TypeOf (Algolib.Geometry.Dim2.Point_2d)
 
 (* sort_by_x_Test_list *)
 
@@ -134,7 +125,7 @@ let distance__when_different_points__then_distance =
     (* when *)
     let result = distance (pt2d_i 4 5) (pt2d_i (-2) (-3)) in
     (* then *)
-    assert_that result @@ Is.Float.close_to 10.0 ~diff:epsilon
+    assert_that result @@ Is.Float.close_to 10.0 ~diff:(Difference epsilon)
 
 let distance__when_same_point__then_zero =
   __FUNCTION__ >:: fun _ ->

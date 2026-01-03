@@ -3,16 +3,7 @@ open OUnit2
 open OAssert
 open Algolib.Geometry.Dim2.Point_2d
 open Algolib.Geometry.Dim2.Closest_points
-
-module IsPointPair = Is.EqOf (struct
-    type t = point2d * point2d
-
-    let to_string (pt1, pt2) =
-      let point_to_string (Point2D (x, y)) = Printf.sprintf "Point2D(%f, %f)" x y in
-      Printf.sprintf "(%s, %s)" (point_to_string pt1) (point_to_string pt2)
-
-    let equal = ( = )
-  end)
+module IsPointPair = Is.Tuple2.Of (Algolib.Geometry.Dim2.Point_2d) (Algolib.Geometry.Dim2.Point_2d)
 
 (* find_closest_points_Test_list *)
 

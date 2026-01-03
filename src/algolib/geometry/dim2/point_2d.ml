@@ -1,7 +1,7 @@
 (* Structure of point in 2D. *)
 include Geometry_object
 
-type point2d = Point2D of float * float
+type t = Point2D of float * float
 
 let pt2d x y = Point2D (x, y)
 
@@ -19,3 +19,5 @@ let angle_rad (Point2D (x, y)) = atan2 y x
 
 let angle_deg (Point2D (_, y) as p) =
   if y >= 0.0 then angle_rad p *. 45.0 /. atan 1.0 else (angle_rad p *. 45.0 /. atan 1.0) +. 360.0
+
+let to_string (Point2D (x, y)) = Printf.sprintf "Point2D(%F, %F)" x y

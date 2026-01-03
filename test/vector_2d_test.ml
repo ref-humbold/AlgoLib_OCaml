@@ -3,18 +3,9 @@ open OUnit2
 open OAssert
 open Algolib.Geometry.Dim2.Vector_2d
 module P = Algolib.Geometry.Dim2.Point_2d
-
-module VectorType = struct
-  type t = vector2d
-
-  let to_string (Vector2D (x, y)) = Printf.sprintf "Vector2D(%f, %f)" x y
-
-  let equal = equal
-end
-
 module IsFloatPair = Is.Tuple2.Of (Values.Float) (Values.Float)
 module IsFloatList = Is.List.Of (Values.Float)
-module IsVector = Is.EqOf (VectorType)
+module IsVector = Is.TypeOf (Algolib.Geometry.Dim2.Vector_2d)
 
 (* methods_Test_list *)
 
@@ -44,14 +35,14 @@ let length__then_length_of_vector =
     (* when *)
     let result = length @@ vec2d_i 8 (-6) in
     (* then *)
-    assert_that result @@ Is.Float.close_to 10.0 ~diff:epsilon
+    assert_that result @@ Is.Float.close_to 10.0 ~diff:(Difference epsilon)
 
 let dot__then_scalar_product =
   __FUNCTION__ >:: fun _ ->
     (* when *)
     let result = dot (vec2d 1.5 (-4.0)) (vec2d 9.0 (-2.5)) in
     (* then *)
-    assert_that result @@ Is.Float.close_to 23.5 ~diff:epsilon
+    assert_that result @@ Is.Float.close_to 23.5 ~diff:(Difference epsilon)
 
 let dot__when_orthogonal__then_zero =
   __FUNCTION__ >:: fun _ ->
@@ -65,7 +56,7 @@ let area__then_length_of_cross_product =
     (* when *)
     let result = area (vec2d 1.5 (-4.0)) (vec2d 9.0 (-2.5)) in
     (* then *)
-    assert_that result @@ Is.Float.close_to 32.25 ~diff:epsilon
+    assert_that result @@ Is.Float.close_to 32.25 ~diff:(Difference epsilon)
 
 let area__when_parallel__then_zero =
   __FUNCTION__ >:: fun _ ->
