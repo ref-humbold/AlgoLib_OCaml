@@ -1,5 +1,3 @@
-include module type of Geometry_object
-
 (** The type of points in 2D. *)
 type t = Point2D of float * float
 

@@ -1,5 +1,5 @@
 (* Structure of point in 3D. *)
-include Geometry_object
+open Geometry_comparator
 
 type t = Point3D of float * float * float
 
@@ -11,7 +11,9 @@ let coordinates (Point3D (x, y, z)) = (x, y, z)
 
 let coordinates_list (Point3D (x, y, z)) = [x; y; z]
 
-let equal p1 p2 = coordinates_equal (coordinates_list p1) (coordinates_list p2)
+let equal p1 p2 =
+  List.for_all (fun (c1, c2) -> GeometryComparator.compare c1 c2 = 0)
+  @@ List.combine (coordinates_list p1) (coordinates_list p2)
 
 let radius (Point3D (x, y, z)) = sqrt ((x *. x) +. (y *. y) +. (z *. z))
 

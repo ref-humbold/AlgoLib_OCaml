@@ -1,5 +1,5 @@
 (* Structure of point in 2D. *)
-include Geometry_object
+open Geometry_comparator
 
 type t = Point2D of float * float
 
@@ -11,7 +11,9 @@ let coordinates (Point2D (x, y)) = (x, y)
 
 let coordinates_list (Point2D (x, y)) = [x; y]
 
-let equal p1 p2 = coordinates_equal (coordinates_list p1) (coordinates_list p2)
+let equal p1 p2 =
+  List.for_all (fun (c1, c2) -> GeometryComparator.compare c1 c2 = 0)
+  @@ List.combine (coordinates_list p1) (coordinates_list p2)
 
 let radius (Point2D (x, y)) = sqrt ((x *. x) +. (y *. y))
 

@@ -7,6 +7,8 @@ module IsFloatTriple = Is.Tuple3.Of (Values.Float) (Values.Float) (Values.Float)
 module IsFloatList = Is.List.Of (Values.Float)
 module IsVector = Is.TypeOf (Algolib.Geometry.Dim3.Vector_3d)
 
+let epsilon = 1e-12
+
 (* methods_Test_list *)
 
 let between__then_vector_from_begin_to_end =

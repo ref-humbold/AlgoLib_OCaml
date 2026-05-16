@@ -1,5 +1,3 @@
-include module type of Geometry_object
-
 (** The type of vectors in 3D. *)
 type t = Vector3D of float * float * float
 

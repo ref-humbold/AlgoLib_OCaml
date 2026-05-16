@@ -1,5 +1,5 @@
 (* Structure of vector in 3D. *)
-include Geometry_object
+open Geometry_comparator
 
 type t = Vector3D of float * float * float
 
@@ -14,7 +14,9 @@ let coordinates (Vector3D (x, y, z)) = (x, y, z)
 
 let coordinates_list (Vector3D (x, y, z)) = [x; y; z]
 
-let equal v1 v2 = coordinates_equal (coordinates_list v1) (coordinates_list v2)
+let equal v1 v2 =
+  List.for_all (fun (c1, c2) -> GeometryComparator.compare c1 c2 = 0)
+  @@ List.combine (coordinates_list v1) (coordinates_list v2)
 
 let length (Vector3D (x, y, z)) = sqrt ((x *. x) +. (y *. y) +. (z *. z))
 

@@ -1,5 +1,5 @@
 (* Structure of vector in 2D. *)
-include Geometry_object
+open Geometry_comparator
 
 type t = Vector2D of float * float
 
@@ -14,7 +14,9 @@ let coordinates (Vector2D (x, y)) = (x, y)
 
 let coordinates_list (Vector2D (x, y)) = [x; y]
 
-let equal v1 v2 = coordinates_equal (coordinates_list v1) (coordinates_list v2)
+let equal v1 v2 =
+  List.for_all (fun (c1, c2) -> GeometryComparator.compare c1 c2 = 0)
+  @@ List.combine (coordinates_list v1) (coordinates_list v2)
 
 let length (Vector2D (x, y)) = sqrt ((x *. x) +. (y *. y))
 

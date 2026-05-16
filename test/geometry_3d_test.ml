@@ -7,6 +7,8 @@ module V = Algolib.Geometry.Dim3.Vector_3d
 module IsList = Is.List.Of (Algolib.Geometry.Dim3.Point_3d)
 module IsPoint = Is.TypeOf (Algolib.Geometry.Dim3.Point_3d)
 
+let epsilon = 1e-12
+
 (* sort_by_x_Test_list *)
 
 let sort_by_x__then_sorted_stably_ascending =
