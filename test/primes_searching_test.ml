@@ -15,9 +15,9 @@ let[@ocamlformat "break-collection-expressions = wrap"] primes =
     809; 811; 821; 823; 827; 829; 839; 853; 857; 859; 863; 877; 881; 883; 887; 907; 911; 919; 929;
     937; 941; 947; 953; 967; 971; 977; 983; 991; 997 ]
 
-let params_max = [2; 3; 4; 67; 100; 155; 400; 499; 701; 911]
+let params_for__find_primes__when_maximal_number = [2; 3; 4; 67; 100; 155; 400; 499; 701; 911]
 
-let params_min_max =
+let params_for__find_primes__when_range =
   let product lst1 lst2 = List.concat_map (fun e1 -> List.map (fun e2 -> (e1, e2)) lst2) lst1 in
   product [2; 3; 8; 25; 54; 71; 101; 243] [54; 150; 243; 481; 625; 827; 1000]
 
@@ -35,7 +35,7 @@ let find_primes__when_maximal_number__then_max_exclusive =
       let expected = List.filter (fun p -> p < param) primes in
       assert_that result @@ IsList.equal_to expected
   in
-  test_list @@ List.map with_param params_max
+  test_list @@ List.map with_param params_for__find_primes__when_maximal_number
 
 let find_primes__when_range__then_min_inclusive_and_max_exclusive =
   let with_params (minimum, maximum) =
@@ -47,7 +47,7 @@ let find_primes__when_range__then_min_inclusive_and_max_exclusive =
       let expected = List.filter (fun p -> p >= minimum && p < maximum) primes in
       assert_that result @@ IsList.equal_to expected
   in
-  test_list @@ List.map with_params params_min_max
+  test_list @@ List.map with_params params_for__find_primes__when_range
 
 let find_primes_Test_list =
   test_list

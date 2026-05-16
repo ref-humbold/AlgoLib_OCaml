@@ -1,4 +1,5 @@
 (* Structure of point in 2D. *)
+open Angle_2d
 open Geometry_comparator
 
 type t = Point2D of float * float
@@ -17,9 +18,6 @@ let equal p1 p2 =
 
 let radius (Point2D (x, y)) = sqrt ((x *. x) +. (y *. y))
 
-let angle_rad (Point2D (x, y)) = atan2 y x
+let angle (Point2D (x, y)) = angle_rad (atan2 y x)
 
-let angle_deg (Point2D (_, y) as p) =
-  if y >= 0.0 then angle_rad p *. 45.0 /. atan 1.0 else (angle_rad p *. 45.0 /. atan 1.0) +. 360.0
-
-let to_string (Point2D (x, y)) = Printf.sprintf "Point2D(%F, %F)" x y
+let to_string (Point2D (x, y)) = Printf.sprintf "(%.15F, %.15F)" x y

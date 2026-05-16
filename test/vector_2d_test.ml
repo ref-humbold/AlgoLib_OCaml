@@ -21,16 +21,16 @@ let between__then_vector_from_begin_to_end =
 let coordinates__then_pair_of_coordinates =
   __FUNCTION__ >:: fun _ ->
     (* when *)
-    let result = coordinates @@ vec2d_i 5 (-19) in
+    let result = coordinates @@ vec2d 150.123456789 (-3700.987654321) in
     (* then *)
-    assert_that result @@ IsFloatPair.equal_to (5.0, -19.0)
+    assert_that result @@ IsFloatPair.equal_to (150.123456789, -3700.987654321)
 
 let coordinates_list__then_list_of_coordinates =
   __FUNCTION__ >:: fun _ ->
     (* when *)
-    let result = coordinates_list @@ vec2d_i 5 (-19) in
+    let result = coordinates_list @@ vec2d 150.123456789 (-3700.987654321) in
     (* then *)
-    assert_that result @@ IsFloatList.equal_to [5.0; -19.0]
+    assert_that result @@ IsFloatList.equal_to [150.123456789; -3700.987654321]
 
 let length__then_length_of_vector =
   __FUNCTION__ >:: fun _ ->
@@ -67,6 +67,13 @@ let area__when_parallel__then_zero =
     (* then *)
     assert_that result Is.Float.zero
 
+let to_string__then_string_representation =
+  __FUNCTION__ >:: fun _ ->
+    (* when *)
+    let result = to_string @@ vec2d 150.123456789 (-3700.987654321) in
+    (* then *)
+    assert_that result @@ Is.String.equal_to "[150.123456789, -3700.987654321]"
+
 let methods_Test_list =
   test_list
     [ between__then_vector_from_begin_to_end;
@@ -76,7 +83,8 @@ let methods_Test_list =
       dot__then_scalar_product;
       dot__when_orthogonal__then_zero;
       area__then_length_of_cross_product;
-      area__when_parallel__then_zero ]
+      area__when_parallel__then_zero;
+      to_string__then_string_representation ]
 
 (* operators_Test_list *)
 

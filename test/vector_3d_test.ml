@@ -21,16 +21,16 @@ let between__then_vector_from_begin_to_end =
 let coordinates__then_triple_of_coordinates =
   __FUNCTION__ >:: fun _ ->
     (* when *)
-    let result = coordinates @@ vec3d 5.0 (-19.0) 14.2 in
+    let result = coordinates @@ vec3d 150.123456789 (-3700.987654321) 0.55555555 in
     (* then *)
-    assert_that result @@ IsFloatTriple.equal_to (5.0, -19.0, 14.2)
+    assert_that result @@ IsFloatTriple.equal_to (150.123456789, -3700.987654321, 0.55555555)
 
 let coordinates_list__then_list_of_coordinates =
   __FUNCTION__ >:: fun _ ->
     (* when *)
-    let result = coordinates_list @@ vec3d 5.0 (-19.0) 14.2 in
+    let result = coordinates_list @@ vec3d 150.123456789 (-3700.987654321) 0.55555555 in
     (* then *)
-    assert_that result @@ IsFloatList.equal_to [5.0; -19.0; 14.2]
+    assert_that result @@ IsFloatList.equal_to [150.123456789; -3700.987654321; 0.55555555]
 
 let length__then_length_of_vector =
   __FUNCTION__ >:: fun _ ->
@@ -102,6 +102,13 @@ let volume__when_orthogonal__then_zero =
     (* then *)
     assert_that result Is.Float.zero
 
+let to_string__then_string_representation =
+  __FUNCTION__ >:: fun _ ->
+    (* when *)
+    let result = to_string @@ vec3d 150.123456789 (-3700.987654321) 0.55555555 in
+    (* then *)
+    assert_that result @@ Is.String.equal_to "[150.123456789, -3700.987654321, 0.55555555]"
+
 let methods_Test_list =
   test_list
     [ between__then_vector_from_begin_to_end;
@@ -116,7 +123,8 @@ let methods_Test_list =
       area__when_parallel__then_zero;
       volume__then_scalar_triple_product;
       volume__when_parallel__then_zero;
-      volume__when_orthogonal__then_zero ]
+      volume__when_orthogonal__then_zero;
+      to_string__then_string_representation ]
 
 (* operators_Test_list *)
 

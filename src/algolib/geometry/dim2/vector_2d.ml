@@ -35,4 +35,4 @@ let dot (Vector2D (x1, y1)) (Vector2D (x2, y2)) = (x1 *. x2) +. (y1 *. y2)
 
 let area (Vector2D (x1, y1)) (Vector2D (x2, y2)) = (x1 *. y2) -. (x2 *. y1)
 
-let to_string (Vector2D (x, y)) = Printf.sprintf "Vector2D(%F, %F)" x y
+let to_string (Vector2D (x, y)) = Printf.sprintf "[%.15F, %.15F]" x y

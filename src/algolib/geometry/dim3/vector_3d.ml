@@ -40,4 +40,4 @@ let area v1 v2 = length @@ cross v1 v2
 
 let volume v1 v2 v3 = dot v1 @@ cross v2 v3
 
-let to_string (Vector3D (x, y, z)) = Printf.sprintf "Vector3D(%F, %F, %F)" x y z
+let to_string (Vector3D (x, y, z)) = Printf.sprintf "[%.15F, %.15F, %.15F]" x y z

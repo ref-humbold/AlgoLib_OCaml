@@ -7,7 +7,8 @@ let sort_by_y lst =
 
 let sort_by_angle lst =
   let cmp p1 p2 =
-    compare (Point_2d.angle_deg p1, Point_2d.radius p1) (Point_2d.angle_deg p2, Point_2d.radius p2)
+    let angle_compare = Angle_2d.compare (Point_2d.angle p1) (Point_2d.angle p2) in
+    if angle_compare = 0 then compare (Point_2d.radius p1) (Point_2d.radius p2) else angle_compare
   in
   List.stable_sort cmp lst
 

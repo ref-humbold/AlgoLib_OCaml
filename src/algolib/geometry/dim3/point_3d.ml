@@ -17,4 +17,4 @@ let equal p1 p2 =
 
 let radius (Point3D (x, y, z)) = sqrt ((x *. x) +. (y *. y) +. (z *. z))
 
-let to_string (Point3D (x, y, z)) = Printf.sprintf "Point3D(%F, %F, %F)" x y z
+let to_string (Point3D (x, y, z)) = Printf.sprintf "(%.15F, %.15F, %.15F)" x y z

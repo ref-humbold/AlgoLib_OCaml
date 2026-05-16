@@ -4,9 +4,9 @@ open OAssert
 open Algolib.Maths.Primes_testing
 
 (* 1001 = 7 * 11 * 13 ; 3481 = 59 ^ 2 ; 41041 = 7 * 11 * 13 * 41 ; 73627 = 17 * 61 * 71 *)
-let params_not_primes = [0; 1; 77; 1001; 3481; 41041; 73627]
+let params_for__test_prime__when_not_prime = [0; 1; 77; 1001; 3481; 41041; 73627]
 
-let params_primes = [2; 107; 1013; 2131; 6199]
+let params_for__test_prime__when_prime = [2; 107; 1013; 2131; 6199]
 
 (* test_primes_fermat_Test_list *)
 
@@ -19,7 +19,7 @@ let test_prime_fermat__when_not_prime__then_false =
       (* then *)
       assert_that result Is.false_
   in
-  test_list @@ List.map with_param params_not_primes
+  test_list @@ List.map with_param params_for__test_prime__when_not_prime
 
 let test_prime_fermat__when_prime__then_true =
   let with_param param =
@@ -30,7 +30,7 @@ let test_prime_fermat__when_prime__then_true =
       (* then *)
       assert_that result Is.true_
   in
-  test_list @@ List.map with_param params_primes
+  test_list @@ List.map with_param params_for__test_prime__when_prime
 
 let test_primes_fermat_Test_list =
   test_list [test_prime_fermat__when_not_prime__then_false; test_prime_fermat__when_prime__then_true]
@@ -46,7 +46,7 @@ let test_prime_miller__when_not_prime__then_false =
       (* then *)
       assert_that result Is.false_
   in
-  test_list @@ List.map with_param params_not_primes
+  test_list @@ List.map with_param params_for__test_prime__when_not_prime
 
 let test_prime_miller__when_prime__then_true =
   let with_param param =
@@ -57,7 +57,7 @@ let test_prime_miller__when_prime__then_true =
       (* then *)
       assert_that result Is.true_
   in
-  test_list @@ List.map with_param params_primes
+  test_list @@ List.map with_param params_for__test_prime__when_prime
 
 let test_primes_miller_Test_list =
   test_list [test_prime_miller__when_not_prime__then_false; test_prime_miller__when_prime__then_true]

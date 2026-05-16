@@ -19,13 +19,8 @@ val equal : t -> t -> bool
 val radius : t -> float
 (** [radius p] computes distance of point [p] from zero point. *)
 
-val angle_rad : t -> float
-(** [angle_rad p] computes angle in radians of point [p] between its radius and X axis. Value of the
-    angle is between -PI exclusive and PI inclusive. *)
-
-val angle_deg : t -> float
-(** [angle_deg p] computes angle in degrees of point [p] between its radius and X axis. Value of the
-    angle is between 0 inclusive and 360 exclusive. *)
+val angle : t -> Angle_2d.t
+(** [angle p] computes angle of point [p] between its radius and X axis. *)
 
 val to_string : t -> string
 (** [to_string p] returns string representation of point [p]. *)
