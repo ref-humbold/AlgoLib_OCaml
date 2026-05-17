@@ -3,6 +3,8 @@ open Geometry_comparator
 
 type t = Vector2D of float * float
 
+let zero = Vector2D (0.0, 0.0)
+
 let vec2d x y = Vector2D (x, y)
 
 let vec2d_i x y = Vector2D (float_of_int x, float_of_int y)

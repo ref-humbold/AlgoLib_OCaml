@@ -1,6 +1,9 @@
 (** The type of vectors in 3D. *)
 type t = Vector3D of float * float * float
 
+val zero : t
+(** [zero] is the zero vector. *)
+
 val vec3d : float -> float -> float -> t
 (** [vec3d x y z] creates a vector [[x, y, z]]. *)
 

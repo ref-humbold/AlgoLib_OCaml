@@ -1,6 +1,9 @@
 (** The type of points in 3D. *)
 type t = Point3D of float * float * float
 
+val zero : t
+(** [zero] is the point [(0, 0, 0)]. *)
+
 val pt3d : float -> float -> float -> t
 (** [p3d x y z] creates a point [(x, y, z)]. *)
 

@@ -1,6 +1,9 @@
 (** The type of points in 2D. *)
 type t = Point2D of float * float
 
+val zero : t
+(** [zero] is the point [(0, 0)]. *)
+
 val pt2d : float -> float -> t
 (** [pt2d x y] creates a point [(x, y)]. *)
 

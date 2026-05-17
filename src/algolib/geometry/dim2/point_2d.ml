@@ -4,6 +4,8 @@ open Geometry_comparator
 
 type t = Point2D of float * float
 
+let zero = Point2D (0.0, 0.0)
+
 let pt2d x y = Point2D (x, y)
 
 let pt2d_i x y = Point2D (float_of_int x, float_of_int y)

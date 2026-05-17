@@ -1,6 +1,9 @@
 (** The type of vectors in 2D. *)
 type t = Vector2D of float * float
 
+val zero : t
+(** [zero] is the zero vector. *)
+
 val vec2d : float -> float -> t
 (** [vec2d x y] creates a vector [[x, y]]. *)
 

@@ -1,8 +1,8 @@
 (* Tests: Algorithms for basic geometrical computations in 3D. *)
 open OUnit2
 open OAssert
-open Algolib.Geometry.Dim3.Point_3d
 open Algolib.Geometry.Dim3.Geometry_3d
+module P = Algolib.Geometry.Dim3.Point_3d
 module V = Algolib.Geometry.Dim3.Vector_3d
 module IsList = Is.List.Of (Algolib.Geometry.Dim3.Point_3d)
 module IsPoint = Is.TypeOf (Algolib.Geometry.Dim3.Point_3d)
@@ -13,28 +13,28 @@ let epsilon = 1e-12
 
 let sort_by_x__then_sorted_stably_ascending =
   __FUNCTION__ >:: fun _ ->
-    (* given *)
-    let sequence =
-      [ pt3d_i 0 0 0;
-        pt3d_i 2 3 (-5);
-        pt3d_i (-2) (-3) 5;
-        pt3d_i 2 (-3) (-5);
-        pt3d_i (-2) (-3) (-5);
-        pt3d_i 3 2 5;
-        pt3d_i (-3) 2 5 ]
-    in
-    (* when *)
-    let result = sort_by_x sequence in
-    (* then *)
-    assert_that result
-    @@ IsList.equal_to
-      [ pt3d_i (-3) 2 5;
-        pt3d_i (-2) (-3) 5;
-        pt3d_i (-2) (-3) (-5);
-        pt3d_i 0 0 0;
-        pt3d_i 2 3 (-5);
-        pt3d_i 2 (-3) (-5);
-        pt3d_i 3 2 5 ]
+  (* given *)
+  let sequence =
+    [ P.zero;
+      P.pt3d_i 2 3 (-5);
+      P.pt3d_i (-2) (-3) 5;
+      P.pt3d_i 2 (-3) (-5);
+      P.pt3d_i (-2) (-3) (-5);
+      P.pt3d_i 3 2 5;
+      P.pt3d_i (-3) 2 5 ]
+  in
+  (* when *)
+  let result = sort_by_x sequence in
+  (* then *)
+  assert_that result
+  @@ IsList.equal_to
+       [ P.pt3d_i (-3) 2 5;
+         P.pt3d_i (-2) (-3) 5;
+         P.pt3d_i (-2) (-3) (-5);
+         P.zero;
+         P.pt3d_i 2 3 (-5);
+         P.pt3d_i 2 (-3) (-5);
+         P.pt3d_i 3 2 5 ]
 
 let sort_by_x_Test_list = test_list [sort_by_x__then_sorted_stably_ascending]
 
@@ -42,75 +42,75 @@ let sort_by_x_Test_list = test_list [sort_by_x__then_sorted_stably_ascending]
 
 let sort_by_y__then_sorted_stably_ascending =
   __FUNCTION__ >:: fun _ ->
-    (* given *)
-    let sequence =
-      [ pt3d_i 0 0 0;
-        pt3d_i 2 3 (-5);
-        pt3d_i (-2) (-3) 5;
-        pt3d_i 2 (-3) (-5);
-        pt3d_i (-2) (-3) (-5);
-        pt3d_i 3 2 5;
-        pt3d_i (-3) 2 5 ]
-    in
-    (* when *)
-    let result = sort_by_y sequence in
-    (* then *)
-    assert_that result
-    @@ IsList.equal_to
-      [ pt3d_i (-2) (-3) 5;
-        pt3d_i 2 (-3) (-5);
-        pt3d_i (-2) (-3) (-5);
-        pt3d_i 0 0 0;
-        pt3d_i 3 2 5;
-        pt3d_i (-3) 2 5;
-        pt3d_i 2 3 (-5) ]
+  (* given *)
+  let sequence =
+    [ P.zero;
+      P.pt3d_i 2 3 (-5);
+      P.pt3d_i (-2) (-3) 5;
+      P.pt3d_i 2 (-3) (-5);
+      P.pt3d_i (-2) (-3) (-5);
+      P.pt3d_i 3 2 5;
+      P.pt3d_i (-3) 2 5 ]
+  in
+  (* when *)
+  let result = sort_by_y sequence in
+  (* then *)
+  assert_that result
+  @@ IsList.equal_to
+       [ P.pt3d_i (-2) (-3) 5;
+         P.pt3d_i 2 (-3) (-5);
+         P.pt3d_i (-2) (-3) (-5);
+         P.zero;
+         P.pt3d_i 3 2 5;
+         P.pt3d_i (-3) 2 5;
+         P.pt3d_i 2 3 (-5) ]
 
 let sort_by_y_Test_list = test_list [sort_by_y__then_sorted_stably_ascending]
 
 (* sort_by_z_Test_list *)
 let sort_by_z__then_sorted_stably_ascending =
   __FUNCTION__ >:: fun _ ->
-    (* given *)
-    let sequence =
-      [ pt3d_i 0 0 0;
-        pt3d_i 2 3 (-5);
-        pt3d_i (-2) (-3) 5;
-        pt3d_i 2 (-3) (-5);
-        pt3d_i (-2) (-3) (-5);
-        pt3d_i 3 2 5;
-        pt3d_i (-3) 2 5 ]
-    in
-    (* when *)
-    let result = sort_by_z sequence in
-    (* then *)
-    assert_that result
-    @@ IsList.equal_to
-      [ pt3d_i 2 3 (-5);
-        pt3d_i 2 (-3) (-5);
-        pt3d_i (-2) (-3) (-5);
-        pt3d_i 0 0 0;
-        pt3d_i (-2) (-3) 5;
-        pt3d_i 3 2 5;
-        pt3d_i (-3) 2 5 ]
+  (* given *)
+  let sequence =
+    [ P.zero;
+      P.pt3d_i 2 3 (-5);
+      P.pt3d_i (-2) (-3) 5;
+      P.pt3d_i 2 (-3) (-5);
+      P.pt3d_i (-2) (-3) (-5);
+      P.pt3d_i 3 2 5;
+      P.pt3d_i (-3) 2 5 ]
+  in
+  (* when *)
+  let result = sort_by_z sequence in
+  (* then *)
+  assert_that result
+  @@ IsList.equal_to
+       [ P.pt3d_i 2 3 (-5);
+         P.pt3d_i 2 (-3) (-5);
+         P.pt3d_i (-2) (-3) (-5);
+         P.zero;
+         P.pt3d_i (-2) (-3) 5;
+         P.pt3d_i 3 2 5;
+         P.pt3d_i (-3) 2 5 ]
 
 let sort_by_z_Test_list = test_list [sort_by_z__then_sorted_stably_ascending]
 
 (* distance_Test_list *)
 let distance__when_different_points__then_distance =
   __FUNCTION__ >:: fun _ ->
-    (* when *)
-    let result = distance (pt3d_i 4 8 5) (pt3d_i (-2) (-1) 3) in
-    (* then *)
-    assert_that result @@ Is.Float.close_to 11.0 ~diff:(Difference epsilon)
+  (* when *)
+  let result = distance (P.pt3d_i 4 8 5) (P.pt3d_i (-2) (-1) 3) in
+  (* then *)
+  assert_that result @@ Is.Float.close_to 11.0 ~diff:(Difference epsilon)
 
 let distance__when_same_point__then_zero =
   __FUNCTION__ >:: fun _ ->
-    (* given *)
-    let point = pt3d 13.5 6.5 (-4.2) in
-    (* when *)
-    let result = distance point point in
-    (* then *)
-    assert_that result Is.Float.zero
+  (* given *)
+  let point = P.pt3d 13.5 6.5 (-4.2) in
+  (* when *)
+  let result = distance point point in
+  (* then *)
+  assert_that result Is.Float.zero
 
 let distance_Test_list =
   test_list [distance__when_different_points__then_distance; distance__when_same_point__then_zero]
@@ -119,19 +119,19 @@ let distance_Test_list =
 
 let translate__then_point_translated =
   __FUNCTION__ >:: fun _ ->
-    (* when *)
-    let result = translate (pt3d 13.7 6.5 (-4.2)) (V.vec3d (-10.4) 3.3 1.1) in
-    (* then *)
-    assert_that result @@ IsPoint.equal_to @@ pt3d 3.3 9.8 (-3.1)
+  (* when *)
+  let result = translate (P.pt3d 13.7 6.5 (-4.2)) (V.vec3d (-10.4) 3.3 1.1) in
+  (* then *)
+  assert_that result @@ IsPoint.equal_to @@ P.pt3d 3.3 9.8 (-3.1)
 
 let translate__when_zero_vector__then_same_point =
   __FUNCTION__ >:: fun _ ->
-    (* given *)
-    let point = pt3d 13.5 6.5 (-4.2) in
-    (* when *)
-    let result = translate point (V.vec3d_i 0 0 0) in
-    (* then *)
-    assert_that result @@ IsPoint.equal_to point
+  (* given *)
+  let point = P.pt3d 13.5 6.5 (-4.2) in
+  (* when *)
+  let result = translate point (V.vec3d_i 0 0 0) in
+  (* then *)
+  assert_that result @@ IsPoint.equal_to point
 
 let translate_Test_list =
   test_list [translate__then_point_translated; translate__when_zero_vector__then_same_point]

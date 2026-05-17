@@ -3,6 +3,8 @@ open Geometry_comparator
 
 type t = Point3D of float * float * float
 
+let zero = Point3D (0.0, 0.0, 0.0)
+
 let pt3d x y z = Point3D (x, y, z)
 
 let pt3d_i x y z = Point3D (float_of_int x, float_of_int y, float_of_int z)

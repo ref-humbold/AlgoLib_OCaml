@@ -3,6 +3,8 @@ open Geometry_comparator
 
 type t = Vector3D of float * float * float
 
+let zero = Vector3D (0.0, 0.0, 0.0)
+
 let vec3d x y z = Vector3D (x, y, z)
 
 let vec3d_i x y z = Vector3D (float_of_int x, float_of_int y, float_of_int z)
