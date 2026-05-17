@@ -9,6 +9,35 @@ module IsVector = Is.TypeOf (Algolib.Geometry.Dim3.Vector_3d)
 
 let epsilon = 1e-12
 
+let params_for__length =
+  [ (zero, 0.0);
+    (vec3d_i 14 0 0, 14.0);
+    (vec3d_i (-14) 0 0, 14.0);
+    (vec3d_i 0 14 0, 14.0);
+    (vec3d_i 0 (-14) 0, 14.0);
+    (vec3d_i 0 0 14, 14.0);
+    (vec3d_i 0 0 (-14), 14.0);
+    (vec3d_i 8 6 0, 10.0);
+    (vec3d_i 8 (-6) 0, 10.0);
+    (vec3d_i (-8) 6 0, 10.0);
+    (vec3d_i (-8) (-6) 0, 10.0);
+    (vec3d_i 8 0 6, 10.0);
+    (vec3d_i 8 0 (-6), 10.0);
+    (vec3d_i (-8) 0 6, 10.0);
+    (vec3d_i (-8) 0 (-6), 10.0);
+    (vec3d_i 0 8 6, 10.0);
+    (vec3d_i 0 8 (-6), 10.0);
+    (vec3d_i 0 (-8) 6, 10.0);
+    (vec3d_i 0 (-8) (-6), 10.0);
+    (vec3d_i 18 6 13, 23.0);
+    (vec3d_i 18 6 (-13), 23.0);
+    (vec3d_i 18 (-6) 13, 23.0);
+    (vec3d_i 18 (-6) (-13), 23.0);
+    (vec3d_i (-18) 6 13, 23.0);
+    (vec3d_i (-18) 6 (-13), 23.0);
+    (vec3d_i (-18) (-6) 13, 23.0);
+    (vec3d_i (-18) (-6) (-13), 23.0) ]
+
 (* methods_Test_list *)
 
 let between__then_vector_from_begin_to_end =
@@ -33,11 +62,15 @@ let coordinates_list__then_list_of_coordinates =
     assert_that result @@ IsFloatList.equal_to [150.123456789; -3700.987654321; 0.55555555]
 
 let length__then_length_of_vector =
-  __FUNCTION__ >:: fun _ ->
-    (* when *)
-    let result = length @@ vec3d_i 18 (-6) 13 in
-    (* then *)
-    assert_that result @@ Is.Float.close_to 23.0 ~diff:(Difference epsilon)
+  let with_param (param, expected) =
+    let label = Printf.sprintf "%s %s" __FUNCTION__ (to_string param) in
+    label >:: fun _ ->
+      (* when *)
+      let result = length param in
+      (* then *)
+      assert_that result @@ Is.Float.close_to expected ~diff:(Difference epsilon)
+  in
+  test_list @@ List.map with_param params_for__length
 
 let dot__then_scalar_product =
   __FUNCTION__ >:: fun _ ->

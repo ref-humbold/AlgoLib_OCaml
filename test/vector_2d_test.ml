@@ -9,6 +9,17 @@ module IsVector = Is.TypeOf (Algolib.Geometry.Dim2.Vector_2d)
 
 let epsilon = 1e-12
 
+let params_for__length =
+  [ (zero, 0.0);
+    (vec2d_i 14 0, 14.0);
+    (vec2d_i (-14) 0, 14.0);
+    (vec2d_i 0 14, 14.0);
+    (vec2d_i 0 (-14), 14.0);
+    (vec2d_i 8 6, 10.0);
+    (vec2d_i 8 (-6), 10.0);
+    (vec2d_i (-8) 6, 10.0);
+    (vec2d_i (-8) (-6), 10.0) ]
+
 (* methods_Test_list *)
 
 let between__then_vector_from_begin_to_end =
@@ -18,14 +29,14 @@ let between__then_vector_from_begin_to_end =
     (* then *)
     assert_that result @@ IsVector.equal_to @@ vec2d (-3.9) 5.4
 
-let coordinates__then_pair_of_coordinates =
+let coordinates__then_tuple =
   __FUNCTION__ >:: fun _ ->
     (* when *)
     let result = coordinates @@ vec2d 150.123456789 (-3700.987654321) in
     (* then *)
     assert_that result @@ IsFloatPair.equal_to (150.123456789, -3700.987654321)
 
-let coordinates_list__then_list_of_coordinates =
+let coordinates_list__then_list =
   __FUNCTION__ >:: fun _ ->
     (* when *)
     let result = coordinates_list @@ vec2d 150.123456789 (-3700.987654321) in
@@ -33,11 +44,15 @@ let coordinates_list__then_list_of_coordinates =
     assert_that result @@ IsFloatList.equal_to [150.123456789; -3700.987654321]
 
 let length__then_length_of_vector =
-  __FUNCTION__ >:: fun _ ->
-    (* when *)
-    let result = length @@ vec2d_i 8 (-6) in
-    (* then *)
-    assert_that result @@ Is.Float.close_to 10.0 ~diff:(Difference epsilon)
+  let with_param (param, expected) =
+    let label = Printf.sprintf "%s %s" __FUNCTION__ (to_string param) in
+    label >:: fun _ ->
+      (* when *)
+      let result = length param in
+      (* then *)
+      assert_that result @@ Is.Float.close_to expected ~diff:(Difference epsilon)
+  in
+  test_list @@ List.map with_param params_for__length
 
 let dot__then_scalar_product =
   __FUNCTION__ >:: fun _ ->
@@ -77,8 +92,8 @@ let to_string__then_string_representation =
 let methods_Test_list =
   test_list
     [ between__then_vector_from_begin_to_end;
-      coordinates__then_pair_of_coordinates;
-      coordinates_list__then_list_of_coordinates;
+      coordinates__then_tuple;
+      coordinates_list__then_list;
       length__then_length_of_vector;
       dot__then_scalar_product;
       dot__when_orthogonal__then_zero;
@@ -121,7 +136,7 @@ let op_asterisk_colon__when_multiplication_by_zero__then_zero_vector =
     (* when *)
     let result = vec2d 5.4 9.0 *: 0.0 in
     (* then *)
-    assert_that result @@ IsVector.equal_to @@ vec2d_i 0 0
+    assert_that result @@ IsVector.equal_to zero
 
 let op_slash_colon__then_divide_each_coordinate =
   __FUNCTION__ >:: fun _ ->

@@ -46,7 +46,7 @@ let degrees__when_from_radians__then_positive_degrees_in_range =
     let label = Printf.sprintf "%s %F" __FUNCTION__ param in
     label >:: fun _ ->
       (* given *)
-      let angle = angle_rad param in
+      let angle = from_radians param in
       (* when *)
       let result = degrees angle in
       (* then *)
@@ -59,7 +59,7 @@ let radians__when_from_degrees__then_positive_radians_in_range =
     let label = Printf.sprintf "%s %F" __FUNCTION__ param in
     label >:: fun _ ->
       (* given *)
-      let angle = angle_deg param in
+      let angle = from_degrees param in
       (* when *)
       let result = radians angle in
       (* then *)
@@ -70,7 +70,7 @@ let radians__when_from_degrees__then_positive_radians_in_range =
 let to_string__then_string_representation =
   __FUNCTION__ >:: fun _ ->
     (* given *)
-    let angle = angle_deg 150.123456789 in
+    let angle = from_degrees 150.123456789 in
     (* when *)
     let result = to_string angle in
     (* then *)

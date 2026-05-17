@@ -20,6 +20,6 @@ let equal p1 p2 =
 
 let radius (Point2D (x, y)) = sqrt ((x *. x) +. (y *. y))
 
-let angle (Point2D (x, y)) = angle_rad (atan2 y x)
+let angle (Point2D (x, y)) = from_radians (atan2 y x)
 
 let to_string (Point2D (x, y)) = Printf.sprintf "(%.15F, %.15F)" x y
