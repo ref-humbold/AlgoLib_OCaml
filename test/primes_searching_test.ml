@@ -38,7 +38,7 @@ let find_primes__when_maximal_number__then_max_exclusive =
   test_list @@ List.map with_param params_for__find_primes__when_maximal_number
 
 let find_primes__when_range__then_min_inclusive_and_max_exclusive =
-  let with_params (minimum, maximum) =
+  let with_param (minimum, maximum) =
     let label = Printf.sprintf "%s %d %d" __FUNCTION__ minimum maximum in
     label >:: fun _ ->
       (* when *)
@@ -47,7 +47,7 @@ let find_primes__when_range__then_min_inclusive_and_max_exclusive =
       let expected = List.filter (fun p -> p >= minimum && p < maximum) primes in
       assert_that result @@ IsList.equal_to expected
   in
-  test_list @@ List.map with_params params_for__find_primes__when_range
+  test_list @@ List.map with_param params_for__find_primes__when_range
 
 let find_primes_Test_list =
   test_list
