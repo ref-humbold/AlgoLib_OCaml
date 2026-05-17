@@ -13,32 +13,32 @@ let epsilon = 1e-12
 
 let sort_by_x__then_sorted_stably_ascending =
   __FUNCTION__ >:: fun _ ->
-  (* given *)
-  let sequence =
-    [ P.zero;
-      P.pt2d_i (-2) (-3);
-      P.pt2d_i (-3) 2;
-      P.pt2d_i 2 3;
-      P.pt2d_i 3 (-2);
-      P.pt2d_i (-2) 3;
-      P.pt2d_i 3 2;
-      P.pt2d_i 2 (-3);
-      P.pt2d_i (-3) (-2) ]
-  in
-  (* when *)
-  let result = sort_by_x sequence in
-  (* then *)
-  assert_that result
-  @@ IsList.equal_to
-       [ P.pt2d_i (-3) 2;
-         P.pt2d_i (-3) (-2);
-         P.pt2d_i (-2) (-3);
-         P.pt2d_i (-2) 3;
-         P.zero;
-         P.pt2d_i 2 3;
-         P.pt2d_i 2 (-3);
-         P.pt2d_i 3 (-2);
-         P.pt2d_i 3 2 ]
+    (* given *)
+    let sequence =
+      [ P.zero;
+        P.pt2d_i (-2) (-3);
+        P.pt2d_i (-3) 2;
+        P.pt2d_i 2 3;
+        P.pt2d_i 3 (-2);
+        P.pt2d_i (-2) 3;
+        P.pt2d_i 3 2;
+        P.pt2d_i 2 (-3);
+        P.pt2d_i (-3) (-2) ]
+    in
+    (* when *)
+    let result = sort_by_x sequence in
+    (* then *)
+    assert_that result
+    @@ IsList.equal_to
+      [ P.pt2d_i (-3) 2;
+        P.pt2d_i (-3) (-2);
+        P.pt2d_i (-2) (-3);
+        P.pt2d_i (-2) 3;
+        P.zero;
+        P.pt2d_i 2 3;
+        P.pt2d_i 2 (-3);
+        P.pt2d_i 3 (-2);
+        P.pt2d_i 3 2 ]
 
 let sort_by_x_Test_list = test_list [sort_by_x__then_sorted_stably_ascending]
 
@@ -46,32 +46,32 @@ let sort_by_x_Test_list = test_list [sort_by_x__then_sorted_stably_ascending]
 
 let sort_by_y__then_sorted_stably_ascending =
   __FUNCTION__ >:: fun _ ->
-  (* given *)
-  let sequence =
-    [ P.zero;
-      P.pt2d_i (-2) (-3);
-      P.pt2d_i (-3) 2;
-      P.pt2d_i 2 3;
-      P.pt2d_i 3 (-2);
-      P.pt2d_i (-2) 3;
-      P.pt2d_i 3 2;
-      P.pt2d_i 2 (-3);
-      P.pt2d_i (-3) (-2) ]
-  in
-  (* when *)
-  let result = sort_by_y sequence in
-  (* then *)
-  assert_that result
-  @@ IsList.equal_to
-       [ P.pt2d_i (-2) (-3);
-         P.pt2d_i 2 (-3);
-         P.pt2d_i 3 (-2);
-         P.pt2d_i (-3) (-2);
-         P.zero;
-         P.pt2d_i (-3) 2;
-         P.pt2d_i 3 2;
-         P.pt2d_i 2 3;
-         P.pt2d_i (-2) 3 ]
+    (* given *)
+    let sequence =
+      [ P.zero;
+        P.pt2d_i (-2) (-3);
+        P.pt2d_i (-3) 2;
+        P.pt2d_i 2 3;
+        P.pt2d_i 3 (-2);
+        P.pt2d_i (-2) 3;
+        P.pt2d_i 3 2;
+        P.pt2d_i 2 (-3);
+        P.pt2d_i (-3) (-2) ]
+    in
+    (* when *)
+    let result = sort_by_y sequence in
+    (* then *)
+    assert_that result
+    @@ IsList.equal_to
+      [ P.pt2d_i (-2) (-3);
+        P.pt2d_i 2 (-3);
+        P.pt2d_i 3 (-2);
+        P.pt2d_i (-3) (-2);
+        P.zero;
+        P.pt2d_i (-3) 2;
+        P.pt2d_i 3 2;
+        P.pt2d_i 2 3;
+        P.pt2d_i (-2) 3 ]
 
 let sort_by_y_Test_list = test_list [sort_by_y__then_sorted_stably_ascending]
 
@@ -79,42 +79,42 @@ let sort_by_y_Test_list = test_list [sort_by_y__then_sorted_stably_ascending]
 
 let sort_by_angle__then_sorted_ascending =
   __FUNCTION__ >:: fun _ ->
-  (* given *)
-  let sequence =
-    [ P.zero;
-      P.pt2d_i (-2) (-3);
-      P.pt2d_i (-3) 2;
-      P.pt2d_i 2 3;
-      P.pt2d_i 3 (-2);
-      P.pt2d_i (-2) 3;
-      P.pt2d_i 3 2;
-      P.pt2d_i 2 (-3);
-      P.pt2d_i (-3) (-2) ]
-  in
-  (* when *)
-  let result = sort_by_angle sequence in
-  (* then *)
-  assert_that result
-  @@ IsList.equal_to
-       [ P.zero;
-         P.pt2d_i 3 2;
-         P.pt2d_i 2 3;
-         P.pt2d_i (-2) 3;
-         P.pt2d_i (-3) 2;
-         P.pt2d_i (-3) (-2);
-         P.pt2d_i (-2) (-3);
-         P.pt2d_i 2 (-3);
-         P.pt2d_i 3 (-2) ]
+    (* given *)
+    let sequence =
+      [ P.zero;
+        P.pt2d_i (-2) (-3);
+        P.pt2d_i (-3) 2;
+        P.pt2d_i 2 3;
+        P.pt2d_i 3 (-2);
+        P.pt2d_i (-2) 3;
+        P.pt2d_i 3 2;
+        P.pt2d_i 2 (-3);
+        P.pt2d_i (-3) (-2) ]
+    in
+    (* when *)
+    let result = sort_by_angle sequence in
+    (* then *)
+    assert_that result
+    @@ IsList.equal_to
+      [ P.zero;
+        P.pt2d_i 3 2;
+        P.pt2d_i 2 3;
+        P.pt2d_i (-2) 3;
+        P.pt2d_i (-3) 2;
+        P.pt2d_i (-3) (-2);
+        P.pt2d_i (-2) (-3);
+        P.pt2d_i 2 (-3);
+        P.pt2d_i 3 (-2) ]
 
 let sort_by_angle__when_equal_angles__then_compare_radius =
   __FUNCTION__ >:: fun _ ->
-  (* given *)
-  let sequence = [P.zero; P.pt2d_i 1 1; P.pt2d_i (-2) (-2); P.pt2d_i (-3) (-3); P.pt2d_i 4 4] in
-  (* when *)
-  let result = sort_by_angle sequence in
-  (* then *)
-  assert_that result
-  @@ IsList.equal_to [P.zero; P.pt2d_i 1 1; P.pt2d_i 4 4; P.pt2d_i (-2) (-2); P.pt2d_i (-3) (-3)]
+    (* given *)
+    let sequence = [P.zero; P.pt2d_i 1 1; P.pt2d_i (-2) (-2); P.pt2d_i (-3) (-3); P.pt2d_i 4 4] in
+    (* when *)
+    let result = sort_by_angle sequence in
+    (* then *)
+    assert_that result
+    @@ IsList.equal_to [P.zero; P.pt2d_i 1 1; P.pt2d_i 4 4; P.pt2d_i (-2) (-2); P.pt2d_i (-3) (-3)]
 
 let sort_by_angle_Test_list =
   test_list
@@ -124,19 +124,19 @@ let sort_by_angle_Test_list =
 
 let distance__when_different_points__then_distance =
   __FUNCTION__ >:: fun _ ->
-  (* when *)
-  let result = distance (P.pt2d_i 4 5) (P.pt2d_i (-2) (-3)) in
-  (* then *)
-  assert_that result @@ Is.Float.close_to 10.0 ~diff:(Difference epsilon)
+    (* when *)
+    let result = distance (P.pt2d_i 4 5) (P.pt2d_i (-2) (-3)) in
+    (* then *)
+    assert_that result @@ Is.Float.close_to 10.0 ~diff:(Difference epsilon)
 
 let distance__when_same_point__then_zero =
   __FUNCTION__ >:: fun _ ->
-  (* given *)
-  let point = P.pt2d 13.5 6.5 in
-  (* when *)
-  let result = distance point point in
-  (* then *)
-  assert_that result Is.Float.zero
+    (* given *)
+    let point = P.pt2d 13.5 6.5 in
+    (* when *)
+    let result = distance point point in
+    (* then *)
+    assert_that result Is.Float.zero
 
 let distance_Test_list =
   test_list [distance__when_different_points__then_distance; distance__when_same_point__then_zero]
@@ -145,19 +145,19 @@ let distance_Test_list =
 
 let translate__then_point_translated =
   __FUNCTION__ >:: fun _ ->
-  (* when *)
-  let result = translate (P.pt2d 13.7 6.5) (V.vec2d (-10.4) 3.3) in
-  (* then *)
-  assert_that result @@ IsPoint.equal_to @@ P.pt2d 3.3 9.8
+    (* when *)
+    let result = translate (P.pt2d 13.7 6.5) (V.vec2d (-10.4) 3.3) in
+    (* then *)
+    assert_that result @@ IsPoint.equal_to @@ P.pt2d 3.3 9.8
 
 let translate__when_zero_vector__then_same_point =
   __FUNCTION__ >:: fun _ ->
-  (* given *)
-  let point = P.pt2d 13.5 6.5 in
-  (* when *)
-  let result = translate point (V.vec2d_i 0 0) in
-  (* then *)
-  assert_that result @@ IsPoint.equal_to point
+    (* given *)
+    let point = P.pt2d 13.5 6.5 in
+    (* when *)
+    let result = translate point (V.vec2d_i 0 0) in
+    (* then *)
+    assert_that result @@ IsPoint.equal_to point
 
 let translate_Test_list =
   test_list [translate__then_point_translated; translate__when_zero_vector__then_same_point]
